@@ -25,15 +25,12 @@
     C4Font *fatFont;
     C4Label *takePhoto;
     
-    
-    
     //camera
     C4Camera *cam;
     //bool imageWasCaptured;
     
     //bottom Toolbar
     C4Shape *bottomNavBar;
-    C4Button *takePhotoButton;
 }
 -(void) setup{
     navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
@@ -55,15 +52,17 @@
     fatFont=[C4Font fontWithName:@"HelveticaNeue-Bold" size:17];
     takePhoto = [C4Label labelWithText:@"Take Photo" font:fatFont];
     takePhoto.center=topNavBar.center;
-    [self.canvas addLabel:takePhoto];}
+    [self.canvas addLabel:takePhoto];
+}
 
 -(void)cameraSetup{
     cam = [C4Camera cameraWithFrame:CGRectMake(0,TopBarFromTop+NavBarHeight, self.canvas.width, self.canvas.height-(2*NavBarHeight+TopBarFromTop))];
+    cam.cameraPosition = CAMERABACK;
     [self.canvas addCamera:cam];
     [cam initCapture];
     //tapping to take image
-    [self addGesture:TAP name:@"capture" action:@"capturedImage"];
-    [self numberOfTouchesRequired:1 forGesture:@"capture"];
+    [self addGesture:TAP name:@"capture" action:@"captureImage:"];
+    //[self numberOfTouchesRequired:1 forGesture:@"capture"];
     //[self listenFor:@"imageWasCaptured" fromObject:@"putCapturedImageOnCanvas"];
 }
 -(void) bottomBarSetup{
@@ -71,20 +70,21 @@
     bottomNavBar.fillColor= navBarColor;
     bottomNavBar.lineWidth=0;
     [self.canvas addShape:bottomNavBar];
+
     
-    takePhotoButton=[UIButton buttonWithType: ROUNDEDRECT];
-    [takePhotoButton setTitle:@"TakePhoto" forState:UIControlStateNormal];
-    takePhotoButton.frame=CGRectMake(self.canvas.width/2-50, self.canvas.height-(NavBarHeight), 100, NavBarHeight);
-    takePhotoButton.backgroundColor=buttonColor;
-    takePhotoButton.tintColor=typeColor;
-    //[takePhotoButton runMethod:@"takingPhoto" target:self forEvent:TOUCHUPINSIDE];
-    [self.canvas addSubview:takePhotoButton];
+    //IMAGE AS BUTTON
+    C4Image *photoButtonImage=[C4Image imageNamed:@"icons-02.png"];
+    photoButtonImage.height=NavBarHeight;
+    photoButtonImage.center=CGPointMake(self.canvas.width/2, self.canvas.height-NavBarHeight/2);
+    [self.canvas addImage:photoButtonImage];
+    [photoButtonImage addGesture:TAP name:@"tap" action:@"tapped"];
     
+}
+-(void)tapped {
+    C4Log(@"tapped!");
 }
 
--(void) takingPhoto{
-    [cam captureImage];
-}
+
 -(void) captureImage{
     [cam captureImage];
 }
@@ -94,7 +94,5 @@
     img.center=CGPointMake(self.canvas.width*2/3, self.canvas.center.y);
     
 }
-
-
 
 @end

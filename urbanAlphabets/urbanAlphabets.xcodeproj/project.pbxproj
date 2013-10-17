@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B04E59C9180FD133006EB8E3 /* icons-19.png in Resources */ = {isa = PBXBuildFile; fileRef = B04E59C8180FD133006EB8E3 /* icons-19.png */; };
+		B04E59CB180FD18F006EB8E3 /* icons-20.png in Resources */ = {isa = PBXBuildFile; fileRef = B04E59CA180FD18F006EB8E3 /* icons-20.png */; };
+		B086922B1810046D002A0C0B /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B086922A1810046D002A0C0B /* image.jpg */; };
 		B09C52D7180E88AE00AE6B9F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09C52D6180E88AE00AE6B9F /* Accelerate.framework */; };
 		B09C52D9180E88AE00AE6B9F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09C52D8180E88AE00AE6B9F /* AVFoundation.framework */; };
 		B09C52DB180E88AE00AE6B9F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09C52DA180E88AE00AE6B9F /* CoreFoundation.framework */; };
@@ -51,6 +54,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B04E59C8180FD133006EB8E3 /* icons-19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons-19.png"; sourceTree = "<group>"; };
+		B04E59CA180FD18F006EB8E3 /* icons-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons-20.png"; sourceTree = "<group>"; };
+		B086922A1810046D002A0C0B /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
 		B09C52D3180E88AE00AE6B9F /* urbanAlphabets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urbanAlphabets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09C52D6180E88AE00AE6B9F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B09C52D8180E88AE00AE6B9F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -240,6 +246,9 @@
 		B09C52F5180E88AE00AE6B9F /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				B086922A1810046D002A0C0B /* image.jpg */,
+				B04E59CA180FD18F006EB8E3 /* icons-20.png */,
+				B04E59C8180FD133006EB8E3 /* icons-19.png */,
 				B09C535B180EC67B00AE6B9F /* icons-02.png */,
 				B09C52F6180E88AE00AE6B9F /* Images.xcassets */,
 				B09C52F8180E88AE00AE6B9F /* Media.xcassets */,
@@ -408,9 +417,12 @@
 				B09C52F9180E88AE00AE6B9F /* Media.xcassets in Resources */,
 				B09C5355180E890700AE6B9F /* TakePhoto.xib in Resources */,
 				B09C535A180E892400AE6B9F /* CropPhoto.xib in Resources */,
+				B04E59CB180FD18F006EB8E3 /* icons-20.png in Resources */,
+				B04E59C9180FD133006EB8E3 /* icons-19.png in Resources */,
 				B09C5332180E88B100AE6B9F /* Main.storyboard in Resources */,
 				B09C52F7180E88AE00AE6B9F /* Images.xcassets in Resources */,
 				B09C532C180E88B000AE6B9F /* inception.mov in Resources */,
+				B086922B1810046D002A0C0B /* image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +662,7 @@
 				B09C534D180E88B100AE6B9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B09C534E180E88B100AE6B9F /* Build configuration list for PBXNativeTarget "urbanAlphabetsTests" */ = {
 			isa = XCConfigurationList;
@@ -658,6 +671,7 @@
 				B09C5350180E88B100AE6B9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

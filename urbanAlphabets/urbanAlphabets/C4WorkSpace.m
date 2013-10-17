@@ -41,9 +41,13 @@
     
     [takePhoto setup];
     [cropPhoto setup];
+    C4Log(@"canvas width %f", self.canvas.width);
+    C4Log(@"canvas height %f", self.canvas.height);
     
-    [self.canvas addSubview:takePhoto.canvas];
-    currentView = (C4View *)takePhoto.canvas ;
+    //[self.canvas addSubview:takePhoto.canvas];
+   // currentView = (C4View *)takePhoto.canvas ;
+    [self.canvas addSubview:cropPhoto.canvas];
+    currentView = (C4View *)cropPhoto.canvas ;
 }
 
 -(void)createToolBar{
