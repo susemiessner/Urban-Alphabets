@@ -7,6 +7,7 @@
 //
 
 #import "C4CanvasController.h"
+#import "CropPhoto.h"
 
 @interface TakePhoto : C4CanvasController{
 
@@ -26,6 +27,12 @@
     
     //bottom Toolbar
     C4Shape *bottomNavBar;
+    C4Image *photoButtonImage;
+    
+    //the views I want to switch to
+    CropPhoto *cropPhoto;
+
+    
 }
 @property (readwrite, strong) C4Window *mainCanvas;
 

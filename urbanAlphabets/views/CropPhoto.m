@@ -14,30 +14,7 @@
 
 @end
 
-@implementation CropPhoto{
-    //common variables
-    UIColor *navBarColor;
-    UIColor *buttonColor;
-    UIColor *typeColor;
-    UIColor *overlayColor;
-    
-    //top toolbar
-    C4Shape *topNavBar;
-    C4Font *fatFont;
-    C4Label *takePhoto;
-    
-    //bottom Toolbar
-    C4Shape *bottomNavBar;
-    
-    //photo
-    C4Image *photoTaken;
-    
-    //slider
-    C4Label *sliderLabel;
-    C4Slider *zoomSlider;
-    CGFloat *scalefactor;
-    
-}
+@implementation CropPhoto
 -(void) setup{
     navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
     buttonColor= [UIColor colorWithRed:0.8984275 green:0.8984275 blue:0.8984275 alpha:1];
@@ -83,6 +60,8 @@
     okButtonImage.center=CGPointMake(self.canvas.width/2, self.canvas.height-NavBarHeight/2);
     [self.canvas addImage:okButtonImage];
     //[photoButtonImage addGesture:TAP name:@"tap" action:@"tapped"];
+    [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"saveImage"];
+
     
 }
 -(void)transparentOverlayX1: (NSUInteger)touchX1 Y1:(NSUInteger)touchY1 X2:(NSUInteger) touchX2 Y2:(NSUInteger)touchY2{
@@ -109,13 +88,17 @@
     rightRect.fillColor=overlayColor;
     rightRect.lineWidth=0;
     [self.canvas addShape:rightRect];
+    
+    //areaToSave=[CGSizeMake(300, 300)];
+    //[CGSize :CGSizeMake(touchX2-touchX1, touchY2-touchY1);
+
 }
 -(void)photoToCrop{
     photoTaken=[C4Image imageNamed:@"image.jpg"];
     photoTaken.height=self.canvas.height;
     photoTaken.origin=CGPointMake(0, 0);
     [self.canvas addImage:photoTaken];
-    [photoTaken addGesture:PAN name:@"pan" action:@"movePhoto:"];
+   // [photoTaken addGesture:PAN name:@"pan" action:@"movePhoto:"];
     
 }
 -(void)movePhoto:(UIPanGestureRecognizer *)recognizer {
@@ -159,6 +142,44 @@
     C4Log(@"slider:%f",theSlider.value);
     photoTaken.height=self.canvas.height*theSlider.value;
     photoTaken.center=self.canvas.center;
+}
+
+-(void)saveImage {
+    C4Log(@"tapped!");
+    [self exportHighResImage];
+
+}
+
+//this is all for saving an image
+-(CGContextRef)createHighResImageContext { //setting up image context
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(300, 300), YES, 5.0f);
+    return UIGraphicsGetCurrentContext();
+}
+
+-(NSString *)documentsDirectory { 
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return paths[0];
+}
+-(void)saveImage:(NSString *)fileName {
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];
+    [imageData writeToFile:savePath atomically:YES];
+}
+-(void)saveImageToLibrary {
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+
+-(void)exportHighResImage {
+    graphicsContext = [self createHighResImageContext];
+    
+    [self.canvas renderInContext:graphicsContext];
+    //NSDate *date= ;
+    NSString *fileName = @"myScreen.png" ;
+    
+    [self saveImage:fileName];
+    [self saveImageToLibrary];
 }
 
 
