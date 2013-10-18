@@ -115,7 +115,7 @@
     photoTaken.height=self.canvas.height;
     photoTaken.origin=CGPointMake(0, 0);
     [self.canvas addImage:photoTaken];
-    [self addGesture:PAN name:@"pan" action:@"movePhoto:"];
+    [photoTaken addGesture:PAN name:@"pan" action:@"movePhoto:"];
     
 }
 -(void)movePhoto:(UIPanGestureRecognizer *)recognizer {
@@ -159,9 +159,6 @@
     C4Log(@"slider:%f",theSlider.value);
     photoTaken.height=self.canvas.height*theSlider.value;
     photoTaken.center=self.canvas.center;
-
-    
-    
 }
 
 

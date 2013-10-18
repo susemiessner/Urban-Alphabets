@@ -15,22 +15,7 @@
 @end
 
 @implementation TakePhoto {
-    //common variables
-    UIColor *navBarColor;
-    UIColor *buttonColor;
-    UIColor *typeColor;
     
-    //top toolbar
-    C4Shape *topNavBar;
-    C4Font *fatFont;
-    C4Label *takePhoto;
-    
-    //camera
-    C4Camera *cam;
-    //bool imageWasCaptured;
-    
-    //bottom Toolbar
-    C4Shape *bottomNavBar;
 }
 -(void) setup{
     navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
@@ -62,8 +47,9 @@
     [cam initCapture];
     //tapping to take image
     [self addGesture:TAP name:@"capture" action:@"captureImage:"];
-    //[self numberOfTouchesRequired:1 forGesture:@"capture"];
+    [self numberOfTouchesRequired:1 forGesture:@"capture"];
     //[self listenFor:@"imageWasCaptured" fromObject:@"putCapturedImageOnCanvas"];
+    [self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"putCapturedImageOnCanvas"];
 }
 -(void) bottomBarSetup{
     bottomNavBar=[C4Shape rect:CGRectMake(0, self.canvas.height-(NavBarHeight), self.canvas.width, NavBarHeight)];
@@ -88,11 +74,14 @@
 -(void) captureImage{
     [cam captureImage];
 }
+
 -(void)putCapturedImageOnCanvas{
     C4Image *img = cam.capturedImage;
     img.width=240;
-    img.center=CGPointMake(self.canvas.width*2/3, self.canvas.center.y);
-    
+    //    img.center=CGPointMake(self.canvas.width*2/3, self.canvas.center.y);
+    img.center = CGPointMake(self.mainCanvas.center.x, self.mainCanvas.center.y);
+    [self.mainCanvas addImage:img];
+    [self.mainCanvas bringSubviewToFront:self.canvas];
 }
 
 @end

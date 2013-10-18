@@ -33,21 +33,25 @@
 }
 
 -(void) createViews{
-    takePhoto=[[TakePhoto alloc] initWithNibName:@"TakePhoto" bundle:[NSBundle mainBundle]];
+    takePhoto= [TakePhoto new];
+    //takePhoto=[[TakePhoto alloc] initWithNibName:@"TakePhoto" bundle:[NSBundle mainBundle]];
     cropPhoto=[[CropPhoto alloc] initWithNibName:@"CropPhoto" bundle:[NSBundle mainBundle]];
     
     takePhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     cropPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     
+    takePhoto.canvas.userInteractionEnabled = YES;
+    takePhoto.mainCanvas=self.canvas;
     [takePhoto setup];
     [cropPhoto setup];
     C4Log(@"canvas width %f", self.canvas.width);
     C4Log(@"canvas height %f", self.canvas.height);
+
     
-    //[self.canvas addSubview:takePhoto.canvas];
-   // currentView = (C4View *)takePhoto.canvas ;
-    [self.canvas addSubview:cropPhoto.canvas];
-    currentView = (C4View *)cropPhoto.canvas ;
+    [self.canvas addSubview:takePhoto.canvas];
+    currentView = (C4View *)takePhoto.canvas ;
+    /*[self.canvas addSubview:cropPhoto.canvas];
+    currentView = (C4View *)cropPhoto.canvas ;*/
 }
 
 -(void)createToolBar{
