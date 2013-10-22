@@ -43,14 +43,14 @@
 }
 
 -(void)cameraSetup{
-    cam = [C4Camera cameraWithFrame:CGRectMake(0,TopBarFromTop+NavBarHeight, self.canvas.width, self.canvas.height-(2*NavBarHeight+TopBarFromTop))];
+    cam = [C4Camera cameraWithFrame:CGRectMake(0,TopBarFromTop+NavBarHeight, self.canvas.width, self.canvas.height-(NavBarHeight*2+TopBarFromTop))];
     cam.cameraPosition = CAMERABACK;
     [self.canvas addCamera:cam];
     [cam initCapture];
     //tapping to take image
-    //[self addGesture:TAP name:@"capture" action:@"captureImage:"];
-    //[self numberOfTouchesRequired:1 forGesture:@"capture"];
-    //[self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"putCapturedImageOnCanvas"];
+    /*[self addGesture:TAP name:@"capture" action:@"captureImage"];
+    [self numberOfTouchesRequired:1 forGesture:@"capture"];
+    [self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"putCapturedImageOnCanvas"];*/
 }
 -(void) bottomBarSetup{
     bottomNavBar=[C4Shape rect:CGRectMake(0, self.canvas.height-(NavBarHeight), self.canvas.width, NavBarHeight)];
@@ -63,38 +63,45 @@
     photoButtonImage.height=NavBarHeight;
     photoButtonImage.center=CGPointMake(self.canvas.width/2, self.canvas.height-NavBarHeight/2);
     [self.canvas addImage:photoButtonImage];
-    [self listenFor:@"touchesBegan" fromObject:photoButtonImage andRunMethod:@"goToCropPhoto"];
-    //[self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"putCapturedImageOnCanvas"];
-
+    [self listenFor:@"touchesBegan" fromObject:photoButtonImage andRunMethod:@"captureImage"];
+    [self numberOfTouchesRequired:1 forGesture:@"capture"];
+    [self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"putCapturedImageOnCanvas"];
 }
 -(void)goToCropPhoto {
     //remove the current objects
     [photoButtonImage removeFromSuperview];
+    [bottomNavBar removeFromSuperview];
+    [cam removeFromSuperview];
+    [takePhoto removeFromSuperview];
+    [topNavBar removeFromSuperview];
+    [bottomNavBar removeFromSuperview];
     
     //set up the new view
     C4Log(@"CropPhoto!");
     cropPhoto= [CropPhoto new];
     cropPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     cropPhoto.canvas.userInteractionEnabled = YES;
-    [cropPhoto setup];
+    [cropPhoto setup:img];
+    
     cropPhoto.mainCanvas=self.canvas;
     [self.canvas addSubview:cropPhoto.canvas];
-    
 }
-
-
 -(void) captureImage{
     [cam captureImage];
-    //[self postNotification:@"imageWasCaptured"];
+    C4Log(@"capturing image");
 }
 
 -(void)putCapturedImageOnCanvas{
-    C4Image *img = cam.capturedImage;
+    
+    img = cam.capturedImage;
+    [self goToCropPhoto];
+    /*
     img.width=240;
     //    img.center=CGPointMake(self.canvas.width*2/3, self.canvas.center.y);
-    img.center = CGPointMake(self.mainCanvas.center.x, self.mainCanvas.center.y);
+    img.center = CGPointMake([C4Math randomInt:self.mainCanvas.width], [C4Math randomInt:self.mainCanvas.height]);
     [self.mainCanvas addImage:img];
     [self.mainCanvas bringSubviewToFront:self.canvas];
+    C4Log(@"image captured");*/
 }
 
 

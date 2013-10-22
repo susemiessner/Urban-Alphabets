@@ -31,8 +31,9 @@
     
     //the views I want to switch to
     CropPhoto *cropPhoto;
-
     
+    //the captured image
+    C4Image *img;    
 }
 @property (readwrite, strong) C4Window *mainCanvas;
 

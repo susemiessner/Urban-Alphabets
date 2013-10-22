@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B04E59C9180FD133006EB8E3 /* icons-19.png in Resources */ = {isa = PBXBuildFile; fileRef = B04E59C8180FD133006EB8E3 /* icons-19.png */; };
 		B04E59CB180FD18F006EB8E3 /* icons-20.png in Resources */ = {isa = PBXBuildFile; fileRef = B04E59CA180FD18F006EB8E3 /* icons-20.png */; };
+		B0635827181565BB006461FA /* AssignPhotoLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0635825181565BB006461FA /* AssignPhotoLetter.m */; };
+		B0635828181565BB006461FA /* AssignPhotoLetter.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0635826181565BB006461FA /* AssignPhotoLetter.xib */; };
 		B086922B1810046D002A0C0B /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B086922A1810046D002A0C0B /* image.jpg */; };
 		B09C52D7180E88AE00AE6B9F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09C52D6180E88AE00AE6B9F /* Accelerate.framework */; };
 		B09C52D9180E88AE00AE6B9F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09C52D8180E88AE00AE6B9F /* AVFoundation.framework */; };
@@ -56,6 +58,9 @@
 /* Begin PBXFileReference section */
 		B04E59C8180FD133006EB8E3 /* icons-19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons-19.png"; sourceTree = "<group>"; };
 		B04E59CA180FD18F006EB8E3 /* icons-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons-20.png"; sourceTree = "<group>"; };
+		B0635824181565BB006461FA /* AssignPhotoLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssignPhotoLetter.h; path = views/AssignPhotoLetter.h; sourceTree = "<group>"; };
+		B0635825181565BB006461FA /* AssignPhotoLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssignPhotoLetter.m; path = views/AssignPhotoLetter.m; sourceTree = "<group>"; };
+		B0635826181565BB006461FA /* AssignPhotoLetter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AssignPhotoLetter.xib; path = views/AssignPhotoLetter.xib; sourceTree = "<group>"; };
 		B086922A1810046D002A0C0B /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
 		B09C52D3180E88AE00AE6B9F /* urbanAlphabets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urbanAlphabets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09C52D6180E88AE00AE6B9F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -176,6 +181,9 @@
 		B09C52CA180E88AD00AE6B9F = {
 			isa = PBXGroup;
 			children = (
+				B0635824181565BB006461FA /* AssignPhotoLetter.h */,
+				B0635825181565BB006461FA /* AssignPhotoLetter.m */,
+				B0635826181565BB006461FA /* AssignPhotoLetter.xib */,
 				B09C5351180E890700AE6B9F /* TakePhoto.h */,
 				B09C5352180E890700AE6B9F /* TakePhoto.m */,
 				B09C5353180E890700AE6B9F /* TakePhoto.xib */,
@@ -417,6 +425,7 @@
 				B09C52F9180E88AE00AE6B9F /* Media.xcassets in Resources */,
 				B09C5355180E890700AE6B9F /* TakePhoto.xib in Resources */,
 				B09C535A180E892400AE6B9F /* CropPhoto.xib in Resources */,
+				B0635828181565BB006461FA /* AssignPhotoLetter.xib in Resources */,
 				B04E59CB180FD18F006EB8E3 /* icons-20.png in Resources */,
 				B04E59C9180FD133006EB8E3 /* icons-19.png in Resources */,
 				B09C5332180E88B100AE6B9F /* Main.storyboard in Resources */,
@@ -442,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09C5359180E892400AE6B9F /* CropPhoto.m in Sources */,
+				B0635827181565BB006461FA /* AssignPhotoLetter.m in Sources */,
 				B09C52F3180E88AE00AE6B9F /* main.m in Sources */,
 				B09C5354180E890700AE6B9F /* TakePhoto.m in Sources */,
 				B09C5335180E88B100AE6B9F /* C4WorkSpace.m in Sources */,

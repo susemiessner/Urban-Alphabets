@@ -7,6 +7,7 @@
 //
 
 #import "CropPhoto.h"
+#import "AssignPhotoLetter.h"
 #define NavBarHeight 42
 #define TopBarFromTop 20
 
@@ -15,7 +16,8 @@
 @end
 
 @implementation CropPhoto
--(void) setup{
+-(void) setup:(C4Image*)image{//passing on the image just taken
+    photoTaken=image;
     navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
     buttonColor= [UIColor colorWithRed:0.8984275 green:0.8984275 blue:0.8984275 alpha:1];
     typeColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:1];
@@ -24,12 +26,12 @@
     [self topBarSetup];
     [self bottomBarSetup];
     [self transparentOverlayX1:50 Y1:87+NavBarHeight+TopBarFromTop X2: self.canvas.width-50 Y2: 87+266+NavBarHeight+TopBarFromTop];
-    [self sliderSetup];
+    [self stepperSetup];
 }
 
 -(void)topBarSetup{
     //white rect under top bar that stays
-    C4Shape *defaultRect=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, TopBarFromTop)];
+    defaultRect=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, TopBarFromTop)];
     defaultRect.fillColor=[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                            [self.canvas addShape:defaultRect];
     defaultRect.lineWidth=0;
@@ -55,36 +57,35 @@
     
     
     //IMAGE AS BUTTON
-    C4Image *okButtonImage=[C4Image imageNamed:@"icons-20.png"];
+    okButtonImage=[C4Image imageNamed:@"icons-20.png"];
     okButtonImage.height=NavBarHeight;
     okButtonImage.center=CGPointMake(self.canvas.width/2, self.canvas.height-NavBarHeight/2);
     [self.canvas addImage:okButtonImage];
-    //[photoButtonImage addGesture:TAP name:@"tap" action:@"tapped"];
     [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"saveImage"];
 
     
 }
 -(void)transparentOverlayX1: (NSUInteger)touchX1 Y1:(NSUInteger)touchY1 X2:(NSUInteger) touchX2 Y2:(NSUInteger)touchY2{
     //upper rect
-    C4Shape *upperRect=[C4Shape rect: CGRectMake(0, TopBarFromTop+NavBarHeight, self.canvas.width, touchY1-TopBarFromTop-NavBarHeight)];
+    upperRect=[C4Shape rect: CGRectMake(0, TopBarFromTop+NavBarHeight, self.canvas.width, touchY1-TopBarFromTop-NavBarHeight)];
     upperRect.fillColor=overlayColor;
     upperRect.lineWidth=0;
     //upperRect.zPosition=1000;
     [self.canvas addShape:upperRect];
     //lower rect
-    C4Shape *lowerRect=[C4Shape rect:CGRectMake(0, touchY2, self.canvas.width, self.canvas.height-touchY2-NavBarHeight)];
+    lowerRect=[C4Shape rect:CGRectMake(0, touchY2, self.canvas.width, self.canvas.height-touchY2-NavBarHeight)];
     lowerRect.fillColor=overlayColor;
     lowerRect.lineWidth=0;
     [self.canvas addShape:lowerRect];
     
     //left rect
-    C4Shape *leftRect = [C4Shape rect:CGRectMake(0, touchY1, touchX1, touchY2-touchY1)];
+    leftRect = [C4Shape rect:CGRectMake(0, touchY1, touchX1, touchY2-touchY1)];
     leftRect.fillColor=overlayColor;
     leftRect.lineWidth=0;
     [self.canvas addShape:leftRect];
     
     //right rect
-    C4Shape *rightRect = [C4Shape rect: CGRectMake(touchX2, touchY1, self.canvas.width-touchX2, touchY2-touchY1)];
+    rightRect = [C4Shape rect: CGRectMake(touchX2, touchY1, self.canvas.width-touchX2, touchY2-touchY1)];
     rightRect.fillColor=overlayColor;
     rightRect.lineWidth=0;
     [self.canvas addShape:rightRect];
@@ -94,11 +95,11 @@
 
 }
 -(void)photoToCrop{
-    photoTaken=[C4Image imageNamed:@"image.jpg"];
+    //photoTaken=[C4Image imageNamed:@"image.jpg"];
     photoTaken.height=self.canvas.height;
     photoTaken.origin=CGPointMake(0, 0);
     [self.canvas addImage:photoTaken];
-   // [photoTaken addGesture:PAN name:@"pan" action:@"movePhoto:"];
+    [photoTaken addGesture:PAN name:@"pan" action:@"move:"];
     
 }
 -(void)movePhoto:(UIPanGestureRecognizer *)recognizer {
@@ -110,49 +111,68 @@
     }
     
 }
--(void)sliderSetup{
-    [self createAddSliderObjects];
-    zoomSlider.minimumValue=0.52f;
-    zoomSlider.maximumValue=10.0f;
-    //scalefactor=1;
-    zoomSlider.value=1.0f;
+
+-(void)stepperSetup{
     
+    zoomStepper=[C4Stepper stepper];
+    zoomStepper.center=CGPointMake(50, self.canvas.height-20);
+    zoomStepper.backgroundColor=navBarColor;
+    [zoomStepper runMethod:@"stepperValueChanged:" target:self forEvent:VALUECHANGED];
+    [self.canvas addSubview:zoomStepper];
+    zoomStepper.maximumValue=10.0f;
+    zoomStepper.minimumValue=0.5f;
+    zoomStepper.value=1.0f;
+    zoomStepper.stepValue=0.25f;
 }
--(void)createAddSliderObjects{
-    sliderLabel=[C4Label labelWithText:@"1.0"];
-    sliderLabel.textColor=navBarColor;
-    zoomSlider=[C4Slider slider:CGRectMake(0, 0, self.canvas.width-20, 20)];
-    
-    //positioning
-    sliderLabel.center=CGPointMake(self.canvas.width/2,self.canvas.height-NavBarHeight-50);
-    zoomSlider.center=CGPointMake(sliderLabel.center.x,sliderLabel.center.y+10);
-    
-    //set up action
-    [zoomSlider runMethod:@"sliderWasUpdated:"
-                   target:self
-                 forEvent:VALUECHANGED];
-    [self.canvas addObjects:@[sliderLabel, zoomSlider]];
-}
--(void)sliderWasUpdated:(C4Slider*)theSlider{
-    //update the label to reflect current scale factor
-    sliderLabel.text=[NSString stringWithFormat:@"%4.2f", theSlider.value];
-    [sliderLabel sizeToFit];
-    
-    //scale the image
-    C4Log(@"slider:%f",theSlider.value);
-    photoTaken.height=self.canvas.height*theSlider.value;
+
+-(void)stepperValueChanged:(UIStepper*)theStepper{
+    C4Log(@"current sender.value %f", theStepper.value);
+    photoTaken.height=self.canvas.height*theStepper.value;
     photoTaken.center=self.canvas.center;
 }
-
 -(void)saveImage {
-    C4Log(@"tapped!");
+    C4Log(@"saving image!");
+    [self drawImageOnTop];
     [self exportHighResImage];
+    //lastly remove photo
+    [photoTaken removeFromSuperview];
+    
+    //set up the new view
+    C4Log(@"AssignPhotoLetter!");
+    assignPhotoLetter= [AssignPhotoLetter new];
+    assignPhotoLetter.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    assignPhotoLetter.canvas.userInteractionEnabled = YES;
+    //[assignPhotoLetter setup];
+    assignPhotoLetter.mainCanvas=self.canvas;
+    [self.canvas addSubview:assignPhotoLetter.canvas];
+}
 
+-(void)drawImageOnTop{
+    //remove everything from view that's not needed any more
+    //overlays
+    [upperRect removeFromSuperview];
+    [lowerRect removeFromSuperview];
+    [leftRect removeFromSuperview];
+    [rightRect removeFromSuperview];
+    //top bar
+    [topNavBar removeFromSuperview];
+    [takePhoto removeFromSuperview];
+    [defaultRect removeFromSuperview];
+    //bottom bar
+    [zoomStepper removeFromSuperview];
+    [bottomNavBar removeFromSuperview];
+    [okButtonImage removeFromSuperview];
+
+    //old coordinates
+    C4Log(@"photoTakenOrigin= %f,%f", photoTaken.origin.x, photoTaken.origin.y);
+    photoTaken.origin=CGPointMake(photoTaken.origin.x-50, photoTaken.origin.y-(87+NavBarHeight+TopBarFromTop));
+    //new coordinates
+    C4Log(@"photoTakenOrigin= %f,%f", photoTaken.origin.x, photoTaken.origin.y);
 }
 
 //this is all for saving an image
 -(CGContextRef)createHighResImageContext { //setting up image context
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(300, 300), YES, 5.0f);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(218, 266), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }
 
@@ -161,7 +181,7 @@
     return paths[0];
 }
 -(void)saveImage:(NSString *)fileName {
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
     NSData *imageData = UIImagePNGRepresentation(image);
     NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];
     [imageData writeToFile:savePath atomically:YES];
@@ -173,16 +193,13 @@
 
 -(void)exportHighResImage {
     graphicsContext = [self createHighResImageContext];
-    
-    [self.canvas renderInContext:graphicsContext];
-    //NSDate *date= ;
-    NSString *fileName = @"myScreen.png" ;
+       [self.canvas renderInContext:graphicsContext];
+    NSString *fileName = [NSString stringWithFormat:@"awesomeshot%@.jpg", [NSDate date]];
+    //C4Log(@"%@",s );
     
     [self saveImage:fileName];
     [self saveImageToLibrary];
 }
-
-
 
 
 @end

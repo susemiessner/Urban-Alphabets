@@ -7,6 +7,7 @@
 //
 
 #import "C4CanvasController.h"
+#import "AssignPhotoLetter.h"
 
 @interface CropPhoto : C4CanvasController{
     //common variables
@@ -14,6 +15,8 @@
     UIColor *buttonColor;
     UIColor *typeColor;
     UIColor *overlayColor;
+    //top rect
+    C4Shape *defaultRect;
     
     //top toolbar
     C4Shape *topNavBar;
@@ -22,21 +25,30 @@
     
     //bottom Toolbar
     C4Shape *bottomNavBar;
+    C4Image *okButtonImage;
     
     //photo
     C4Image *photoTaken;
     
-    //slider
-    C4Label *sliderLabel;
-    C4Slider *zoomSlider;
-    CGFloat *scalefactor;
+    
+    //overlay rectangles
+    C4Shape *upperRect;
+    C4Shape *lowerRect;
+    C4Shape *leftRect;
+    C4Shape *rightRect;
+    
+    //stepper to zoom
+    C4Stepper *zoomStepper;
+  
     
     //for saving that image
     CGSize *areaToSave;
-    
     CGContextRef graphicsContext;
     
-
+    //the views I want to switch to
+    AssignPhotoLetter *assignPhotoLetter;
 }
 @property (readwrite, strong) C4Window *mainCanvas;
+-(void)setup:(C4Image *)image;
+
 @end
