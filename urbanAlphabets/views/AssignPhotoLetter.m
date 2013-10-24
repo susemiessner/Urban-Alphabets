@@ -14,8 +14,9 @@
 
 @implementation AssignPhotoLetter
 
--(void)setup:(C4Image *)image{//passing on the image just taken
-    croppedPhoto=image;
+-(void)setup/*:(C4Image *)image*/{//passing on the image just taken
+    //croppedPhoto=image;
+    croppedPhoto=[C4Image imageNamed:@"image.jpg"];
     navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
     buttonColor= [UIColor colorWithRed:0.8984275 green:0.8984275 blue:0.8984275 alpha:1];
     typeColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:1];
@@ -27,6 +28,8 @@
     
     [self greyGrid];
     [self drawDefaultLetters];
+    notificationCounter=0;
+    
 }
 
 -(void)topBarSetup{
@@ -160,14 +163,14 @@
         image.origin=CGPointMake(xPos, yPos);
         image.width=imageWidth;
         [self.canvas addImage:image];
-        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"highlightLetter"];
-
+        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"highlightLetter:"];
     }
 }
 
 -(void)greyGrid{
     int imageWidth=53.53;
     int imageHeight=65.1;
+
     for (NSUInteger i=0; i<42; i++) {
         int xMultiplier=(i)%6;
         int yMultiplier= (i)/6;
@@ -177,36 +180,38 @@
         greyRect.fillColor=navigationColor;
         greyRect.lineWidth=2;
         greyRect.strokeColor=navBarColor;
-
         [self.canvas addShape:greyRect];
     }
 }
--(void)highlightLetter{
-    C4Log(@"highlightLetter");
-    int i=3;
+-(void)highlightLetter:(NSNotification *)notification {
+    for (int i=0; i<[defaultLetters count]; i++) {
+        C4Image *currentImage= defaultLetters[i];
+        currentImage.backgroundColor=navigationColor;
+    }
     
-    //highlight the image
-    int imageWidth=53.53;
-    int imageHeight=65.1;
-    int xMultiplier=(i)%6;
-    int yMultiplier= (i)/6;
-    int xPos=xMultiplier*imageWidth;
-    int yPos=2+TopBarFromTop+TopNavBarHeight+yMultiplier*imageHeight;
-    C4Shape *greyRect=[C4Shape rect:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-    greyRect.fillColor=[UIColor colorWithRed:0.757 green:0.964 blue:0.617 alpha:0.5];
-    greyRect.lineWidth=0;
+    C4Image *currentImage = (C4Image *)notification.object;
+    currentImage.backgroundColor= [UIColor colorWithRed:0.757 green:0.964 blue:0.617 alpha:0.5];
     
-    [self.canvas addShape:greyRect];
-    
-    //add Ok button
-    okButtonImage=[C4Image imageNamed:@"icons-20.png"];
-    okButtonImage.height=45;
-    okButtonImage.width=90;
-    okButtonImage.center=bottomNavBar.center;
-    [self.canvas addImage:okButtonImage];
-    //[self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"saveImage"];
-    
+    //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
+    if (notificationCounter==0) {
+        //add Ok button
+        okButtonImage=[C4Image imageNamed:@"icons-20.png"];
+        okButtonImage.height=45;
+        okButtonImage.width=90;
+        okButtonImage.center=bottomNavBar.center;
+        [self.canvas addImage:okButtonImage];
+        [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToCollection"];
+    }
+    notificationCounter++;
+}
 
+-(void)goToCollection{
+    C4Log(@"goToCollection");
+}
+-(void) navigateBack{
+    C4Log(@"navigating back");
+    [self postNotification:@"goToCropPhoto"];
+    
 }
 
 @end

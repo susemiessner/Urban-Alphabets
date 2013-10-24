@@ -93,9 +93,9 @@
 -(void)goToCropPhoto {
     if (counter==0) {
         img = cam.capturedImage;
-        img.zPosition=10000;
-        [self.canvas addImage:img];
-        C4Log(@"image:%@",img);
+        //img.zPosition=10000;
+        //[self.canvas addImage:img];
+        //C4Log(@"image:%@",img);
         
         [self postNotification:@"goToCropPhoto"];
         //img=[C4Image imageNamed:@"image.jpg"];
@@ -114,6 +114,9 @@
 }
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
+}
+-(void)resetCounter{
+    counter=0;
 }
 
 

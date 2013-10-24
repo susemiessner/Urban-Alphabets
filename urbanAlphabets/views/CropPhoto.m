@@ -14,7 +14,7 @@
 #define BottomNavBarHeight 49
 
 @implementation CropPhoto
--(void) setup /*:(C4Image*)image view:(NSString*)previousView*/{
+-(void) setup {
     //photoTaken=image;
     //lastView=previousView;
     navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
@@ -23,22 +23,20 @@
     overlayColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:0.5];
     navigationColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0];
 
-    //[self photoToCrop];
+    
+    [self listenFor:@"getPhoto" andRunMethod:@"displayPhoto"];
+}
+-(void) sendPhoto:(C4Image*)image{
+
+}
+
+-(void)displayPhoto{
+    photoTaken=[C4Image imageNamed:@"image.jpg"]; //used as long as I cannot actually get the real photo from there... (Stackoverflow question from oct 24th)
+    [self photoToCrop];
     [self topBarSetup];
     [self bottomBarSetup];
     [self transparentOverlayX1:50.532 Y1:86.764+TopNavBarHeight+TopBarFromTop X2: self.canvas.width-50.3532 Y2: 86.764+266.472+TopNavBarHeight+TopBarFromTop];
-    //[self stepperSetup];
-    //[self listenFor:@"goToCropPhoto" andRunMethod:@"displayPhoto"];
-}
--(void)sendPhoto:(C4Image*)image{
-    C4Log(@"receivingImage");
-    photoTaken=image;
-    C4Log(@"image:%@",photoTaken);
-    [self photoToCrop];
-}
--(void)displayPhoto{
-    photoTaken=[C4Image imageNamed:@"image.jpg"];
-    [self photoToCrop];
+    
     [self stepperSetup];
 }
 
@@ -46,54 +44,54 @@
     //white rect under top bar that stays
     defaultRect=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, TopBarFromTop)];
     defaultRect.fillColor=[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-                           [self.canvas addShape:defaultRect];
+    [self.canvas addShape:defaultRect];
     defaultRect.lineWidth=0;
-    defaultRect.zPosition=100;
+    //defaultRect.zPosition=100;
     
     
     //navigation bar
     topNavBar=[C4Shape rect:CGRectMake(0, TopBarFromTop, self.canvas.width, TopNavBarHeight)];
     topNavBar.fillColor=navBarColor;
     topNavBar.lineWidth=0;
-    topNavBar.zPosition=100;
+    //topNavBar.zPosition=100;
     [self.canvas addShape:topNavBar];
     
     
     fatFont=[C4Font fontWithName:@"HelveticaNeue-Bold" size:17];
     cropPhoto = [C4Label labelWithText:@"Crop photo letter" font:fatFont];
     cropPhoto.center=topNavBar.center;
-    cropPhoto.zPosition=101;
+    //cropPhoto.zPosition=101;
     [self.canvas addLabel:cropPhoto];
     //upper left
     normalFont =[C4Font fontWithName:@"HelveticaNeue" size:17];
     backLabel=[C4Label labelWithText:@"Back" font: normalFont];
     backLabel.center=CGPointMake(40, topNavBar.center.y);
-    backLabel.zPosition=101;
+    //backLabel.zPosition=101;
     [self.canvas addLabel:backLabel];
     
     backButtonImage=[C4Image imageNamed:@"icon_back.png"];
     backButtonImage.width= 12.2;
     backButtonImage.center=CGPointMake(10, topNavBar.center.y);
-    backButtonImage.zPosition=101;
+    //backButtonImage.zPosition=105;
     [self.canvas addImage:backButtonImage];
     
     navigateBackRect=[C4Shape rect: CGRectMake(0, TopBarFromTop, 60, topNavBar.height)];
     navigateBackRect.fillColor=navigationColor;
     navigateBackRect.lineWidth=0;
-    navigateBackRect.zPosition=102;
+    //navigateBackRect.zPosition=104;
     [self.canvas addShape:navigateBackRect];
     [self listenFor:@"touchesBegan" fromObject:navigateBackRect andRunMethod:@"navigateBack"];
     //upper right
     closeButtonImage=[C4Image imageNamed:@"icons_close.png"];
     closeButtonImage.width= 25;
     closeButtonImage.center=CGPointMake(self.canvas.width-18, topNavBar.center.y);
-    closeButtonImage.zPosition=101;
+    //closeButtonImage.zPosition=101;
     [self.canvas addImage:closeButtonImage];
     
     closeRect=[C4Shape rect:CGRectMake(self.canvas.width-35, TopBarFromTop, 35, topNavBar.height)];
     closeRect.fillColor=navigationColor;
     closeRect.lineWidth=0;
-    closeRect.zPosition=102;
+    //closeRect.zPosition=102;
     [self.canvas addShape:closeRect];
     [self listenFor:@"touchesBegan" fromObject:closeRect andRunMethod:@"goToAlphabetsView"];
 }
@@ -101,7 +99,8 @@
     bottomNavBar=[C4Shape rect:CGRectMake(0, self.canvas.height-(BottomNavBarHeight), self.canvas.width, BottomNavBarHeight)];
     bottomNavBar.fillColor= navBarColor;
     bottomNavBar.lineWidth=0;
-    bottomNavBar.zPosition=100;
+    //bottomNavBar.zPosition=1;
+    //C4Log(@"zposition bottom bar: %f", bottomNavBar.zPosition);
     [self.canvas addShape:bottomNavBar];
     
     
@@ -110,7 +109,8 @@
     okButtonImage.height=45;
     okButtonImage.width=90;
     okButtonImage.center=bottomNavBar.center;
-    okButtonImage.zPosition=1000;
+    //okButtonImage.zPosition=bottomNavBar.zPosition+1;
+    //C4Log(@"zposition ok button: %f", okButtonImage.zPosition);
     [self.canvas addImage:okButtonImage];
     [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"saveImage"];
 
@@ -121,36 +121,38 @@
     upperRect=[C4Shape rect: CGRectMake(0, TopBarFromTop+TopNavBarHeight, self.canvas.width, touchY1-TopBarFromTop-TopNavBarHeight)];
     upperRect.fillColor=overlayColor;
     upperRect.lineWidth=0;
-    upperRect.zPosition=100;
+    //upperRect.zPosition=100;
     //upperRect.zPosition=1000;
     [self.canvas addShape:upperRect];
     //lower rect
     lowerRect=[C4Shape rect:CGRectMake(0, touchY2, self.canvas.width, self.canvas.height-touchY2-BottomNavBarHeight)];
     lowerRect.fillColor=overlayColor;
     lowerRect.lineWidth=0;
-    lowerRect.zPosition=100;
+    //lowerRect.zPosition=100;
     [self.canvas addShape:lowerRect];
     
     //left rect
     leftRect = [C4Shape rect:CGRectMake(0, touchY1, touchX1, touchY2-touchY1)];
     leftRect.fillColor=overlayColor;
     leftRect.lineWidth=0;
-    leftRect.zPosition=100;
+    //leftRect.zPosition=100;
     [self.canvas addShape:leftRect];
     
     //right rect
     rightRect = [C4Shape rect: CGRectMake(touchX2, touchY1, self.canvas.width-touchX2, touchY2-touchY1)];
     rightRect.fillColor=overlayColor;
     rightRect.lineWidth=0;
-    rightRect.zPosition=100;
+    //rightRect.zPosition=100;
     [self.canvas addShape:rightRect];
 
 }
 -(void)photoToCrop{
     photoTaken.height=self.canvas.height;
     photoTaken.origin=CGPointMake(0, 0);
+    //photoTaken.zPosition=0;
+    //C4Log(@"zposition photo: %i", photoTaken.zPosition);
     [self.canvas addImage:photoTaken];
-    photoTaken.zPosition=1000;
+    
     [photoTaken addGesture:PAN name:@"pan" action:@"move:"];
 }
 
@@ -164,7 +166,7 @@
     zoomStepper.minimumValue=0.5f;
     zoomStepper.value=1.0f;
     zoomStepper.stepValue=0.25f;
-    zoomStepper.zPosition=101;
+    //zoomStepper.zPosition=101;
 }
 
 -(void)stepperValueChanged:(UIStepper*)theStepper{
@@ -208,41 +210,13 @@
     //crop image
     croppedPhoto=[self cropImage:photoTaken withOrigin:photoTaken.origin toArea:CGRectMake(50.532, TopBarFromTop+TopNavBarHeight+86.764, self.canvas.width-2*50.532, 266.472)];
     croppedPhoto.origin=CGPointMake(0, 0);
-    [self.canvas addImage:croppedPhoto];
+    /*[self.canvas addImage:croppedPhoto];
     C4Log(@"croppedPhotoWidth %f", croppedPhoto.width);
 
-    
-    
-    //remove everything not needed any more
-    //overlays
-    [upperRect removeFromSuperview];
-    [lowerRect removeFromSuperview];
-    [leftRect removeFromSuperview];
-    [rightRect removeFromSuperview];
-    //top bar
-    [topNavBar removeFromSuperview];
-    [cropPhoto removeFromSuperview];
-    [defaultRect removeFromSuperview];
-    [backLabel removeFromSuperview];
-    [backButtonImage removeFromSuperview];
-    [navigateBackRect removeFromSuperview];
-    [closeButtonImage removeFromSuperview];
-    
-    //bottom bar
-    [zoomStepper removeFromSuperview];
-    [bottomNavBar removeFromSuperview];
-    [okButtonImage removeFromSuperview];
-    //photoTaken
-    [photoTaken removeFromSuperview];
+    */
+    [self postNotification:@"goToAssignPhoto"];
 
-    //set up the new view
-    /*C4Log(@"AssignPhotoLetter!");
-    assignPhotoLetter= [AssignPhotoLetter new];
-    assignPhotoLetter.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
-    assignPhotoLetter.canvas.userInteractionEnabled = YES;
-    [assignPhotoLetter setup:croppedPhoto];
-    assignPhotoLetter.mainCanvas=self.canvas;
-    [self.canvas addSubview:assignPhotoLetter.canvas];*/
+
 }
 
 //this is all for saving an image
@@ -278,15 +252,7 @@
 
 -(void) navigateBack{
     C4Log(@"navigating back");
-    if ([lastView isEqual:@"TakePhoto"]) {
-        C4Log(@"TakePhoto");
-        /*takePhoto= [TakePhoto new];
-        takePhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
-        takePhoto.canvas.userInteractionEnabled = YES;
-        [takePhoto setup];
-        takePhoto.mainCanvas=self.canvas;
-        [self.canvas addSubview:takePhoto.canvas];*/
-    }
+    [self postNotification:@"goToTakePhoto"];
     
 }
 -(void) goToAlphabetsView{

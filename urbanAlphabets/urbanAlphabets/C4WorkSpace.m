@@ -32,17 +32,44 @@
     cropPhoto= [CropPhoto new];
     cropPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     cropPhoto.canvas.userInteractionEnabled = YES;
-    //[cropPhoto setup];
+    [cropPhoto setup];
     [self.canvas addSubview:cropPhoto.canvas];
     cropPhoto.canvas.hidden=YES;
     
+    //assign photo
+    assignPhoto= [AssignPhotoLetter new];
+    assignPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    assignPhoto.canvas.userInteractionEnabled = YES;
+    [assignPhoto setup];
+    [self.canvas addSubview:assignPhoto.canvas];
+    assignPhoto.canvas.hidden=YES;
+    [self listenFor:@"goToTakePhoto" andRunMethod:@"goToTakePhoto"];
     [self listenFor:@"goToCropPhoto" andRunMethod:@"goToCropPhoto"];
+    [self listenFor:@"goToAssignPhoto" andRunMethod:@"goToAssignPhoto"];
 }
+
+-(void)goToTakePhoto{
+    [takePhoto resetCounter];
+    C4Log(@"TakePhoto");
+    takePhoto.canvas.hidden=NO;
+    cropPhoto.canvas.hidden=YES;
+    assignPhoto.canvas.hidden=YES;
+}
+
+
 -(void)goToCropPhoto{
     C4Log(@"CropPhoto");
     takePhoto.canvas.hidden=YES;
     cropPhoto.canvas.hidden=NO;
+    assignPhoto.canvas.hidden=YES;
     [self postNotification:@"getPhoto"];
+}
+
+-(void)goToAssignPhoto{
+    C4Log(@"AssignPhoto");
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=YES;
+    assignPhoto.canvas.hidden=NO;
 }
 
 

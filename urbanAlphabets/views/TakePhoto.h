@@ -47,5 +47,5 @@
     CropPhoto *cropPhoto;
 }
 @property (readwrite, strong) C4Window *mainCanvas;
-
+-(void) resetCounter;
 @end

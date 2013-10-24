@@ -42,9 +42,15 @@
     //array of default letters
     NSArray *defaultLetters;
     
+    //shapes to highllight the letter clicked
+    NSMutableArray *gridRects;
+    
+    //makes sure that the "ok" button gets only added ones and not every time the person chooses a new letter
+    int *notificationCounter;
+    
 
 }
 @property (readwrite, strong) C4Window *mainCanvas;
--(void)setup:(C4Image *)image;
+//-(void)setup:(C4Image *)image;
 
 @end
