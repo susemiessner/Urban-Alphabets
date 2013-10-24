@@ -12,5 +12,6 @@
 @interface C4WorkSpace : C4CanvasController{
     //initial view
     TakePhoto *takePhoto;
+    CropPhoto *cropPhoto;
 }
 @end

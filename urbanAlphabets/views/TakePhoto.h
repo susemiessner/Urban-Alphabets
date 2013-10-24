@@ -16,11 +16,21 @@
     UIColor *navBarColor;
     UIColor *buttonColor;
     UIColor *typeColor;
+    UIColor *navigationColor;
     
     //top toolbar
     C4Shape *topNavBar;
     C4Font *fatFont;
     C4Label *takePhoto;
+    C4Font *normalFont;
+    
+    //>upper left
+    C4Label *backLabel;
+    C4Image *backButtonImage;
+    C4Shape *navigateBackRect;
+    //>upper right
+    C4Image *closeButtonImage;
+    C4Shape *closeRect;
     
     //camera
     C4Camera *cam;
@@ -29,11 +39,12 @@
     C4Shape *bottomNavBar;
     C4Image *photoButtonImage;
     
-    //the views I want to switch to
-    CropPhoto *cropPhoto;
-    
     //the captured image
-    C4Image *img;    
+    C4Image *img;
+    //counter
+    NSInteger counter;
+    
+    CropPhoto *cropPhoto;
 }
 @property (readwrite, strong) C4Window *mainCanvas;
 

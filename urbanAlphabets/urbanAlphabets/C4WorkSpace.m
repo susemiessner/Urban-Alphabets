@@ -15,7 +15,6 @@
 
 -(void)setup {
     [self createViews];
-    //[self createToolBar];
 }
 
 -(void) createViews{
@@ -24,11 +23,26 @@
     takePhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     takePhoto.canvas.userInteractionEnabled = YES;
     [takePhoto setup];
-    takePhoto.mainCanvas=self.canvas;
     [self.canvas addSubview:takePhoto.canvas];
     
     C4Log(@"canvas width %f", self.canvas.width);
     C4Log(@"canvas height %f", self.canvas.height);
+    
+    //crop photo
+    cropPhoto= [CropPhoto new];
+    cropPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    cropPhoto.canvas.userInteractionEnabled = YES;
+    //[cropPhoto setup];
+    [self.canvas addSubview:cropPhoto.canvas];
+    cropPhoto.canvas.hidden=YES;
+    
+    [self listenFor:@"goToCropPhoto" andRunMethod:@"goToCropPhoto"];
+}
+-(void)goToCropPhoto{
+    C4Log(@"CropPhoto");
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=NO;
+    [self postNotification:@"getPhoto"];
 }
 
 
