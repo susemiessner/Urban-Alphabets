@@ -12,6 +12,7 @@
     postedImage=[C4Image imageNamed:@"C4Sky.png"];
     postedImage.center=self.canvas.center;
     [self.canvas addImage:postedImage];
+    C4Log(@"sent image: %@", postedImage);
     
 }
 -(void)postNoti{
