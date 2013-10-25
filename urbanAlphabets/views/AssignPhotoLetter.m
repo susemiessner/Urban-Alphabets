@@ -1,27 +1,23 @@
-//
-//  AssignPhotoLetter.m
-//  urbanAlphabets
-//
-//  Created by SuseMiessner on 10/21/13.
-//  Copyright (c) 2013 SuseMiessner. All rights reserved.
-//
 
 #import "AssignPhotoLetter.h"
-#define TopNavBarHeight 42
-#define TopBarFromTop 20.558
-#define BottomNavBarHeight 49
-
 
 @implementation AssignPhotoLetter
 
--(void)setup/*:(C4Image *)image*/{//passing on the image just taken
-    //croppedPhoto=image;
+-(void)setupDefaultBottomBarHeight: (float)BottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault{
+    
+    //getting all the default variables needed (declared in C4Workspace setup and #define
+    TopBarFromTop=TopBarFromTopDefault;
+    TopNavBarHeight=TopNavBarHeightDefault;
+    BottomNavBarHeight=BottomBarHeightDefault;
+    
+    navBarColor=navBarColorDefault;
+    navigationColor=navigationColorDefault;
+    buttonColor= buttonColorDefault;
+    typeColor=typeColorDefault;
+    highlightColor=highlightColorDefault;
+    
+    
     croppedPhoto=[C4Image imageNamed:@"image.jpg"];
-    navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
-    buttonColor= [UIColor colorWithRed:0.8984275 green:0.8984275 blue:0.8984275 alpha:1];
-    typeColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:1];
-    overlayColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:0.5];
-    navigationColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0];
 
     [self topBarSetup];
     [self bottomBarSetup];
@@ -70,7 +66,7 @@
     [self.canvas addShape:navigateBackRect];
     [self listenFor:@"touchesBegan" fromObject:navigateBackRect andRunMethod:@"navigateBack"];
     //upper right
-    closeButtonImage=[C4Image imageNamed:@"icons_close.png"];
+    closeButtonImage=[C4Image imageNamed:@"icon_Close.png"];
     closeButtonImage.width= 25;
     closeButtonImage.center=CGPointMake(self.canvas.width-18, topNavBar.center.y);
     [self.canvas addImage:closeButtonImage];
@@ -83,30 +79,39 @@
 
 }
 -(void) bottomBarSetup{
+    //the bar itself
     bottomNavBar=[C4Shape rect:CGRectMake(0, self.canvas.height-(BottomNavBarHeight), self.canvas.width, BottomNavBarHeight)];
     bottomNavBar.fillColor= navBarColor;
     bottomNavBar.lineWidth=0;
     [self.canvas addShape:bottomNavBar];
-    [self drawCroppedImage];
-}
--(void)drawCroppedImage{
+    
+    //lower left: the cropped image as a miniature
     croppedPhoto.width=32.788;
     croppedPhoto.center=CGPointMake(croppedPhoto.width/2+5, bottomNavBar.center.y);
     [self.canvas addImage:croppedPhoto];
     C4Log(@"croppedPhotoWidth %f", croppedPhoto.width);
+    
+    //lower right: settings icon
+    settingsItem=[C4Image imageNamed:@"icon_Settings.png"];
+    settingsItem.width=30.017;
+    settingsItem.center=CGPointMake(self.canvas.width-settingsItem.width/2-5,bottomNavBar.center.y);
+    [self listenFor:@"touchesBegan" fromObject:settingsItem andRunMethod:@"goToSettings"];
+    [self.canvas addImage:settingsItem];
 }
+
 -(void)drawDefaultLetters{
     
     /*NSArray *finnishAlphabet=[NSArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E",@"F", @"G", @"H", @"I", @"J",@"K", @"L", @"M", @"N", @"O",@"P", @"Q", @"R", @"S", @"T",@"U", @"V", @"W", @"X", @"Y",@"Z", @"Ä", @"Ö", @"Å", @".",@"!", @"?", @"0", @"1", @"2",@"3", @"4", @"5", @"6", @"6", @"8", @"9",nil];
     }*/
     NSArray *finnishLetters=[NSArray arrayWithObjects:
+                             //first row
                     [C4Image imageNamed:@"letter_A.png"],
                     [C4Image imageNamed:@"letter_B.png"],
                     [C4Image imageNamed:@"letter_C.png"],
                     [C4Image imageNamed:@"letter_D.png"],
                     [C4Image imageNamed:@"letter_E.png"],
                     [C4Image imageNamed:@"letter_F.png"],
-                    
+                    //second row
                     [C4Image imageNamed:@"letter_G.png"],
                     [C4Image imageNamed:@"letter_H.png"],
                     [C4Image imageNamed:@"letter_I.png"],
@@ -190,28 +195,32 @@
     }
     
     C4Image *currentImage = (C4Image *)notification.object;
-    currentImage.backgroundColor= [UIColor colorWithRed:0.757 green:0.964 blue:0.617 alpha:0.5];
+    currentImage.backgroundColor= highlightColor;
     
     //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
     if (notificationCounter==0) {
         //add Ok button
-        okButtonImage=[C4Image imageNamed:@"icons-20.png"];
+        okButtonImage=[C4Image imageNamed:@"icon_OK.png"];
         okButtonImage.height=45;
         okButtonImage.width=90;
         okButtonImage.center=bottomNavBar.center;
         [self.canvas addImage:okButtonImage];
-        [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToCollection"];
+        [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToAlphabetsView"];
     }
     notificationCounter++;
 }
 
--(void)goToCollection{
-    C4Log(@"goToCollection");
+-(void)goToAlphabetsView{
+    C4Log(@"goToAlphabetsView");
+    [self postNotification:@"goToAlphabetsView"];
 }
 -(void) navigateBack{
     C4Log(@"navigating back");
     [self postNotification:@"goToCropPhoto"];
     
+}
+-(void)goToSettings{
+    C4Log(@"go to settings");
 }
 
 @end

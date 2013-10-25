@@ -1,20 +1,19 @@
-//
-//  AssignPhotoLetter.h
-//  urbanAlphabets
-//
-//  Created by SuseMiessner on 10/21/13.
-//  Copyright (c) 2013 SuseMiessner. All rights reserved.
-//
+
 
 #import "C4CanvasController.h"
 
 @interface AssignPhotoLetter : C4CanvasController{
     //common variables
+    float TopBarFromTop;
+    float TopNavBarHeight;
+    float BottomNavBarHeight;
+    
     UIColor *navBarColor;
     UIColor *buttonColor;
     UIColor *typeColor;
     UIColor *overlayColor;
     UIColor *navigationColor;
+    UIColor *highlightColor;
     //top rect
     C4Shape *defaultRect;
     
@@ -39,6 +38,10 @@
     //cropped image> lower left
     C4Image *croppedPhoto;
     
+    //settings icon >lower right
+    C4Image *settingsItem;
+    
+    
     //array of default letters
     NSArray *defaultLetters;
     
@@ -51,6 +54,6 @@
 
 }
 @property (readwrite, strong) C4Window *mainCanvas;
-//-(void)setup:(C4Image *)image;
+-(void)setupDefaultBottomBarHeight: (float)bottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault;
 
 @end

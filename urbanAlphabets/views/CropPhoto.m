@@ -9,20 +9,20 @@
 #import "CropPhoto.h"
 
 
-#define TopNavBarHeight 42
-#define TopBarFromTop 20.558
-#define BottomNavBarHeight 49
-
 @implementation CropPhoto
--(void) setup {
+-(void)setupDefaultBottomBarHeight: (float)BottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault OverlayColor: (UIColor*)overlayColorDefault{
+    TopBarFromTop=TopBarFromTopDefault;
+    TopNavBarHeight=TopNavBarHeightDefault;
+    BottomNavBarHeight=BottomBarHeightDefault;
+    
+    navBarColor=navBarColorDefault;
+    navigationColor=navigationColorDefault;
+    buttonColor= buttonColorDefault;
+    typeColor=typeColorDefault;
     //photoTaken=image;
     //lastView=previousView;
-    navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
-    buttonColor= [UIColor colorWithRed:0.8984275 green:0.8984275 blue:0.8984275 alpha:1];
-    typeColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:1];
     overlayColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:0.5];
-    navigationColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-
+    
     
     [self listenFor:@"getPhoto" andRunMethod:@"displayPhoto"];
 }
@@ -82,7 +82,7 @@
     [self.canvas addShape:navigateBackRect];
     [self listenFor:@"touchesBegan" fromObject:navigateBackRect andRunMethod:@"navigateBack"];
     //upper right
-    closeButtonImage=[C4Image imageNamed:@"icons_close.png"];
+    closeButtonImage=[C4Image imageNamed:@"icon_Close.png"];
     closeButtonImage.width= 25;
     closeButtonImage.center=CGPointMake(self.canvas.width-18, topNavBar.center.y);
     //closeButtonImage.zPosition=101;
@@ -105,7 +105,7 @@
     
     
     //IMAGE AS BUTTON
-    okButtonImage=[C4Image imageNamed:@"icons-20.png"];
+    okButtonImage=[C4Image imageNamed:@"icon_OK.png"];
     okButtonImage.height=45;
     okButtonImage.width=90;
     okButtonImage.center=bottomNavBar.center;
@@ -205,17 +205,17 @@
 }
 -(void)saveImage {
     C4Log(@"saving image!");
-    //[self exportHighResImage];
+    //
     
     //crop image
     croppedPhoto=[self cropImage:photoTaken withOrigin:photoTaken.origin toArea:CGRectMake(50.532, TopBarFromTop+TopNavBarHeight+86.764, self.canvas.width-2*50.532, 266.472)];
     croppedPhoto.origin=CGPointMake(0, 0);
-    /*[self.canvas addImage:croppedPhoto];
-    C4Log(@"croppedPhotoWidth %f", croppedPhoto.width);
 
-    */
+    //uncomment to save the photo to photo library and app's image directory
+    //[self exportHighResImage];
+    
+    //this goes to the next view
     [self postNotification:@"goToAssignPhoto"];
-
 
 }
 
@@ -242,7 +242,7 @@
 
 -(void)exportHighResImage {
     graphicsContext = [self createHighResImageContext];
-       [self.canvas renderInContext:graphicsContext];
+       [croppedPhoto renderInContext:graphicsContext];
     NSString *fileName = [NSString stringWithFormat:@"awesomeshot%@.jpg", [NSDate date]];
     //C4Log(@"%@",s );
     
@@ -257,6 +257,7 @@
 }
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
+    [self postNotification:@"goToAlphabetsView"];
 }
 
 

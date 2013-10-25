@@ -5,11 +5,16 @@
 
 @interface CropPhoto : C4CanvasController{
     //common variables
+    float TopBarFromTop;
+    float TopNavBarHeight;
+    float BottomNavBarHeight;
+    
     UIColor *navBarColor;
     UIColor *buttonColor;
     UIColor *typeColor;
     UIColor *overlayColor;
     UIColor *navigationColor;
+    
     //top rect
     C4Shape *defaultRect;
     
@@ -52,6 +57,6 @@
     NSString *lastView;
 }
 @property (readwrite, strong) C4Window *mainCanvas;
--(void) setup;
+-(void)setupDefaultBottomBarHeight: (float)bottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault OverlayColor: (UIColor*)overlayColorDefault;
 -(void) sendPhoto:(C4Image*)image;
 @end

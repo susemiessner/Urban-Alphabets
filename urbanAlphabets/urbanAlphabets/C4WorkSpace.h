@@ -1,9 +1,3 @@
-//
-//  C4WorkSpace.h
-//  urbanAlphabets
-//
-//  Created by SuseMiessner on 10/16/13.
-//
 
 #import "C4CanvasController.h"
 #import "TakePhoto.h"
@@ -11,10 +5,17 @@
 #import "AssignPhotoLetter.h"
 
 @interface C4WorkSpace : C4CanvasController{
-    //initial view
+    //views
     TakePhoto *takePhoto;
     CropPhoto *cropPhoto;
     AssignPhotoLetter *assignPhoto;
-
+    
+    //default variables
+    UIColor *navBarColorDefault;
+    UIColor *navigationColorDefault;
+    UIColor *buttonColorDefault;
+    UIColor *typeColorDefault;
+    UIColor *overlayColorDefault;
+    UIColor *highlightColorDefault;
 }
 @end

@@ -1,23 +1,17 @@
-//
-//  TakePhoto.m
-//  urbanAlphabets
-//
-//  Created by SuseMiessner on 10/16/13.
-//  Copyright (c) 2013 SuseMiessner. All rights reserved.
-//
 
 #import "TakePhoto.h"
-#define TopNavBarHeight 42
-#define TopBarFromTop 20.558
-#define BottomNavBarHeight 49
 
 
 @implementation TakePhoto
--(void) setup{
-    navBarColor=[UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1];
-    navigationColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-    buttonColor= [UIColor colorWithRed:0.8984275 green:0.8984275 blue:0.8984275 alpha:1];
-    typeColor=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:1];
+-(void)setupDefaultBottomBarHeight: (float)BottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault{
+    TopBarFromTop=TopBarFromTopDefault;
+    TopNavBarHeight=TopNavBarHeightDefault;
+    BottomNavBarHeight=BottomBarHeightDefault;
+
+    navBarColor=navBarColorDefault;
+    navigationColor=navigationColorDefault;
+    buttonColor= buttonColorDefault;
+    typeColor=typeColorDefault;
     
     [self topBarSetup];
     [self bottomBarSetup];
@@ -52,7 +46,7 @@
     [self.canvas addShape:navigateBackRect];
     [self listenFor:@"touchesBegan" fromObject:navigateBackRect andRunMethod:@"navigateBack"];
     
-    closeButtonImage=[C4Image imageNamed:@"icons_close.png"];
+    closeButtonImage=[C4Image imageNamed:@"icon_Close.png"];
     closeButtonImage.width= 25;
     closeButtonImage.center=CGPointMake(self.canvas.width-18, topNavBar.center.y);
     [self.canvas addImage:closeButtonImage];
@@ -80,7 +74,7 @@
     [self.canvas addShape:bottomNavBar];
 
     //Take PhotoButton
-    photoButtonImage=[C4Image imageNamed:@"icons-02.png"];
+    photoButtonImage=[C4Image imageNamed:@"icon_TakePhoto.png"];
     photoButtonImage.height=45;
     photoButtonImage.width=90;
     photoButtonImage.center=CGPointMake(self.canvas.width/2, self.canvas.height-BottomNavBarHeight/2);
@@ -114,6 +108,7 @@
 }
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
+    [self postNotification:@"goToAlphabetsView"];
 }
 -(void)resetCounter{
     counter=0;

@@ -13,6 +13,10 @@
 
     
     //common variables
+    float TopBarFromTop;
+    float TopNavBarHeight;
+    float BottomNavBarHeight;
+    
     UIColor *navBarColor;
     UIColor *buttonColor;
     UIColor *typeColor;
@@ -48,4 +52,5 @@
 }
 @property (readwrite, strong) C4Window *mainCanvas;
 -(void) resetCounter;
+-(void)setupDefaultBottomBarHeight: (float)bottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault;
 @end
