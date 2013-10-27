@@ -43,7 +43,7 @@
     assignPhoto= [AssignPhotoLetter new];
     assignPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     assignPhoto.canvas.userInteractionEnabled = YES;
-    [assignPhoto setupDefaultBottomBarHeight: BottomBarHeightDefault defaultNavBarHeight:TopNavBarHeightDefault defaultTopBarFromTop: TopBarFromTopDefault NavBarColor:navBarColorDefault NavigationColor:navigationColorDefault ButtonColor:buttonColorDefault TypeColor:typeColorDefault highlightColor:highlightColorDefault];
+    [assignPhoto setupAssignLetterDefaultBottomBarHeight: BottomBarHeightDefault defaultNavBarHeight:TopNavBarHeightDefault defaultTopBarFromTop: TopBarFromTopDefault NavBarColor:navBarColorDefault NavigationColor:navigationColorDefault ButtonColor:buttonColorDefault TypeColor:typeColorDefault highlightColor:highlightColorDefault];
     [self.canvas addSubview:assignPhoto.canvas];
     assignPhoto.canvas.hidden=YES;
     [self listenFor:@"goToTakePhoto" andRunMethod:@"goToTakePhoto"];

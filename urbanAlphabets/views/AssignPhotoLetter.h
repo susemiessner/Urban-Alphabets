@@ -14,6 +14,11 @@
     UIColor *overlayColor;
     UIColor *navigationColor;
     UIColor *highlightColor;
+    
+    //view variable > which view is active = combining assign photoLetter and alphabets view into one (they are almost same anyways)
+    NSString *whichView;
+    
+    
     //top rect
     C4Shape *defaultRect;
     
@@ -32,9 +37,14 @@
     C4Shape *closeRect;
     
     //bottom Toolbar
+    //>for assign photo
     C4Shape *bottomNavBar;
     C4Image *okButtonImage;
-
+    //>for AlphabetView
+    C4Image *menuButtonImage;
+    C4Image *photoButtonImage;
+    
+    
     //cropped image> lower left
     C4Image *croppedPhoto;
     
@@ -43,7 +53,8 @@
     
     
     //array of default letters
-    NSArray *defaultLetters;
+    NSMutableArray *defaultLetters;
+    NSMutableArray *alphabetArray;
     
     //shapes to highllight the letter clicked
     NSMutableArray *gridRects;
@@ -54,6 +65,6 @@
 
 }
 @property (readwrite, strong) C4Window *mainCanvas;
--(void)setupDefaultBottomBarHeight: (float)bottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault;
+-(void)setupAssignLetterDefaultBottomBarHeight: (float)bottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault;
 
 @end

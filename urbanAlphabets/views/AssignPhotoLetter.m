@@ -3,7 +3,7 @@
 
 @implementation AssignPhotoLetter
 
--(void)setupDefaultBottomBarHeight: (float)BottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault{
+-(void)setupAssignLetterDefaultBottomBarHeight: (float)BottomBarHeightDefault defaultNavBarHeight:(float)TopNavBarHeightDefault defaultTopBarFromTop: (float)TopBarFromTopDefault NavBarColor:(UIColor*)navBarColorDefault NavigationColor:(UIColor*)navigationColorDefault ButtonColor:(UIColor*)buttonColorDefault TypeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault{
     
     //getting all the default variables needed (declared in C4Workspace setup and #define
     TopBarFromTop=TopBarFromTopDefault;
@@ -25,6 +25,7 @@
     [self greyGrid];
     [self drawDefaultLetters];
     notificationCounter=0;
+    whichView=@"assignLetter";
     
 }
 
@@ -43,7 +44,7 @@
     topNavBar.lineWidth=0;
     [self.canvas addShape:topNavBar];
     
-    
+    //text
     fatFont=[C4Font fontWithName:@"HelveticaNeue-Bold" size:17];
     takePhoto = [C4Label labelWithText:@"Assign photo letter" font:fatFont];
     takePhoto.center=topNavBar.center;
@@ -98,7 +99,6 @@
     [self listenFor:@"touchesBegan" fromObject:settingsItem andRunMethod:@"goToSettings"];
     [self.canvas addImage:settingsItem];
 }
-
 -(void)drawDefaultLetters{
     
     /*NSArray *finnishAlphabet=[NSArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E",@"F", @"G", @"H", @"I", @"J",@"K", @"L", @"M", @"N", @"O",@"P", @"Q", @"R", @"S", @"T",@"U", @"V", @"W", @"X", @"Y",@"Z", @"Ä", @"Ö", @"Å", @".",@"!", @"?", @"0", @"1", @"2",@"3", @"4", @"5", @"6", @"6", @"8", @"9",nil];
@@ -154,8 +154,8 @@
                     [C4Image imageNamed:@"letter_8.png"],
                     [C4Image imageNamed:@"letter_9.png"],
                     nil];
-    defaultLetters=finnishLetters;
-    
+    defaultLetters=[finnishLetters mutableCopy];
+    alphabetArray=[[NSMutableArray alloc]init];
     C4Log(@"arrayLength:%i", [defaultLetters count]);
     int imageWidth=53.53;
     int imageHeight=65.1;
@@ -167,11 +167,12 @@
         C4Image *image=[defaultLetters objectAtIndex:i ];
         image.origin=CGPointMake(xPos, yPos);
         image.width=imageWidth;
+        [alphabetArray addObject:image];
         [self.canvas addImage:image];
         [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"highlightLetter:"];
     }
+    C4Log(@"alphabetArrayLength: %i", [alphabetArray count]);
 }
-
 -(void)greyGrid{
     int imageWidth=53.53;
     int imageHeight=65.1;
@@ -189,34 +190,103 @@
     }
 }
 -(void)highlightLetter:(NSNotification *)notification {
+    if ([whichView isEqual:@"assignLetter"]) {
+        for (int i=0; i<[defaultLetters count]; i++) {
+            C4Image *currentImage= defaultLetters[i];
+            currentImage.backgroundColor=navigationColor;
+        }
+        
+        C4Image *currentImage = (C4Image *)notification.object;
+        currentImage.backgroundColor= highlightColor;
+        
+        //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
+        if (notificationCounter==0) {
+            //add Ok button
+            okButtonImage=[C4Image imageNamed:@"icon_OK.png"];
+            okButtonImage.height=45;
+            okButtonImage.width=90;
+            okButtonImage.center=bottomNavBar.center;
+            [self.canvas addImage:okButtonImage];
+            [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToAlphabetsView"];
+        }
+        notificationCounter++;
+    }
+}
+-(void)setupAlphabetsView{
+    
+    //change top bar
+    //>update text
+    takePhoto.text=@"Untitled";
+    [takePhoto sizeToFit];
+    takePhoto.center=topNavBar.center;
+    //>remove close button on upper right
+    [closeButtonImage removeFromSuperview];
+    [closeRect removeFromSuperview];
+    
+    //change bottombar
+    //>remove current buttons
+    [croppedPhoto removeFromSuperview];
+    [settingsItem removeFromSuperview];
+    [okButtonImage removeFromSuperview];
+    //>add new buttons as needed
+    //>>menu
+    menuButtonImage=[C4Image imageNamed:@"icon_Menu.png"];
+    menuButtonImage.width= 45;
+    menuButtonImage.center=bottomNavBar.center;
+    [self.canvas addImage:menuButtonImage];
+    //>>takePhotoIcon
+    photoButtonImage=[C4Image imageNamed:@"icon_TakePhoto.png"];
+    photoButtonImage.width=60;
+    photoButtonImage.center=CGPointMake(photoButtonImage.width/2+5, bottomNavBar.center.y);
+    [self.canvas addImage:photoButtonImage];
+    
+    //add chosen letter to alphabet
+    NSInteger chosenImageNumber=4;
+    //go through all images and find the one selected
     for (int i=0; i<[defaultLetters count]; i++) {
         C4Image *currentImage= defaultLetters[i];
-        currentImage.backgroundColor=navigationColor;
+        
+        if (currentImage.backgroundColor==navigationColor) {
+            chosenImageNumber=i;
+            C4Log(@"chosenImageNumber %i", chosenImageNumber);
+        }
     }
     
-    C4Image *currentImage = (C4Image *)notification.object;
-    currentImage.backgroundColor= highlightColor;
     
-    //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
-    if (notificationCounter==0) {
-        //add Ok button
-        okButtonImage=[C4Image imageNamed:@"icon_OK.png"];
-        okButtonImage.height=45;
-        okButtonImage.width=90;
-        okButtonImage.center=bottomNavBar.center;
-        [self.canvas addImage:okButtonImage];
-        [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToAlphabetsView"];
-    }
-    notificationCounter++;
+
+    //replace selected number in the array with chropped image
+    
+    C4Image *image=[alphabetArray objectAtIndex:chosenImageNumber];
+    [image removeFromSuperview];
+    [alphabetArray replaceObjectAtIndex:chosenImageNumber withObject:croppedPhoto];
+    
+    int imageWidth=53.53;
+    int imageHeight=65.1;
+    int xMultiplier=(chosenImageNumber)%6;
+    int yMultiplier= (chosenImageNumber)/6;
+    int xPos=xMultiplier*imageWidth;
+    int yPos=2+TopBarFromTop+TopNavBarHeight+yMultiplier*imageHeight;
+    image=[alphabetArray objectAtIndex:chosenImageNumber];
+    image.origin=CGPointMake(xPos, yPos);
+    image.width=imageWidth;
+    image.height=imageHeight;
+    [self.canvas addImage:image];
+    
 }
 
 -(void)goToAlphabetsView{
     C4Log(@"goToAlphabetsView");
-    [self postNotification:@"goToAlphabetsView"];
+    //[self postNotification:@"goToAlphabetsView"];
+    whichView=@"AlphabetView";
+    [self setupAlphabetsView];
+    
 }
 -(void) navigateBack{
     C4Log(@"navigating back");
-    [self postNotification:@"goToCropPhoto"];
+    if ([whichView isEqual:@"assignLetter"]) {
+        [self postNotification:@"goToCropPhoto"];
+    }
+    
     
 }
 -(void)goToSettings{

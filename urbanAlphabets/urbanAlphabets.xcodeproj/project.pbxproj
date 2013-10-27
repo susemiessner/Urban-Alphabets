@@ -89,6 +89,7 @@
 		B0BFA388181A953E0011243F /* AlphabetView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BFA386181A953E0011243F /* AlphabetView.m */; };
 		B0BFA389181A953E0011243F /* AlphabetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BFA387181A953E0011243F /* AlphabetView.xib */; };
 		B0BFA38B181A957D0011243F /* icon_Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B0BFA38A181A957D0011243F /* icon_Settings.png */; };
+		B0BFA38D181AA3C00011243F /* icon_Menu.png in Resources */ = {isa = PBXBuildFile; fileRef = B0BFA38C181AA3C00011243F /* icon_Menu.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +237,7 @@
 		B0BFA386181A953E0011243F /* AlphabetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlphabetView.m; path = views/AlphabetView.m; sourceTree = "<group>"; };
 		B0BFA387181A953E0011243F /* AlphabetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlphabetView.xib; path = views/AlphabetView.xib; sourceTree = "<group>"; };
 		B0BFA38A181A957D0011243F /* icon_Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_Settings.png; sourceTree = "<group>"; };
+		B0BFA38C181AA3C00011243F /* icon_Menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_Menu.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -490,6 +492,7 @@
 		B0BFA37C181A80710011243F /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				B0BFA38C181AA3C00011243F /* icon_Menu.png */,
 				B0BFA38A181A957D0011243F /* icon_Settings.png */,
 				B0BFA383181A81480011243F /* icon_TakePhoto.png */,
 				B0BFA381181A81140011243F /* icon_OK.png */,
@@ -546,6 +549,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = SuseMiessner;
 				TargetAttributes = {
+					B09C52D2180E88AE00AE6B9F = {
+						DevelopmentTeam = 33XFTKG77Q;
+					};
 					B09C5339180E88B100AE6B9F = {
 						TestTargetID = B09C52D2180E88AE00AE6B9F;
 					};
@@ -608,6 +614,7 @@
 				B079E60B1817C0EC00EDCF69 /* letter_R.png in Resources */,
 				B079E60E1817C0EC00EDCF69 /* letter_U.png in Resources */,
 				B079E5FA1817C0EC00EDCF69 /* letter_B.png in Resources */,
+				B0BFA38D181AA3C00011243F /* icon_Menu.png in Resources */,
 				B0BFA380181A80ED0011243F /* icon_back.png in Resources */,
 				B079E5ED1817C0EC00EDCF69 /* letter_0.png in Resources */,
 				B079E5EA1817C0EC00EDCF69 /* letter_-.png in Resources */,
@@ -784,6 +791,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "urbanAlphabets/urbanAlphabets-Prefix.pch";
 				INFOPLIST_FILE = "urbanAlphabets/urbanAlphabets-Info.plist";
@@ -792,6 +801,7 @@
 					"/Users/susemiessner/Documents/helsinki/00_thesis\\ idea\\ urban\\ alphabets/19_next\\ version/03_coding/urbanAlphabets/urbanAlphabets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -801,6 +811,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "urbanAlphabets/urbanAlphabets-Prefix.pch";
 				INFOPLIST_FILE = "urbanAlphabets/urbanAlphabets-Info.plist";
@@ -809,6 +821,7 @@
 					"/Users/susemiessner/Documents/helsinki/00_thesis\\ idea\\ urban\\ alphabets/19_next\\ version/03_coding/urbanAlphabets/urbanAlphabets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
