@@ -88,7 +88,7 @@
     alphabetView=[AlphabetView new];
     alphabetView.canvas.frame= CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     alphabetView.canvas.userInteractionEnabled=YES;
-    [alphabetView transferVaribles:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault darkenColor:darkenColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconMenu:iconMenu iconTakePhoto:iconTakePhoto iconAlphabetInfo:iconAlphabetInfo iconShareAlphabet:iconShareAlphabet iconWritePostcard:iconWritePostcard iconMyPostcards:iconMyPostcards iconMyAlphabets:iconMyAlphabets currentAlphabet: currentAlphabet];
+    [alphabetView transferVaribles:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault darkenColor:darkenColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconMenu:iconMenu iconTakePhoto:iconTakePhoto iconAlphabetInfo:iconAlphabetInfo iconShareAlphabet:iconShareAlphabet iconWritePostcard:iconWritePostcard iconMyPostcards:iconMyPostcards iconMyAlphabets:iconMyAlphabets iconSaveImage:iconSaveAlphabet currentAlphabet: currentAlphabet];
     [self.canvas addSubview:alphabetView.canvas];
     alphabetView.canvas.hidden=YES;
     

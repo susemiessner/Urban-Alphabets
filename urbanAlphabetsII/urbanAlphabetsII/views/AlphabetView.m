@@ -13,7 +13,7 @@
 @end
 
 @implementation AlphabetView
--(void)transferVaribles:(int)number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault darkenColor:(UIColor*)darkenColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconMenu:(C4Image*)iconMenuDefault iconTakePhoto:(C4Image*)iconTakePhotoDefault iconAlphabetInfo:(C4Image*)iconAlphabetInfoDefault iconShareAlphabet:(C4Image*)iconShareAlphabetDefault iconWritePostcard:(C4Image*)iconWritePostcardDefault iconMyPostcards:(C4Image*)iconMyPostcardsDefault iconMyAlphabets:(C4Image*)iconMyAlphabetsDefault currentAlphabet: (NSMutableArray*)defaultAlphabet{
+-(void)transferVaribles:(int)number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault darkenColor:(UIColor*)darkenColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconMenu:(C4Image*)iconMenuDefault iconTakePhoto:(C4Image*)iconTakePhotoDefault iconAlphabetInfo:(C4Image*)iconAlphabetInfoDefault iconShareAlphabet:(C4Image*)iconShareAlphabetDefault iconWritePostcard:(C4Image*)iconWritePostcardDefault iconMyPostcards:(C4Image*)iconMyPostcardsDefault iconMyAlphabets:(C4Image*)iconMyAlphabetsDefault iconSaveImage:(C4Image*)iconSaveAlphabetDefault currentAlphabet: (NSMutableArray*)defaultAlphabet{
 
     //nav bar heights
     topBarFromTop=TopBarFromTopDefault;
@@ -25,6 +25,7 @@
     navigationColor=navigationColorDefault;
     typeColor=typeColorDefault;
     darkenColor=darkenColorDefault;
+    whiteColor=[UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     
     //fonts
     fatFont=fatFontDefault;
@@ -40,6 +41,7 @@
     iconWritePostcard=iconWritePostcardDefault;
     iconMyPostcards=iconMyPostcardsDefault;
     iconMyAlphabets=iconMyAlphabetsDefault;
+    iconSaveAlphabet=iconSaveAlphabetDefault;
     
     currentAlphabet=defaultAlphabet;
 }
@@ -191,13 +193,179 @@
 
 
 }
+-(void)setupMenu{
+    float sideMargin=8.2;
+    float smallMargin=1.0;
+    float width=self.canvas.width-2*sideMargin;
+    float height=42.45;
+    float TextmarginFromLeft=103.11;
+    
+    //menu background
+    menuBackground=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, self.canvas.height)];
+    menuBackground.fillColor=darkenColor;
+    menuBackground.lineWidth=0;
+    [self.canvas addShape:menuBackground];
+    
+    //--------------------------------------------------
+    //CANCEL
+    //--------------------------------------------------
+    //cancelShape
+    cancelShape=[C4Shape rect:CGRectMake(sideMargin, self.canvas.height-(sideMargin+height), width, height)];
+    cancelShape.fillColor=whiteColor;
+    cancelShape.lineWidth=0;
+    [self.canvas addShape:cancelShape];
+    [self listenFor:@"touchesBegan" fromObject:cancelShape andRunMethod:@"closeMenu"];
+    
+    //cancel Label
+    cancelLabel=[C4Label labelWithText:@"Cancel" font:fatFont];
+    cancelLabel.center=cancelShape.center;
+    [self.canvas addLabel:cancelLabel];
+    [self listenFor:@"touchesBegan" fromObject:cancelLabel andRunMethod:@"closeMenu"];
+    
+    //--------------------------------------------------
+    //MY ALPHABETS
+    //--------------------------------------------------
+    //shape
+    myAlphabetsShape=[C4Shape rect:CGRectMake(sideMargin, self.canvas.height-(sideMargin*2+height*2), width, height)];
+    myAlphabetsShape.fillColor=whiteColor;
+    myAlphabetsShape.lineWidth=0;
+    [self.canvas addShape:myAlphabetsShape];
+    
+    //label
+    myAlphabetsLabel=[C4Label labelWithText:@"My Alphabets" font:normalFont];
+    myAlphabetsLabel.origin=CGPointMake(TextmarginFromLeft, myAlphabetsShape.center.y-myAlphabetsLabel.height/2);
+    [self.canvas addLabel:myAlphabetsLabel];
+    
+    //image
+    myAlphabetsIcon=iconMyAlphabets;
+    myAlphabetsIcon.width= 70;
+    myAlphabetsIcon.center=CGPointMake(myAlphabetsShape.origin.x+myAlphabetsIcon.width/2+5, myAlphabetsShape.center.y);
+    [self.canvas addImage:myAlphabetsIcon];
+    
+    [self listenFor:@"touchesBegan" fromObjects:@[myAlphabetsShape, myAlphabetsLabel,myAlphabetsIcon] andRunMethod:@"goToMyAlphabets"];
+    
+    
+    //--------------------------------------------------
+    //MY Postcards
+    //--------------------------------------------------
+    myPostcardsShape=[C4Shape rect:CGRectMake(sideMargin, self.canvas.height-(sideMargin*2+height*3+smallMargin), width, height)];
+    myPostcardsShape.fillColor=whiteColor;
+    myPostcardsShape.lineWidth=0;
+    [self.canvas addShape:myPostcardsShape];
+    
+    myPostcardsLabel=[C4Label labelWithText:@"My Postcards" font:normalFont];
+    myPostcardsLabel.origin=CGPointMake(TextmarginFromLeft, myPostcardsShape.center.y-myPostcardsLabel.height/2);
+    [self.canvas addLabel:myPostcardsLabel];
+    
+    myPostcardsIcon=iconMyPostcards;
+    myPostcardsIcon.width= 70;
+    myPostcardsIcon.center=CGPointMake(myPostcardsShape.origin.x+myPostcardsIcon.width/2+5, myPostcardsShape.center.y);
+    [self.canvas addImage:myPostcardsIcon];
+    [self listenFor:@"touchesBegan" fromObjects:@[myPostcardsShape, myPostcardsLabel,myPostcardsIcon] andRunMethod:@"goToMyPostcards"];
+    
+    //--------------------------------------------------
+    //WRITE POSTCARD
+    //--------------------------------------------------
+    writePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.canvas.height-(sideMargin*2+height*4+smallMargin*2), width, height)];
+    writePostcardShape.fillColor=whiteColor;
+    writePostcardShape.lineWidth=0;
+    [self.canvas addShape:writePostcardShape];
+    
+    writePostcardLabel=[C4Label labelWithText:@"Write Postcard" font:normalFont];
+    writePostcardLabel.origin=CGPointMake(TextmarginFromLeft, writePostcardShape.center.y-writePostcardLabel.height/2);
+    [self.canvas addLabel:writePostcardLabel];
+    
+    writePostcardIcon=iconWritePostcard;
+    writePostcardIcon.width= 70;
+    writePostcardIcon.center=CGPointMake(writePostcardShape.origin.x+writePostcardIcon.width/2+5, writePostcardShape.center.y);
+    [self.canvas addImage:writePostcardIcon];
+    [self listenFor:@"touchesBegan" fromObjects:@[writePostcardShape, writePostcardLabel,writePostcardIcon] andRunMethod:@"goToWritePostcard"];
+    //--------------------------------------------------
+    //SAVE ALPHABET
+    //--------------------------------------------------
+    saveAlphabetShape=[C4Shape rect:CGRectMake(sideMargin, self.canvas.height-(sideMargin*2+height*5+smallMargin*3), width, height)];
+    saveAlphabetShape.fillColor=whiteColor;
+    saveAlphabetShape.lineWidth=0;
+    [self.canvas addShape:saveAlphabetShape];
+    
+    saveAlphabetLabel=[C4Label labelWithText:@"Save Alphabet" font:normalFont];
+    saveAlphabetLabel.origin=CGPointMake(TextmarginFromLeft, saveAlphabetShape.center.y-saveAlphabetLabel.height/2);
+    [self.canvas addLabel:saveAlphabetLabel];
+    
+    saveAlphabetIcon=iconSaveAlphabet;
+    saveAlphabetIcon.width= 40;
+    saveAlphabetIcon.center=CGPointMake(saveAlphabetShape.origin.x+writePostcardIcon.width/2+5, saveAlphabetShape.center.y);
+    [self.canvas addImage:saveAlphabetIcon];
+    
+    [self listenFor:@"touchesBegan" fromObjects:@[saveAlphabetShape, saveAlphabetLabel,saveAlphabetIcon] andRunMethod:@"goToSaveAlphabet"];
+    //--------------------------------------------------
+    //SHARE ALPHABET
+    //--------------------------------------------------
+    shareAlphabetShape=[C4Shape rect:CGRectMake(sideMargin, self.canvas.height-(sideMargin*2+height*6+smallMargin*4), width, height)];
+    shareAlphabetShape.fillColor=whiteColor;
+    shareAlphabetShape.lineWidth=0;
+    [self.canvas addShape:shareAlphabetShape];
+    
+    shareAlphabetLabel=[C4Label labelWithText:@"Share Alphabet" font:normalFont];
+    shareAlphabetLabel.origin=CGPointMake(TextmarginFromLeft, shareAlphabetShape.center.y-shareAlphabetLabel.height/2);
+    [self.canvas addLabel:shareAlphabetLabel];
+    
+    shareAlphabetIcon=iconShareAlphabet;
+    shareAlphabetIcon.width= 70;
+    shareAlphabetIcon.center=CGPointMake(shareAlphabetShape.origin.x+shareAlphabetIcon.width/2+5, shareAlphabetShape.center.y);
+    [self.canvas addImage:shareAlphabetIcon];
+    [self listenFor:@"touchesBegan" fromObjects:@[shareAlphabetShape, shareAlphabetLabel,shareAlphabetIcon] andRunMethod:@"goToShareAlphabet"];
+    //--------------------------------------------------
+    //ALPHABET INFO
+    //--------------------------------------------------
+    alphabetInfoShape=[C4Shape rect:CGRectMake(sideMargin, self.canvas.height-(sideMargin*2+height*7+smallMargin*5), width, height)];
+    alphabetInfoShape.fillColor=whiteColor;
+    alphabetInfoShape.lineWidth=0;
+    [self.canvas addShape:alphabetInfoShape];
+    
+    alphabetInfoLabel=[C4Label labelWithText:@"Share Alphabet" font:normalFont];
+    alphabetInfoLabel.origin=CGPointMake(TextmarginFromLeft, alphabetInfoShape.center.y-alphabetInfoLabel.height/2);
+    [self.canvas addLabel:alphabetInfoLabel];
+    
+    alphabetInfoIcon=iconAlphabetInfo;
+    alphabetInfoIcon.width= 38.676;
+    alphabetInfoIcon.center=CGPointMake(alphabetInfoShape.origin.x+shareAlphabetIcon.width/2+5, alphabetInfoShape.center.y);
+    [self.canvas addImage:alphabetInfoIcon];
+    [self listenFor:@"touchesBegan" fromObjects:@[alphabetInfoShape, alphabetInfoLabel,alphabetInfoIcon] andRunMethod:@"goToAlphabetInfo"];
+
+}
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void)openMenu{
     C4Log(@"openMenu");
-    [self removeFromView];
-
+    [self setupMenu];
+    
+    
+}
+-(void)closeMenu{
+    C4Log(@"close Menu");
+    [menuBackground removeFromSuperview];
+    [cancelShape removeFromSuperview];
+    [cancelLabel removeFromSuperview];
+    [myAlphabetsShape removeFromSuperview];
+    [myAlphabetsLabel removeFromSuperview];
+    [myAlphabetsIcon removeFromSuperview];
+    [myPostcardsShape removeFromSuperview];
+    [myPostcardsLabel removeFromSuperview];
+    [myPostcardsIcon removeFromSuperview];
+    [writePostcardShape removeFromSuperview];
+    [writePostcardLabel removeFromSuperview];
+    [writePostcardIcon removeFromSuperview];
+    [saveAlphabetShape removeFromSuperview];
+    [saveAlphabetLabel removeFromSuperview];
+    [saveAlphabetIcon removeFromSuperview];
+    [shareAlphabetShape removeFromSuperview];
+    [shareAlphabetLabel removeFromSuperview];
+    [shareAlphabetIcon removeFromSuperview];
+    [alphabetInfoShape removeFromSuperview];
+    [alphabetInfoLabel removeFromSuperview];
+    [alphabetInfoIcon removeFromSuperview];
 }
 
 -(void) navigateBack{
@@ -213,5 +381,23 @@
 }
 -(void)openLetterView{
     C4Log(@"open LetterView");
+}
+-(void)goToMyAlphabets{
+    C4Log(@"goToMyAlphabets");
+}
+-(void)goToMyPostcards{
+    C4Log(@"goToMyPostcards");
+}
+-(void)goToWritePostcard{
+    C4Log(@"goToWritePostcard");
+}
+-(void)goToSaveAlphabet{
+    C4Log(@"goToSaveAlphabet");
+}
+-(void)goToShareAlphabet{
+    C4Log(@"goToShareAlphabet");
+}
+-(void)goToAlphabetInfo{
+    C4Log(@"goToAlphabetInfo");
 }
 @end
