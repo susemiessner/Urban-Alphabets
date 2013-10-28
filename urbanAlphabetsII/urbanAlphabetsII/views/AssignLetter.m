@@ -123,6 +123,7 @@
     
     self.currentAlphabet=[currentAlphabetPassed mutableCopy];
     C4Log(@"currentAlphabetLength: %i", [self.currentAlphabet count]);
+    C4Log(@"drawing the alphabet");
     float imageWidth=53.53;
     float imageHeight=65.1;
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
@@ -140,29 +141,15 @@
 -(void)highlightLetter:(NSNotification *)notification {
     
     for (int i=0; i<[self.currentAlphabet count]; i++) {
-        C4Image *currentImage= self.currentAlphabet[i];
+        currentImage= self.currentAlphabet[i];
         currentImage.backgroundColor=navigationColor;
     }
     
-    C4Image *currentImage = (C4Image *)notification.object;
+    currentImage = (C4Image *)notification.object;
     C4Log(@"currentImage x:%f",currentImage.origin.x);
     chosenImage=CGPointMake(currentImage.origin.x, currentImage.origin.y);
     currentImage.backgroundColor= highlightColor;
     
-    //which one was chosen??
-    C4Log(@"going to Alphabetsview");
-    float imageWidth=53.53;
-    float imageHeight=65.1;
-    float i=chosenImage.x/imageWidth;
-    C4Log(@"i:%i", i);
-    float j=chosenImage.y/imageHeight;
-    C4Log(@"j:%i", j);
-    
-    int chosenImageNumberInArray=((j-1)*6)+i;
-    id chosenImageNumber= [NSNumber numberWithInt:chosenImageNumberInArray];
-    C4Log(@"chosenImageNo:%i",chosenImageNumberInArray);
-    
-    //ending here
     
     //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
     if (notificationCounter==0) {
@@ -172,7 +159,7 @@
         okButtonImage.width=90;
         okButtonImage.center=bottomNavBar.center;
         [self.canvas addImage:okButtonImage];
-        [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToAlphabetsView"];
+        [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToAlphabetsViewAddingImageToAlphabet"];
     }
     notificationCounter++;
     
@@ -180,7 +167,7 @@
 -(void)greyGrid{
     float imageWidth=53.53;
     float imageHeight=65.1;
-    
+    greyRectArray=[[NSMutableArray alloc]init];
     for (NSUInteger i=0; i<42; i++) {
         float xMultiplier=(i
                          )%6;
@@ -191,8 +178,10 @@
         greyRect.fillColor=navigationColor;
         greyRect.lineWidth=2;
         greyRect.strokeColor=navBarColor;
+        [greyRectArray addObject:greyRect];
         [self.canvas addShape:greyRect];
     }
+    C4Log(@"greyRect Array length:%i",[greyRectArray count]);
 }
 -(void)drawCroppedPhoto:(C4Image*)croppedPhoto{
     croppedImage=croppedPhoto;
@@ -202,24 +191,90 @@
     croppedImage.center=CGPointMake(croppedImage.width/2+5, bottomNavBar.center.y);
     [self.canvas addImage:croppedImage];
 }
+-(void)removeFromView{
+    //top bar
+    [defaultRect removeFromSuperview];
+    [topNavBar removeFromSuperview];
+    [titleLabel removeFromSuperview];
+    //left
+    [backLabel removeFromSuperview];
+    [backButtonImage removeFromSuperview];
+    [navigateBackRect removeFromSuperview];
+    //right
+    [closeButtonImage removeFromSuperview];
+    [closeRect removeFromSuperview];
+    
+    //bottom bar
+    [bottomNavBar removeFromSuperview];
+    [okButtonImage removeFromSuperview];
+    [settingsButtonImage removeFromSuperview];
+    [croppedImage removeFromSuperview];
+    
+    //highlighted image
+    [currentImage removeFromSuperview];
+    
+    for (int i=0; i<[self.currentAlphabet count]; i++) {
+        C4Image *image=[self.currentAlphabet objectAtIndex:i];
+        [image removeFromSuperview];
+        
+    }
+    for (int i=0; i<[greyRectArray count]; i++) {
+        C4Shape *shape=[greyRectArray objectAtIndex:i];
+        [shape removeFromSuperview];
+    }
+    
+
+}
 
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) navigateBack{
     C4Log(@"navigating back");
+    [self removeFromView];
     [self postNotification:@"goToCropPhoto"];
 }
-
 -(void) goToAlphabetsView{
+    C4Log(@"going to Alphabetsview");
+    [self postNotification:@"goToAlphabetsView"];
     
-    //[self.currentAlphabet removeObject:chosenImageNumber];
-    //[self.currentAlphabet insertObject:croppedImage atIndex:chosenImageNumberInArray];
+    [self removeFromView];
+}
+
+-(void) goToAlphabetsViewAddingImageToAlphabet{
+    //--------------------------------------------------
+    //which image was chosen
+    //--------------------------------------------------
     
+
+    C4Log(@"going to Alphabetsview");
+    float imageWidth=53.53;
+    float imageHeight=65.1;
+    float i=chosenImage.x/imageWidth;
+    //C4Log(@"i:%i", i);
+    float j=chosenImage.y/imageHeight;
+    //C4Log(@"j:%i", j);
+    
+    self.chosenImageNumberInArray=((j-1)*6)+i;
+    //C4Log(@"chosenImageNo:%i",chosenImageNumberInArray);
+
+    //C4Log(@"currentAlphabet length (before removing): %i", [self.currentAlphabet count]);
+    [self.currentAlphabet removeObjectAtIndex:self.chosenImageNumberInArray];
+    //C4Log(@"currentAlphabet length (after removing) : %i", [self.currentAlphabet count]);
+    [self.currentAlphabet insertObject:croppedImage atIndex:self.chosenImageNumberInArray];
+    //C4Log(@"currentAlphabet length (after inserting): %i", [self.currentAlphabet count]);
+
+    //ending here
+
+    [self postNotification:@"currentAlphabetChanged"];
+    
+    [self removeFromView];
     [self postNotification:@"goToAlphabetsView"];
 }
 -(void)goToSettings{
     C4Log(@"go to Settings");
+    [self removeFromView];
+
 }
 
 

@@ -59,10 +59,13 @@
     //-----------------------
     C4Image *croppedImage;
     CGPoint chosenImage;
+    NSMutableArray *greyRectArray;
+    C4Image *currentImage;
+    
     
 }
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;//the current alphabet > will be changed so should be accessible from outside for next screen
-
+@property (readwrite) NSUInteger chosenImageNumberInArray;
 
 -(void)transferVariables:(int) number topBarFroTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconOk:(C4Image*)iconOkDefault iconSettings:(C4Image*)iconSettingsDefault;
 -(void)setup;
@@ -73,8 +76,12 @@
 -(void)highlightLetter:(NSNotification *)notification;
 -(void)greyGrid;
 -(void)drawCroppedPhoto:(C4Image*)croppedPhoto;
+
+-(void)removeFromView;
+
 //navigation functions
 -(void)navigateBack;
 -(void)goToAlphabetsView;
+-(void)goToAlphabetsViewAddingImageToAlphabet;
 -(void)goToSettings;
 @end

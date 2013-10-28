@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DADC4FF0181D1554005D2F0E"
-               BuildableName = "urbanAlphabetsIII.app"
+               BuildableName = "urbanAlphabetsII.app"
                BlueprintName = "urbanAlphabetsII"
                ReferencedContainer = "container:urbanAlphabetsII.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DADC5057181D1558005D2F0E"
-               BuildableName = "urbanAlphabetsIIITests.xctest"
+               BuildableName = "urbanAlphabetsIITests.xctest"
                BlueprintName = "urbanAlphabetsIITests"
                ReferencedContainer = "container:urbanAlphabetsII.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DADC4FF0181D1554005D2F0E"
-            BuildableName = "urbanAlphabetsIII.app"
+            BuildableName = "urbanAlphabetsII.app"
             BlueprintName = "urbanAlphabetsII"
             ReferencedContainer = "container:urbanAlphabetsII.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DADC4FF0181D1554005D2F0E"
-            BuildableName = "urbanAlphabetsIII.app"
+            BuildableName = "urbanAlphabetsII.app"
             BlueprintName = "urbanAlphabetsII"
             ReferencedContainer = "container:urbanAlphabetsII.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DADC4FF0181D1554005D2F0E"
-            BuildableName = "urbanAlphabetsIII.app"
+            BuildableName = "urbanAlphabetsII.app"
             BlueprintName = "urbanAlphabetsII"
             ReferencedContainer = "container:urbanAlphabetsII.xcodeproj">
          </BuildableReference>

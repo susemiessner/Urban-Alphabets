@@ -150,18 +150,17 @@
         [self removeFromView];
         C4Log(@"go to CropPhoto");
         [self postNotification:@"goToCropPhoto"];
-        //[self removeFromView];
     }
     counter++;
 }
 -(void) navigateBack{
     C4Log(@"navigating back");
-    //[self removeFromView];
+    [self removeFromView];
 }
 
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
     [self postNotification:@"goToAlphabetsView"];
-    //[self removeFromView];
+    [self removeFromView];
 }
 @end

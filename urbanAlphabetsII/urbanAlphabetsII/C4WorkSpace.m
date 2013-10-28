@@ -7,6 +7,7 @@
 
 #import "C4Workspace.h"
 
+
 @implementation C4WorkSpace
 
 -(void)setup {
@@ -18,6 +19,7 @@
     typeColorDefault=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:1];
     overlayColorDefault=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:0.5];
     highlightColorDefault=[UIColor colorWithRed:0.757 green:0.964 blue:0.617 alpha:0.5];
+    darkenColorDefault=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:0.8];
     
     //>nav bar heights
     TopBarFromTopDefault=   20.558;
@@ -29,28 +31,38 @@
     normalFontDefault=  [C4Font fontWithName:@"HelveticaNeue" size:17];
     
     //>icons
-    iconTakePhoto=  [C4Image imageNamed:@"icon_TakePhoto.png"];
-    iconClose=      [C4Image imageNamed:@"icon_Close.png"];
-    iconBack=       [C4Image imageNamed:@"icon_back.png"];
-    iconOk=         [C4Image imageNamed:@"icon_OK.png"];
-    iconSettings=   [C4Image imageNamed:@"icon_Settings.png"];
+    iconTakePhoto=      [C4Image imageNamed:@"icon_TakePhoto.png"];
+    iconClose=          [C4Image imageNamed:@"icon_Close.png"];
+    iconBack=           [C4Image imageNamed:@"icon_back.png"];
+    iconOk=             [C4Image imageNamed:@"icon_OK.png"];
+    iconSettings=       [C4Image imageNamed:@"icon_Settings.png"];
+    iconAlphabetInfo=   [C4Image imageNamed:@"icon_information.png"];
+    iconShareAlphabet=  [C4Image imageNamed:@"icon_ShareAlphabet.png"];
+    iconSaveAlphabet=   [C4Image imageNamed:@"icon_Save.png"];
+    iconWritePostcard=  [C4Image imageNamed:@"icon_Postcard.png"];
+    iconMyPostcards=    [C4Image imageNamed:@"icon_Postcards.png"];
+    iconMyAlphabets=    [C4Image imageNamed:@"icon_Alphabets.png"];
+    iconMenu=           [C4Image imageNamed:@"icon_Menu.png"];
     
-    
-    [self createViews];
     [self loadDefaultAlphabet];
-    
+    [self createViews];
+
     //the methods to listen for from all other canvasses
     [self listenFor:@"goToTakePhoto" andRunMethod:@"goToTakePhoto"];
     [self listenFor:@"goToCropPhoto" andRunMethod:@"goToCropPhoto"];
     [self listenFor:@"goToAssignPhoto" andRunMethod:@"goToAssignPhoto"];
+    [self listenFor:@"goToAlphabetsView" andRunMethod:@"goToAlphabetsView"];
+    [self listenFor:@"navigatingBackBetweenAlphabet+AssignLetter" andRunMethod:@"navigatingBackBetweenAlphabetAndAssignLetter"];
 
+    //listen if current alphabet was changed
+    [self listenFor:@"currentAlphabetChanged" andRunMethod:@"currentAlphabetChanged"];
 }
 -(void)createViews{
     //TakePhoto
     takePhoto= [TakePhoto new];
     takePhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     takePhoto.canvas.userInteractionEnabled = YES;
-    [takePhoto transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconTakePhoto:iconTakePhoto iconClose:iconClose iconBack:iconBack];
+    [takePhoto transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconTakePhoto:iconTakePhoto iconClose:iconClose iconBack:iconBack ];
     [takePhoto setup];
     [takePhoto cameraSetup];
     [self.canvas addSubview:takePhoto.canvas];
@@ -71,9 +83,18 @@
 
     [self.canvas addSubview:assignLetter.canvas ];
     assignLetter.canvas.hidden=YES;
+    
+    //AlphabetView
+    alphabetView=[AlphabetView new];
+    alphabetView.canvas.frame= CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    alphabetView.canvas.userInteractionEnabled=YES;
+    [alphabetView transferVaribles:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault darkenColor:darkenColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconMenu:iconMenu iconTakePhoto:iconTakePhoto iconAlphabetInfo:iconAlphabetInfo iconShareAlphabet:iconShareAlphabet iconWritePostcard:iconWritePostcard iconMyPostcards:iconMyPostcards iconMyAlphabets:iconMyAlphabets currentAlphabet: currentAlphabet];
+    [self.canvas addSubview:alphabetView.canvas];
+    alphabetView.canvas.hidden=YES;
+    
 }
 -(void)loadDefaultAlphabet{
-    NSArray *finnishAlphabet=[NSArray arrayWithObjects:
+    finnishAlphabet=[NSArray arrayWithObjects:
                                      //first row
                                      [C4Image imageNamed:@"letter_A.png"],
                                      [C4Image imageNamed:@"letter_B.png"],
@@ -134,6 +155,10 @@
 
 }
 
+-(void)currentAlphabetChanged{
+    C4Log(@"current alphabet changed");
+    currentAlphabet=[assignLetter.currentAlphabet mutableCopy];
+}
 
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
@@ -146,6 +171,7 @@
     takePhoto.canvas.hidden=NO;
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=YES;
+    alphabetView.canvas.hidden=YES;
 }
 -(void)goToCropPhoto{
     C4Log(@"going to CropPhoto");
@@ -154,6 +180,7 @@
     takePhoto.canvas.hidden=YES;
     cropPhoto.canvas.hidden=NO;
     assignLetter.canvas.hidden=YES;
+    alphabetView.canvas.hidden=YES;
 }
 -(void)goToAssignPhoto{
     C4Log(@"AssignPhoto");
@@ -163,6 +190,29 @@
     takePhoto.canvas.hidden=YES;
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=NO;
+    alphabetView.canvas.hidden=YES;
+}
+-(void)goToAlphabetsView{
+    C4Log(@"AlphabetsView");
+    [alphabetView setup];
+    [alphabetView drawCurrentAlphabet:currentAlphabet];
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=YES;
+    assignLetter.canvas.hidden=YES;
+    alphabetView.canvas.hidden=NO;
+}
+-(void)navigatingBackBetweenAlphabetAndAssignLetter{
+    C4Log(@"navigating back between alphabet and assign");
+    C4Image *imageToSend=[finnishAlphabet objectAtIndex: assignLetter.chosenImageNumberInArray];
+    [currentAlphabet removeObjectAtIndex:assignLetter.chosenImageNumberInArray];
+    [currentAlphabet insertObject:imageToSend atIndex:assignLetter.chosenImageNumberInArray];
+    [assignLetter setup];
+    [assignLetter drawCurrentAlphabet:currentAlphabet];
+    [assignLetter drawCroppedPhoto:cropPhoto.croppedPhoto];
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=YES;
+    assignLetter.canvas.hidden=NO;
+    alphabetView.canvas.hidden=YES;
 }
 
 @end
