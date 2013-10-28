@@ -36,7 +36,8 @@
 }
 -(void)setup{
     [self topBarSetup];
-    
+    [self bottomBarSetup];
+    [self greyGrid];
 }
 -(void)topBarSetup{
     //--------------------
@@ -98,6 +99,110 @@
     [self listenFor:@"touchesBegan" fromObject:closeRect andRunMethod:@"goToAlphabetsView"];
 
 }
+-(void)bottomBarSetup{
+    //--------------------------------------------------
+    //underlying rect
+    //--------------------------------------------------
+    bottomNavBar=[C4Shape rect:CGRectMake(0, self.canvas.height-(bottomBarHeight), self.canvas.width, bottomBarHeight)];
+    bottomNavBar.fillColor= navBarColor;
+    bottomNavBar.lineWidth=0;
+    [self.canvas addShape:bottomNavBar];
+    
+    //--------------------------------------------------
+    //BUTTON RIGHT (SETTINGS)
+    //--------------------------------------------------
+    settingsButtonImage=iconSettings;
+    settingsButtonImage.width=30.017;
+    settingsButtonImage.center=CGPointMake(self.canvas.width-settingsButtonImage.width/2-5, bottomNavBar.center.y);
+    [self.canvas addImage:settingsButtonImage];
+    [self listenFor:@"touchesBegan" fromObject:settingsButtonImage andRunMethod:@"goToSettings"];
+
+}
+-(void)drawCurrentAlphabet: (NSMutableArray*)currentAlphabetPassed{
+    notificationCounter=0; //to make sure ok button is only added 1x
+    
+    self.currentAlphabet=[currentAlphabetPassed mutableCopy];
+    C4Log(@"currentAlphabetLength: %i", [self.currentAlphabet count]);
+    float imageWidth=53.53;
+    float imageHeight=65.1;
+    for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
+        float xMultiplier=(i)%6;
+        float yMultiplier= (i)/6;
+        float xPos=xMultiplier*imageWidth;
+        float yPos=2+topBarFromTop+topBarHeight+yMultiplier*imageHeight;
+        C4Image *image=[self.currentAlphabet objectAtIndex:i ];
+        image.origin=CGPointMake(xPos, yPos);
+        image.width=imageWidth;
+        [self.canvas addImage:image];
+        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"highlightLetter:"];
+    }
+}
+-(void)highlightLetter:(NSNotification *)notification {
+    
+    for (int i=0; i<[self.currentAlphabet count]; i++) {
+        C4Image *currentImage= self.currentAlphabet[i];
+        currentImage.backgroundColor=navigationColor;
+    }
+    
+    C4Image *currentImage = (C4Image *)notification.object;
+    C4Log(@"currentImage x:%f",currentImage.origin.x);
+    chosenImage=CGPointMake(currentImage.origin.x, currentImage.origin.y);
+    currentImage.backgroundColor= highlightColor;
+    
+    //which one was chosen??
+    C4Log(@"going to Alphabetsview");
+    float imageWidth=53.53;
+    float imageHeight=65.1;
+    float i=chosenImage.x/imageWidth;
+    C4Log(@"i:%i", i);
+    float j=chosenImage.y/imageHeight;
+    C4Log(@"j:%i", j);
+    
+    int chosenImageNumberInArray=((j-1)*6)+i;
+    id chosenImageNumber= [NSNumber numberWithInt:chosenImageNumberInArray];
+    C4Log(@"chosenImageNo:%i",chosenImageNumberInArray);
+    
+    //ending here
+    
+    //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
+    if (notificationCounter==0) {
+        //add Ok button
+        okButtonImage=[C4Image imageNamed:@"icon_OK.png"];
+        okButtonImage.height=45;
+        okButtonImage.width=90;
+        okButtonImage.center=bottomNavBar.center;
+        [self.canvas addImage:okButtonImage];
+        [self listenFor:@"touchesBegan" fromObject:okButtonImage andRunMethod:@"goToAlphabetsView"];
+    }
+    notificationCounter++;
+    
+}
+-(void)greyGrid{
+    float imageWidth=53.53;
+    float imageHeight=65.1;
+    
+    for (NSUInteger i=0; i<42; i++) {
+        float xMultiplier=(i
+                         )%6;
+        float yMultiplier= (i)/6;
+        float xPos=xMultiplier*imageWidth;
+        float yPos=2+topBarFromTop+topBarHeight+yMultiplier*imageHeight;
+        C4Shape *greyRect=[C4Shape rect:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        greyRect.fillColor=navigationColor;
+        greyRect.lineWidth=2;
+        greyRect.strokeColor=navBarColor;
+        [self.canvas addShape:greyRect];
+    }
+}
+-(void)drawCroppedPhoto:(C4Image*)croppedPhoto{
+    croppedImage=croppedPhoto;
+    C4Log(@"drawing cropped Photo");
+    croppedImage.width=32.788;
+    croppedImage.height=40.422;
+    croppedImage.center=CGPointMake(croppedImage.width/2+5, bottomNavBar.center.y);
+    [self.canvas addImage:croppedImage];
+}
+
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
@@ -107,8 +212,14 @@
 }
 
 -(void) goToAlphabetsView{
-    C4Log(@"going to Alphabetsview");
+    
+    //[self.currentAlphabet removeObject:chosenImageNumber];
+    //[self.currentAlphabet insertObject:croppedImage atIndex:chosenImageNumberInArray];
+    
     [self postNotification:@"goToAlphabetsView"];
+}
+-(void)goToSettings{
+    C4Log(@"go to Settings");
 }
 
 

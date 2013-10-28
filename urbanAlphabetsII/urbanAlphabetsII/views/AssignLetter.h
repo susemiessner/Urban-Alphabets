@@ -51,11 +51,30 @@
     //-----------------------
     C4Shape *bottomNavBar;
     C4Image *okButtonImage;
+    int notificationCounter; //to make sure Ok button is only added 1x
     C4Image *settingsButtonImage;
     
+    //-----------------------
+    //OTHER STUFF
+    //-----------------------
+    C4Image *croppedImage;
+    CGPoint chosenImage;
     
 }
+@property (readwrite, strong)  NSMutableArray *currentAlphabet;//the current alphabet > will be changed so should be accessible from outside for next screen
+
+
 -(void)transferVariables:(int) number topBarFroTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconOk:(C4Image*)iconOkDefault iconSettings:(C4Image*)iconSettingsDefault;
 -(void)setup;
 -(void)topBarSetup;
+-(void)bottomBarSetup;
+
+-(void)drawCurrentAlphabet: (NSMutableArray*)currentAlphabetPassed;
+-(void)highlightLetter:(NSNotification *)notification;
+-(void)greyGrid;
+-(void)drawCroppedPhoto:(C4Image*)croppedPhoto;
+//navigation functions
+-(void)navigateBack;
+-(void)goToAlphabetsView;
+-(void)goToSettings;
 @end

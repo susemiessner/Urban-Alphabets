@@ -37,6 +37,7 @@
     
     
     [self createViews];
+    [self loadDefaultAlphabet];
     
     //the methods to listen for from all other canvasses
     [self listenFor:@"goToTakePhoto" andRunMethod:@"goToTakePhoto"];
@@ -51,7 +52,7 @@
     takePhoto.canvas.userInteractionEnabled = YES;
     [takePhoto transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconTakePhoto:iconTakePhoto iconClose:iconClose iconBack:iconBack];
     [takePhoto setup];
-
+    [takePhoto cameraSetup];
     [self.canvas addSubview:takePhoto.canvas];
     
     //CropPhoto
@@ -67,14 +68,79 @@
     assignLetter.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     assignLetter.canvas.userInteractionEnabled=YES;
     [assignLetter transferVariables:1 topBarFroTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault highlightColor:highlightColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconOk:iconOk iconSettings:iconSettings];
-    [assignLetter setup];
 
     [self.canvas addSubview:assignLetter.canvas ];
     assignLetter.canvas.hidden=YES;
 }
+-(void)loadDefaultAlphabet{
+    NSArray *finnishAlphabet=[NSArray arrayWithObjects:
+                                     //first row
+                                     [C4Image imageNamed:@"letter_A.png"],
+                                     [C4Image imageNamed:@"letter_B.png"],
+                                     [C4Image imageNamed:@"letter_C.png"],
+                                     [C4Image imageNamed:@"letter_D.png"],
+                                     [C4Image imageNamed:@"letter_E.png"],
+                                     [C4Image imageNamed:@"letter_F.png"],
+                                     //second row
+                                     [C4Image imageNamed:@"letter_G.png"],
+                                     [C4Image imageNamed:@"letter_H.png"],
+                                     [C4Image imageNamed:@"letter_I.png"],
+                                     [C4Image imageNamed:@"letter_J.png"],
+                                     [C4Image imageNamed:@"letter_K.png"],
+                                     [C4Image imageNamed:@"letter_L.png"],
+                                     
+                                     [C4Image imageNamed:@"letter_M.png"],
+                                     [C4Image imageNamed:@"letter_N.png"],
+                                     [C4Image imageNamed:@"letter_O.png"],
+                                     [C4Image imageNamed:@"letter_P.png"],
+                                     [C4Image imageNamed:@"letter_Q.png"],
+                                     [C4Image imageNamed:@"letter_R.png"],
+                                     
+                                     [C4Image imageNamed:@"letter_S.png"],
+                                     [C4Image imageNamed:@"letter_T.png"],
+                                     [C4Image imageNamed:@"letter_U.png"],
+                                     [C4Image imageNamed:@"letter_V.png"],
+                                     [C4Image imageNamed:@"letter_W.png"],
+                                     [C4Image imageNamed:@"letter_X.png"],
+                                     
+                                     [C4Image imageNamed:@"letter_Y.png"],
+                                     [C4Image imageNamed:@"letter_Z.png"],
+                                     [C4Image imageNamed:@"letter_Ä.png"],
+                                     [C4Image imageNamed:@"letter_Ö.png"],
+                                     [C4Image imageNamed:@"letter_Å.png"],
+                                     [C4Image imageNamed:@"letter_.png"],//.
+                                     
+                                     [C4Image imageNamed:@"letter_!.png"],
+                                     [C4Image imageNamed:@"letter_-.png"],//?
+                                     [C4Image imageNamed:@"letter_0.png"],
+                                     [C4Image imageNamed:@"letter_1.png"],
+                                     [C4Image imageNamed:@"letter_2.png"],
+                                     [C4Image imageNamed:@"letter_3.png"],
+                                     
+                                     [C4Image imageNamed:@"letter_4.png"],
+                                     [C4Image imageNamed:@"letter_5.png"],
+                                     [C4Image imageNamed:@"letter_6.png"],
+                                     [C4Image imageNamed:@"letter_7.png"],
+                                     [C4Image imageNamed:@"letter_8.png"],
+                                     [C4Image imageNamed:@"letter_9.png"],
+                                     nil];
+    //C4Log(@"finnish alphabet length: %i", [finnishAlphabet count]);
+    currentAlphabet=[[NSMutableArray alloc]init];
+    for (int i=0; i<[finnishAlphabet count]; i++) {
+        C4Image *currentImage=[finnishAlphabet objectAtIndex:i];
+        [currentAlphabet addObject:currentImage];
+    }
+    C4Log(@"current alphabet length: %i", [currentAlphabet count]);
+
+}
+
+
+//------------------------------------------------------------------------
+//NAVIGATION FUNCTIONS
+//------------------------------------------------------------------------
 -(void)goToTakePhoto{
     [takePhoto resetCounter];
-    //[takePhoto setup];
+    [takePhoto setup];
 
     C4Log(@"TakePhoto");
     takePhoto.canvas.hidden=NO;
@@ -91,7 +157,9 @@
 }
 -(void)goToAssignPhoto{
     C4Log(@"AssignPhoto");
-    //[assignLetter setup];
+    [assignLetter setup];
+    [assignLetter drawCurrentAlphabet:currentAlphabet];
+    [assignLetter drawCroppedPhoto:cropPhoto.croppedPhoto];
     takePhoto.canvas.hidden=YES;
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=NO;

@@ -40,9 +40,18 @@
     C4Image *iconBack;
     C4Image *iconOk;
     C4Image *iconSettings;
+    
+    //current alphabet
+    NSMutableArray *currentAlphabet;
 }
 -(void)createViews;
+
+-(void)loadDefaultAlphabet;
+
+//navigation Functions
 -(void)goToTakePhoto;
 -(void)goToCropPhoto;
 -(void)goToAssignPhoto;
+
+
 @end

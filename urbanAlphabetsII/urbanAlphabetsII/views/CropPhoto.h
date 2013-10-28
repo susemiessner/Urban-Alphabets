@@ -75,6 +75,8 @@
 -(void)displayImage:(C4Image*)image;
 -(void)transparentOverlayX1: (NSUInteger)touchX1 Y1:(NSUInteger)touchY1 X2:(NSUInteger) touchX2 Y2:(NSUInteger)touchY2;
 
+-(void)removeFromView;
+
 //navigation functions
 -(void) navigateBack;
 -(void) goToAlphabetsView;

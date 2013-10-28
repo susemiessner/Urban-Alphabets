@@ -116,6 +116,9 @@
     [self.canvas addImage:OkButtonImage];
     [self listenFor:@"touchesBegan" fromObject:OkButtonImage andRunMethod:@"saveImage"];
     
+    //--------------------------------------------------
+    //ZOOM STEPPER
+    //--------------------------------------------------
     zoomStepper=[C4Stepper stepper];
     zoomStepper.center=CGPointMake(50, self.canvas.height-20);
     zoomStepper.backgroundColor=navBarColor;
@@ -171,22 +174,58 @@
     
 }
 //------------------------------------------------------------------------
+//REMOVE ALL ELEMENTS FROM VIEW WHEN NAVIGATING SOMEWHERE ELSE
+//------------------------------------------------------------------------
+-(void)removeFromView{
+    //top bar
+    [defaultRect removeFromSuperview];
+    [topNavBar removeFromSuperview];
+    [titleLabel removeFromSuperview];
+    
+    [backLabel removeFromSuperview];
+    [backLabel removeFromSuperview];
+    [navigateBackRect removeFromSuperview];
+    
+    [closeButtonImage removeFromSuperview];
+    [closeRect removeFromSuperview];
+    
+    //bottom bar
+    [bottomNavBar removeFromSuperview];
+    [OkButtonImage removeFromSuperview];
+    [zoomStepper removeFromSuperview];
+    
+    //overlay rects
+    [upperRect removeFromSuperview];
+    [lowerRect removeFromSuperview];
+    [leftRect removeFromSuperview];
+    [rightRect removeFromSuperview];
+    
+    //other stuff
+    [photoTaken removeFromSuperview];
+    [self.croppedPhoto removeFromSuperview];
+}
+
+//------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) navigateBack{
     C4Log(@"navigating back");
     [self postNotification:@"goToTakePhoto"];
+    [self removeFromView];
 }
 
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
     [self postNotification:@"goToAlphabetsView"];
+    //[self removeFromView];
 }
 -(void)saveImage{
     C4Log(@"saving image!");
     //crop image
     self.croppedPhoto=[self cropImage:photoTaken withOrigin:photoTaken.origin toArea:CGRectMake(50.532, topBarFromTop+topBarHeight+86.764, self.canvas.width-2*50.532, 266.472)];
     self.croppedPhoto.origin=CGPointMake(0, 0);
+    
+    [self removeFromView];
     
     //uncomment to save the photo to photo library and app's image directory
     //[self exportHighResImage];

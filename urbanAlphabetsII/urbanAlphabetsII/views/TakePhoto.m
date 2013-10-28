@@ -34,7 +34,7 @@
 -(void)setup{
     [self topBarSetup];
     [self bottomBarSetup];
-    [self cameraSetup];
+    //[self cameraSetup];
 }
 -(void)topBarSetup{
     //--------------------------------------------------
@@ -126,22 +126,42 @@
     counter=0;
 }
 //------------------------------------------------------------------------
+//REMOVE ALL ELEMENTS FROM VIEW WHEN NAVIGATING SOMEWHERE ELSE
+//------------------------------------------------------------------------
+-(void)removeFromView{
+    [topNavBar removeFromSuperview];
+    [titleLabel removeFromSuperview];
+    [backLabel removeFromSuperview];
+    [backButtonImage removeFromSuperview];
+    [navigateBackRect removeFromSuperview];
+    [closeButtonImage removeFromSuperview];
+    [closeRect removeFromSuperview];
+    [bottomNavBar removeFromSuperview];
+    [photoButtonImage removeFromSuperview];
+    //[cam removeFromSuperview];
+    [self.img removeFromSuperview];
+}
+//------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void)goToCropPhoto{
     if (counter==0) {
         self.img = cam.capturedImage;
+        [self removeFromView];
         C4Log(@"go to CropPhoto");
         [self postNotification:@"goToCropPhoto"];
+        //[self removeFromView];
     }
     counter++;
 }
 -(void) navigateBack{
     C4Log(@"navigating back");
+    //[self removeFromView];
 }
 
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
     [self postNotification:@"goToAlphabetsView"];
+    //[self removeFromView];
 }
 @end

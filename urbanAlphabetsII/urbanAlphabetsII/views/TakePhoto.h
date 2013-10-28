@@ -71,6 +71,8 @@
 
 -(void)captureImage;
 
+-(void)removeFromView;
+
 //navigation functions
 -(void) goToCropPhoto;
 -(void) navigateBack;
