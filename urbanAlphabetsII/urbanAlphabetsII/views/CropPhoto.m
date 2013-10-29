@@ -124,18 +124,9 @@
     //ZOOM STEPPER
     //--------------------------------------------------
     zoomStepper=[C4Stepper stepper];
-    zoomStepper.center=CGPointMake(50, bottomNavBar.center.y);
-    //zoomStepper.backgroundColor=navBarColor;
-    iconZoomPlus.width=40;
-    iconZoom.width=90;
-    iconZoomMinus.width=iconZoomPlus.width;
-    /*[zoomStepper setIncrementImage:iconZoomPlus forState:NORMAL];
-    [zoomStepper setIncrementImage:iconZoomPlus forState:HIGHLIGHTED];
-    [zoomStepper setIncrementImage:iconZoomPlus forState:SELECTED];
-    [zoomStepper setIncrementImage:iconZoomPlus forState:DISABLED];*/
-
-    //[zoomStepper setDecrementImage:iconZoomMinus forState:NORMAL];
-    //[zoomStepper setBackgroundImage:iconZoom  forState:NORMAL];
+    zoomStepper.center=CGPointMake(zoomStepper.width/2+5, bottomNavBar.center.y);
+    zoomStepper.backgroundColor=navBarColor;
+    zoomStepper.tintColor=typeColor;
     [zoomStepper runMethod:@"stepperValueChanged:" target:self forEvent:VALUECHANGED];
     [self.canvas addSubview:zoomStepper];
     zoomStepper.maximumValue=10.0f;
