@@ -20,6 +20,7 @@
     overlayColorDefault=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:0.5];
     highlightColorDefault=[UIColor colorWithRed:0.757 green:0.964 blue:0.617 alpha:0.5];
     darkenColorDefault=[UIColor colorWithRed:0.19921875 green:0.19921875 blue:0.19921875 alpha:0.8];
+    greyTypeDefault=[UIColor colorWithRed:0.3984375 green:0.3984375 blue:0.3984375 alpha:1.0];
     
     //>nav bar heights
     TopBarFromTopDefault=   20.558;
@@ -43,6 +44,12 @@
     iconMyPostcards=    [C4Image imageNamed:@"icon_Postcards.png"];
     iconMyAlphabets=    [C4Image imageNamed:@"icon_Alphabets.png"];
     iconMenu=           [C4Image imageNamed:@"icon_Menu.png"];
+    iconArrowForward=   [C4Image imageNamed:@"icon_ArrowForward.png"];
+    iconArrowBackward=  [C4Image imageNamed:@"icon_ArrowBack.png"];
+    iconAlphabet=       [C4Image imageNamed:@"icon_Alphabet.png"];
+    iconZoomPlus=       [C4Image imageNamed:@"icon_zoom_plus.png"];
+    iconZoomMinus=      [C4Image imageNamed:@"icon_zoom_minus.png"];
+    iconZoom=           [C4Image imageNamed:@"icon_zoom.png"];
     
     [self loadDefaultAlphabet];
     [self createViews];
@@ -53,6 +60,8 @@
     [self listenFor:@"goToAssignPhoto" andRunMethod:@"goToAssignPhoto"];
     [self listenFor:@"goToAlphabetsView" andRunMethod:@"goToAlphabetsView"];
     [self listenFor:@"navigatingBackBetweenAlphabet+AssignLetter" andRunMethod:@"navigatingBackBetweenAlphabetAndAssignLetter"];
+    [self listenFor:@"goToLetterView" andRunMethod:@"goToLetterView"];
+    [self listenFor:@"goToAlphabetInfo" andRunMethod:@"goToAlphabetInfo"];
 
     //listen if current alphabet was changed
     [self listenFor:@"currentAlphabetChanged" andRunMethod:@"currentAlphabetChanged"];
@@ -71,7 +80,7 @@
     cropPhoto=[CropPhoto new];
     cropPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     cropPhoto.canvas.userInteractionEnabled=YES;
-    [cropPhoto transferVariables:1 topBarFroTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault overlayColor:overlayColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconOk:iconOk];
+    [cropPhoto transferVariables:1 topBarFroTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault overlayColor:overlayColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconOk:iconOk iconZoomPlus:iconZoomPlus iconZoomMinus:iconZoomMinus iconZoom:iconZoom ];
     [self.canvas addSubview:cropPhoto.canvas];
     cropPhoto.canvas.hidden= YES;
     
@@ -91,6 +100,22 @@
     [alphabetView transferVaribles:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault darkenColor:darkenColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconMenu:iconMenu iconTakePhoto:iconTakePhoto iconAlphabetInfo:iconAlphabetInfo iconShareAlphabet:iconShareAlphabet iconWritePostcard:iconWritePostcard iconMyPostcards:iconMyPostcards iconMyAlphabets:iconMyAlphabets iconSaveImage:iconSaveAlphabet currentAlphabet: currentAlphabet];
     [self.canvas addSubview:alphabetView.canvas];
     alphabetView.canvas.hidden=YES;
+    
+    //LetterView
+    letterView=[LetterView new];
+    letterView.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    letterView.canvas.userInteractionEnabled=YES;
+    [letterView transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconAlphabet:iconAlphabet iconArrowForward:iconArrowForward iconArrowBack:iconArrowBackward currentAlphabet: currentAlphabet];
+    [self.canvas addSubview:letterView.canvas];
+    letterView.canvas.hidden=YES;
+    
+    //AlphabetInfo
+    alphabetInfo=[AlphabetInfo new];
+    alphabetInfo.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    alphabetInfo.canvas.userInteractionEnabled=YES;
+    [alphabetInfo transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault greyType:greyTypeDefault fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack closeIcon:iconClose alphabetIcon:iconAlphabet];
+    [self.canvas addSubview:alphabetInfo.canvas];
+    alphabetInfo.canvas.hidden=YES;
     
 }
 -(void)loadDefaultAlphabet{
@@ -154,7 +179,6 @@
     C4Log(@"current alphabet length: %i", [currentAlphabet count]);
 
 }
-
 -(void)currentAlphabetChanged{
     C4Log(@"current alphabet changed");
     currentAlphabet=[assignLetter.currentAlphabet mutableCopy];
@@ -172,6 +196,9 @@
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=YES;
     alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=YES;
+
 }
 -(void)goToCropPhoto{
     C4Log(@"going to CropPhoto");
@@ -181,6 +208,8 @@
     cropPhoto.canvas.hidden=NO;
     assignLetter.canvas.hidden=YES;
     alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=YES;
 }
 -(void)goToAssignPhoto{
     C4Log(@"AssignPhoto");
@@ -191,6 +220,9 @@
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=NO;
     alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=YES;
+
 }
 -(void)goToAlphabetsView{
     C4Log(@"AlphabetsView");
@@ -200,6 +232,9 @@
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=YES;
     alphabetView.canvas.hidden=NO;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=YES;
+
 }
 -(void)navigatingBackBetweenAlphabetAndAssignLetter{
     C4Log(@"navigating back between alphabet and assign");
@@ -213,6 +248,31 @@
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=NO;
     alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=YES;
+
+}
+-(void)goToLetterView{
+    C4Log(@"LetterView");
+    [letterView setup];
+    [letterView displayLetter:alphabetView.LetterTouched currentAlphabet:currentAlphabet];
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=YES;
+    assignLetter.canvas.hidden=YES;
+    alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=NO;
+    alphabetInfo.canvas.hidden=YES;
+}
+
+-(void)goToAlphabetInfo{
+    C4Log(@"AlphabetInfo");
+    [alphabetInfo setup];
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=YES;
+    assignLetter.canvas.hidden=YES;
+    alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=NO;
 }
 
 @end

@@ -14,7 +14,7 @@
 
 @implementation CropPhoto
 
--(void)transferVariables:(int)number topBarFroTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault overlayColor:(UIColor*)overlayColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconOk:(C4Image*)iconOkDefault{
+-(void)transferVariables:(int)number topBarFroTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault overlayColor:(UIColor*)overlayColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconOk:(C4Image*)iconOkDefault iconZoomPlus:(C4Image*)iconZoomPlusDefault iconZoomMinus:(C4Image*)iconZoomMinusDefault iconZoom:(C4Image*)iconZoomDefault{
     //nav bar heights
     topBarFromTop=TopBarFromTopDefault;
     topBarHeight=TopNavBarHeightDefault;
@@ -31,6 +31,10 @@
     iconOk=iconOkDefault;
     iconClose=iconCloseDefault;
     iconBack=iconBackDefault;
+    iconZoomPlus=iconZoomPlusDefault;
+    iconZoomMinus=iconZoomMinusDefault;
+    iconZoom=iconZoomDefault;
+    
 }
 -(void)setup{
     [self topBarSetup];
@@ -120,8 +124,18 @@
     //ZOOM STEPPER
     //--------------------------------------------------
     zoomStepper=[C4Stepper stepper];
-    zoomStepper.center=CGPointMake(50, self.canvas.height-20);
-    zoomStepper.backgroundColor=navBarColor;
+    zoomStepper.center=CGPointMake(50, bottomNavBar.center.y);
+    //zoomStepper.backgroundColor=navBarColor;
+    iconZoomPlus.width=40;
+    iconZoom.width=90;
+    iconZoomMinus.width=iconZoomPlus.width;
+    /*[zoomStepper setIncrementImage:iconZoomPlus forState:NORMAL];
+    [zoomStepper setIncrementImage:iconZoomPlus forState:HIGHLIGHTED];
+    [zoomStepper setIncrementImage:iconZoomPlus forState:SELECTED];
+    [zoomStepper setIncrementImage:iconZoomPlus forState:DISABLED];*/
+
+    //[zoomStepper setDecrementImage:iconZoomMinus forState:NORMAL];
+    //[zoomStepper setBackgroundImage:iconZoom  forState:NORMAL];
     [zoomStepper runMethod:@"stepperValueChanged:" target:self forEvent:VALUECHANGED];
     [self.canvas addSubview:zoomStepper];
     zoomStepper.maximumValue=10.0f;
@@ -217,7 +231,7 @@
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
     [self postNotification:@"goToAlphabetsView"];
-    //[self removeFromView];
+    [self removeFromView];
 }
 -(void)saveImage{
     C4Log(@"saving image!");

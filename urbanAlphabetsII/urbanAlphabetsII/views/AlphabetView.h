@@ -65,6 +65,7 @@
     //test
     C4Label *takePhoto;
     
+    
     //-----------------------
     //MENU
     //-----------------------
@@ -97,8 +98,12 @@
     C4Label *alphabetInfoLabel;
     C4Image *alphabetInfoIcon;
     
+    //saving image
+    CGContextRef graphicsContext;
     
 }
+@property (readwrite, strong) C4Image *currentAlphabetImage;
+@property (readwrite) int LetterTouched;
 -(void)transferVaribles:(int)number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault darkenColor:(UIColor*)darkenColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconMenu:(C4Image*)iconMenuDefault iconTakePhoto:(C4Image*)iconTakePhotoDefault iconAlphabetInfo:(C4Image*)iconAlphabetInfoDefault iconShareAlphabet:(C4Image*)iconShareAlphabetDefault iconWritePostcard:(C4Image*)iconWritePostcardDefault iconMyPostcards:(C4Image*)iconMyPostcardsDefault iconMyAlphabets:(C4Image*)iconMyAlphabetsDefault iconSaveImage:(C4Image*)iconSaveAlphabetDefault currentAlphabet: (NSMutableArray*)defaultAlphabet;
 -(void)setup;
 -(void)topBarSetup;
@@ -108,10 +113,12 @@
 
 -(void)removeFromView;
 -(void)setupMenu;
+-(void)saveAlphabet;
 
 //navigation functions
 -(void)openMenu;
 -(void)closeMenu;
+
 -(void) goToTakePhoto;
 -(void) navigateBack;
 -(void)openLetterView;

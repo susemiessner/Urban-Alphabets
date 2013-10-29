@@ -131,6 +131,7 @@
     
     currentAlphabet=[passedAlphabet mutableCopy];
     C4Log(@"currentAlphabetLength: %i", [currentAlphabet count]);
+    
     float imageWidth=53.53;
     float imageHeight=65.1;
     for (NSUInteger i=0; i<[currentAlphabet count]; i++) {
@@ -142,9 +143,60 @@
         image.origin=CGPointMake(xPos, yPos);
         image.width=imageWidth;
         [self.canvas addImage:image];
-        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"openLetterView"];
+        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"letterTapped:"];
     }
+    /*
+    //saving the current alphabet as an image (for saving if needed)
+    
+    CGFloat scale = 5.0;
+    
+    //begin an image context
+    CGSize  rect=CGSizeMake(self.canvas.width, self.canvas.height);
+    UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
+    
+    //create a new context ref
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    
+    
+    //render the original image into the context
+    [self.canvas renderInContext:c];
+    
+    //grab a UIImage from the context
+    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //end the image context
+    UIGraphicsEndImageContext();
+    
+    //create a new C4Image
+    self.currentAlphabetImage = [C4Image imageWithUIImage:newUIImage];
+    C4Log(@"self.currentAlphabetImage:%@", self.currentAlphabetImage);
+    self.currentAlphabetImage.width=self.canvas.width/2;
+    self.currentAlphabetImage.center=self.canvas.center;
+    self.currentAlphabetImage.backgroundColor=navBarColor;
+    [self.canvas addImage:self.currentAlphabetImage];
+    */
+    
 }
+-(void)letterTapped:(NSNotification *)notification {
+    //get the current object
+    C4Image *currentImage = (C4Image *)notification.object;
+    //
+    CGPoint chosenImage=CGPointMake(currentImage.origin.x, currentImage.origin.y);
+    //figure out which letter was pressed
+    float imageWidth=53.53;
+    float imageHeight=65.1;
+    float i=chosenImage.x/imageWidth;
+    //C4Log(@"i:%i", i);
+    float j=chosenImage.y/imageHeight;
+    //C4Log(@"j:%i", j);
+    
+    self.LetterTouched=((j-1)*6)+i;
+
+    
+    [self openLetterView];
+    
+}
+
 -(void)greyGrid{
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -164,7 +216,6 @@
     }
     //C4Log(@"greyRect Array length:%i",[greyRectArray count]);
 }
-
 -(void)removeFromView{
     [defaultRect removeFromSuperview];
     [topNavBar removeFromSuperview];
@@ -323,7 +374,7 @@
     alphabetInfoShape.lineWidth=0;
     [self.canvas addShape:alphabetInfoShape];
     
-    alphabetInfoLabel=[C4Label labelWithText:@"Share Alphabet" font:normalFont];
+    alphabetInfoLabel=[C4Label labelWithText:@"Alphabet info" font:normalFont];
     alphabetInfoLabel.origin=CGPointMake(TextmarginFromLeft, alphabetInfoShape.center.y-alphabetInfoLabel.height/2);
     [self.canvas addLabel:alphabetInfoLabel];
     
@@ -334,14 +385,76 @@
     [self listenFor:@"touchesBegan" fromObjects:@[alphabetInfoShape, alphabetInfoLabel,alphabetInfoIcon] andRunMethod:@"goToAlphabetInfo"];
 
 }
+
+-(void)saveAlphabet{
+    [self exportHighResImage];
+}
+//------------------------------------------------------------------------
+//SAVING IMAGE FUNCTIONS
+//------------------------------------------------------------------------
+-(void)exportHighResImage {
+   graphicsContext = [self createHighResImageContext];
+   [self.canvas renderInContext:graphicsContext];
+    NSString *fileName = [NSString stringWithFormat:@"exportedAlphabet%@.jpg", [NSDate date]];
+    //C4Log(@"%@",s );
+    
+    [self saveImage:fileName];
+    [self saveImageToLibrary];
+}
+-(CGContextRef)createHighResImageContext { //setting up image context
+    UIGraphicsBeginImageContextWithOptions(self.canvas.frame.size, YES, 5.0f);
+    return UIGraphicsGetCurrentContext();
+}
+-(void)saveImage:(NSString *)fileName {
+    UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];
+    [imageData writeToFile:savePath atomically:YES];
+}
+-(NSString *)documentsDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return paths[0];
+}
+-(void)saveImageToLibrary {
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+
+-(C4Image *)cropImage:(C4Window *)originalImage toArea:(CGRect)rect{
+    //grab the image scale
+    CGFloat scale = 1.0;
+    
+    //begin an image context
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, scale);
+    
+    //create a new context ref
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    
+    //shift BACKWARDS in both directions because this moves the image
+    //the area to crop shifts INTO: (0, 0, rect.size.width, rect.size.height)
+    CGContextTranslateCTM(c, -rect.origin.x, -rect.origin.y);
+    
+    //render the original image into the context
+    [originalImage renderInContext:c];
+    
+    //grab a UIImage from the context
+    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //end the image context
+    UIGraphicsEndImageContext();
+    
+    //create a new C4Image
+    C4Image *newImage = [C4Image imageWithUIImage:newUIImage];
+    
+    //return the new image
+    return newImage;
+}
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void)openMenu{
     C4Log(@"openMenu");
     [self setupMenu];
-    
-    
 }
 -(void)closeMenu{
     C4Log(@"close Menu");
@@ -371,33 +484,53 @@
 -(void) navigateBack{
     C4Log(@"navigating back");
     [self removeFromView];
+    [self closeMenu];
     [self postNotification:@"navigatingBackBetweenAlphabet+AssignLetter"];
-    //[self postNotification:@"goToAssignPhoto"];
 }
 -(void) goToTakePhoto{
     C4Log(@"goToTakePhoto");
     [self removeFromView];
+    [self closeMenu];
     [self postNotification:@"goToTakePhoto"];
 }
 -(void)openLetterView{
     C4Log(@"open LetterView");
+    [self removeFromView];
+    [self closeMenu];
+    [self postNotification:@"goToLetterView"];
 }
 -(void)goToMyAlphabets{
     C4Log(@"goToMyAlphabets");
+    [self removeFromView];
+    [self closeMenu];
+
 }
 -(void)goToMyPostcards{
     C4Log(@"goToMyPostcards");
+    [self removeFromView];
+    [self closeMenu];
+
 }
 -(void)goToWritePostcard{
     C4Log(@"goToWritePostcard");
+    [self removeFromView];
+    [self closeMenu];
+
 }
 -(void)goToSaveAlphabet{
     C4Log(@"goToSaveAlphabet");
+    [self saveAlphabet];
 }
 -(void)goToShareAlphabet{
     C4Log(@"goToShareAlphabet");
+    [self removeFromView];
+    [self closeMenu];
+
 }
 -(void)goToAlphabetInfo{
     C4Log(@"goToAlphabetInfo");
+    [self removeFromView];
+    [self closeMenu];
+    [self postNotification:@"goToAlphabetInfo"];
 }
 @end

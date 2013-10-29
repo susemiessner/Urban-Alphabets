@@ -10,6 +10,8 @@
 #import "CropPhoto.h"
 #import "AssignLetter.h"
 #import "AlphabetView.h"
+#import "LetterView.h"
+#import "AlphabetInfo.h"
 
 @interface C4WorkSpace : C4CanvasController{
     //views
@@ -17,6 +19,8 @@
     CropPhoto       *cropPhoto;
     AssignLetter    *assignLetter;
     AlphabetView    *alphabetView;
+    LetterView      *letterView;
+    AlphabetInfo    *alphabetInfo;
     
     //default variables
     //>colors
@@ -27,8 +31,9 @@
     UIColor *overlayColorDefault;
     UIColor *highlightColorDefault;
     UIColor *darkenColorDefault;
+    UIColor *greyTypeDefault;
     
-    //type
+    //>type
     C4Font *fatFontDefault;
     C4Font *normalFontDefault;
     
@@ -50,6 +55,12 @@
     C4Image *iconMyPostcards;
     C4Image *iconMyAlphabets;
     C4Image *iconMenu;
+    C4Image *iconArrowForward;
+    C4Image *iconArrowBackward;
+    C4Image *iconAlphabet;
+    C4Image *iconZoomPlus;
+    C4Image *iconZoomMinus;
+    C4Image *iconZoom;
     
     //current alphabet
     NSMutableArray *currentAlphabet;
@@ -66,5 +77,6 @@
 -(void)goToAssignPhoto;
 -(void)goToAlphabetsView;
 -(void)navigatingBackBetweenAlphabetAndAssignLetter;
-
+-(void)goToLetterView;
+-(void)goToAlphabetInfo;
 @end
