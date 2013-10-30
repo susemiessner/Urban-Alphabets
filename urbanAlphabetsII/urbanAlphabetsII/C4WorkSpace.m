@@ -65,6 +65,9 @@
 
     //listen if current alphabet was changed
     [self listenFor:@"currentAlphabetChanged" andRunMethod:@"currentAlphabetChanged"];
+    //when displaying the alphabet, save it as an image used in case user wants to save that alphabet as an image
+    [self listenFor:@"saveCurrentAlphabetAsImage" andRunMethod:@"saveCurrentAlphabetAsImage"];
+    
 }
 -(void)createViews{
     //TakePhoto
@@ -182,6 +185,29 @@
 -(void)currentAlphabetChanged{
     C4Log(@"current alphabet changed");
     currentAlphabet=[assignLetter.currentAlphabet mutableCopy];
+}
+-(void)saveCurrentAlphabetAsImage{
+    CGFloat scale = 10.0;
+    
+    //begin an image context
+    CGSize  rect=CGSizeMake(self.canvas.width, self.canvas.height);
+    UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
+    
+    //create a new context ref
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    
+    //render the original image into the context
+    [alphabetView.canvas renderInContext:c];
+    
+    //grab a UIImage from the context
+    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //end the image context
+    UIGraphicsEndImageContext();
+    
+    //create a new C4Image
+    alphabetView.currentAlphabetImage = [C4Image imageWithUIImage:newUIImage];
+
 }
 
 //------------------------------------------------------------------------

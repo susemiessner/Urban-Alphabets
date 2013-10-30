@@ -70,6 +70,7 @@
 
 -(void)loadDefaultAlphabet;
 -(void)currentAlphabetChanged;
+-(void)saveCurrentAlphabetAsImage;
 
 //navigation Functions
 -(void)goToTakePhoto;

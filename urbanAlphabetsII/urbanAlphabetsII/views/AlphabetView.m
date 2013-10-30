@@ -46,6 +46,11 @@
     currentAlphabet=defaultAlphabet;
 }
 -(void)setup{
+    background=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, self.canvas.height)];
+    background.fillColor=[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    background.lineWidth=0;
+    [self.canvas addShape:background];
+    
     [self topBarSetup];
     [self bottomBarSetup];
     [self greyGrid];
@@ -145,36 +150,7 @@
         [self.canvas addImage:image];
         [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"letterTapped:"];
     }
-    /*
-    //saving the current alphabet as an image (for saving if needed)
     
-    CGFloat scale = 5.0;
-    
-    //begin an image context
-    CGSize  rect=CGSizeMake(self.canvas.width, self.canvas.height);
-    UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
-    
-    //create a new context ref
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    
-    
-    //render the original image into the context
-    [self.canvas renderInContext:c];
-    
-    //grab a UIImage from the context
-    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    //end the image context
-    UIGraphicsEndImageContext();
-    
-    //create a new C4Image
-    self.currentAlphabetImage = [C4Image imageWithUIImage:newUIImage];
-    C4Log(@"self.currentAlphabetImage:%@", self.currentAlphabetImage);
-    self.currentAlphabetImage.width=self.canvas.width/2;
-    self.currentAlphabetImage.center=self.canvas.center;
-    self.currentAlphabetImage.backgroundColor=navBarColor;
-    [self.canvas addImage:self.currentAlphabetImage];
-    */
     
 }
 -(void)letterTapped:(NSNotification *)notification {
@@ -196,7 +172,6 @@
     [self openLetterView];
     
 }
-
 -(void)greyGrid{
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -217,6 +192,8 @@
     //C4Log(@"greyRect Array length:%i",[greyRectArray count]);
 }
 -(void)removeFromView{
+    [background removeFromSuperview];
+    
     [defaultRect removeFromSuperview];
     [topNavBar removeFromSuperview];
     [titleLabel removeFromSuperview];
@@ -385,8 +362,9 @@
     [self listenFor:@"touchesBegan" fromObjects:@[alphabetInfoShape, alphabetInfoLabel,alphabetInfoIcon] andRunMethod:@"goToAlphabetInfo"];
 
 }
-
 -(void)saveAlphabet{
+    //crop the screenshot
+    self.currentAlphabetImage=[self cropImage:self.currentAlphabetImage toArea:CGRectMake(0, topBarFromTop+topBarHeight, self.canvas.width, self.canvas.height-(topBarFromTop+topBarHeight+bottomBarHeight))];
     [self exportHighResImage];
 }
 //------------------------------------------------------------------------
@@ -394,7 +372,7 @@
 //------------------------------------------------------------------------
 -(void)exportHighResImage {
    graphicsContext = [self createHighResImageContext];
-   [self.canvas renderInContext:graphicsContext];
+   [self.currentAlphabetImage renderInContext:graphicsContext];
     NSString *fileName = [NSString stringWithFormat:@"exportedAlphabet%@.jpg", [NSDate date]];
     //C4Log(@"%@",s );
     
@@ -402,7 +380,7 @@
     [self saveImageToLibrary];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
-    UIGraphicsBeginImageContextWithOptions(self.canvas.frame.size, YES, 5.0f);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.canvas.width, self.canvas.height-(topBarFromTop+topBarHeight+bottomBarHeight)), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {
@@ -420,7 +398,7 @@
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
--(C4Image *)cropImage:(C4Window *)originalImage toArea:(CGRect)rect{
+-(C4Image *)cropImage:(C4Image *)originalImage toArea:(CGRect)rect{
     //grab the image scale
     CGFloat scale = 1.0;
     
@@ -519,6 +497,8 @@
 }
 -(void)goToSaveAlphabet{
     C4Log(@"goToSaveAlphabet");
+    [self closeMenu];
+    [self postNotification:@"saveCurrentAlphabetAsImage"];
     [self saveAlphabet];
 }
 -(void)goToShareAlphabet{
