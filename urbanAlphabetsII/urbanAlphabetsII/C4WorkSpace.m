@@ -129,7 +129,6 @@
     [changeLanguage transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault highlightColor:highlightColorDefault fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack iconClose:iconClose iconChecked:iconChecked iconOk:iconOk currentLanguage:currentLanguage];
     [self.canvas addSubview:changeLanguage.canvas];
     changeLanguage.canvas.hidden=YES;
-    
 }
 -(void)loadDefaultAlphabet{
     finnishAlphabet=[NSArray arrayWithObjects:
@@ -361,7 +360,6 @@
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=NO;
 }
-
 -(void)goToAlphabetInfo{
     C4Log(@"AlphabetInfo");
     [alphabetInfo setup];
@@ -381,7 +379,6 @@
     alphabetInfo.canvas.userInteractionEnabled=YES;
     changeLanguage.canvas.userInteractionEnabled=NO;
 }
-
 -(void)goToChangeLanguage{
     C4Log(@"ChangeLanguage");
     [changeLanguage setup];
