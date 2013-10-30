@@ -62,8 +62,7 @@
     //-----------------------
     NSMutableArray *greyRectArray;
     NSMutableArray *currentAlphabet;
-    //test
-    C4Label *takePhoto;
+
     C4Shape *background; //white background for saving the image to library
     
     

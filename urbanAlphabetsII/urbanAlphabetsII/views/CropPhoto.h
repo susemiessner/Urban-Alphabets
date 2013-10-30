@@ -28,9 +28,7 @@
     C4Image *iconOk;
     C4Image *iconClose;
     C4Image *iconBack;
-    C4Image *iconZoomPlus;
-    C4Image *iconZoomMinus;
-    C4Image *iconZoom;
+
     
     //-----------------------
     //TOP BAR
@@ -70,7 +68,7 @@
 }
 @property (readwrite, strong) C4Image *croppedPhoto;//the croppedImage
 
--(void)transferVariables:(int)number topBarFroTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault overlayColor:(UIColor*)overlayColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconOk:(C4Image*)iconOkDefault iconZoomPlus:(C4Image*)iconZoomPlusDefault iconZoomMinus:(C4Image*)iconZoomMinusDefault iconZoom:(C4Image*)iconZoomDefault;
+-(void)transferVariables:(int)number topBarFroTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault overlayColor:(UIColor*)overlayColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconBack:(C4Image*)iconBackDefault iconOk:(C4Image*)iconOkDefault ;
 -(void)setup;
 -(void)topBarSetup;
 -(void)bottomBarSetup;

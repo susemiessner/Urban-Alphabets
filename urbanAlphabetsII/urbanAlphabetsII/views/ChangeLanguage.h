@@ -1,14 +1,14 @@
 //
-//  AlphabetInfo.h
+//  ChangeLanguage.h
 //  urbanAlphabetsII
 //
-//  Created by Suse on 29/10/13.
+//  Created by Suse on 30/10/13.
 //  Copyright (c) 2013 Suse. All rights reserved.
 //
 
 #import "C4CanvasController.h"
 
-@interface AlphabetInfo : C4CanvasController{
+@interface ChangeLanguage : C4CanvasController{
     //-----------------------
     //DEFAULT STUFF that comes from C4Workspace
     //-----------------------
@@ -20,16 +20,18 @@
     UIColor *navBarColor;
     UIColor *navigationColor;
     UIColor *typeColor;
-    UIColor *greyType;
+    UIColor *highlightColor;
     //>fonts
     C4Font *fatFont;
     C4Font *normalFont;
     //>icons
     C4Image *iconClose;
-    C4Image *iconAlphabet;
+    C4Image *iconChecked;
     C4Image *iconBack;
+    C4Image *iconOk;
     
     NSString *currentLanguage;
+
     //-----------------------
     //TOP BAR
     //-----------------------
@@ -50,26 +52,26 @@
     //BOTTOM BAR
     //-----------------------
     C4Shape *bottomNavBar;
-    C4Image *photoButtonImage;
+    C4Image *okButton;
     
     //-----------------------
-    //OTHER STUFF
+    //CONTENT
     //-----------------------
-    //labels for the actual info
-    C4Label *nameLabel;
-    C4Label *alphabetName;
-    C4Label *languageLabel;
-    C4Label *language;
-    C4Label *changeLanguage;
+    NSMutableArray *shapesForBackground;
+    NSArray *languages;
+    C4Image *checkedIcon;
+    int elementNoChosen;
+
 }
--(void)transferVariables:(int) number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault greyType:(UIColor*)greyTypeDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault backImage:(C4Image*)iconBackDefault closeIcon:(C4Image*)iconCloseDefault alphabetIcon:(C4Image*)iconAlphabetDefault currentLanguage:(NSString*)currentLanguageDefault;
+@property (readwrite) NSString *chosenLanguage;
+
+-(void)transferVariables:(int)number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault backImage:(C4Image*)iconBackDefault iconClose:(C4Image*)iconCloseDefault iconChecked:(C4Image*)iconCheckedDefault iconOk:(C4Image*)iconOkDefault currentLanguage:(NSString*)currentLanguageDefault;
 -(void)setup;
 -(void)topBarSetup;
 -(void)bottomBarSetup;
--(void)addInfo;
+-(void)contentSetup;
+-(void)languageChanged:(NSNotification *)notification;
 -(void)removeFromView;
 //navigation functions
 -(void)navigateBack;
--(void) goToAlphabetsView;
--(void)goToChangeLanguage;
 @end

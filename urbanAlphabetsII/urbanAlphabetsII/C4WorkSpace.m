@@ -47,9 +47,9 @@
     iconArrowForward=   [C4Image imageNamed:@"icon_ArrowForward.png"];
     iconArrowBackward=  [C4Image imageNamed:@"icon_ArrowBack.png"];
     iconAlphabet=       [C4Image imageNamed:@"icon_Alphabet.png"];
-    iconZoomPlus=       [C4Image imageNamed:@"icon_zoom_plus.png"];
-    iconZoomMinus=      [C4Image imageNamed:@"icon_zoom_minus.png"];
-    iconZoom=           [C4Image imageNamed:@"icon_zoom.png"];
+    iconChecked=        [C4Image imageNamed:@"icon_checked.png"];
+    
+    currentLanguage=@"Finnish/Swedish";
     
     [self loadDefaultAlphabet];
     [self createViews];
@@ -62,12 +62,14 @@
     [self listenFor:@"navigatingBackBetweenAlphabet+AssignLetter" andRunMethod:@"navigatingBackBetweenAlphabetAndAssignLetter"];
     [self listenFor:@"goToLetterView" andRunMethod:@"goToLetterView"];
     [self listenFor:@"goToAlphabetInfo" andRunMethod:@"goToAlphabetInfo"];
-
+    [self listenFor:@"goToChangeLanguage" andRunMethod:@"goToChangeLanguage"];
+    
     //listen if current alphabet was changed
     [self listenFor:@"currentAlphabetChanged" andRunMethod:@"currentAlphabetChanged"];
     //when displaying the alphabet, save it as an image used in case user wants to save that alphabet as an image
     [self listenFor:@"saveCurrentAlphabetAsImage" andRunMethod:@"saveCurrentAlphabetAsImage"];
-    
+    //when language changed save it in the default settings
+    [self listenFor:@"languageChanged" andRunMethod:@"languageChanged"];
 }
 -(void)createViews{
     //TakePhoto
@@ -83,7 +85,7 @@
     cropPhoto=[CropPhoto new];
     cropPhoto.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     cropPhoto.canvas.userInteractionEnabled=YES;
-    [cropPhoto transferVariables:1 topBarFroTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault overlayColor:overlayColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconOk:iconOk iconZoomPlus:iconZoomPlus iconZoomMinus:iconZoomMinus iconZoom:iconZoom ];
+    [cropPhoto transferVariables:1 topBarFroTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault overlayColor:overlayColorDefault fatFont:fatFontDefault normalFont:normalFontDefault iconClose:iconClose iconBack:iconBack iconOk:iconOk];
     [self.canvas addSubview:cropPhoto.canvas];
     cropPhoto.canvas.hidden= YES;
     
@@ -116,9 +118,17 @@
     alphabetInfo=[AlphabetInfo new];
     alphabetInfo.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     alphabetInfo.canvas.userInteractionEnabled=YES;
-    [alphabetInfo transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault greyType:greyTypeDefault fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack closeIcon:iconClose alphabetIcon:iconAlphabet];
+    [alphabetInfo transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault greyType:greyTypeDefault fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack closeIcon:iconClose alphabetIcon:iconAlphabet currentLanguage:currentLanguage];
     [self.canvas addSubview:alphabetInfo.canvas];
     alphabetInfo.canvas.hidden=YES;
+    
+    //ChangeLanguage
+    changeLanguage=[ChangeLanguage new];
+    changeLanguage.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    changeLanguage.canvas.userInteractionEnabled=YES;
+    [changeLanguage transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault highlightColor:highlightColorDefault fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack iconClose:iconClose iconChecked:iconChecked iconOk:iconOk currentLanguage:currentLanguage];
+    [self.canvas addSubview:changeLanguage.canvas];
+    changeLanguage.canvas.hidden=YES;
     
 }
 -(void)loadDefaultAlphabet{
@@ -172,10 +182,16 @@
                                      [C4Image imageNamed:@"letter_7.png"],
                                      [C4Image imageNamed:@"letter_8.png"],
                                      [C4Image imageNamed:@"letter_9.png"],
+                                    //the ones from the other languages
+                                    [C4Image imageNamed:@"letter_,.png"],
+                                    [C4Image imageNamed:@"letter_$.png"],
+                                    [C4Image imageNamed:@"letter_+.png"],
+                                    [C4Image imageNamed:@"letter_ae.png"],
+                                    [C4Image imageNamed:@"letter_danisho.png"],
                                      nil];
     //C4Log(@"finnish alphabet length: %i", [finnishAlphabet count]);
     currentAlphabet=[[NSMutableArray alloc]init];
-    for (int i=0; i<[finnishAlphabet count]; i++) {
+    for (int i=0; i<42; i++) {
         C4Image *currentImage=[finnishAlphabet objectAtIndex:i];
         [currentAlphabet addObject:currentImage];
     }
@@ -209,7 +225,9 @@
     alphabetView.currentAlphabetImage = [C4Image imageWithUIImage:newUIImage];
 
 }
-
+-(void)languageChanged{
+    currentLanguage=changeLanguage.chosenLanguage;
+}
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
@@ -224,6 +242,15 @@
     alphabetView.canvas.hidden=YES;
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=YES;
+    
+    takePhoto.canvas.userInteractionEnabled=YES;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=NO;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=NO;
 
 }
 -(void)goToCropPhoto{
@@ -236,6 +263,15 @@
     alphabetView.canvas.hidden=YES;
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=YES;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=YES;
+    assignLetter.canvas.userInteractionEnabled=NO;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=NO;
 }
 -(void)goToAssignPhoto{
     C4Log(@"AssignPhoto");
@@ -248,6 +284,15 @@
     alphabetView.canvas.hidden=YES;
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=YES;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=YES;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=NO;
 
 }
 -(void)goToAlphabetsView{
@@ -260,6 +305,15 @@
     alphabetView.canvas.hidden=NO;
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=YES;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=NO;
+    alphabetView.canvas.userInteractionEnabled=YES;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=NO;
 
 }
 -(void)navigatingBackBetweenAlphabetAndAssignLetter{
@@ -276,6 +330,15 @@
     alphabetView.canvas.hidden=YES;
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=YES;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=YES;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=NO;
 
 }
 -(void)goToLetterView{
@@ -288,6 +351,15 @@
     alphabetView.canvas.hidden=YES;
     letterView.canvas.hidden=NO;
     alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=YES;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=NO;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=YES;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=NO;
 }
 
 -(void)goToAlphabetInfo{
@@ -299,6 +371,36 @@
     alphabetView.canvas.hidden=YES;
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=NO;
+    changeLanguage.canvas.hidden=YES;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=NO;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=YES;
+    changeLanguage.canvas.userInteractionEnabled=NO;
+}
+
+-(void)goToChangeLanguage{
+    C4Log(@"ChangeLanguage");
+    [changeLanguage setup];
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=YES;
+    assignLetter.canvas.hidden=YES;
+    alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=NO;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=NO;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=YES;
+
 }
 
 @end

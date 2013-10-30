@@ -142,6 +142,8 @@
     [backwardButton removeFromSuperview];
     
     [currentImage removeFromSuperview];
+    
+    [self stopListeningFor:@"touchesBegan" objects:@[closeRect,alphabetButton, forwardButton ,backwardButton]];
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS

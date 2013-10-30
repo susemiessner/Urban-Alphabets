@@ -122,7 +122,7 @@
     notificationCounter=0; //to make sure ok button is only added 1x
     
     self.currentAlphabet=[currentAlphabetPassed mutableCopy];
-    C4Log(@"currentAlphabetLength: %i", [self.currentAlphabet count]);
+    //C4Log(@"currentAlphabetLength: %i", [self.currentAlphabet count]);
     C4Log(@"drawing the alphabet");
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -181,7 +181,7 @@
         [greyRectArray addObject:greyRect];
         [self.canvas addShape:greyRect];
     }
-    C4Log(@"greyRect Array length:%i",[greyRectArray count]);
+    //C4Log(@"greyRect Array length:%i",[greyRectArray count]);
 }
 -(void)drawCroppedPhoto:(C4Image*)croppedPhoto{
     croppedImage=croppedPhoto;
@@ -216,14 +216,13 @@
     for (int i=0; i<[self.currentAlphabet count]; i++) {
         C4Image *image=[self.currentAlphabet objectAtIndex:i];
         [image removeFromSuperview];
-        
+        [self stopListeningFor:@"touchesBegan" object:image];
     }
     for (int i=0; i<[greyRectArray count]; i++) {
         C4Shape *shape=[greyRectArray objectAtIndex:i];
         [shape removeFromSuperview];
     }
-    
-
+    [self stopListeningFor:@"touchesBegan" objects:@[navigateBackRect, closeRect, settingsButtonImage, okButtonImage]];
 }
 
 //------------------------------------------------------------------------

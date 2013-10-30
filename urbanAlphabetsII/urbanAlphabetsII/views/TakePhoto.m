@@ -140,6 +140,9 @@
     [photoButtonImage removeFromSuperview];
     //[cam removeFromSuperview];
     [self.img removeFromSuperview];
+    
+    [self stopListeningFor:@"touchesBegan" objects:@[navigateBackRect,closeRect, photoButtonImage]];
+     [self stopListeningFor:@"imageWasCaptured" object:cam];
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS

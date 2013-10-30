@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA4BA6CF1821052F00000CE4 /* letter_+.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6CD1821052F00000CE4 /* letter_+.png */; };
+		DA4BA6D01821052F00000CE4 /* letter_$.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6CE1821052F00000CE4 /* letter_$.png */; };
+		DA4BA6D2182105CE00000CE4 /* letter_,.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6D1182105CE00000CE4 /* letter_,.png */; };
+		DA4BA6D41821064200000CE4 /* letter_danisho.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6D31821064200000CE4 /* letter_danisho.png */; };
+		DA4BA6D8182106F200000CE4 /* ChangeLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4BA6D6182106F200000CE4 /* ChangeLanguage.m */; };
+		DA4BA6D9182106F200000CE4 /* ChangeLanguage.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6D7182106F200000CE4 /* ChangeLanguage.xib */; };
 		DA64F2BE181FB2CD00A7236D /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA64F2BC181FB2CD00A7236D /* LetterView.m */; };
 		DA64F2BF181FB2CD00A7236D /* LetterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA64F2BD181FB2CD00A7236D /* LetterView.xib */; };
 		DA75E2C0181E8AE200E9EC64 /* AlphabetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA75E2BE181E8AE200E9EC64 /* AlphabetView.m */; };
@@ -112,6 +118,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA4BA6CD1821052F00000CE4 /* letter_+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_+.png"; sourceTree = "<group>"; };
+		DA4BA6CE1821052F00000CE4 /* letter_$.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_$.png; sourceTree = "<group>"; };
+		DA4BA6D1182105CE00000CE4 /* letter_,.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_,.png"; sourceTree = "<group>"; };
+		DA4BA6D31821064200000CE4 /* letter_danisho.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_danisho.png; sourceTree = "<group>"; };
+		DA4BA6D5182106F200000CE4 /* ChangeLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeLanguage.h; path = views/ChangeLanguage.h; sourceTree = "<group>"; };
+		DA4BA6D6182106F200000CE4 /* ChangeLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeLanguage.m; path = views/ChangeLanguage.m; sourceTree = "<group>"; };
+		DA4BA6D7182106F200000CE4 /* ChangeLanguage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChangeLanguage.xib; path = views/ChangeLanguage.xib; sourceTree = "<group>"; };
 		DA64F2BB181FB2CD00A7236D /* LetterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LetterView.h; path = views/LetterView.h; sourceTree = "<group>"; };
 		DA64F2BC181FB2CD00A7236D /* LetterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LetterView.m; path = views/LetterView.m; sourceTree = "<group>"; };
 		DA64F2BD181FB2CD00A7236D /* LetterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LetterView.xib; path = views/LetterView.xib; sourceTree = "<group>"; };
@@ -293,6 +306,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA4BA6DA1821071E00000CE4 /* ChangeLanguage */ = {
+			isa = PBXGroup;
+			children = (
+				DA4BA6D5182106F200000CE4 /* ChangeLanguage.h */,
+				DA4BA6D6182106F200000CE4 /* ChangeLanguage.m */,
+				DA4BA6D7182106F200000CE4 /* ChangeLanguage.xib */,
+			);
+			name = ChangeLanguage;
+			sourceTree = "<group>";
+		};
 		DA64F2C0181FB2F300A7236D /* LetterView */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +329,10 @@
 		DA75E268181E60B200E9EC64 /* defaultAlphabet */ = {
 			isa = PBXGroup;
 			children = (
+				DA4BA6D31821064200000CE4 /* letter_danisho.png */,
+				DA4BA6D1182105CE00000CE4 /* letter_,.png */,
+				DA4BA6CD1821052F00000CE4 /* letter_+.png */,
+				DA4BA6CE1821052F00000CE4 /* letter_$.png */,
 				DAF03E95182039AA00464009 /* letter_-.png */,
 				DAF03E96182039AA00464009 /* letter_!.png */,
 				DAF03E97182039AA00464009 /* letter_.png */,
@@ -556,6 +583,7 @@
 				DA75E2C5181E8B1A00E9EC64 /* AlphabetView */,
 				DA64F2C0181FB2F300A7236D /* LetterView */,
 				DAF03E7C181FE20400464009 /* AlphabetInfo */,
+				DA4BA6DA1821071E00000CE4 /* ChangeLanguage */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -677,6 +705,7 @@
 				DAF03ED8182039AA00464009 /* letter_K.png in Resources */,
 				DAF03ED9182039AA00464009 /* letter_L.png in Resources */,
 				DAF03EC9182039AA00464009 /* letter_7.png in Resources */,
+				DA4BA6D9182106F200000CE4 /* ChangeLanguage.xib in Resources */,
 				DAF03ECE182039AA00464009 /* letter_Ä.png in Resources */,
 				DAF03EDB182039AA00464009 /* letter_N.png in Resources */,
 				DAF03E911820392E00464009 /* icon_SharePostcard.png in Resources */,
@@ -696,16 +725,19 @@
 				DAF03EE5182039AA00464009 /* letter_W.png in Resources */,
 				DAF03ED3182039AA00464009 /* letter_F.png in Resources */,
 				DADC5080181D279A005D2F0E /* CropPhoto.xib in Resources */,
+				DA4BA6CF1821052F00000CE4 /* letter_+.png in Resources */,
 				DADC5050181D1558005D2F0E /* Main.storyboard in Resources */,
 				DAF03E941820392E00464009 /* icon_zoom.png in Resources */,
 				DAF03E8A1820392E00464009 /* icon_Alphabet.png in Resources */,
 				DAF03ED7182039AA00464009 /* letter_J.png in Resources */,
+				DA4BA6D41821064200000CE4 /* letter_danisho.png in Resources */,
 				DAF03ED5182039AA00464009 /* letter_H.png in Resources */,
 				DAF03ED6182039AA00464009 /* letter_I.png in Resources */,
 				DAF03EC2182039AA00464009 /* letter_0.png in Resources */,
 				DAF03EE1182039AA00464009 /* letter_S.png in Resources */,
 				DAF03ED4182039AA00464009 /* letter_G.png in Resources */,
 				DAF03E8B1820392E00464009 /* icon_Assign.png in Resources */,
+				DA4BA6D01821052F00000CE4 /* letter_$.png in Resources */,
 				DAF03EE4182039AA00464009 /* letter_V.png in Resources */,
 				DA75E2C1181E8AE200E9EC64 /* AlphabetView.xib in Resources */,
 				DAF03E921820392E00464009 /* icon_zoom_minus.png in Resources */,
@@ -725,6 +757,7 @@
 				DAF03E8D1820392E00464009 /* icon_Compare.png in Resources */,
 				DAF03EE7182039AA00464009 /* letter_Y.png in Resources */,
 				DAF03EDF182039AA00464009 /* letter_Q.png in Resources */,
+				DA4BA6D2182105CE00000CE4 /* letter_,.png in Resources */,
 				DAF03EC7182039AA00464009 /* letter_5.png in Resources */,
 				DAF03EC5182039AA00464009 /* letter_3.png in Resources */,
 				DA64F2BF181FB2CD00A7236D /* LetterView.xib in Resources */,
@@ -756,6 +789,7 @@
 				DADC5074181D15CD005D2F0E /* TakePhoto.m in Sources */,
 				DADC5053181D1558005D2F0E /* C4WorkSpace.m in Sources */,
 				DADC5046181D1556005D2F0E /* C4AppDelegate.m in Sources */,
+				DA4BA6D8182106F200000CE4 /* ChangeLanguage.m in Sources */,
 				DA75E2C0181E8AE200E9EC64 /* AlphabetView.m in Sources */,
 				DAF03E7A181FE1DB00464009 /* AlphabetInfo.m in Sources */,
 			);

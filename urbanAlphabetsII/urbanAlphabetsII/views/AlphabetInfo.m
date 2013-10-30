@@ -13,7 +13,7 @@
 @end
 
 @implementation AlphabetInfo
--(void)transferVariables:(int) number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault greyType:(UIColor*)greyTypeDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault backImage:(C4Image*)iconBackDefault closeIcon:(C4Image*)iconCloseDefault alphabetIcon:(C4Image*)iconAlphabetDefault{
+-(void)transferVariables:(int) number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault greyType:(UIColor*)greyTypeDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault backImage:(C4Image*)iconBackDefault closeIcon:(C4Image*)iconCloseDefault alphabetIcon:(C4Image*)iconAlphabetDefault currentLanguage:(NSString*)currentLanguageDefault{
     
     //nav bar heights
     topBarFromTop=TopBarFromTopDefault;
@@ -34,6 +34,8 @@
     iconClose=iconCloseDefault;
     iconAlphabet=iconAlphabetDefault;
     iconBack=iconBackDefault;
+    
+    currentLanguage=currentLanguageDefault;
 }
 -(void)setup{
     [self topBarSetup];
@@ -123,7 +125,7 @@
 }
 -(void)addInfo{
     int yPos =topBarFromTop+topBarHeight+50;
-    int lineHeight=50;
+    int lineHeight=40;
     int firstColumX=30;
     int secondColumX=firstColumX+100;
 
@@ -144,11 +146,51 @@
     languageLabel.origin=CGPointMake(firstColumX, yPos);
     [self.canvas addLabel:languageLabel];
     
-    language=[C4Label labelWithText:@"Finnish" font: normalFont];
+    language=[C4Label labelWithText:currentLanguage font: normalFont];
     language.textColor=typeColor;
     language.origin=CGPointMake(secondColumX, yPos);
     [self.canvas addLabel:language];
     
+    int xPosChange=secondColumX+language.width+5;
+    
+    changeLanguage=[C4Label labelWithText:@"(change)" font:normalFont];
+    
+    if (xPosChange+changeLanguage.width > self.canvas.width) {
+        xPosChange=secondColumX;
+        yPos+=lineHeight-15;
+    }
+    
+    changeLanguage.textColor=greyType;
+    changeLanguage.origin=CGPointMake(xPosChange, yPos);
+    [self.canvas addLabel:changeLanguage];
+    
+    [self listenFor:@"touchesBegan" fromObjects:@[languageLabel,language,changeLanguage] andRunMethod:@"goToChangeLanguage"];
+}
+-(void)removeFromView{
+    //top
+    [defaultRect removeFromSuperview];
+    [topNavBar removeFromSuperview];
+    [titleLabel removeFromSuperview];
+    
+    [backLabel removeFromSuperview];
+    [backButtonImage removeFromSuperview];
+    [navigateBackRect removeFromSuperview];
+    
+    [closeButtonImage removeFromSuperview];
+    [closeRect removeFromSuperview];
+    
+    //bottom
+    [bottomNavBar removeFromSuperview];
+    [photoButtonImage removeFromSuperview];
+    
+    //everything else
+    [nameLabel removeFromSuperview];
+    [alphabetName removeFromSuperview];
+    [languageLabel removeFromSuperview];
+    [language removeFromSuperview];
+    [changeLanguage removeFromSuperview];
+    
+    [self stopListeningFor:@"touchesBegan" objects:@[navigateBackRect, closeRect, photoButtonImage, languageLabel,language,changeLanguage]];
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
@@ -157,13 +199,16 @@
 -(void)navigateBack{
     C4Log(@"navigateBack");
     [self postNotification:@"goToAlphabetsView"];
-    //[self removeFromView];
-
+    [self removeFromView];
 }
-
 -(void) goToAlphabetsView{
     C4Log(@"going to Alphabetsview");
     [self postNotification:@"goToAlphabetsView"];
-    //[self removeFromView];
+    [self removeFromView];
+}
+-(void)goToChangeLanguage{
+    C4Log(@"goToChangeLanguage");
+    [self removeFromView];
+    [self postNotification:@"goToChangeLanguage"];
 }
 @end

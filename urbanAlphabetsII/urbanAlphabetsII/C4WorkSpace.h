@@ -12,6 +12,7 @@
 #import "AlphabetView.h"
 #import "LetterView.h"
 #import "AlphabetInfo.h"
+#import "ChangeLanguage.h"
 
 @interface C4WorkSpace : C4CanvasController{
     //views
@@ -21,6 +22,7 @@
     AlphabetView    *alphabetView;
     LetterView      *letterView;
     AlphabetInfo    *alphabetInfo;
+    ChangeLanguage  *changeLanguage;
     
     //default variables
     //>colors
@@ -58,13 +60,12 @@
     C4Image *iconArrowForward;
     C4Image *iconArrowBackward;
     C4Image *iconAlphabet;
-    C4Image *iconZoomPlus;
-    C4Image *iconZoomMinus;
-    C4Image *iconZoom;
+    C4Image *iconChecked;
     
     //current alphabet
     NSMutableArray *currentAlphabet;
     NSArray *finnishAlphabet; //default
+    NSString *currentLanguage;
 }
 -(void)createViews;
 
@@ -80,4 +81,5 @@
 -(void)navigatingBackBetweenAlphabetAndAssignLetter;
 -(void)goToLetterView;
 -(void)goToAlphabetInfo;
+-(void)goToChangeLanguage;
 @end

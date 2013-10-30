@@ -97,13 +97,6 @@
     navigateBackRect.lineWidth=0;
     [self.canvas addShape:navigateBackRect];
     [self listenFor:@"touchesBegan" fromObject:navigateBackRect andRunMethod:@"navigateBack"];
-    
-    //test navigation towards take photo
-    takePhoto=[C4Label labelWithText:@"take Photo" font: normalFont];
-    takePhoto.center=CGPointMake(self.canvas.width-(takePhoto.width/2+5), topNavBar.center.y);
-    [self.canvas addLabel:takePhoto ];
-    [self listenFor:@"touchesBegan" fromObject:takePhoto andRunMethod:@"goToTakePhoto"];
-
 }
 -(void)bottomBarSetup{
     //--------------------------------------------------
@@ -209,6 +202,7 @@
     for (int i=0; i<[currentAlphabet count]; i++) {
         C4Image *image=[currentAlphabet objectAtIndex:i];
         [image removeFromSuperview];
+        [self stopListeningFor:@"touchesBegan" object:image];
         
     }
     for (int i=0; i<[greyRectArray count]; i++) {
@@ -216,8 +210,9 @@
         [shape removeFromSuperview];
     }
     
-    //test label
-    [takePhoto removeFromSuperview];
+
+    
+    [self stopListeningFor:@"touchesBegan" objects:@[navigateBackRect, menuButtonImage, takePhotoButton]];
 
 
 }
@@ -470,6 +465,7 @@
     [self removeFromView];
     [self closeMenu];
     [self postNotification:@"goToTakePhoto"];
+    
 }
 -(void)openLetterView{
     C4Log(@"open LetterView");
