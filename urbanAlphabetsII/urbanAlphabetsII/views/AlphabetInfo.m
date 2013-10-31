@@ -192,6 +192,9 @@
     
     [self stopListeningFor:@"touchesBegan" objects:@[navigateBackRect, closeRect, photoButtonImage, languageLabel,language,changeLanguage]];
 }
+-(void)currentLanguage:(NSString*)passedLanguage{
+    currentLanguage=passedLanguage;
+}
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------

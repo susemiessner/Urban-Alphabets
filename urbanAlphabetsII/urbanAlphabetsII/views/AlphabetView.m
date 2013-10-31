@@ -475,19 +475,19 @@
 }
 -(void)goToMyAlphabets{
     C4Log(@"goToMyAlphabets");
-    [self removeFromView];
+    //[self removeFromView];
     [self closeMenu];
 
 }
 -(void)goToMyPostcards{
     C4Log(@"goToMyPostcards");
-    [self removeFromView];
+    //[self removeFromView];
     [self closeMenu];
 
 }
 -(void)goToWritePostcard{
     C4Log(@"goToWritePostcard");
-    [self removeFromView];
+    //[self removeFromView];
     [self closeMenu];
 
 }
@@ -499,7 +499,7 @@
 }
 -(void)goToShareAlphabet{
     C4Log(@"goToShareAlphabet");
-    [self removeFromView];
+    //[self removeFromView];
     [self closeMenu];
 
 }

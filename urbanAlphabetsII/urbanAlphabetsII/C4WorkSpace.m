@@ -50,6 +50,7 @@
     iconChecked=        [C4Image imageNamed:@"icon_checked.png"];
     
     currentLanguage=@"Finnish/Swedish";
+    oldLanguage=currentLanguage;
     
     [self loadDefaultAlphabet];
     [self createViews];
@@ -182,19 +183,25 @@
                                      [C4Image imageNamed:@"letter_8.png"],
                                      [C4Image imageNamed:@"letter_9.png"],
                                     //the ones from the other languages
-                                    [C4Image imageNamed:@"letter_,.png"],
-                                    [C4Image imageNamed:@"letter_$.png"],
-                                    [C4Image imageNamed:@"letter_+.png"],
-                                    [C4Image imageNamed:@"letter_ae.png"],
-                                    [C4Image imageNamed:@"letter_danisho.png"],
+                                    [C4Image imageNamed:@"letter_,.png"], //42
+                                    [C4Image imageNamed:@"letter_$.png"], //43
+                                    [C4Image imageNamed:@"letter_+.png"], //44
+                                    [C4Image imageNamed:@"letter_ae.png"],//45
+                                    [C4Image imageNamed:@"letter_danisho.png"], //46
+                                    [C4Image imageNamed:@"letter_Ü.png"], //47
                                      nil];
-    //C4Log(@"finnish alphabet length: %i", [finnishAlphabet count]);
+    C4Log(@"finnish alphabet length: %i", [finnishAlphabet count]);
     currentAlphabet=[[NSMutableArray alloc]init];
     for (int i=0; i<42; i++) {
         C4Image *currentImage=[finnishAlphabet objectAtIndex:i];
         [currentAlphabet addObject:currentImage];
     }
     C4Log(@"current alphabet length: %i", [currentAlphabet count]);
+    
+    /*C4Image *image=[finnishAlphabet objectAtIndex:[finnishAlphabet count]-3];
+    image.width=100;
+    image.center=self.canvas.center;
+    [self.canvas addImage:image];*/
 
 }
 -(void)currentAlphabetChanged{
@@ -225,7 +232,150 @@
 
 }
 -(void)languageChanged{
+    //get the new language
     currentLanguage=changeLanguage.chosenLanguage;
+    
+    //Finnish>german
+    if ([currentLanguage isEqual:@"German"] && [oldLanguage isEqual:@"Finnish/Swedish"]) {
+        C4Log(@"change Finnish to German");
+        //change Å to Ü
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:47] atIndex:28];
+    }
+    //Finnish>Danish
+    if ([currentLanguage isEqual:@"Danish/Norwegian"] && [oldLanguage isEqual:@"Finnish/Swedish"]) {
+        C4Log(@"change Finnish to Danish");
+        //change Ä to AE
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:45] atIndex:26];
+        //change Ö to danishO
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:46] atIndex:27];
+    }
+    //Finnish>English
+    if ([currentLanguage isEqual:@"English"] && [oldLanguage isEqual:@"Finnish/Swedish"]) {
+        C4Log(@"change Finnish to English");
+        //change Ä to +
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:44] atIndex:26];
+        //change Ö to $
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:43] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:42] atIndex:28];
+    }
+    //German>Finnish
+    if ([currentLanguage isEqual:@"Finnish/Swedish"] && [oldLanguage isEqual:@"German"]) {
+        C4Log(@"change German to Finnish");
+        //change Ü to Å
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:28] atIndex:28];
+    }
+    //Danish/Finnish
+    if ([currentLanguage isEqual:@"Finnish/Swedish"] && [oldLanguage isEqual:@"Danish/Norwegian"]) {
+        C4Log(@"change Danish to Finnish");
+        //change Ä to AE
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:26] atIndex:26];
+        //change Ö to danishO
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:27] atIndex:27];
+    }
+    //English>Finnish
+    if ([currentLanguage isEqual:@"Finnish/Swedish"] && [oldLanguage isEqual:@"English"]) {
+        C4Log(@"change English to Finnish");
+        //change Ä to +
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:26] atIndex:26];
+        //change Ö to $
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:27] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:28] atIndex:28];
+    }
+    //German>English
+    if ([currentLanguage isEqual:@"English"] && [oldLanguage isEqual:@"German"]) {
+        C4Log(@"change Finnish to English");
+        //change Ä to +
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:44] atIndex:26];
+        //change Ö to $
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:43] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:42] atIndex:28];
+    }
+    //Danish>English
+    if ([currentLanguage isEqual:@"English"] && [oldLanguage isEqual:@"Danish/Norwegian"]) {
+        C4Log(@"change Finnish to English");
+        //change Ä to +
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:44] atIndex:26];
+        //change Ö to $
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:43] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:42] atIndex:28];
+    }
+    //English>German
+    if ([currentLanguage isEqual:@"German"] && [oldLanguage isEqual:@"English"]) {
+        C4Log(@"change English to German");
+        //change Ä
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:26] atIndex:26];
+        //change Ö
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:27] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:47] atIndex:28];
+    }
+    //English>Danish
+    if ([currentLanguage isEqual:@"Danish/Norwegian"] && [oldLanguage isEqual:@"English"]) {
+        C4Log(@"change English to Danish");
+        //change Ä
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:45] atIndex:26];
+        //change Ö
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:46] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:28] atIndex:28];
+    }
+    //German>Danish
+    if ([currentLanguage isEqual:@"Danish/Norwegian"] && [oldLanguage isEqual:@"German"]) {
+        C4Log(@"change English to Danish");
+        //change Ä
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:45] atIndex:26];
+        //change Ö
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:46] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:28] atIndex:28];
+    }
+    //Danish>German
+    if ([currentLanguage isEqual:@"German"] && [oldLanguage isEqual:@"Danish/Norwegian"]) {
+        C4Log(@"change Danish to German");
+        //change Ä
+        [currentAlphabet removeObjectAtIndex:26];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:26] atIndex:26];
+        //change Ö
+        [currentAlphabet removeObjectAtIndex:27];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:27] atIndex:27];
+        //change Å to ,
+        [currentAlphabet removeObjectAtIndex:28];
+        [currentAlphabet insertObject:[finnishAlphabet objectAtIndex:47] atIndex:28];
+    }
+    //lastly for the next change set old to new alphabet
+    oldLanguage=currentLanguage;
+    
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
@@ -362,6 +512,7 @@
 }
 -(void)goToAlphabetInfo{
     C4Log(@"AlphabetInfo");
+    [alphabetInfo currentLanguage:currentLanguage];
     [alphabetInfo setup];
     takePhoto.canvas.hidden=YES;
     cropPhoto.canvas.hidden=YES;
@@ -381,7 +532,7 @@
 }
 -(void)goToChangeLanguage{
     C4Log(@"ChangeLanguage");
-    [changeLanguage setup];
+    [changeLanguage setupCurrentLanguage:currentLanguage];
     takePhoto.canvas.hidden=YES;
     cropPhoto.canvas.hidden=YES;
     assignLetter.canvas.hidden=YES;

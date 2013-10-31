@@ -66,7 +66,7 @@
 @property (readwrite) NSString *chosenLanguage;
 
 -(void)transferVariables:(int)number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault highlightColor:(UIColor*)highlightColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault backImage:(C4Image*)iconBackDefault iconClose:(C4Image*)iconCloseDefault iconChecked:(C4Image*)iconCheckedDefault iconOk:(C4Image*)iconOkDefault currentLanguage:(NSString*)currentLanguageDefault;
--(void)setup;
+-(void)setupCurrentLanguage:(NSString*)passedLanguage;
 -(void)topBarSetup;
 -(void)bottomBarSetup;
 -(void)contentSetup;

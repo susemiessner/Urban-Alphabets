@@ -66,6 +66,7 @@
     NSMutableArray *currentAlphabet;
     NSArray *finnishAlphabet; //default
     NSString *currentLanguage;
+    NSString *oldLanguage;
 }
 -(void)createViews;
 

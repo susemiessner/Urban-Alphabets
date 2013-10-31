@@ -49,7 +49,8 @@
     }
    
 }
--(void)setup{
+-(void)setupCurrentLanguage:(NSString*)passedLanguage{
+    currentLanguage=passedLanguage;
     [self topBarSetup];
     [self bottomBarSetup];
     [self contentSetup];
@@ -153,7 +154,6 @@
         float yPos=topBarFromTop+topBarHeight+i*height+label.height/2+4;
         label.origin=CGPointMake(49.485, yPos);
         [self.canvas addLabel:label];
-        //[self listenFor:@"touchesBegan" fromObjects:@[shape,label] andRunMethod:@"languageChanged:"];
         [self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"languageChanged:"];
     }
     

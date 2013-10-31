@@ -68,6 +68,7 @@
 -(void)bottomBarSetup;
 -(void)addInfo;
 -(void)removeFromView;
+-(void)currentLanguage:(NSString*)passedLanguage;
 //navigation functions
 -(void)navigateBack;
 -(void) goToAlphabetsView;
