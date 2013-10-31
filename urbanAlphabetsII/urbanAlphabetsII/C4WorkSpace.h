@@ -13,6 +13,7 @@
 #import "LetterView.h"
 #import "AlphabetInfo.h"
 #import "ChangeLanguage.h"
+#import "WritePostcard.h"
 
 @interface C4WorkSpace : C4CanvasController{
     //views
@@ -23,6 +24,7 @@
     LetterView      *letterView;
     AlphabetInfo    *alphabetInfo;
     ChangeLanguage  *changeLanguage;
+    WritePostcard   *writePostcard;
     
     //default variables
     //>colors
@@ -67,6 +69,7 @@
     NSArray *finnishAlphabet; //default
     NSString *currentLanguage;
     NSString *oldLanguage;
+    C4Image *emptyLetter;
 }
 -(void)createViews;
 

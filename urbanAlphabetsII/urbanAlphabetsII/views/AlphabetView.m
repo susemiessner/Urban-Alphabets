@@ -487,9 +487,9 @@
 }
 -(void)goToWritePostcard{
     C4Log(@"goToWritePostcard");
-    //[self removeFromView];
+    [self removeFromView];
     [self closeMenu];
-
+    [self postNotification:@"goToWritePostcard"];
 }
 -(void)goToSaveAlphabet{
     C4Log(@"goToSaveAlphabet");
@@ -501,7 +501,6 @@
     C4Log(@"goToShareAlphabet");
     //[self removeFromView];
     [self closeMenu];
-
 }
 -(void)goToAlphabetInfo{
     C4Log(@"goToAlphabetInfo");

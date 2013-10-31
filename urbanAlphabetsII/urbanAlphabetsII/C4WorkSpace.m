@@ -51,6 +51,7 @@
     
     currentLanguage=@"Finnish/Swedish";
     oldLanguage=currentLanguage;
+    emptyLetter=[C4Image imageNamed:@"letter_empty.png"];
     
     [self loadDefaultAlphabet];
     [self createViews];
@@ -64,6 +65,7 @@
     [self listenFor:@"goToLetterView" andRunMethod:@"goToLetterView"];
     [self listenFor:@"goToAlphabetInfo" andRunMethod:@"goToAlphabetInfo"];
     [self listenFor:@"goToChangeLanguage" andRunMethod:@"goToChangeLanguage"];
+    [self listenFor:@"goToWritePostcard" andRunMethod:@"goToWritePostcard"];
     
     //listen if current alphabet was changed
     [self listenFor:@"currentAlphabetChanged" andRunMethod:@"currentAlphabetChanged"];
@@ -130,6 +132,14 @@
     [changeLanguage transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault highlightColor:highlightColorDefault fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack iconClose:iconClose iconChecked:iconChecked iconOk:iconOk currentLanguage:currentLanguage];
     [self.canvas addSubview:changeLanguage.canvas];
     changeLanguage.canvas.hidden=YES;
+    
+    //WritePostcard
+    writePostcard=[WritePostcard new];
+    writePostcard.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    writePostcard.canvas.userInteractionEnabled=YES;
+    [writePostcard transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault  fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack iconClose:iconClose emptyLetter:emptyLetter];
+    [self.canvas addSubview:writePostcard.canvas];
+    writePostcard.canvas.hidden=YES;
 }
 -(void)loadDefaultAlphabet{
     finnishAlphabet=[NSArray arrayWithObjects:
@@ -392,6 +402,7 @@
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
     changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=YES;
     cropPhoto.canvas.userInteractionEnabled=NO;
@@ -400,6 +411,7 @@
     letterView.canvas.userInteractionEnabled=NO;
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=NO;
+    writePostcard.canvas.userInteractionEnabled=NO;
 
 }
 -(void)goToCropPhoto{
@@ -413,6 +425,7 @@
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
     changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=NO;
     cropPhoto.canvas.userInteractionEnabled=YES;
@@ -421,6 +434,7 @@
     letterView.canvas.userInteractionEnabled=NO;
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=NO;
+    writePostcard.canvas.userInteractionEnabled=NO;
 }
 -(void)goToAssignPhoto{
     C4Log(@"AssignPhoto");
@@ -434,6 +448,7 @@
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
     changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=NO;
     cropPhoto.canvas.userInteractionEnabled=NO;
@@ -442,6 +457,7 @@
     letterView.canvas.userInteractionEnabled=NO;
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=NO;
+    writePostcard.canvas.userInteractionEnabled=NO;
 
 }
 -(void)goToAlphabetsView{
@@ -455,6 +471,7 @@
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
     changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=NO;
     cropPhoto.canvas.userInteractionEnabled=NO;
@@ -463,7 +480,7 @@
     letterView.canvas.userInteractionEnabled=NO;
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=NO;
-
+    writePostcard.canvas.userInteractionEnabled=NO;
 }
 -(void)navigatingBackBetweenAlphabetAndAssignLetter{
     C4Log(@"navigating back between alphabet and assign");
@@ -480,6 +497,7 @@
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
     changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=NO;
     cropPhoto.canvas.userInteractionEnabled=NO;
@@ -488,6 +506,7 @@
     letterView.canvas.userInteractionEnabled=NO;
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=NO;
+    writePostcard.canvas.userInteractionEnabled=NO;
 
 }
 -(void)goToLetterView{
@@ -501,6 +520,7 @@
     letterView.canvas.hidden=NO;
     alphabetInfo.canvas.hidden=YES;
     changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=NO;
     cropPhoto.canvas.userInteractionEnabled=NO;
@@ -509,6 +529,7 @@
     letterView.canvas.userInteractionEnabled=YES;
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=NO;
+    writePostcard.canvas.userInteractionEnabled=NO;
 }
 -(void)goToAlphabetInfo{
     C4Log(@"AlphabetInfo");
@@ -521,6 +542,7 @@
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=NO;
     changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=NO;
     cropPhoto.canvas.userInteractionEnabled=NO;
@@ -529,6 +551,7 @@
     letterView.canvas.userInteractionEnabled=NO;
     alphabetInfo.canvas.userInteractionEnabled=YES;
     changeLanguage.canvas.userInteractionEnabled=NO;
+    writePostcard.canvas.userInteractionEnabled=NO;
 }
 -(void)goToChangeLanguage{
     C4Log(@"ChangeLanguage");
@@ -540,6 +563,7 @@
     letterView.canvas.hidden=YES;
     alphabetInfo.canvas.hidden=YES;
     changeLanguage.canvas.hidden=NO;
+    writePostcard.canvas.hidden=YES;
     
     takePhoto.canvas.userInteractionEnabled=NO;
     cropPhoto.canvas.userInteractionEnabled=NO;
@@ -548,7 +572,29 @@
     letterView.canvas.userInteractionEnabled=NO;
     alphabetInfo.canvas.userInteractionEnabled=NO;
     changeLanguage.canvas.userInteractionEnabled=YES;
+    writePostcard.canvas.userInteractionEnabled=NO;
 
 }
-
+-(void)goToWritePostcard{
+    C4Log(@"WritePostcard");
+    [writePostcard setup:currentAlphabet currentLanguage:currentLanguage];
+    
+    takePhoto.canvas.hidden=YES;
+    cropPhoto.canvas.hidden=YES;
+    assignLetter.canvas.hidden=YES;
+    alphabetView.canvas.hidden=YES;
+    letterView.canvas.hidden=YES;
+    alphabetInfo.canvas.hidden=YES;
+    changeLanguage.canvas.hidden=YES;
+    writePostcard.canvas.hidden=NO;
+    
+    takePhoto.canvas.userInteractionEnabled=NO;
+    cropPhoto.canvas.userInteractionEnabled=NO;
+    assignLetter.canvas.userInteractionEnabled=NO;
+    alphabetView.canvas.userInteractionEnabled=NO;
+    letterView.canvas.userInteractionEnabled=NO;
+    alphabetInfo.canvas.userInteractionEnabled=NO;
+    changeLanguage.canvas.userInteractionEnabled=NO;
+    writePostcard.canvas.userInteractionEnabled=YES;
+}
 @end
