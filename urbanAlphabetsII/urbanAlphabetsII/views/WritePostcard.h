@@ -57,4 +57,13 @@
 -(void)setup:(NSMutableArray*)passedAlphabet currentLanguage:(NSString*)passedLanguage;
 -(void)topBarSetup;
 -(void)setupTextField;
+//to display the postcard
+-(void)displayPostcard;
+-(void)addLetterToPostcard;
+
+//stuff to handle keyboard input
+- (void)textViewDidBeginEditing:(UITextView *)textView;
+- (void)textViewDidEndEditing:(UITextView *)textView;
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+- (void)textViewDidChange:(UITextView *)textView;
 @end

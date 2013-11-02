@@ -56,7 +56,7 @@
     //OTHER STUFF
     //-----------------------
     //currentLetterToDisplay
-    int currentLetter;
+    NSInteger currentLetter;
     C4Image *currentImage; //the image currently displayed
 }
 -(void)transferVariables:(int)number topBarFromTop:(float)TopBarFromTopDefault topBarHeight:(float)TopNavBarHeightDefault bottomBarHeight:(float)BottomBarHeightDefault navBarColor:(UIColor*)navBarColorDefault navigationColor:(UIColor*)navigationColorDefault typeColor:(UIColor*)typeColorDefault fatFont:(C4Font*)fatFontDefault normalFont:(C4Font*)normalFontDefault iconClose:(C4Image*)iconCloseDefault iconAlphabet:(C4Image*)iconAlphabetDefault iconArrowForward:(C4Image*)iconArrowForwardDefault iconArrowBack:(C4Image*)iconArrowBackwardDefault currentAlphabet: (NSMutableArray*)transferredAlphabet;
