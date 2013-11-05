@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA23991018280B460035A299 /* icon_SharePostcard .png in Resources */ = {isa = PBXBuildFile; fileRef = DA23990F18280B460035A299 /* icon_SharePostcard .png */; };
 		DA4BA6CF1821052F00000CE4 /* letter_+.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6CD1821052F00000CE4 /* letter_+.png */; };
 		DA4BA6D01821052F00000CE4 /* letter_$.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6CE1821052F00000CE4 /* letter_$.png */; };
 		DA4BA6D2182105CE00000CE4 /* letter_,.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4BA6D1182105CE00000CE4 /* letter_,.png */; };
@@ -35,7 +36,7 @@
 		DA8C2A0818224CAC006A2D4A /* letter_ae.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8C2A0718224CAC006A2D4A /* letter_ae.png */; };
 		DA8C2A0C182255AE006A2D4A /* WritePostcard.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2A0A182255AE006A2D4A /* WritePostcard.m */; };
 		DA8C2A0D182255AE006A2D4A /* WritePostcard.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA8C2A0B182255AE006A2D4A /* WritePostcard.xib */; };
-		DAC52A391822946900A61D01 /* letter_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC52A381822946900A61D01 /* letter_empty.png */; };
+		DABB82261827C7E7005473F8 /* letter_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = DABB82251827C7E7005473F8 /* letter_empty.png */; };
 		DADC4FF5181D1554005D2F0E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADC4FF4181D1554005D2F0E /* Accelerate.framework */; };
 		DADC4FF7181D1554005D2F0E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADC4FF6181D1554005D2F0E /* AVFoundation.framework */; };
 		DADC4FF9181D1554005D2F0E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADC4FF8181D1554005D2F0E /* CoreFoundation.framework */; };
@@ -134,6 +135,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA23990F18280B460035A299 /* icon_SharePostcard .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_SharePostcard .png"; sourceTree = "<group>"; };
 		DA4BA6CD1821052F00000CE4 /* letter_+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_+.png"; sourceTree = "<group>"; };
 		DA4BA6CE1821052F00000CE4 /* letter_$.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_$.png; sourceTree = "<group>"; };
 		DA4BA6D1182105CE00000CE4 /* letter_,.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_,.png"; sourceTree = "<group>"; };
@@ -166,7 +168,7 @@
 		DA8C2A09182255AE006A2D4A /* WritePostcard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WritePostcard.h; path = views/WritePostcard.h; sourceTree = "<group>"; };
 		DA8C2A0A182255AE006A2D4A /* WritePostcard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WritePostcard.m; path = views/WritePostcard.m; sourceTree = "<group>"; };
 		DA8C2A0B182255AE006A2D4A /* WritePostcard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WritePostcard.xib; path = views/WritePostcard.xib; sourceTree = "<group>"; };
-		DAC52A381822946900A61D01 /* letter_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_empty.png; sourceTree = "<group>"; };
+		DABB82251827C7E7005473F8 /* letter_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_empty.png; sourceTree = "<group>"; };
 		DADC4FF1181D1554005D2F0E /* urbanAlphabetsII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urbanAlphabetsII.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADC4FF4181D1554005D2F0E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		DADC4FF6181D1554005D2F0E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -362,7 +364,7 @@
 		DA75E268181E60B200E9EC64 /* defaultAlphabet */ = {
 			isa = PBXGroup;
 			children = (
-				DAC52A381822946900A61D01 /* letter_empty.png */,
+				DABB82251827C7E7005473F8 /* letter_empty.png */,
 				DA8C2A0718224CAC006A2D4A /* letter_ae.png */,
 				DA8C2A0518224AD9006A2D4A /* letter_Ü.png */,
 				DA4BA6D31821064200000CE4 /* letter_danisho.png */,
@@ -638,6 +640,7 @@
 		DADC5070181D1598005D2F0E /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				DA23990F18280B460035A299 /* icon_SharePostcard .png */,
 				DA8AA4311822408B00089AF7 /* icon_Back.png */,
 				DA8AA42F1822406B00089AF7 /* icon_Settings.png */,
 				DA8AA42D1822405A00089AF7 /* icon_information.png */,
@@ -772,6 +775,7 @@
 				DAF03EDD182039AA00464009 /* letter_Ö.png in Resources */,
 				DA8AA4281822400000089AF7 /* icon_Postcard.png in Resources */,
 				DAF03EE0182039AA00464009 /* letter_R.png in Resources */,
+				DA23991018280B460035A299 /* icon_SharePostcard .png in Resources */,
 				DAF03EC8182039AA00464009 /* letter_6.png in Resources */,
 				DADC5017181D1555005D2F0E /* Media.xcassets in Resources */,
 				DADC5075181D15CD005D2F0E /* TakePhoto.xib in Resources */,
@@ -830,7 +834,7 @@
 				DA8AA41F18223DA500089AF7 /* icon_ArrowBack.png in Resources */,
 				DAF03EDF182039AA00464009 /* letter_Q.png in Resources */,
 				DA4BA6D2182105CE00000CE4 /* letter_,.png in Resources */,
-				DAC52A391822946900A61D01 /* letter_empty.png in Resources */,
+				DABB82261827C7E7005473F8 /* letter_empty.png in Resources */,
 				DAF03EC7182039AA00464009 /* letter_5.png in Resources */,
 				DAF03EC5182039AA00464009 /* letter_3.png in Resources */,
 				DA64F2BF181FB2CD00A7236D /* LetterView.xib in Resources */,

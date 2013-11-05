@@ -63,6 +63,7 @@
     C4Image *iconArrowBackward;
     C4Image *iconAlphabet;
     C4Image *iconChecked;
+    C4Image *iconSharePostcard;
     
     //current alphabet
     NSMutableArray *currentAlphabet;

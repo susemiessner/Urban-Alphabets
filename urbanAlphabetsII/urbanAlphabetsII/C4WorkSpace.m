@@ -48,6 +48,7 @@
     iconArrowBackward=  [C4Image imageNamed:@"icon_ArrowBack.png"];
     iconAlphabet=       [C4Image imageNamed:@"icon_Alphabet.png"];
     iconChecked=        [C4Image imageNamed:@"icon_checked.png"];
+    iconSharePostcard=  [C4Image imageNamed:@"icon_SharePostcard .png"];
     
     currentLanguage=@"Finnish/Swedish";
     oldLanguage=currentLanguage;
@@ -71,6 +72,9 @@
     [self listenFor:@"currentAlphabetChanged" andRunMethod:@"currentAlphabetChanged"];
     //when displaying the alphabet, save it as an image used in case user wants to save that alphabet as an image
     [self listenFor:@"saveCurrentAlphabetAsImage" andRunMethod:@"saveCurrentAlphabetAsImage"];
+    //same goes for postcard
+    [self listenFor:@"saveCurrentPostcardAsImage" andRunMethod:@"saveCurrentPostcardAsImage"];
+
     //when language changed save it in the default settings
     [self listenFor:@"languageChanged" andRunMethod:@"languageChanged"];
 }
@@ -137,7 +141,7 @@
     writePostcard=[WritePostcard new];
     writePostcard.canvas.frame=CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     writePostcard.canvas.userInteractionEnabled=YES;
-    [writePostcard transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault  fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack iconClose:iconClose emptyLetter:emptyLetter];
+    [writePostcard transferVariables:1 topBarFromTop:TopBarFromTopDefault topBarHeight:TopNavBarHeightDefault bottomBarHeight:BottomBarHeightDefault navBarColor:navBarColorDefault navigationColor:navigationColorDefault typeColor:typeColorDefault darkenColor:darkenColorDefault fatFont:fatFontDefault normalFont:normalFontDefault backImage:iconBack iconClose:iconClose emptyLetter:emptyLetter iconMenu:iconMenu takePhoto:iconTakePhoto iconAlphabetInfo:iconAlphabetInfo iconShareAlphabet:iconSharePostcard iconWritePostcard:iconWritePostcard iconMyPostcards:iconMyPostcards iconMyAlphabets:iconMyAlphabets iconSaveImage:iconSaveAlphabet];
     [self.canvas addSubview:writePostcard.canvas];
     writePostcard.canvas.hidden=YES;
 }
@@ -240,6 +244,30 @@
     //create a new C4Image
     alphabetView.currentAlphabetImage = [C4Image imageWithUIImage:newUIImage];
 
+}
+-(void)saveCurrentPostcardAsImage{
+    CGFloat scale = 10.0;
+    
+    C4Log(@"save postcard in main view");
+    //begin an image context
+    CGSize  rect=CGSizeMake(self.canvas.width, self.canvas.height);
+    UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
+    
+    //create a new context ref
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    
+    //render the original image into the context
+    [writePostcard.canvas renderInContext:c];
+    
+    //grab a UIImage from the context
+    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //end the image context
+    UIGraphicsEndImageContext();
+    
+    //create a new C4Image
+    writePostcard.currentPostcardImage = [C4Image imageWithUIImage:newUIImage];
+    
 }
 -(void)languageChanged{
     //get the new language
