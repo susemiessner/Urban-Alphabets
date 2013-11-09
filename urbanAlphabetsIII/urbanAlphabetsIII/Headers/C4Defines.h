@@ -79,7 +79,7 @@ lineNumber:__LINE__ description:(desc), ##__VA_ARGS__]; \
 #define UA_ICON_MY_ALPHABETS    [C4Image imageNamed:@"icon_Alphabets"]
 #define UA_ICON_MENU            [C4Image imageNamed:@"icon_Menu"]
 #define UA_ICON_ARROW_FORWARD   [C4Image imageNamed:@"icon_ArrowForward"]
-#define UA_ICON_ARROW_BACKWARD  [C4Image imageNamed:@"icon_ArrowBacK"]
+#define UA_ICON_ARROW_BACKWARD  [C4Image imageNamed:@"icon_ArrowBack"]
 #define UA_ICON_ALPHABET        [C4Image imageNamed:@"icon_Alphabet"]
 #define UA_ICON_CHECKED         [C4Image imageNamed:@"icon_checked"]
 #define UA_ICON_PHOTOLIBRARY    [C4Image imageNamed:@"icon_PhotoLibrary"]

@@ -35,7 +35,7 @@
     CGRect topBarFrame = CGRectMake(0, UA_TOP_WHITE, self.canvas.width, UA_TOP_BAR_HEIGHT);
     self.topNavBar = [[TopNavBar alloc] initWithFrame:topBarFrame text:@"Crop Photo" lastView:@"TakePhoto"];
     [self.canvas addShape:self.topNavBar];
-    
+
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
@@ -108,7 +108,7 @@
     self.photoTaken.center=self.canvas.center;
 }
 //--------------------------------------------------
-//SAVE IMAGE
+//REMOVE FROM VIEW
 //--------------------------------------------------
 -(void)removeFromView{
     [self.topNavBar removeFromSuperview];
@@ -131,6 +131,7 @@
 //SAVE IMAGE
 //--------------------------------------------------
 -(void)saveImage{
+    self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
     C4Log(@"saving image!");
     //crop image
     self.croppedPhoto=[self cropImage:self.photoTaken withOrigin:self.photoTaken.origin toArea:CGRectMake(50.532, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+86.764, self.canvas.width-2*50.532, 266.472)];
@@ -140,7 +141,6 @@
     
     //uncomment to save the photo to photo library and app's image directory
     //[self exportHighResImage];
-    
     //this goes to the next view
     [self postNotification:@"goToAssignPhoto"];
 }

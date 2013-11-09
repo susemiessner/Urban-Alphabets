@@ -9,13 +9,12 @@
 #import "TopNavBar.h"
 
 @interface TopNavBar ()
-@property (nonatomic) C4Label *titleLabel, *backLabel;
-@property (nonatomic) C4Image *backButton, *closeButton;
+
 @property (readwrite, strong) NSString *previousView;
 @end
 
 @implementation TopNavBar
-
+//with navigation
 - (id)initWithFrame:(CGRect)frame text:(NSString*)titleText lastView:(NSString*)lastView
 {
     self = [super initWithFrame:frame];
@@ -61,6 +60,7 @@
     return self;
 }
 
+
 -(void)fitToFrame:(CGRect)frame {
     self.frame = frame;
     self.titleLabel.center = CGPointMake(self.width / 2.0f, self.height/2.0f);
@@ -72,15 +72,65 @@
     self.backButton.backgroundColor=UA_HIGHLIGHT_COLOR;
     self.backLabel.backgroundColor=UA_HIGHLIGHT_COLOR;
     C4Log(@"navigating back");
+    [self postNotification:@"hideAlphabetView"];
     C4Log(@"toView %@",self.previousView);
     if ([self.previousView isEqual:@"TakePhoto"]) {
+        [self postNotification:@"previousView_TakePhoto"];
         [self postNotification:@"goToTakePhoto"];
+    } else if ([self.previousView isEqual:@"CropPhoto"]) {
+        [self postNotification:@"previousView_CropPhoto"];
+        [self postNotification:@"goToCropPhoto"];
+    } else if ([self.previousView isEqual:@"AssignLetter"]) {
+        [self postNotification:@"previousView_AssignLetter"];
+        [self postNotification:@"goToAssignLetter"];
+    }else if ([self.previousView isEqual:@"AlphabetView"]) {
+        [self postNotification:@"previousView_AlphabetView"];
+        [self postNotification:@"goToAlphabetsView"];
+    }else if ([self.previousView isEqual:@"AlphabetInfo"]) {
+        [self postNotification:@"previousView_AlphabetInfo"];
+        [self postNotification:@"goToAlphabetInfo"];
+    }else if ([self.previousView isEqual:@"WritePostcard"]) {
+        [self postNotification:@"previousView_WritePostcard"];
+        [self postNotification:@"goToWritePostcard"];
+    }else if([self.previousView isEqual:@"LetterView"]){
+        [self postNotification:@"previousView_LetterView"];
+        [self postNotification:@"goToLetterView"];
+    }else if([self.previousView isEqual:@"AlphabetInfo"]){
+        [self postNotification:@"previousView_AlphabetInfo"];
+        [self postNotification:@"goToAlphabetInfo"];
+    }else if([self.previousView isEqual:@"ChangeLanguage"]){
+        [self postNotification:@"previousView_ChangeLanguage"];
+        [self postNotification:@"goToChangeLanguage"];
     }
     
 }
 -(void)goToAlphabetView{
     C4Log(@"goToAlphabetView");
     self.closeButton.backgroundColor=UA_HIGHLIGHT_COLOR;
+    [self postNotification:@"goToAlphabetsView"];
+
 }
+//without navigation
+- (id)initWithFrame:(CGRect)frame text:(NSString*)titleText
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        //--------------------------------------------------
+        //underlying rect
+        //--------------------------------------------------
+        [self rect:self.frame];
+        self.fillColor=UA_NAV_BAR_COLOR;
+        self.lineWidth=0;
+        
+        //center label
+        self.titleLabel = [C4Label labelWithText:titleText font:UA_FAT_FONT];
+        [self addLabel:self.titleLabel];        //add the label to the nav bar
+        
+        self.titleLabel.center = CGPointMake(self.width / 2.0f, self.height/2.0f);
+        
+    }
+    return self;
+}
+
 
 @end

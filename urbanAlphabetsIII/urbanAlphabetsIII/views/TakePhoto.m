@@ -15,12 +15,13 @@
 @end
 
 @implementation TakePhoto
--(void)setup{
+-(void)setupWithPreviousView{
+    
     //top nav bar
     CGRect topBarFrame = CGRectMake(0, UA_TOP_WHITE, self.canvas.width, UA_TOP_BAR_HEIGHT);
     self.topNavBar = [[TopNavBar alloc] initWithFrame:topBarFrame text:@"Take Photo" lastView:@"TakePhoto"];
     [self.canvas addShape:self.topNavBar];
-    
+
     //bottomNavbar WITH 2 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45)];
@@ -67,6 +68,7 @@
         self.img = cam.capturedImage;
         [self removeFromView];
         C4Log(@"go to CropPhoto");
+        [self postNotification:@"previousView_TakePhoto"];
         [self postNotification:@"goToCropPhoto"];
     }
     counter++;
