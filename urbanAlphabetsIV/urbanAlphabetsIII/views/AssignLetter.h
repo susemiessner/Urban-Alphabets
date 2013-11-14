@@ -8,7 +8,7 @@
 
 #import "C4CanvasController.h"
 
-@interface AssignLetter : C4CanvasController
+@interface AssignLetter : C4CanvasController<NSURLConnectionDelegate>
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;//the current alphabet > will be changed so should be accessible from outside for next screen
 @property (readwrite) NSUInteger chosenImageNumberInArray;
 

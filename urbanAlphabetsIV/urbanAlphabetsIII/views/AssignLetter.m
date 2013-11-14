@@ -138,10 +138,40 @@
     [self.currentAlphabet insertObject:croppedImage atIndex:self.chosenImageNumberInArray];
     
     //ending here
+    //--------------------------------------------------
+    //upload image to database
+    //--------------------------------------------------
+    NSString *path=[NSString stringWithFormat:@"letter_%@.png", [NSDate date]];
+    NSString *longitude= @"16";
+    NSString *latitude= @"89.1";
+    NSString *owner=@"user";
+    NSString *letter=[NSString stringWithFormat:@"%lu",(unsigned long)self.chosenImageNumberInArray];
+    NSString *postcard=@"no";
+    NSString *alphabet=@"no";
+
+    NSData *imageData=UIImagePNGRepresentation(croppedImage.UIImage);
+    NSString *post = [NSString stringWithFormat:@"path=%@&longitude=%@&latitude=%@&owner=%@&letter=%@&postcard=%@&alphabet=%@&image=%@", path, longitude,latitude,owner,letter,postcard,alphabet, imageData];
+    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"http://mlab.taik.fi/UrbanAlphabets/add.php"]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    
+    // now lets make the connection to the web
+    NSURLConnection *conn=[[NSURLConnection alloc]initWithRequest:request delegate:self];
+    
     
     [self postNotification:@"currentAlphabetChanged"];
     
     [self removeFromView];
     [self postNotification:@"goToAlphabetsView"];
+}
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    C4Log(@"received response:%@", response);
 }
 @end

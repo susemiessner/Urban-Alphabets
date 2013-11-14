@@ -114,11 +114,14 @@
     [self stopListeningFor:@"touchesBegan" object:self.bottomNavBar.centerImage];
 
 }
+
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) goToAlphabetsViewAddingImageToAlphabet{
     self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
+
+
     //--------------------------------------------------
     //which image was chosen
     //--------------------------------------------------

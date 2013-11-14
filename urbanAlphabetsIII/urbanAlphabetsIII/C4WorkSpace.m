@@ -200,7 +200,7 @@
     [self hideAll];
     C4Log(@"alphabetView");
     
-    [alphabetView setup:self.currentAlphabet];
+    [alphabetView setup:[self.currentAlphabet copy]];
     alphabetView.canvas.hidden=NO;
     alphabetView.canvas.userInteractionEnabled=YES;
     
@@ -209,7 +209,7 @@
     [self hideAll];
     C4Log(@"LetterView");
     //C4Log(@"letterTouched:%i", alphabetView.letterTouched);
-    [letterView setupWithLetterNo: alphabetView.letterTouched currentAlphabet:self.currentAlphabet];
+    [letterView setupWithLetterNo: alphabetView.letterTouched currentAlphabet:[self.currentAlphabet copy]];
     letterView.canvas.hidden=NO;
     letterView.canvas.userInteractionEnabled=YES;
 }
