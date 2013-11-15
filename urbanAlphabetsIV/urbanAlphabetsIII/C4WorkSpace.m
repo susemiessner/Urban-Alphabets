@@ -187,7 +187,7 @@
     [self hideAll];
     C4Log(@"assignPhotoDeletingOne Image");
     //replacing the image that was just put in
-    C4Image *imageToSend=[self.defaultAlphabet objectAtIndex: assignLetter.chosenImageNumberInArray];
+    C4Image *imageToSend=[self.currentAlphabet objectAtIndex: assignLetter.chosenImageNumberInArray];
     [self.currentAlphabet removeObjectAtIndex:assignLetter.chosenImageNumberInArray];
     [self.currentAlphabet insertObject:imageToSend atIndex:assignLetter.chosenImageNumberInArray];
     
@@ -307,7 +307,7 @@
     [C4Shape defaultStyle].fillColor=UA_NAV_BAR_COLOR;
 }
 -(void)loadDefaultAlphabet{
-    self.defaultAlphabet=[NSArray arrayWithObjects:
+    self.currentAlphabet=[NSMutableArray arrayWithObjects:
                           //first row
                           [C4Image imageNamed:@"letter_A.png"],
                           [C4Image imageNamed:@"letter_B.png"],
@@ -358,22 +358,23 @@
                           [C4Image imageNamed:@"letter_8.png"],
                           [C4Image imageNamed:@"letter_9.png"],
                           
-                          //the ones from the other languages
+                         /* //the ones from the other languages
                           [C4Image imageNamed:@"letter_,.png"], //42
                           [C4Image imageNamed:@"letter_$.png"], //43
                           [C4Image imageNamed:@"letter_+.png"], //44
                           [C4Image imageNamed:@"letter_ae.png"],//45
                           [C4Image imageNamed:@"letter_danisho.png"], //46
-                          [C4Image imageNamed:@"letter_Ü.png"], //47
+                          [C4Image imageNamed:@"letter_Ü.png"], //47*/
                           nil];
     
-    self.currentAlphabet=[[NSMutableArray alloc]init];
-    for (int i=0; i<42; i++) {
-        C4Image *currentImage=[self.defaultAlphabet objectAtIndex:i];
-        [self.currentAlphabet addObject:currentImage];
-    }
+    //self.currentAlphabet=[[NSMutableArray alloc]init];
+    //for (int i=0; i<42; i++) {
+    //    C4Image *currentImage=[self.defaultAlphabet objectAtIndex:i];
+    //    [self.currentAlphabet addObject:currentImage];
+    //}
     self.currentLanguage=@"Finnish/Swedish";
     self.oldLanguage=self.currentLanguage;
+    //C4Log(@"currentAlphabetLength:%@", [self.currentAlphabet count]);
 }
 -(void)languageChanged{
     C4Log(@"languageChanged");
@@ -388,138 +389,138 @@
         C4Log(@"change Finnish to German");
         //change Å to Ü
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:47] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
     }
     //Finnish>Danish
     if ([self.currentLanguage isEqual:@"Danish/Norwegian"] && [self.oldLanguage isEqual:@"Finnish/Swedish"]) {
         C4Log(@"change Finnish to Danish");
         //change Ä to AE
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:45] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
         //change Ö to danishO
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:46] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
     }
     //Finnish>English
     if ([self.currentLanguage isEqual:@"English"] && [self.oldLanguage isEqual:@"Finnish/Swedish"]) {
         C4Log(@"change Finnish to English");
         //change Ä to +
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:44] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
         //change Ö to $
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:43] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:42] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
     }
     //German>Finnish
     if ([self.currentLanguage isEqual:@"Finnish/Swedish"] && [self.oldLanguage isEqual:@"German"]) {
         C4Log(@"change German to Finnish");
         //change Ü to Å
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:28] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
     }
     //Danish/Finnish
     if ([self.currentLanguage isEqual:@"Finnish/Swedish"] && [self.oldLanguage isEqual:@"Danish/Norwegian"]) {
         C4Log(@"change Danish to Finnish");
         //change Ä to AE
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:26] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
         //change Ö to danishO
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:27] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
     }
     //English>Finnish
     if ([self.currentLanguage isEqual:@"Finnish/Swedish"] && [self.oldLanguage isEqual:@"English"]) {
         C4Log(@"change English to Finnish");
         //change Ä to +
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:26] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
         //change Ö to $
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:27] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:28] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
     }
     //German>English
     if ([self.currentLanguage isEqual:@"English"] && [self.oldLanguage isEqual:@"German"]) {
         C4Log(@"change Finnish to English");
         //change Ä to +
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:44] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
         //change Ö to $
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:43] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:42] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
     }
     //Danish>English
     if ([self.currentLanguage isEqual:@"English"] && [self.oldLanguage isEqual:@"Danish/Norwegian"]) {
         C4Log(@"change Finnish to English");
         //change Ä to +
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:44] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
         //change Ö to $
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:43] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:42] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
     }
     //English>German
     if ([self.currentLanguage isEqual:@"German"] && [self.oldLanguage isEqual:@"English"]) {
         C4Log(@"change English to German");
         //change Ä
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:26] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
         //change Ö
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:27] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:47] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
     }
     //English>Danish
     if ([self.currentLanguage isEqual:@"Danish/Norwegian"] && [self.oldLanguage isEqual:@"English"]) {
         C4Log(@"change English to Danish");
         //change Ä
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:45] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
         //change Ö
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:46] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:28] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
     }
     //German>Danish
     if ([self.currentLanguage isEqual:@"Danish/Norwegian"] && [self.oldLanguage isEqual:@"German"]) {
         C4Log(@"change English to Danish");
         //change Ä
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:45] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
         //change Ö
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:46] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:28] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
     }
     //Danish>German
     if ([self.currentLanguage isEqual:@"German"] && [self.oldLanguage isEqual:@"Danish/Norwegian"]) {
         C4Log(@"change Danish to German");
         //change Ä
         [self.currentAlphabet removeObjectAtIndex:26];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:26] atIndex:26];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
         //change Ö
         [self.currentAlphabet removeObjectAtIndex:27];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:27] atIndex:27];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
         //change Å to ,
         [self.currentAlphabet removeObjectAtIndex:28];
-        [self.currentAlphabet insertObject:[self.defaultAlphabet objectAtIndex:47] atIndex:28];
+        [self.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
     }
     //lastly for the next change set old to new alphabet
     self.oldLanguage=self.currentLanguage;

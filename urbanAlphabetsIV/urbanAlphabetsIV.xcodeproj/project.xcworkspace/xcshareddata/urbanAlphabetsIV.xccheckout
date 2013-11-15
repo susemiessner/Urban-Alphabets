@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6D62CFF8-EE54-4813-A40D-A8ED9CCFB886</string>
+	<key>IDESourceControlProjectName</key>
+	<string>urbanAlphabetsIV</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DD085147-2998-4D29-B2F1-30D2A81BC50B</key>
+		<string>https://github.com/susemiessner/Urban-Alphabets.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>urbanAlphabetsIV/urbanAlphabetsIV.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DD085147-2998-4D29-B2F1-30D2A81BC50B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/susemiessner/Urban-Alphabets.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DD085147-2998-4D29-B2F1-30D2A81BC50B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DD085147-2998-4D29-B2F1-30D2A81BC50B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>00_GIT</string>
+		</dict>
+	</array>
+</dict>
+</plist>

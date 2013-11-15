@@ -7,7 +7,7 @@
 //
 
 #import "AssignLetter.h"
-
+#import "saveToDatabase.h"
 @interface AssignLetter (){
     int notificationCounter; //to make sure Ok button is only added 1x
     NSMutableArray *greyRectArray;
@@ -18,10 +18,12 @@
     CLLocation *currentLocation;
 
     C4Label *longitudeLabel, *latitudeLabel;
+    
 
 }
 @property (nonatomic) TopNavBar *topNavBar;
 @property (nonatomic) BottomNavBar *bottomNavBar;
+@property (nonatomic) saveToDatabase *saveToDatabase;
 @end
 
 @implementation AssignLetter
@@ -169,6 +171,8 @@
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
+    [self.saveToDatabase saveToDatabaseWithLocation:currentLocation ImageNumber:self.chosenImageNumberInArray Image:(C4Image*)croppedImage];
+    /*
     NSString *path=[NSString stringWithFormat:@"letter_%@.png", [NSDate date]];
     NSString *longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
     NSString *latitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
@@ -191,7 +195,7 @@
     [request setHTTPBody:postData];
     
     // now lets make the connection to the web
-    [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    [[NSURLConnection alloc]initWithRequest:request delegate:self];*/
     
     [self postNotification:@"currentAlphabetChanged"];
     

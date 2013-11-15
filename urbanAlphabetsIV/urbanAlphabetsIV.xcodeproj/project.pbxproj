@@ -126,6 +126,7 @@
 		DA9613D818291E490031A06B /* CropPhoto.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA9613D618291E490031A06B /* CropPhoto.xib */; };
 		DA9613E318292FB60031A06B /* AssignLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9613E118292FB60031A06B /* AssignLetter.m */; };
 		DA9613E418292FB60031A06B /* AssignLetter.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA9613E218292FB60031A06B /* AssignLetter.xib */; };
+		DAB595371836680700FAAC2C /* saveToDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB595361836680700FAAC2C /* saveToDatabase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -319,6 +320,8 @@
 		DA9613E018292FB60031A06B /* AssignLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssignLetter.h; path = views/AssignLetter.h; sourceTree = "<group>"; };
 		DA9613E118292FB60031A06B /* AssignLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssignLetter.m; path = views/AssignLetter.m; sourceTree = "<group>"; };
 		DA9613E218292FB60031A06B /* AssignLetter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AssignLetter.xib; path = views/AssignLetter.xib; sourceTree = "<group>"; };
+		DAB595351836680700FAAC2C /* saveToDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = saveToDatabase.h; path = otherClasses/saveToDatabase.h; sourceTree = "<group>"; };
+		DAB595361836680700FAAC2C /* saveToDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = saveToDatabase.m; path = otherClasses/saveToDatabase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -464,6 +467,7 @@
 				DA96131A1828E1880031A06B /* C4WorkSpace.h */,
 				DA96131B1828E1880031A06B /* C4WorkSpace.m */,
 				DA9613CA1828EE090031A06B /* NavigationBars */,
+				DAB595381836680F00FAAC2C /* otherClasses */,
 				DA9613C51828EAC00031A06B /* views */,
 				DA9612DC1828E1850031A06B /* Media */,
 				DA9612E11828E1860031A06B /* Framework */,
@@ -719,6 +723,15 @@
 			name = AssignLetter;
 			sourceTree = "<group>";
 		};
+		DAB595381836680F00FAAC2C /* otherClasses */ = {
+			isa = PBXGroup;
+			children = (
+				DAB595351836680700FAAC2C /* saveToDatabase.h */,
+				DAB595361836680700FAAC2C /* saveToDatabase.m */,
+			);
+			name = otherClasses;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -910,6 +923,7 @@
 				DA677728182A3C6D005EA9A0 /* LetterView.m in Sources */,
 				DA524646182A861A003C5113 /* WritePostcard.m in Sources */,
 				DA677723182A34D7005EA9A0 /* AlphabetView.m in Sources */,
+				DAB595371836680700FAAC2C /* saveToDatabase.m in Sources */,
 				DA13FC1E182CCDCD008F5733 /* PostcardMenu.m in Sources */,
 				DA67773F182A73D3005EA9A0 /* ChangeLanguage.m in Sources */,
 			);

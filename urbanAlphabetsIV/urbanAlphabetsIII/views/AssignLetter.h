@@ -7,6 +7,7 @@
 //
 
 #import "C4CanvasController.h"
+#import "saveToDatabase.h"
 #import <CoreLocation/CoreLocation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <ImageIO/CGImageProperties.h>
