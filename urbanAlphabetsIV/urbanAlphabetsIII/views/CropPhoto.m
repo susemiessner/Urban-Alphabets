@@ -104,8 +104,17 @@
 }
 -(void)stepperValueChanged:(UIStepper*)theStepper{
     C4Log(@"current sender.value %f", theStepper.value);
+    float oldHeight=self.photoTaken.height;
+    float oldWidth=self.photoTaken.width;
+    float oldX=self.photoTaken.center.x;
+    float oldY=self.photoTaken.center.y;
     self.photoTaken.height=self.canvas.height*theStepper.value;
-    self.photoTaken.center=self.canvas.center;
+    float newHeight=self.photoTaken.height;
+    float newWidth=self.photoTaken.width;
+    
+    float newX=self.canvas.center.x-((self.canvas.center.x-oldX)*newWidth/oldWidth);
+    float newY=self.canvas.center.y-((self.canvas.center.y-oldY)*newHeight/oldHeight);
+    self.photoTaken.center=CGPointMake(newX, newY);
 }
 //--------------------------------------------------
 //REMOVE FROM VIEW
