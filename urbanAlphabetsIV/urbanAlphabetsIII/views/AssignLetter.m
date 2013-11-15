@@ -13,6 +13,12 @@
     NSMutableArray *greyRectArray;
     C4Image *currentImage; //the image currently highlighted
     C4Image *croppedImage;
+    
+    CLLocationManager *locationManager;
+    CLLocation *currentLocation;
+
+    C4Label *longitudeLabel, *latitudeLabel;
+
 }
 @property (nonatomic) TopNavBar *topNavBar;
 @property (nonatomic) BottomNavBar *bottomNavBar;
@@ -37,6 +43,15 @@
     
     [self drawGreyGrid];
     [self drawCurrentAlphabet:currentAlphabetPassed];
+    
+    //start location updating
+    locationManager = [[CLLocationManager alloc] init];
+
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    
+
 
 }
 -(void)drawCurrentAlphabet: (NSMutableArray*)currentAlphabetPassed{
@@ -97,7 +112,7 @@
         [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetsViewAddingImageToAlphabet"];
     }
     notificationCounter++;
-    
+
 }
 -(void)removeFromView{
     [self.topNavBar removeFromSuperview];
@@ -115,15 +130,29 @@
 
 }
 //------------------------------------------------------------------------
+//LOCATION UPDATING
+//------------------------------------------------------------------------
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"didUpdateToLocation: %@", newLocation);
+    currentLocation = newLocation;
+}
+//------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) goToAlphabetsViewAddingImageToAlphabet{
+
     self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
     //--------------------------------------------------
     //which image was chosen
     //--------------------------------------------------
-    
-    
     C4Log(@"going to Alphabetsview");
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -137,13 +166,12 @@
     //add the cropped image in the same position
     [self.currentAlphabet insertObject:croppedImage atIndex:self.chosenImageNumberInArray];
     
-    //ending here
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
     NSString *path=[NSString stringWithFormat:@"letter_%@.png", [NSDate date]];
-    NSString *longitude= @"16";
-    NSString *latitude= @"89.1";
+    NSString *longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+    NSString *latitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
     NSString *owner=@"user";
     NSString *letter=[NSString stringWithFormat:@"%lu",(unsigned long)self.chosenImageNumberInArray];
     NSString *postcard=@"no";
@@ -153,7 +181,7 @@
     NSString *post = [NSString stringWithFormat:@"path=%@&longitude=%@&latitude=%@&owner=%@&letter=%@&postcard=%@&alphabet=%@&image=%@", path, longitude,latitude,owner,letter,postcard,alphabet, imageData];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:@"http://mlab.taik.fi/UrbanAlphabets/add.php"]];
@@ -163,13 +191,15 @@
     [request setHTTPBody:postData];
     
     // now lets make the connection to the web
-    NSURLConnection *conn=[[NSURLConnection alloc]initWithRequest:request delegate:self];
+    [[NSURLConnection alloc]initWithRequest:request delegate:self];
     
     
     [self postNotification:@"currentAlphabetChanged"];
     
     [self removeFromView];
     [self postNotification:@"goToAlphabetsView"];
+    [locationManager stopUpdatingLocation];
+
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     C4Log(@"received response:%@", response);

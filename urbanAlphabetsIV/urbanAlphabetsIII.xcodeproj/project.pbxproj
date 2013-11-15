@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DA13FC1E182CCDCD008F5733 /* PostcardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DA13FC1D182CCDCD008F5733 /* PostcardMenu.m */; };
+		DA15AB12183613CE002E6BDD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA15AB11183613CE002E6BDD /* CoreLocation.framework */; };
+		DA15AB14183613DE002E6BDD /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA15AB13183613DE002E6BDD /* AssetsLibrary.framework */; };
+		DA15AB16183613E6002E6BDD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA15AB15183613E6002E6BDD /* ImageIO.framework */; };
 		DA524646182A861A003C5113 /* WritePostcard.m in Sources */ = {isa = PBXBuildFile; fileRef = DA524644182A861A003C5113 /* WritePostcard.m */; };
 		DA524647182A861A003C5113 /* WritePostcard.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA524645182A861A003C5113 /* WritePostcard.xib */; };
 		DA52464D182A93AD003C5113 /* PostcardView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA52464B182A93AD003C5113 /* PostcardView.m */; };
@@ -138,6 +141,9 @@
 /* Begin PBXFileReference section */
 		DA13FC1C182CCDCD008F5733 /* PostcardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostcardMenu.h; path = menus/PostcardMenu.h; sourceTree = "<group>"; };
 		DA13FC1D182CCDCD008F5733 /* PostcardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostcardMenu.m; path = menus/PostcardMenu.m; sourceTree = "<group>"; };
+		DA15AB11183613CE002E6BDD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DA15AB13183613DE002E6BDD /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		DA15AB15183613E6002E6BDD /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		DA524643182A861A003C5113 /* WritePostcard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WritePostcard.h; path = views/WritePostcard.h; sourceTree = "<group>"; };
 		DA524644182A861A003C5113 /* WritePostcard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WritePostcard.m; path = views/WritePostcard.m; sourceTree = "<group>"; };
 		DA524645182A861A003C5113 /* WritePostcard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WritePostcard.xib; path = views/WritePostcard.xib; sourceTree = "<group>"; };
@@ -320,6 +326,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA15AB16183613E6002E6BDD /* ImageIO.framework in Frameworks */,
+				DA15AB14183613DE002E6BDD /* AssetsLibrary.framework in Frameworks */,
+				DA15AB12183613CE002E6BDD /* CoreLocation.framework in Frameworks */,
 				DA9613151828E1880031A06B /* libC4.a in Frameworks */,
 				DA9612D01828E1850031A06B /* QuartzCore.framework in Frameworks */,
 				DA9612D21828E1850031A06B /* UIKit.framework in Frameworks */,
@@ -430,6 +439,9 @@
 		DA9612BC1828E1850031A06B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA15AB15183613E6002E6BDD /* ImageIO.framework */,
+				DA15AB13183613DE002E6BDD /* AssetsLibrary.framework */,
+				DA15AB11183613CE002E6BDD /* CoreLocation.framework */,
 				DA9612BD1828E1850031A06B /* Accelerate.framework */,
 				DA9612BF1828E1850031A06B /* AVFoundation.framework */,
 				DA9612C11828E1850031A06B /* CoreFoundation.framework */,
