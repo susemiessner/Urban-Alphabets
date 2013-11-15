@@ -213,7 +213,7 @@
 		DA67773C182A73D3005EA9A0 /* ChangeLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeLanguage.h; path = views/ChangeLanguage.h; sourceTree = "<group>"; };
 		DA67773D182A73D3005EA9A0 /* ChangeLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeLanguage.m; path = views/ChangeLanguage.m; sourceTree = "<group>"; };
 		DA67773E182A73D3005EA9A0 /* ChangeLanguage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChangeLanguage.xib; path = views/ChangeLanguage.xib; sourceTree = "<group>"; };
-		DA9612BA1828E1850031A06B /* urbanAlphabetsIII.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urbanAlphabetsIII.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA9612BA1828E1850031A06B /* urbanAlphabetsIV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urbanAlphabetsIV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9612BD1828E1850031A06B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		DA9612BF1828E1850031A06B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		DA9612C11828E1850031A06B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -228,7 +228,7 @@
 		DA9612D51828E1850031A06B /* urbanAlphabetsIII-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "urbanAlphabetsIII-Info.plist"; sourceTree = "<group>"; };
 		DA9612D71828E1850031A06B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA9612D91828E1850031A06B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DA9612DB1828E1850031A06B /* urbanAlphabetsIII-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "urbanAlphabetsIII-Prefix.pch"; sourceTree = "<group>"; };
+		DA9612DB1828E1850031A06B /* urbanAlphabetsIV-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "urbanAlphabetsIV-Prefix.pch"; sourceTree = "<group>"; };
 		DA9612DD1828E1850031A06B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA9612DF1828E1860031A06B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		DA9612E21828E1860031A06B /* C4ActivityIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4ActivityIndicator.h; path = Headers/C4ActivityIndicator.h; sourceTree = "<group>"; };
@@ -282,9 +282,9 @@
 		DA9613181828E1880031A06B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA96131A1828E1880031A06B /* C4WorkSpace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C4WorkSpace.h; sourceTree = "<group>"; };
 		DA96131B1828E1880031A06B /* C4WorkSpace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = C4WorkSpace.m; sourceTree = "<group>"; };
-		DA9613211828E1880031A06B /* urbanAlphabetsIIITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = urbanAlphabetsIIITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA9613211828E1880031A06B /* urbanAlphabetsIVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = urbanAlphabetsIVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9613221828E1880031A06B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DA96132A1828E1880031A06B /* urbanAlphabetsIIITests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "urbanAlphabetsIIITests-Info.plist"; sourceTree = "<group>"; };
+		DA96132A1828E1880031A06B /* urbanAlphabetsIVTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "urbanAlphabetsIVTests-Info.plist"; sourceTree = "<group>"; };
 		DA96132C1828E1880031A06B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA96132E1828E1880031A06B /* urbanAlphabetsIIITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = urbanAlphabetsIIITests.m; sourceTree = "<group>"; };
 		DA96133A1828E6B50031A06B /* icon_TakePhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_TakePhoto.png; sourceTree = "<group>"; };
@@ -430,8 +430,8 @@
 		DA9612BB1828E1850031A06B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA9612BA1828E1850031A06B /* urbanAlphabetsIII.app */,
-				DA9613211828E1880031A06B /* urbanAlphabetsIIITests.xctest */,
+				DA9612BA1828E1850031A06B /* urbanAlphabetsIV.app */,
+				DA9613211828E1880031A06B /* urbanAlphabetsIVTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -479,7 +479,7 @@
 				DA9612D51828E1850031A06B /* urbanAlphabetsIII-Info.plist */,
 				DA9612D61828E1850031A06B /* InfoPlist.strings */,
 				DA9612D91828E1850031A06B /* main.m */,
-				DA9612DB1828E1850031A06B /* urbanAlphabetsIII-Prefix.pch */,
+				DA9612DB1828E1850031A06B /* urbanAlphabetsIV-Prefix.pch */,
 				DA9612E41828E1860031A06B /* C4AppDelegate.h */,
 				DA96130E1828E1860031A06B /* C4AppDelegate.m */,
 			);
@@ -570,7 +570,7 @@
 		DA9613291828E1880031A06B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA96132A1828E1880031A06B /* urbanAlphabetsIIITests-Info.plist */,
+				DA96132A1828E1880031A06B /* urbanAlphabetsIVTests-Info.plist */,
 				DA96132B1828E1880031A06B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -722,9 +722,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DA9612B91828E1850031A06B /* urbanAlphabetsIII */ = {
+		DA9612B91828E1850031A06B /* urbanAlphabetsIV */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA9613321828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIII" */;
+			buildConfigurationList = DA9613321828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIV" */;
 			buildPhases = (
 				DA9612B61828E1850031A06B /* Sources */,
 				DA9612B71828E1850031A06B /* Frameworks */,
@@ -734,14 +734,14 @@
 			);
 			dependencies = (
 			);
-			name = urbanAlphabetsIII;
+			name = urbanAlphabetsIV;
 			productName = urbanAlphabetsIII;
-			productReference = DA9612BA1828E1850031A06B /* urbanAlphabetsIII.app */;
+			productReference = DA9612BA1828E1850031A06B /* urbanAlphabetsIV.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DA9613201828E1880031A06B /* urbanAlphabetsIIITests */ = {
+		DA9613201828E1880031A06B /* urbanAlphabetsIVTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA9613351828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIIITests" */;
+			buildConfigurationList = DA9613351828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIVTests" */;
 			buildPhases = (
 				DA96131D1828E1880031A06B /* Sources */,
 				DA96131E1828E1880031A06B /* Frameworks */,
@@ -752,9 +752,9 @@
 			dependencies = (
 				DA9613271828E1880031A06B /* PBXTargetDependency */,
 			);
-			name = urbanAlphabetsIIITests;
+			name = urbanAlphabetsIVTests;
 			productName = urbanAlphabetsIIITests;
-			productReference = DA9613211828E1880031A06B /* urbanAlphabetsIIITests.xctest */;
+			productReference = DA9613211828E1880031A06B /* urbanAlphabetsIVTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -771,7 +771,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DA9612B51828E1850031A06B /* Build configuration list for PBXProject "urbanAlphabetsIII" */;
+			buildConfigurationList = DA9612B51828E1850031A06B /* Build configuration list for PBXProject "urbanAlphabetsIV" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -784,8 +784,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DA9612B91828E1850031A06B /* urbanAlphabetsIII */,
-				DA9613201828E1880031A06B /* urbanAlphabetsIIITests */,
+				DA9612B91828E1850031A06B /* urbanAlphabetsIV */,
+				DA9613201828E1880031A06B /* urbanAlphabetsIVTests */,
 			);
 		};
 /* End PBXProject section */
@@ -928,7 +928,7 @@
 /* Begin PBXTargetDependency section */
 		DA9613271828E1880031A06B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DA9612B91828E1850031A06B /* urbanAlphabetsIII */;
+			target = DA9612B91828E1850031A06B /* urbanAlphabetsIV */;
 			targetProxy = DA9613261828E1880031A06B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1039,13 +1039,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "urbanAlphabetsIII/urbanAlphabetsIII-Prefix.pch";
+				GCC_PREFIX_HEADER = "urbanAlphabetsIII/urbanAlphabetsIV-Prefix.pch";
 				INFOPLIST_FILE = "urbanAlphabetsIII/urbanAlphabetsIII-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Suse/Documents/helsinki/00_thesis\\ idea\\ urban\\ alphabets/00_GIT/urbanAlphabetsIII/urbanAlphabetsIII",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = urbanAlphabetsIV;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1056,13 +1056,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "urbanAlphabetsIII/urbanAlphabetsIII-Prefix.pch";
+				GCC_PREFIX_HEADER = "urbanAlphabetsIII/urbanAlphabetsIV-Prefix.pch";
 				INFOPLIST_FILE = "urbanAlphabetsIII/urbanAlphabetsIII-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Suse/Documents/helsinki/00_thesis\\ idea\\ urban\\ alphabets/00_GIT/urbanAlphabetsIII/urbanAlphabetsIII",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = urbanAlphabetsIV;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1083,8 +1083,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "urbanAlphabetsIIITests/urbanAlphabetsIIITests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "urbanAlphabetsIIITests/urbanAlphabetsIVTests-Info.plist";
+				PRODUCT_NAME = urbanAlphabetsIVTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1102,8 +1102,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "urbanAlphabetsIII/urbanAlphabetsIII-Prefix.pch";
-				INFOPLIST_FILE = "urbanAlphabetsIIITests/urbanAlphabetsIIITests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "urbanAlphabetsIIITests/urbanAlphabetsIVTests-Info.plist";
+				PRODUCT_NAME = urbanAlphabetsIVTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1112,7 +1112,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA9612B51828E1850031A06B /* Build configuration list for PBXProject "urbanAlphabetsIII" */ = {
+		DA9612B51828E1850031A06B /* Build configuration list for PBXProject "urbanAlphabetsIV" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA9613301828E1880031A06B /* Debug */,
@@ -1121,7 +1121,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA9613321828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIII" */ = {
+		DA9613321828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIV" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA9613331828E1880031A06B /* Debug */,
@@ -1130,7 +1130,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA9613351828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIIITests" */ = {
+		DA9613351828E1880031A06B /* Build configuration list for PBXNativeTarget "urbanAlphabetsIVTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA9613361828E1880031A06B /* Debug */,

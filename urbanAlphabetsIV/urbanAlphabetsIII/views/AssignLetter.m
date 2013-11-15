@@ -193,7 +193,6 @@
     // now lets make the connection to the web
     [[NSURLConnection alloc]initWithRequest:request delegate:self];
     
-    
     [self postNotification:@"currentAlphabetChanged"];
     
     [self removeFromView];

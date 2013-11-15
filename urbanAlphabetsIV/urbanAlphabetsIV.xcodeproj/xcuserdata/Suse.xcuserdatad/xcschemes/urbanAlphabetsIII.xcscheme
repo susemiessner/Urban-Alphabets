@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA9612B91828E1850031A06B"
-               BuildableName = "urbanAlphabetsIII.app"
-               BlueprintName = "urbanAlphabetsIII"
-               ReferencedContainer = "container:urbanAlphabetsIII.xcodeproj">
+               BuildableName = "urbanAlphabetsIV.app"
+               BlueprintName = "urbanAlphabetsIV"
+               ReferencedContainer = "container:urbanAlphabetsIV.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA9613201828E1880031A06B"
-               BuildableName = "urbanAlphabetsIIITests.xctest"
-               BlueprintName = "urbanAlphabetsIIITests"
-               ReferencedContainer = "container:urbanAlphabetsIII.xcodeproj">
+               BuildableName = "urbanAlphabetsIVTests.xctest"
+               BlueprintName = "urbanAlphabetsIVTests"
+               ReferencedContainer = "container:urbanAlphabetsIV.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA9612B91828E1850031A06B"
-            BuildableName = "urbanAlphabetsIII.app"
-            BlueprintName = "urbanAlphabetsIII"
-            ReferencedContainer = "container:urbanAlphabetsIII.xcodeproj">
+            BuildableName = "urbanAlphabetsIV.app"
+            BlueprintName = "urbanAlphabetsIV"
+            ReferencedContainer = "container:urbanAlphabetsIV.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA9612B91828E1850031A06B"
-            BuildableName = "urbanAlphabetsIII.app"
-            BlueprintName = "urbanAlphabetsIII"
-            ReferencedContainer = "container:urbanAlphabetsIII.xcodeproj">
+            BuildableName = "urbanAlphabetsIV.app"
+            BlueprintName = "urbanAlphabetsIV"
+            ReferencedContainer = "container:urbanAlphabetsIV.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA9612B91828E1850031A06B"
-            BuildableName = "urbanAlphabetsIII.app"
-            BlueprintName = "urbanAlphabetsIII"
-            ReferencedContainer = "container:urbanAlphabetsIII.xcodeproj">
+            BuildableName = "urbanAlphabetsIV.app"
+            BlueprintName = "urbanAlphabetsIV"
+            ReferencedContainer = "container:urbanAlphabetsIV.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
