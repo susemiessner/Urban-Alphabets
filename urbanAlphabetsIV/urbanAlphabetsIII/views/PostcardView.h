@@ -8,8 +8,11 @@
 
 #import "C4CanvasController.h"
 #import  "PostcardMenu.h"
+#import "SaveToDatabase.h"
 
-@interface PostcardView : C4CanvasController
+@interface PostcardView : C4CanvasController{
+    SaveToDatabase *save;
+}
 @property (readwrite, strong) C4Image *currentPostcardImage;
 @property (readwrite)NSString *previousView;
 

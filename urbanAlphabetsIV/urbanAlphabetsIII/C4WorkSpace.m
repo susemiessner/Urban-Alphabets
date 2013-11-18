@@ -60,6 +60,8 @@
     [self setupChangeLanguage];
     [self setupWritePostcard];
     [self setupPostcardView];
+    
+
 }
 -(void)setupTakePhoto{
     takePhoto=[TakePhoto new];

@@ -147,6 +147,9 @@
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
+    save=[[SaveToDatabase alloc]init];
+    [save sendPostcardToDatabase:imageData];
+    /*
     NSString *path=[NSString stringWithFormat:@"postcard_%@.png", [NSDate date]];
     NSString *longitude= @"0";
     NSString *latitude= @"0";
@@ -169,7 +172,7 @@
     [request setHTTPBody:postData];
     
     // now lets make the connection to the web
-    [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    [[NSURLConnection alloc]initWithRequest:request delegate:self];*/
 
     
     NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];

@@ -16,6 +16,8 @@
 #import "WritePostcard.h"
 #import "PostcardView.h"
 
+#import "SaveToDatabase.h"
+
 
 @interface C4WorkSpace : C4CanvasController{
     //views
@@ -31,8 +33,6 @@
     
     //full canvasRect
     CGRect fullCanvas;
-    
-
 }
 @property (readwrite) NSMutableArray *currentAlphabet;
 @property (readwrite) NSArray *defaultAlphabet;
