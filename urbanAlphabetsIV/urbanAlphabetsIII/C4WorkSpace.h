@@ -33,6 +33,7 @@
     
     //full canvasRect
     CGRect fullCanvas;
+    NSMutableArray *greyRectArray;
 }
 @property (readwrite) NSMutableArray *currentAlphabet;
 @property (readwrite) NSArray *defaultAlphabet;

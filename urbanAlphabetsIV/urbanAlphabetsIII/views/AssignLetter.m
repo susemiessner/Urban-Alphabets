@@ -26,7 +26,7 @@
 
 @implementation AssignLetter
 
--(void)setup:(C4Image*)croppedImagePassed withAlphabet:(NSMutableArray*)currentAlphabetPassed{
+-(void)setup:(C4Image*)croppedImagePassed withAlphabet:(NSMutableArray*)currentAlphabetPassed withGreyGrid: (NSMutableArray*)greyGridArray{
     croppedImage=[C4Image imageWithImage:croppedImagePassed];
 
     //top nav bar
@@ -41,7 +41,7 @@
     [self.canvas addShape:self.bottomNavBar];
     self.bottomNavBar.centerImage.hidden=YES;
     
-    [self drawGreyGrid];
+    [self drawGreyGrid:greyGridArray];
     [self drawCurrentAlphabet:currentAlphabetPassed];
     
     //start location updating
@@ -73,21 +73,11 @@
         [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"highlightLetter:"];
     }
 }
--(void)drawGreyGrid{
-    float imageWidth=53.53;
-    float imageHeight=65.1;
-    greyRectArray=[[NSMutableArray alloc]init];
+-(void)drawGreyGrid: (NSMutableArray*)greyGridArray{
+
+    //greyRectArray=[[NSMutableArray alloc]init];
     for (NSUInteger i=0; i<42; i++) {
-        float xMultiplier=(i
-                           )%6;
-        float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
-        float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        C4Shape *greyRect=[C4Shape rect:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        greyRect.fillColor=UA_NAV_CTRL_COLOR;
-        greyRect.lineWidth=2;
-        greyRect.strokeColor=UA_NAV_BAR_COLOR;
-        [greyRectArray addObject:greyRect];
+        C4Shape *greyRect=[greyGridArray objectAtIndex:i];
         [self.canvas addShape:greyRect];
     }
 }
@@ -122,6 +112,8 @@
     }
     for (int i=0; i<[greyRectArray count]; i++) {
         C4Shape *shape=[greyRectArray objectAtIndex:i];
+        [self stopListeningFor:@"touchesBegan" object:shape];
+
         [shape removeFromSuperview];
     }
     [self stopListeningFor:@"touchesBegan" object:self.bottomNavBar.centerImage];
@@ -168,7 +160,7 @@
     //upload image to database
     //--------------------------------------------------
 
-    save=[[SaveToDatabase alloc]init];
+    //save=[[SaveToDatabase alloc]init];
     [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage];
    
     

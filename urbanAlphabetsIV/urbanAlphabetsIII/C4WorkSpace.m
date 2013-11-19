@@ -22,6 +22,9 @@
     
     //all the notificationListeners
     [self listenNotifications];
+    
+    //initialize the grey grid used for assignPhoto and AlphabetView
+    [self initGreyGrid];
 }
 -(void)listenNotifications{
     //changing views
@@ -47,6 +50,8 @@
     [self listenFor:@"saveCurrentAlphabetAsImage" andRunMethod:@"saveCurrentAlphabetAsImage"];
     [self listenFor:@"saveCurrentPostcardAsImage" andRunMethod:@"saveCurrentPostcardAsImage"];
 }
+
+
 //--------------------------------------------------
 //CREATE VIEWS
 //--------------------------------------------------
@@ -180,7 +185,7 @@
 -(void)goToAssignPhoto{
     [self hideAll];
     C4Log(@"assignPhoto");
-    [assignLetter setup:cropPhoto.croppedPhoto withAlphabet:self.currentAlphabet];
+    [assignLetter setup:cropPhoto.croppedPhoto withAlphabet:self.currentAlphabet withGreyGrid: greyRectArray];
     
     assignLetter.canvas.hidden=NO;
     assignLetter.canvas.userInteractionEnabled=YES;
@@ -193,7 +198,7 @@
     [self.currentAlphabet removeObjectAtIndex:assignLetter.chosenImageNumberInArray];
     [self.currentAlphabet insertObject:imageToSend atIndex:assignLetter.chosenImageNumberInArray];
     
-    [assignLetter setup:cropPhoto.croppedPhoto withAlphabet:self.currentAlphabet];
+    [assignLetter setup:cropPhoto.croppedPhoto withAlphabet:self.currentAlphabet withGreyGrid:greyRectArray];
     
     assignLetter.canvas.hidden=NO;
     assignLetter.canvas.userInteractionEnabled=YES;
@@ -202,7 +207,7 @@
     [self hideAll];
     C4Log(@"alphabetView");
     
-    [alphabetView setup:self.currentAlphabet];
+    [alphabetView setup:self.currentAlphabet withGrid:greyRectArray];
     alphabetView.canvas.hidden=NO;
     alphabetView.canvas.userInteractionEnabled=YES;
     
@@ -297,6 +302,24 @@
     //create a new C4Image
     postcardView.currentPostcardImage = [C4Image imageWithUIImage:newUIImage];
     
+}
+-(void)initGreyGrid{
+    float imageWidth=53.53;
+    float imageHeight=65.1;
+    greyRectArray=[[NSMutableArray alloc]init];
+    for (NSUInteger i=0; i<42; i++) {
+        float xMultiplier=(i
+                           )%6;
+        float yMultiplier= (i)/6;
+        float xPos=xMultiplier*imageWidth;
+        float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
+        C4Shape *greyRect=[C4Shape rect:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        greyRect.fillColor=UA_NAV_CTRL_COLOR;
+        greyRect.lineWidth=2;
+        greyRect.strokeColor=UA_NAV_BAR_COLOR;
+        [greyRectArray addObject:greyRect];
+        //[self.canvas addShape:greyRect];
+    }
 }
 //--------------------------------------------------
 //SETUP VERY BASIC STUFF (STYLES, ALPHABET, changing langauges)

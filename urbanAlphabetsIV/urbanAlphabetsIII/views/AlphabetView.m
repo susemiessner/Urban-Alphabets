@@ -24,7 +24,7 @@
 @end
 
 @implementation AlphabetView
--(void )setup:(NSMutableArray*)passedAlphabet {
+-(void )setup:(NSMutableArray*)passedAlphabet withGrid:(NSMutableArray*)greyGridArray{
     self.currentAlphabet=[passedAlphabet mutableCopy];
 
     background=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, self.canvas.height)];
@@ -45,25 +45,13 @@
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
 
-    [self drawGreyGrid];
+    [self drawGreyGrid:greyGridArray];
     [self drawCurrentAlphabet];
 
 }
--(void)drawGreyGrid{
-    float imageWidth=53.53;
-    float imageHeight=65.1;
-    greyRectArray=[[NSMutableArray alloc]init];
+-(void)drawGreyGrid: (NSMutableArray*)greyGridArray{
     for (NSUInteger i=0; i<42; i++) {
-        float xMultiplier=(i
-                           )%6;
-        float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
-        float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        C4Shape *greyRect=[C4Shape rect:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        greyRect.fillColor=UA_NAV_CTRL_COLOR;
-        greyRect.lineWidth=2;
-        greyRect.strokeColor=UA_NAV_BAR_COLOR;
-        [greyRectArray addObject:greyRect];
+        C4Shape *greyRect=[greyGridArray objectAtIndex:i];
         [self.canvas addShape:greyRect];
     }
 }

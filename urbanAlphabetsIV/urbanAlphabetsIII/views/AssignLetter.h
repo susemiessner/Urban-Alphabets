@@ -21,5 +21,5 @@
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;//the current alphabet > will be changed so should be accessible from outside for next screen
 @property (readwrite) NSUInteger chosenImageNumberInArray;
 
--(void)setup:(C4Image*)croppedImagePassed withAlphabet:(NSMutableArray*)currentAlphabetPassed;
+-(void)setup:(C4Image*)croppedImagePassed withAlphabet:(NSMutableArray*)currentAlphabetPassed withGreyGrid: (NSMutableArray*)greyRectArray;
 @end
