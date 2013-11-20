@@ -117,7 +117,7 @@
         [shape removeFromSuperview];
     }
     [self stopListeningFor:@"touchesBegan" object:self.bottomNavBar.centerImage];
-
+    self.currentAlphabet=[[NSMutableArray alloc]init];
 }
 //------------------------------------------------------------------------
 //LOCATION UPDATING
@@ -150,19 +150,24 @@
     float j=currentImage.origin.y/imageHeight;
     
     self.chosenImageNumberInArray=((j-1)*6)+i+1;
+    //--------------------------------------------------
+    //upload image to database
+    //--------------------------------------------------
+
+    save=[[SaveToDatabase alloc]init];
+    [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage];
+    
+    //croppedImage.width=1;//216;
+    croppedImage=[self imageWithImage:croppedImage];
+
+    //--------------------------------------------------
+    //replace current  with new letter
+    //--------------------------------------------------
     
     //remove the image currently in that place in the alphabet
     [self.currentAlphabet removeObjectAtIndex:self.chosenImageNumberInArray];
     //add the cropped image in the same position
     [self.currentAlphabet insertObject:croppedImage atIndex:self.chosenImageNumberInArray];
-    
-    //--------------------------------------------------
-    //upload image to database
-    //--------------------------------------------------
-
-    //save=[[SaveToDatabase alloc]init];
-    [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage];
-   
     
     
     [self postNotification:@"currentAlphabetChanged"];
@@ -171,6 +176,23 @@
     [self postNotification:@"goToAlphabetsView"];
     [locationManager stopUpdatingLocation];
 
+}
+-(C4Image*)imageWithImage:(C4Image*)theImage {
+    //size to scale to
+    CGSize newSize=CGSizeMake(53.53,65.1);
+    
+    //convert to UIImage
+    UIImage *image=theImage.UIImage;
+    
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //convert back to C4Image
+    C4Image *convertedImage=[C4Image imageWithUIImage:newImage];
+    //return C4Image
+    return convertedImage;
 }
 
 @end

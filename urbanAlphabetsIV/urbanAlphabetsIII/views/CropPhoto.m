@@ -133,6 +133,7 @@
     [self.photoTaken removeFromSuperview];
     [self.croppedPhoto removeFromSuperview];
     [whiteShape removeFromSuperview];
+    [zoomStepper removeFromSuperview];
     
     [self stopListeningFor:@"pan" object:self.photoTaken];
 }

@@ -274,7 +274,7 @@
 }
 -(void)updateCharacterNumber{
     C4Log(@"updating character number");
-    countingLabel.text=[NSString stringWithFormat:@"%i/%i", [self.postcardArray count], self.maxPostcardLength];
+    countingLabel.text=[NSString stringWithFormat:@"%lu/%i", (unsigned long)[self.postcardArray count], self.maxPostcardLength];
     [countingLabel sizeToFit];
 }
 //------------------------------------------------------------------------

@@ -103,6 +103,7 @@
     }
     [self.menu removeFromSuperview];
     [self stopListeningFor:@"touchesBegan" objects:@[self.bottomNavBar.centerImage, self.bottomNavBar.leftImage]];
+    self.currentAlphabet=[[NSMutableArray alloc]init];
 }
 
 //------------------------------------------------------------------------
@@ -132,8 +133,8 @@
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
-    save=[[SaveToDatabase alloc]init];
-    [save sendAlphabetToDatabase:imageData];
+    //save=[[SaveToDatabase alloc]init];
+    //[save sendAlphabetToDatabase:imageData];
       
 
     NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];
