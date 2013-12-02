@@ -49,6 +49,9 @@
     //when displaying the alphabet, save it as an image used in case user wants to save that alphabet as an image
     [self listenFor:@"saveCurrentAlphabetAsImage" andRunMethod:@"saveCurrentAlphabetAsImage"];
     [self listenFor:@"saveCurrentPostcardAsImage" andRunMethod:@"saveCurrentPostcardAsImage"];
+    
+    //listen for postcard ended editing
+    [self listenFor:@"editingPostcardDone" andRunMethod:@"editingPostcardDone"];
 }
 
 
@@ -207,7 +210,7 @@
     [self hideAll];
     C4Log(@"alphabetView");
     
-    [alphabetView setup:self.currentAlphabet withGrid:greyRectArray];
+    [alphabetView setup:self.currentAlphabet withGrid:greyRectArray withLanguage:self.currentLanguage];
     alphabetView.canvas.hidden=NO;
     alphabetView.canvas.userInteractionEnabled=YES;
     
@@ -245,7 +248,7 @@
 -(void)goToPostcardView{
     [self hideAll];
     C4Log(@"PostcardView");
-    [postcardView setupWithPostcard: writePostcard.postcardArray Rect: writePostcard.greyRectArray];
+    [postcardView setupWithPostcard: writePostcard.postcardArray Rect: writePostcard.greyRectArray withLanguage:self.currentLanguage withPostcardText:writePostcard.postcardText];
     
     postcardView.canvas.hidden=NO;
     postcardView.canvas.userInteractionEnabled=YES;
@@ -320,6 +323,9 @@
         [greyRectArray addObject:greyRect];
         //[self.canvas addShape:greyRect];
     }
+}
+-(void)editingPostcardDone{
+   // self.postcardText=writePostcard.postcardText;
 }
 //--------------------------------------------------
 //SETUP VERY BASIC STUFF (STYLES, ALPHABET, changing langauges)

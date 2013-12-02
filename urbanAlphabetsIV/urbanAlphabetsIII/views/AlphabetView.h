@@ -15,6 +15,6 @@
 }
 @property (readwrite) int letterTouched;
 @property (readwrite, strong) C4Image *currentAlphabetImage;
--(void )setup:(NSMutableArray*)passedAlphabet withGrid:(NSMutableArray*)greyGridArray;
+-(void )setup:(NSMutableArray*)passedAlphabet withGrid:(NSMutableArray*)greyGridArray withLanguage: (NSString*) language;
 
 @end

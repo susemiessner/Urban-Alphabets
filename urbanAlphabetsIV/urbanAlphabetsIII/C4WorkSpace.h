@@ -40,5 +40,6 @@
 @property (readwrite) NSString *currentLanguage;
 @property (readwrite) NSString *oldLanguage;
 @property (readwrite) NSString *previousView;
+@property (readwrite) NSString *postcardText;
 
 @end

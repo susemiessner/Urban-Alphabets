@@ -11,7 +11,7 @@
 
 @interface AlphabetView (){
     NSMutableArray *greyRectArray;
-
+    NSString *currentLanguage;
     C4Shape *background;
     
     //saving image
@@ -24,9 +24,9 @@
 @end
 
 @implementation AlphabetView
--(void )setup:(NSMutableArray*)passedAlphabet withGrid:(NSMutableArray*)greyGridArray{
+-(void )setup:(NSMutableArray*)passedAlphabet withGrid:(NSMutableArray*)greyGridArray withLanguage: (NSString*) language{
     self.currentAlphabet=[passedAlphabet mutableCopy];
-
+    currentLanguage=language;
     background=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, self.canvas.height)];
     background.fillColor=UA_WHITE_COLOR;
     background.lineWidth=0;
@@ -133,8 +133,8 @@
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
-    //save=[[SaveToDatabase alloc]init];
-    //[save sendAlphabetToDatabase:imageData];
+    save=[[SaveToDatabase alloc]init];
+    [save sendAlphabetToDatabase:imageData withLanguage: currentLanguage];
       
 
     NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];

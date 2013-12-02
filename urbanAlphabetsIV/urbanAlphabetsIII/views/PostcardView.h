@@ -15,6 +15,7 @@
 }
 @property (readwrite, strong) C4Image *currentPostcardImage;
 @property (readwrite)NSString *previousView;
-
--(void)setupWithPostcard: (NSMutableArray*)postcardPassed Rect: (NSMutableArray*)postcardRect;
+@property (readwrite)NSString *currentLanguage;
+@property (readwrite)NSString *postcardText;
+-(void)setupWithPostcard: (NSMutableArray*)postcardPassed Rect: (NSMutableArray*)postcardRect withLanguage:(NSString*)language withPostcardText:(NSString*)postcardText;
 @end

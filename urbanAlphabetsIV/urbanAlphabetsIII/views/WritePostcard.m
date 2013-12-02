@@ -74,6 +74,8 @@
         C4Shape *shape=[self.greyRectArray objectAtIndex:i];
         [shape removeFromSuperview];
     }
+    //[self postNotification:@"editingPostcardDone"];
+    self.postcardText=self.entireText;
 }
 //------------------------------------------------------------------------
 //DISPLAY POSTCARD

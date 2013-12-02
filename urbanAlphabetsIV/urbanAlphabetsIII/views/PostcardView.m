@@ -23,7 +23,7 @@
 
 @implementation PostcardView
 
--(void)setupWithPostcard: (NSMutableArray*)postcardPassed Rect: (NSMutableArray*)postcardRect {
+-(void)setupWithPostcard: (NSMutableArray*)postcardPassed Rect: (NSMutableArray*)postcardRect withLanguage:(NSString*)language withPostcardText:(NSString*)postcardText{
 
     self.postcardArray=[[NSMutableArray alloc]init];
     self.postcardArray=[postcardPassed mutableCopy];
@@ -31,6 +31,8 @@
     self.greyRectArray=[postcardRect mutableCopy];
     C4Log(@"passed grey rect array:%i", [postcardRect count]);
     C4Log(@"self grey rect array: %i", [self.greyRectArray count]);
+    self.currentLanguage=language;
+    self.postcardText=postcardText;
     
     //white background
     background=[C4Shape rect:CGRectMake(0, 0, self.canvas.width, self.canvas.height)];
@@ -148,7 +150,8 @@
     //upload image to database
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
-    [save sendPostcardToDatabase:imageData];
+    C4Log(@"postcardTextBeforeSaving %@", self.postcardText);
+    [save sendPostcardToDatabase:imageData withLanguage: self.currentLanguage withText: self.postcardText];
     /*
     NSString *path=[NSString stringWithFormat:@"postcard_%@.png", [NSDate date]];
     NSString *longitude= @"0";

@@ -11,6 +11,7 @@
 @interface WritePostcard : C4CanvasController<UITextViewDelegate>
 @property (readwrite, strong) NSMutableArray *postcardArray, *greyRectArray, *currentAlphabet;
 @property (readwrite)     NSString *entireText;
+@property (readwrite) NSString *postcardText;
 
 -(void)setupWithLanguage: (NSString*)passedLanguage Alphabet:(NSMutableArray*)passedAlphabet ;
 @end

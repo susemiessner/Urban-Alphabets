@@ -17,10 +17,12 @@
     NSString *letter;
     NSString *postcard;
     NSString *alphabet;
+    NSString *language;
+    NSString *postcardText;
     CLLocation *currentLocation;
 
 }
 -(void)sendLetterToDatabase: (CLLocation*)currentLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(C4Image*)croppedImage;
--(void)sendAlphabetToDatabase:(NSData*)imageData;
--(void)sendPostcardToDatabase:(NSData*)imageData;
+-(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage;
+-(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText;
 @end

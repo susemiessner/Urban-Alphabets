@@ -19,12 +19,14 @@
     letter=[NSString stringWithFormat:@"%lu",(unsigned long)chosenImageNumberInArray];
     postcard=@"no";
     alphabet=@"no";
+    language=@"none";
+    postcardText=@"none";
     NSData *imageData=UIImagePNGRepresentation(croppedImage.UIImage);
 
     [self connect:imageData];
  
 }
--(void)sendAlphabetToDatabase:(NSData*)imageData{
+-(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage{
     C4Log(@"sendingAlphabet");
 
     path=[NSString stringWithFormat:@"alphabet_%@.png", [NSDate date]];
@@ -34,10 +36,12 @@
     letter=@"no";
     postcard=@"no";
     alphabet=@"yes";
+    language=theLanguage;
+    postcardText=@"none";
     [self connect:imageData];
 
 }
--(void)sendPostcardToDatabase:(NSData*)imageData{
+-(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText{
     C4Log(@"sendingPostcard");
 
     path=[NSString stringWithFormat:@"postcard_%@.png", [NSDate date]];
@@ -47,11 +51,13 @@
     letter=@"no";
     postcard=@"yes";
     alphabet=@"no";
+    language=theLanguage;
+    postcardText=thePostcardText;
     [self connect:imageData];
 
 }
 -(void)connect:(NSData*)imageData{
-    NSString *post = [NSString stringWithFormat:@"path=%@&longitude=%@&latitude=%@&owner=%@&letter=%@&postcard=%@&alphabet=%@&image=%@", path, longitude,latitude,owner,letter,postcard,alphabet, imageData];
+    NSString *post = [NSString stringWithFormat:@"path=%@&longitude=%@&latitude=%@&owner=%@&letter=%@&postcard=%@&alphabet=%@&image=%@&language=%@&postcardText=%@", path, longitude,latitude,owner,letter,postcard,alphabet, imageData, language, postcardText];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
