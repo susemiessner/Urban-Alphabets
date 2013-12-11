@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA5861E5185710F500C4D2A5 /* TakePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5861E3185710F500C4D2A5 /* TakePhoto.m */; };
-		DA5861E6185710F500C4D2A5 /* TakePhoto.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5861E4185710F500C4D2A5 /* TakePhoto.xib */; };
 		DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */; };
 		DA58620A18573E6B00C4D2A5 /* icon_Alphabet.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5861F818573E6B00C4D2A5 /* icon_Alphabet.png */; };
 		DA58620B18573E6B00C4D2A5 /* icon_Alphabets.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5861F918573E6B00C4D2A5 /* icon_Alphabets.png */; };
@@ -124,9 +122,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA5861E2185710F500C4D2A5 /* TakePhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TakePhoto.h; path = views/TakePhoto.h; sourceTree = "<group>"; };
-		DA5861E3185710F500C4D2A5 /* TakePhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TakePhoto.m; path = views/TakePhoto.m; sourceTree = "<group>"; };
-		DA5861E4185710F500C4D2A5 /* TakePhoto.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TakePhoto.xib; path = views/TakePhoto.xib; sourceTree = "<group>"; };
 		DA5861F518573D0D00C4D2A5 /* BottomNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomNavBar.h; path = navBars/BottomNavBar.h; sourceTree = "<group>"; };
 		DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BottomNavBar.m; path = navBars/BottomNavBar.m; sourceTree = "<group>"; };
 		DA5861F818573E6B00C4D2A5 /* icon_Alphabet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_Alphabet.png; sourceTree = "<group>"; };
@@ -323,7 +318,6 @@
 		DA5861E71857149A00C4D2A5 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				DA58621D18573F6A00C4D2A5 /* TakePhoto */,
 				DA58622318573F9400C4D2A5 /* CropPhoto */,
 				DA58628C185745DC00C4D2A5 /* AssignLetter */,
 				DA58629B1857526B00C4D2A5 /* AlphabetView */,
@@ -363,16 +357,6 @@
 				DA58620918573E6B00C4D2A5 /* icon_TakePhoto.png */,
 			);
 			name = icons;
-			sourceTree = "<group>";
-		};
-		DA58621D18573F6A00C4D2A5 /* TakePhoto */ = {
-			isa = PBXGroup;
-			children = (
-				DA5861E2185710F500C4D2A5 /* TakePhoto.h */,
-				DA5861E3185710F500C4D2A5 /* TakePhoto.m */,
-				DA5861E4185710F500C4D2A5 /* TakePhoto.xib */,
-			);
-			name = TakePhoto;
 			sourceTree = "<group>";
 		};
 		DA58622318573F9400C4D2A5 /* CropPhoto */ = {
@@ -743,7 +727,6 @@
 				DA58621118573E6B00C4D2A5 /* icon_information.png in Resources */,
 				DA58626C1857459900C4D2A5 /* letter_danisho.png in Resources */,
 				DA58622218573F8300C4D2A5 /* CropPhoto.xib in Resources */,
-				DA5861E6185710F500C4D2A5 /* TakePhoto.xib in Resources */,
 				EDFC42361851015300CB3335 /* Main.storyboard in Resources */,
 				DA5862821857459900C4D2A5 /* letter_W.png in Resources */,
 				DA58626B1857459900C4D2A5 /* letter_D.png in Resources */,
@@ -792,7 +775,6 @@
 				DA58622118573F8300C4D2A5 /* CropPhoto.m in Sources */,
 				EDFC41F71851014E00CB3335 /* main.m in Sources */,
 				DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */,
-				DA5861E5185710F500C4D2A5 /* TakePhoto.m in Sources */,
 				EDFC42391851015300CB3335 /* C4WorkSpace.m in Sources */,
 				DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */,
 				DA58628A185745C500C4D2A5 /* AssignLetter.m in Sources */,

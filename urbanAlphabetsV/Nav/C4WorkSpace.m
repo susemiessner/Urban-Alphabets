@@ -6,53 +6,56 @@
 //
 
 #import "C4Workspace.h"
-#import "TakePhoto.h"
+
+#import "CropPhoto.h"
 
 @implementation C4WorkSpace {
-    TakePhoto *takePhoto;
-    
-    C4Button *buttonA;
+    CropPhoto *cropPhoto;
+    C4Camera *cam;
+
 }
 
 -(void)setup {
-    //sets the title for the current nav item
-    self.title = @"Start";
-
-    //create the workspaces to drill into
-    [self createWorkSpaces];
+    self.title=@"Take Photo";
+    [self cameraSetup];
     
-    //create the buttons
-    [self createAddButtons];
+    //setup the bottom bar
+    //bottomNavbar WITH 2 ICONS
+    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45)];
+    [self.canvas addShape:self.bottomNavBar];
+    //take photo button
+    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"captureImage"];
+    //photo library button
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToPhotoLibrary"];
     
+    
+    [self numberOfTouchesRequired:1 forGesture:@"capture"];
+    [self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"goToCropPhoto"];
 }
 
--(void)createWorkSpaces {
-    
-    //create TakePhoto
-    takePhoto = [[TakePhoto alloc] initWithNibName:@"TakePhoto" bundle:[NSBundle mainBundle]];
-    [takePhoto setup];
+
+-(void)cameraSetup{
+    cam = [C4Camera cameraWithFrame:CGRectMake(0,0, self.canvas.width, self.canvas.height)];
+    cam.cameraPosition = CAMERABACK;
+    [self.canvas addCamera:cam];
+    [cam initCapture];
     
 }
-
--(void)createAddButtons {
-    //create button A
-    buttonA = [C4Button buttonWithType:ROUNDEDRECT];
-    buttonA.frame = CGRectMake(0,0,128,40);
-    [buttonA setTitle:@"TakePhoto" forState:NORMAL];
-    
-    //position them
-    buttonA.center = CGPointMake(self.canvas.center.x, self.canvas.center.y - 100);
-    
-    //give them methods to run
-    [buttonA runMethod:@"goToTakePhoto" target:self forEvent:TOUCHUPINSIDE];
-    
-    //add them to the canvas
-    [self.canvas addObjects:@[buttonA]];
+-(void)captureImage{
+    self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
+    [cam captureImage];
+    C4Log(@"capturing image");
 }
 
-//pushes TakePhoto onto the stack
--(void)goToTakePhoto {
-    [self.navigationController pushViewController:takePhoto animated:YES];
+-(void)goToCropPhoto {
+    self.img = cam.capturedImage;
+    C4Log(@"goToCropPhoto");
+    cropPhoto = [[CropPhoto alloc] initWithNibName:@"CropPhoto" bundle:[NSBundle mainBundle]];
+    [cropPhoto displayImage:self.img];
+    [cropPhoto setup];
+    
+    [self.navigationController pushViewController:cropPhoto animated:YES];
 }
 
 

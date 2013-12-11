@@ -75,10 +75,13 @@
     }
 }
 -(void)goToTakePhoto{
+    /*
     takePhoto = [[TakePhoto alloc] initWithNibName:@"TakePhoto" bundle:[NSBundle mainBundle]];
-    [takePhoto cameraSetup];
+    //[takePhoto cameraSetup];
     [takePhoto setup];
-    [self.navigationController pushViewController:takePhoto animated:YES];
+    [self.navigationController pushViewController:takePhoto animated:YES];*/
+    //[self postNotification:@"goToTakePhoto"];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 
 }
 
