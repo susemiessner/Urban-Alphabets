@@ -9,7 +9,7 @@
 #import "AssignLetter.h"
 #import "BottomNavBar.h"
 #import "AlphabetView.h"
-
+#import "C4WorkSpace.h"
 @interface AssignLetter (){
     AlphabetView *alphabetView;
     
@@ -45,8 +45,16 @@
     
     [self loadDefaultAlphabet]; //just for the time testing
     [self initGreyGrid];
-    
+    /*C4Log(@"%@",[self.navigationController.viewControllers count]);
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    C4Log(@"obj:%@", obj);
+    C4WorkSpace *workspace=(C4WorkSpace*)obj;
+    C4Log(@"workspace: %@", workspace);
+    currentAlphabetPassed=workspace.currentAlphabet;
+    C4Log(@"workspace.currentAlphabet:%@", workspace.currentAlphabet);*/
+
     [self drawCurrentAlphabet:currentAlphabetPassed];
+    
     
     //start location updating
     locationManager = [[CLLocationManager alloc] init];

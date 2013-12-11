@@ -7,12 +7,14 @@
 
 #import "C4CanvasController.h"
 #import "BottomNavBar.h"
+
 @interface C4WorkSpace : C4CanvasController
 //taking the photo
 @property (readwrite, strong) C4Image *img;//the image captured
 @property (nonatomic) BottomNavBar *bottomNavBar;
 
-//
+//defaults
+@property (readwrite) NSMutableArray *currentAlphabet;
 
 -(void)setup;
 -(void)cameraSetup;

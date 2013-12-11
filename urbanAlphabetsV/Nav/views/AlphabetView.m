@@ -8,10 +8,8 @@
 
 #import "AlphabetView.h"
 #import "BottomNavBar.h"
-#import "TakePhoto.h"
 
 @interface AlphabetView (){
-    TakePhoto *takePhoto;
     NSMutableArray *greyRectArray;
     NSString *currentLanguage;
 }
@@ -75,12 +73,7 @@
     }
 }
 -(void)goToTakePhoto{
-    /*
-    takePhoto = [[TakePhoto alloc] initWithNibName:@"TakePhoto" bundle:[NSBundle mainBundle]];
-    //[takePhoto cameraSetup];
-    [takePhoto setup];
-    [self.navigationController pushViewController:takePhoto animated:YES];*/
-    //[self postNotification:@"goToTakePhoto"];
+    //[self.navigationController popViewControllerAnimated:YES];
     [self.navigationController popToRootViewControllerAnimated:YES];
 
 }
