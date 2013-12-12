@@ -15,7 +15,8 @@
 
 //defaults
 @property (readwrite) NSMutableArray *currentAlphabet;
-
+@property (readwrite) NSString *currentLanguage;
+@property (readwrite) NSString *oldLanguage;
 -(void)setup;
 -(void)cameraSetup;
 

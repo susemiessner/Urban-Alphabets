@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface SaveToDatabase : NSObject{
+@interface SaveToDatabase : NSObject {
     NSString *path;
     NSString *longitude;
     NSString *latitude;
@@ -20,9 +20,13 @@
     NSString *language;
     NSString *postcardText;
     CLLocation *currentLocation;
+    
+    NSData *imageToSend;
+ 
 
 }
--(void)sendLetterToDatabase: (CLLocation*)currentLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(C4Image*)croppedImage;
--(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage;
+
+-(void)sendLetterToDatabase: (CLLocation*)currentLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(C4Image*)croppedImage Language:(NSString*)theLanguage;
+-(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withLocation:(CLLocation*)theLocation;
 -(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText;
 @end

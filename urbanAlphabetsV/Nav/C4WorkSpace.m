@@ -18,7 +18,7 @@
     self.title=@"Take Photo";
     //load the defaults
     [self loadDefaultAlphabet];
-    C4Log(@"currentAlphabet in TakePhoto %@", self.currentAlphabet);
+    self.currentLanguage= @"Finnish/Swedish"; 
     //setup the TakePhoto view
     [self cameraSetup];
     
@@ -123,9 +123,7 @@
                            [C4Image imageNamed:@"letter_Ü.png"], //47*/
                           nil];
 }
--(void)changeCurrentAlphabet:(NSMutableArray*)passedAlphabet{
-    self.currentAlphabet=[passedAlphabet mutableCopy];
-}
+
 
 
 

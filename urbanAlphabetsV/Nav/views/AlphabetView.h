@@ -7,10 +7,15 @@
 //
 
 #import "C4CanvasController.h"
+#import <CoreLocation/CoreLocation.h>
+#import "AlphabetInfo.h"
 
-@interface AlphabetView : C4CanvasController
+
+@interface AlphabetView : C4CanvasController<CLLocationManagerDelegate>
 @property (readwrite, strong) C4Image *currentAlphabetImage;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
 
 -(void )setup:(NSMutableArray*)passedAlphabet ;
+-(void)grabCurrentLanguageViaNavigationController;
+-(void)redrawAlphabet;
 @end

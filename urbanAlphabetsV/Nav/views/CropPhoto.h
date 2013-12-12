@@ -13,4 +13,6 @@
 
 -(void)displayImage:(C4Image*)image;
 
+
+
 @end

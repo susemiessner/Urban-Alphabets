@@ -19,7 +19,9 @@
     SaveToDatabase *save;
 }
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
+@property (readwrite) NSString *currentLanguage;
 @property (readwrite) NSUInteger chosenImageNumberInArray;
 
 -(void)setup:(C4Image*)croppedImagePassed;
+-(void)grabCurrentAlphabetViaNavigationController;
 @end

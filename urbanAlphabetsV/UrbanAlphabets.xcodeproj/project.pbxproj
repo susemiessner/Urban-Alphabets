@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0FCCEE1859D65D00A8F05F /* AlphabetInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FCCEC1859D65D00A8F05F /* AlphabetInfo.m */; };
+		DA0FCCEF1859D65D00A8F05F /* AlphabetInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0FCCED1859D65D00A8F05F /* AlphabetInfo.xib */; };
+		DA0FCCF41859DC3A00A8F05F /* ChangeLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FCCF21859DC3900A8F05F /* ChangeLanguage.m */; };
+		DA0FCCF51859DC3A00A8F05F /* ChangeLanguage.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0FCCF31859DC3900A8F05F /* ChangeLanguage.xib */; };
+		DA1D32701859BA1D002F3F75 /* AlphabetMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1D326F1859BA1D002F3F75 /* AlphabetMenu.m */; };
 		DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */; };
 		DA58620A18573E6B00C4D2A5 /* icon_Alphabet.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5861F818573E6B00C4D2A5 /* icon_Alphabet.png */; };
 		DA58620B18573E6B00C4D2A5 /* icon_Alphabets.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5861F918573E6B00C4D2A5 /* icon_Alphabets.png */; };
@@ -122,6 +127,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA0FCCEB1859D65D00A8F05F /* AlphabetInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlphabetInfo.h; path = views/AlphabetInfo.h; sourceTree = "<group>"; };
+		DA0FCCEC1859D65D00A8F05F /* AlphabetInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlphabetInfo.m; path = views/AlphabetInfo.m; sourceTree = "<group>"; };
+		DA0FCCED1859D65D00A8F05F /* AlphabetInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlphabetInfo.xib; path = views/AlphabetInfo.xib; sourceTree = "<group>"; };
+		DA0FCCF11859DC3900A8F05F /* ChangeLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeLanguage.h; path = views/ChangeLanguage.h; sourceTree = "<group>"; };
+		DA0FCCF21859DC3900A8F05F /* ChangeLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeLanguage.m; path = views/ChangeLanguage.m; sourceTree = "<group>"; };
+		DA0FCCF31859DC3900A8F05F /* ChangeLanguage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChangeLanguage.xib; path = views/ChangeLanguage.xib; sourceTree = "<group>"; };
+		DA1D326E1859BA1D002F3F75 /* AlphabetMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlphabetMenu.h; path = navBars/AlphabetMenu.h; sourceTree = "<group>"; };
+		DA1D326F1859BA1D002F3F75 /* AlphabetMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlphabetMenu.m; path = navBars/AlphabetMenu.m; sourceTree = "<group>"; };
 		DA5861F518573D0D00C4D2A5 /* BottomNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomNavBar.h; path = navBars/BottomNavBar.h; sourceTree = "<group>"; };
 		DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BottomNavBar.m; path = navBars/BottomNavBar.m; sourceTree = "<group>"; };
 		DA5861F818573E6B00C4D2A5 /* icon_Alphabet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_Alphabet.png; sourceTree = "<group>"; };
@@ -315,12 +328,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA0FCCF01859D67F00A8F05F /* AlphabetInfo */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FCCEB1859D65D00A8F05F /* AlphabetInfo.h */,
+				DA0FCCEC1859D65D00A8F05F /* AlphabetInfo.m */,
+				DA0FCCED1859D65D00A8F05F /* AlphabetInfo.xib */,
+			);
+			name = AlphabetInfo;
+			sourceTree = "<group>";
+		};
+		DA0FCCF61859DC4800A8F05F /* ChangeLanguage */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FCCF11859DC3900A8F05F /* ChangeLanguage.h */,
+				DA0FCCF21859DC3900A8F05F /* ChangeLanguage.m */,
+				DA0FCCF31859DC3900A8F05F /* ChangeLanguage.xib */,
+			);
+			name = ChangeLanguage;
+			sourceTree = "<group>";
+		};
 		DA5861E71857149A00C4D2A5 /* views */ = {
 			isa = PBXGroup;
 			children = (
 				DA58622318573F9400C4D2A5 /* CropPhoto */,
 				DA58628C185745DC00C4D2A5 /* AssignLetter */,
 				DA58629B1857526B00C4D2A5 /* AlphabetView */,
+				DA0FCCF01859D67F00A8F05F /* AlphabetInfo */,
+				DA0FCCF61859DC4800A8F05F /* ChangeLanguage */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -489,6 +524,8 @@
 		EDFC41F01851014E00CB3335 /* Nav */ = {
 			isa = PBXGroup;
 			children = (
+				DA1D326E1859BA1D002F3F75 /* AlphabetMenu.h */,
+				DA1D326F1859BA1D002F3F75 /* AlphabetMenu.m */,
 				DA5862931857506700C4D2A5 /* SaveToDatabase.h */,
 				DA5862941857506700C4D2A5 /* SaveToDatabase.m */,
 				DA5861E8185714A300C4D2A5 /* bottomNavBar */,
@@ -680,6 +717,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0FCCEF1859D65D00A8F05F /* AlphabetInfo.xib in Resources */,
 				DA58627F1857459900C4D2A5 /* letter_U.png in Resources */,
 				DA58627C1857459900C4D2A5 /* letter_R.png in Resources */,
 				DA58621618573E6B00C4D2A5 /* icon_Postcards.png in Resources */,
@@ -744,6 +782,7 @@
 				DA58621A18573E6B00C4D2A5 /* icon_SharePostcard.png in Resources */,
 				DA58626A1857459900C4D2A5 /* letter_C.png in Resources */,
 				DA58627A1857459900C4D2A5 /* letter_P.png in Resources */,
+				DA0FCCF51859DC3A00A8F05F /* ChangeLanguage.xib in Resources */,
 				DA5862801857459900C4D2A5 /* letter_Ü.png in Resources */,
 				DA5862751857459900C4D2A5 /* letter_L.png in Resources */,
 				DA58621218573E6B00C4D2A5 /* icon_Menu.png in Resources */,
@@ -774,9 +813,12 @@
 			files = (
 				DA58622118573F8300C4D2A5 /* CropPhoto.m in Sources */,
 				EDFC41F71851014E00CB3335 /* main.m in Sources */,
+				DA1D32701859BA1D002F3F75 /* AlphabetMenu.m in Sources */,
 				DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */,
+				DA0FCCF41859DC3A00A8F05F /* ChangeLanguage.m in Sources */,
 				EDFC42391851015300CB3335 /* C4WorkSpace.m in Sources */,
 				DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */,
+				DA0FCCEE1859D65D00A8F05F /* AlphabetInfo.m in Sources */,
 				DA58628A185745C500C4D2A5 /* AssignLetter.m in Sources */,
 				EDFC422C1851014F00CB3335 /* C4AppDelegate.m in Sources */,
 				DA5862991857525A00C4D2A5 /* AlphabetView.m in Sources */,
@@ -911,7 +953,6 @@
 				INFOPLIST_FILE = "Nav/UrbanAlphabets-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/moi/Desktop/Nav/Nav,
 					"\"$(SRCROOT)/\"/**",
 				);
 				PRODUCT_NAME = UrbanAlphabets;
@@ -929,7 +970,6 @@
 				INFOPLIST_FILE = "Nav/UrbanAlphabets-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/moi/Desktop/Nav/Nav,
 					"\"$(SRCROOT)/\"/**",
 				);
 				PRODUCT_NAME = UrbanAlphabets;

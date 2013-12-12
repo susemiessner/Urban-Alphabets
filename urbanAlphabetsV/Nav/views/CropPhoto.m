@@ -34,6 +34,8 @@
 
 -(void)setup{
     self.title=@"Crop Photo";
+
+
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
@@ -57,6 +59,7 @@
     zoomStepper.value=1.0f;
     zoomStepper.stepValue=0.25f;
 }
+
 -(void)displayImage:(C4Image*)image{
     self.photoTaken=image;
     self.photoTaken.origin=CGPointMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT);
@@ -131,8 +134,7 @@
     
     [self.navigationController pushViewController:assignLetter animated:YES];
     
-
-    
+    [assignLetter grabCurrentAlphabetViaNavigationController];
     
 }
 -(C4Image *)cropImage:(C4Image *)originalImage withOrigin:(CGPoint)origin toArea:(CGRect)rect{
