@@ -11,10 +11,12 @@
 #import "AlphabetMenu.h"
 #import "SaveToDatabase.h"
 #import "C4WorkSpace.h"
+#import "LetterView.h"
 
 @interface AlphabetView (){
     AlphabetInfo *alphabetInfo;
     C4WorkSpace *workspace;
+    LetterView *letterView;
     
     NSMutableArray *greyRectArray;
     NSString *currentLanguage;
@@ -92,7 +94,7 @@
         image.origin=CGPointMake(xPos, yPos);
         image.width=imageWidth;
         [self.canvas addImage:image];
-        //[self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"tappedLetter:"];
+        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"tappedLetter:"];
         
     }
 }
@@ -105,6 +107,7 @@
     
         C4Image *image=[self.currentAlphabet objectAtIndex:i ];
         [image removeFromSuperview];
+        [self stopListeningFor:@"touchesBegan" object:image];
     }
     [self grabCurrentLanguageViaNavigationController];
 }
@@ -132,6 +135,28 @@
     [alphabetInfo grabCurrentLanguageViaNavigationController ];
     [self closeMenu];
 
+}
+-(void)tappedLetter:(NSNotification *)notification {
+    //get the current object
+    C4Image *currentImage = (C4Image *)notification.object;
+    //
+    CGPoint chosenImage=CGPointMake(currentImage.origin.x, currentImage.origin.y);
+    //figure out which letter was pressed
+    float imageWidth=53.53;
+    float imageHeight=65.1;
+    float i=chosenImage.x/imageWidth;
+    float j=chosenImage.y/imageHeight;
+    
+    self.letterTouched=((j-1)*6)+i+1;
+    //C4Log(@"letterTouched: %i", self.letterTouched);
+    [self openLetterView];
+    
+}
+-(void)openLetterView{
+    C4Log(@"open LetterView");
+    letterView=[[LetterView alloc] initWithNibName:@"LetterView" bundle:[NSBundle mainBundle]];
+    [letterView setupWithLetterNo: self.letterTouched currentAlphabet:self.currentAlphabet];
+    [self.navigationController pushViewController:letterView animated:YES];
 }
 //------------------------------------------------------------------------
 //MENU

@@ -32,7 +32,22 @@
 @end
 
 @implementation AssignLetter
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self redrawAlphabet];
+    self.bottomNavBar.centerImage.hidden=YES;
 
+}
+-(void)redrawAlphabet{
+    
+    for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
+        
+        C4Image *image=[self.currentAlphabet objectAtIndex:i ];
+        [image removeFromSuperview];
+        [self stopListeningFor:@"touchesBegan" object:image];
+    }
+    [self grabCurrentAlphabetViaNavigationController];
+}
 -(void)setup:(C4Image*)croppedImagePassed  {
     self.title=@"Assign Letter";
     
@@ -66,7 +81,7 @@
     self.currentLanguage=workspace.currentLanguage;
     //C4Log(@"%@", self.currentLanguage);
     
-    [self drawCurrentAlphabet:workspace.currentAlphabet];
+    [self drawCurrentAlphabet:[workspace.currentAlphabet mutableCopy]];
     //C4Log(@"workspace.currentAlphabet:%@", workspace.currentAlphabet);
 }
 

@@ -14,7 +14,7 @@
 @interface AlphabetView : C4CanvasController<CLLocationManagerDelegate>
 @property (readwrite, strong) C4Image *currentAlphabetImage;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
-
+@property (readwrite) int letterTouched;
 -(void )setup:(NSMutableArray*)passedAlphabet ;
 -(void)grabCurrentLanguageViaNavigationController;
 -(void)redrawAlphabet;
