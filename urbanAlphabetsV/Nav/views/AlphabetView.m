@@ -13,6 +13,7 @@
 #import "C4WorkSpace.h"
 #import "LetterView.h"
 #import "Write Postcard.h"
+#import "ShareAlphabet.h"
 
 @interface AlphabetView (){
     AlphabetInfo *alphabetInfo;
@@ -20,6 +21,7 @@
     LetterView *letterView;
     Write_Postcard *writePostcard;
     SaveToDatabase *save;
+    ShareAlphabet *shareAlphabet;
     
     NSMutableArray *greyRectArray;
     NSString *currentLanguage;
@@ -173,6 +175,14 @@
     [letterView setupWithLetterNo: self.letterTouched currentAlphabet:self.currentAlphabet];
     [self.navigationController pushViewController:letterView animated:YES];
 }
+-(void)goToShareAlphabet{
+    //get the current alphabet as a photo
+    [self saveAlphabet];
+    [self closeMenu];
+    shareAlphabet=[[ShareAlphabet alloc]initWithNibName:@"ShareAlphabet" bundle:[NSBundle mainBundle]];
+    [shareAlphabet setup: self.currentAlphabetImageAsUIImage];
+    [self.navigationController pushViewController:shareAlphabet animated:YES];
+}
 //------------------------------------------------------------------------
 //MENU
 //------------------------------------------------------------------------
@@ -193,9 +203,10 @@
     [locationManager startUpdatingLocation];
     //alphabet info
     [self listenFor:@"touchesBegan" fromObjects:@[self.menu.alphabetInfoShape, self.menu.alphabetInfoLabel,self.menu.alphabetInfoIcon] andRunMethod:@"goToAlphabetInfo"];
-    //alphabet info
+    //write postcard
     [self listenFor:@"touchesBegan" fromObjects:@[self.menu.writePostcardShape, self.menu.writePostcardLabel,self.menu.writePostcardIcon] andRunMethod:@"goToWritePostcard"];
-
+    //share alphabet
+    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.shareAlphabetShape, self.menu.shareAlphabetLabel,self.menu.shareAlphabetIcon] andRunMethod:@"goToShareAlphabet"];
 }
 -(void)closeMenu{
     //stop location updating
@@ -254,6 +265,7 @@
 }
 -(void)saveImage:(NSString *)fileName {
     UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
+    self.currentAlphabetImageAsUIImage=[image copy];
     NSData *imageData = UIImagePNGRepresentation(image);
     //--------------------------------------------------
     //upload image to database

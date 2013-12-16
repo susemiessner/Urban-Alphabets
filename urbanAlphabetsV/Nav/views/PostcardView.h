@@ -11,6 +11,7 @@
 
 @interface PostcardView : C4CanvasController<CLLocationManagerDelegate>
 @property (readwrite, strong) C4Image *currentPostcardImage;
+@property (readwrite, strong) UIImage *currentPostcardImageAsUIImage;
 @property (readwrite)NSString *previousView;
 @property (readwrite)NSString *currentLanguage;
 @property (readwrite)NSString *postcardText;

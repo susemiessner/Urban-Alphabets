@@ -11,10 +11,13 @@
 #import "PostcardMenu.h"
 #import "Write Postcard.h"
 #import "AlphabetView.h"
+#import "SharePostcard.h"
+
 @interface PostcardView (){
     SaveToDatabase *save;
     Write_Postcard *writePostcard;
     AlphabetView *alphabetView;
+    SharePostcard *sharePostcard;
     
     //saving image
     CGContextRef graphicsContext;
@@ -96,6 +99,7 @@
 }
 -(void)openMenu{
     C4Log(@"openMenu");
+    [self saveCurrentPostcardAsImage];
     CGRect menuFrame = CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     self.menu=[[PostcardMenu alloc]initWithFrame:menuFrame];
     [self.canvas addShape:self.menu];
@@ -113,6 +117,8 @@
     [self listenFor:@"touchesBegan" fromObjects:@[self.menu.savePostcardShape, self.menu.savePostcardLabel,self.menu.savePostcardIcon] andRunMethod:@"goToSavePostcard"];
     //write new postcard
     [self listenFor:@"touchesBegan" fromObjects:@[self.menu.writePostcardShape, self.menu.writePostcardLabel,self.menu.writePostcardIcon] andRunMethod:@"goToWritePostcard"];
+    //sharePostcard
+    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.sharePostcardShape, self.menu.sharePostcardLabel,self.menu.sharePostcardIcon] andRunMethod:@"goToSharePostcard"];
 }
 -(void)closeMenu{
     C4Log(@"closingMenu");
@@ -142,6 +148,15 @@
     [self.navigationController popToViewController:alphabetView animated:YES];
     
 }
+-(void)goToSharePostcard{
+    [self savePostcard];
+    
+    sharePostcard=[[SharePostcard alloc]initWithNibName:@"SharePostcard" bundle:[NSBundle mainBundle]];
+    [sharePostcard setup:self.currentPostcardImageAsUIImage];
+    [self.navigationController pushViewController:sharePostcard animated:YES];
+    [self closeMenu];
+    
+}
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
@@ -150,6 +165,31 @@
     self.currentPostcardImage=[self cropImage:self.currentPostcardImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.canvas.width, self.canvas.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))];
     [self exportHighResImage];
 }
+
+-(void)saveCurrentPostcardAsImage{
+    CGFloat scale = 10.0;
+    
+    //begin an image context
+    CGSize  rect=CGSizeMake(self.canvas.width, self.canvas.height);
+    UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
+    
+    //create a new context ref
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    
+    //render the canvas image into the context
+    [self.canvas renderInContext:c];
+    
+    //grab a UIImage from the context
+    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //end the image context
+    UIGraphicsEndImageContext();
+    
+    //create a new C4Image
+    self.currentPostcardImage = [C4Image imageWithUIImage:newUIImage];
+    
+}
+
 -(void)exportHighResImage {
     graphicsContext = [self createHighResImageContext];
     [self.currentPostcardImage renderInContext:graphicsContext];
@@ -165,6 +205,7 @@
 }
 -(void)saveImage:(NSString *)fileName {
     UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
+    self.currentPostcardImageAsUIImage=[image copy];
     NSData *imageData = UIImagePNGRepresentation(image);
     
     //--------------------------------------------------
@@ -201,7 +242,7 @@
     CGContextTranslateCTM(c, -rect.origin.x, -rect.origin.y);
     
     //render the original image into the context
-    [self.canvas renderInContext:c];
+    [originalImage renderInContext:c];
     
     //grab a UIImage from the context
     UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();

@@ -97,6 +97,14 @@
 		DA5862991857525A00C4D2A5 /* AlphabetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5862971857525A00C4D2A5 /* AlphabetView.m */; };
 		DA58629A1857525A00C4D2A5 /* AlphabetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5862981857525A00C4D2A5 /* AlphabetView.xib */; };
 		DA8C2797185F287B009B0DC1 /* PostcardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2796185F287B009B0DC1 /* PostcardMenu.m */; };
+		DA8C28B3185F5A97009B0DC1 /* ShareAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C28B1185F5A97009B0DC1 /* ShareAlphabet.m */; };
+		DA8C28B4185F5A97009B0DC1 /* ShareAlphabet.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA8C28B2185F5A97009B0DC1 /* ShareAlphabet.xib */; };
+		DA8C28B8185F5C66009B0DC1 /* fb.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8C28B7185F5C66009B0DC1 /* fb.png */; };
+		DA8C28BA185F5C77009B0DC1 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8C28B9185F5C77009B0DC1 /* twitter.png */; };
+		DA8C28BC185F662C009B0DC1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8C28BB185F662C009B0DC1 /* Social.framework */; };
+		DA8C2947185F6FC8009B0DC1 /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8C2946185F6FC8009B0DC1 /* mail.png */; };
+		DA8C294B185F7300009B0DC1 /* SharePostcard.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2949185F7300009B0DC1 /* SharePostcard.m */; };
+		DA8C294C185F7300009B0DC1 /* SharePostcard.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA8C294A185F7300009B0DC1 /* SharePostcard.xib */; };
 		EDFC41DB1851014E00CB3335 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DA1851014E00CB3335 /* Accelerate.framework */; };
 		EDFC41DD1851014E00CB3335 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DC1851014E00CB3335 /* AVFoundation.framework */; };
 		EDFC41DF1851014E00CB3335 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DE1851014E00CB3335 /* CoreFoundation.framework */; };
@@ -236,6 +244,16 @@
 		DA5862981857525A00C4D2A5 /* AlphabetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlphabetView.xib; path = views/AlphabetView.xib; sourceTree = "<group>"; };
 		DA8C2795185F287B009B0DC1 /* PostcardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostcardMenu.h; path = navBars/PostcardMenu.h; sourceTree = "<group>"; };
 		DA8C2796185F287B009B0DC1 /* PostcardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostcardMenu.m; path = navBars/PostcardMenu.m; sourceTree = "<group>"; };
+		DA8C28B0185F5A97009B0DC1 /* ShareAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareAlphabet.h; path = views/ShareAlphabet.h; sourceTree = "<group>"; };
+		DA8C28B1185F5A97009B0DC1 /* ShareAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareAlphabet.m; path = views/ShareAlphabet.m; sourceTree = "<group>"; };
+		DA8C28B2185F5A97009B0DC1 /* ShareAlphabet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareAlphabet.xib; path = views/ShareAlphabet.xib; sourceTree = "<group>"; };
+		DA8C28B7185F5C66009B0DC1 /* fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb.png; sourceTree = "<group>"; };
+		DA8C28B9185F5C77009B0DC1 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
+		DA8C28BB185F662C009B0DC1 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		DA8C2946185F6FC8009B0DC1 /* mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail.png; sourceTree = "<group>"; };
+		DA8C2948185F7300009B0DC1 /* SharePostcard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharePostcard.h; path = views/SharePostcard.h; sourceTree = "<group>"; };
+		DA8C2949185F7300009B0DC1 /* SharePostcard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharePostcard.m; path = views/SharePostcard.m; sourceTree = "<group>"; };
+		DA8C294A185F7300009B0DC1 /* SharePostcard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SharePostcard.xib; path = views/SharePostcard.xib; sourceTree = "<group>"; };
 		EDFC41D71851014E00CB3335 /* UrbanAlphabets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UrbanAlphabets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDFC41DA1851014E00CB3335 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		EDFC41DC1851014E00CB3335 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -315,6 +333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8C28BC185F662C009B0DC1 /* Social.framework in Frameworks */,
 				DA5862921857502F00C4D2A5 /* AssetsLibrary.framework in Frameworks */,
 				DA5862901857501B00C4D2A5 /* ImageIO.framework in Frameworks */,
 				DA58628E18574EEF00C4D2A5 /* CoreLocation.framework in Frameworks */,
@@ -407,6 +426,8 @@
 				DA15138E185F0D5300EBB93B /* LetterView */,
 				DA0FB2C5185F240700B14025 /* WritePostcard */,
 				DA0FB2CB185F275D00B14025 /* PostcardView */,
+				DA8C28B5185F5ABA009B0DC1 /* ShareAlphabet */,
+				DA8C294D185F731A009B0DC1 /* SharePostcard */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -531,6 +552,36 @@
 			name = AlphabetView;
 			sourceTree = "<group>";
 		};
+		DA8C28B5185F5ABA009B0DC1 /* ShareAlphabet */ = {
+			isa = PBXGroup;
+			children = (
+				DA8C28B0185F5A97009B0DC1 /* ShareAlphabet.h */,
+				DA8C28B1185F5A97009B0DC1 /* ShareAlphabet.m */,
+				DA8C28B2185F5A97009B0DC1 /* ShareAlphabet.xib */,
+			);
+			name = ShareAlphabet;
+			sourceTree = "<group>";
+		};
+		DA8C28B6185F5C5B009B0DC1 /* share items */ = {
+			isa = PBXGroup;
+			children = (
+				DA8C2946185F6FC8009B0DC1 /* mail.png */,
+				DA8C28B9185F5C77009B0DC1 /* twitter.png */,
+				DA8C28B7185F5C66009B0DC1 /* fb.png */,
+			);
+			name = "share items";
+			sourceTree = "<group>";
+		};
+		DA8C294D185F731A009B0DC1 /* SharePostcard */ = {
+			isa = PBXGroup;
+			children = (
+				DA8C2948185F7300009B0DC1 /* SharePostcard.h */,
+				DA8C2949185F7300009B0DC1 /* SharePostcard.m */,
+				DA8C294A185F7300009B0DC1 /* SharePostcard.xib */,
+			);
+			name = SharePostcard;
+			sourceTree = "<group>";
+		};
 		EDFC41CE1851014E00CB3335 = {
 			isa = PBXGroup;
 			children = (
@@ -553,6 +604,7 @@
 		EDFC41D91851014E00CB3335 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA8C28BB185F662C009B0DC1 /* Social.framework */,
 				DA5862911857502F00C4D2A5 /* AssetsLibrary.framework */,
 				DA58628F1857501B00C4D2A5 /* ImageIO.framework */,
 				DA58628D18574EEF00C4D2A5 /* CoreLocation.framework */,
@@ -609,6 +661,7 @@
 		EDFC41F91851014E00CB3335 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				DA8C28B6185F5C5B009B0DC1 /* share items */,
 				DA586286185745AD00C4D2A5 /* letter */,
 				DA58621C18573E7200C4D2A5 /* icons */,
 				EDFC41FA1851014E00CB3335 /* Images.xcassets */,
@@ -773,10 +826,12 @@
 				DA0FB2C4185F23ED00B14025 /* Write Postcard.xib in Resources */,
 				DA0FCCEF1859D65D00A8F05F /* AlphabetInfo.xib in Resources */,
 				DA58627F1857459900C4D2A5 /* letter_U.png in Resources */,
+				DA8C28BA185F5C77009B0DC1 /* twitter.png in Resources */,
 				DA58627C1857459900C4D2A5 /* letter_R.png in Resources */,
 				DA58621618573E6B00C4D2A5 /* icon_Postcards.png in Resources */,
 				DA58621B18573E6B00C4D2A5 /* icon_TakePhoto.png in Resources */,
 				DA58625A1857459900C4D2A5 /* letter_$.png in Resources */,
+				DA8C2947185F6FC8009B0DC1 /* mail.png in Resources */,
 				DA5862851857459900C4D2A5 /* letter_Z.png in Resources */,
 				DA58620F18573E6B00C4D2A5 /* icon_checked.png in Resources */,
 				EDFC41F51851014E00CB3335 /* InfoPlist.strings in Resources */,
@@ -808,6 +863,7 @@
 				DA58621418573E6B00C4D2A5 /* icon_PhotoLibrary.png in Resources */,
 				DA5862811857459900C4D2A5 /* letter_V.png in Resources */,
 				DA5862741857459900C4D2A5 /* letter_K.png in Resources */,
+				DA8C28B4185F5A97009B0DC1 /* ShareAlphabet.xib in Resources */,
 				DA58621018573E6B00C4D2A5 /* icon_Close.png in Resources */,
 				DA5862771857459900C4D2A5 /* letter_N.png in Resources */,
 				DA58626E1857459900C4D2A5 /* letter_empty.png in Resources */,
@@ -816,6 +872,7 @@
 				DA5862561857459900C4D2A5 /* letter_,.png in Resources */,
 				DA5862581857459900C4D2A5 /* letter_.png in Resources */,
 				DA5862661857459900C4D2A5 /* letter_Å.png in Resources */,
+				DA8C28B8185F5C66009B0DC1 /* fb.png in Resources */,
 				DA58621118573E6B00C4D2A5 /* icon_information.png in Resources */,
 				DA58626C1857459900C4D2A5 /* letter_danisho.png in Resources */,
 				DA58622218573F8300C4D2A5 /* CropPhoto.xib in Resources */,
@@ -847,6 +904,7 @@
 				DA58625C1857459900C4D2A5 /* letter_1.png in Resources */,
 				DA5862681857459900C4D2A5 /* letter_ae.png in Resources */,
 				DA5862651857459900C4D2A5 /* letter_A.png in Resources */,
+				DA8C294C185F7300009B0DC1 /* SharePostcard.xib in Resources */,
 				DA5862601857459900C4D2A5 /* letter_5.png in Resources */,
 				DA5862841857459900C4D2A5 /* letter_Y.png in Resources */,
 			);
@@ -871,6 +929,7 @@
 				EDFC41F71851014E00CB3335 /* main.m in Sources */,
 				DA8C2797185F287B009B0DC1 /* PostcardMenu.m in Sources */,
 				DA0FB2C9185F274E00B14025 /* PostcardView.m in Sources */,
+				DA8C294B185F7300009B0DC1 /* SharePostcard.m in Sources */,
 				DA1D32701859BA1D002F3F75 /* AlphabetMenu.m in Sources */,
 				DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */,
 				DA0FCCF41859DC3A00A8F05F /* ChangeLanguage.m in Sources */,
@@ -881,6 +940,7 @@
 				DA0FB2C3185F23ED00B14025 /* Write Postcard.m in Sources */,
 				DA58628A185745C500C4D2A5 /* AssignLetter.m in Sources */,
 				EDFC422C1851014F00CB3335 /* C4AppDelegate.m in Sources */,
+				DA8C28B3185F5A97009B0DC1 /* ShareAlphabet.m in Sources */,
 				DA5862991857525A00C4D2A5 /* AlphabetView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
