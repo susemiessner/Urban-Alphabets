@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0FB2C3185F23ED00B14025 /* Write Postcard.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FB2C1185F23ED00B14025 /* Write Postcard.m */; };
+		DA0FB2C4185F23ED00B14025 /* Write Postcard.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0FB2C2185F23ED00B14025 /* Write Postcard.xib */; };
+		DA0FB2C9185F274E00B14025 /* PostcardView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FB2C7185F274E00B14025 /* PostcardView.m */; };
+		DA0FB2CA185F274E00B14025 /* PostcardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0FB2C8185F274E00B14025 /* PostcardView.xib */; };
 		DA0FCCEE1859D65D00A8F05F /* AlphabetInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FCCEC1859D65D00A8F05F /* AlphabetInfo.m */; };
 		DA0FCCEF1859D65D00A8F05F /* AlphabetInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0FCCED1859D65D00A8F05F /* AlphabetInfo.xib */; };
 		DA0FCCF41859DC3A00A8F05F /* ChangeLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FCCF21859DC3900A8F05F /* ChangeLanguage.m */; };
@@ -92,6 +96,7 @@
 		DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5862941857506700C4D2A5 /* SaveToDatabase.m */; };
 		DA5862991857525A00C4D2A5 /* AlphabetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5862971857525A00C4D2A5 /* AlphabetView.m */; };
 		DA58629A1857525A00C4D2A5 /* AlphabetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5862981857525A00C4D2A5 /* AlphabetView.xib */; };
+		DA8C2797185F287B009B0DC1 /* PostcardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2796185F287B009B0DC1 /* PostcardMenu.m */; };
 		EDFC41DB1851014E00CB3335 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DA1851014E00CB3335 /* Accelerate.framework */; };
 		EDFC41DD1851014E00CB3335 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DC1851014E00CB3335 /* AVFoundation.framework */; };
 		EDFC41DF1851014E00CB3335 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DE1851014E00CB3335 /* CoreFoundation.framework */; };
@@ -129,6 +134,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA0FB2C0185F23ED00B14025 /* Write Postcard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Write Postcard.h"; path = "views/Write Postcard.h"; sourceTree = "<group>"; };
+		DA0FB2C1185F23ED00B14025 /* Write Postcard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Write Postcard.m"; path = "views/Write Postcard.m"; sourceTree = "<group>"; };
+		DA0FB2C2185F23ED00B14025 /* Write Postcard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Write Postcard.xib"; path = "views/Write Postcard.xib"; sourceTree = "<group>"; };
+		DA0FB2C6185F274E00B14025 /* PostcardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostcardView.h; path = views/PostcardView.h; sourceTree = "<group>"; };
+		DA0FB2C7185F274E00B14025 /* PostcardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostcardView.m; path = views/PostcardView.m; sourceTree = "<group>"; };
+		DA0FB2C8185F274E00B14025 /* PostcardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PostcardView.xib; path = views/PostcardView.xib; sourceTree = "<group>"; };
 		DA0FCCEB1859D65D00A8F05F /* AlphabetInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlphabetInfo.h; path = views/AlphabetInfo.h; sourceTree = "<group>"; };
 		DA0FCCEC1859D65D00A8F05F /* AlphabetInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlphabetInfo.m; path = views/AlphabetInfo.m; sourceTree = "<group>"; };
 		DA0FCCED1859D65D00A8F05F /* AlphabetInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlphabetInfo.xib; path = views/AlphabetInfo.xib; sourceTree = "<group>"; };
@@ -223,6 +234,8 @@
 		DA5862961857525A00C4D2A5 /* AlphabetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlphabetView.h; path = views/AlphabetView.h; sourceTree = "<group>"; };
 		DA5862971857525A00C4D2A5 /* AlphabetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlphabetView.m; path = views/AlphabetView.m; sourceTree = "<group>"; };
 		DA5862981857525A00C4D2A5 /* AlphabetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlphabetView.xib; path = views/AlphabetView.xib; sourceTree = "<group>"; };
+		DA8C2795185F287B009B0DC1 /* PostcardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostcardMenu.h; path = navBars/PostcardMenu.h; sourceTree = "<group>"; };
+		DA8C2796185F287B009B0DC1 /* PostcardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostcardMenu.m; path = navBars/PostcardMenu.m; sourceTree = "<group>"; };
 		EDFC41D71851014E00CB3335 /* UrbanAlphabets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UrbanAlphabets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDFC41DA1851014E00CB3335 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		EDFC41DC1851014E00CB3335 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -333,6 +346,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA0FB2C5185F240700B14025 /* WritePostcard */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FB2C0185F23ED00B14025 /* Write Postcard.h */,
+				DA0FB2C1185F23ED00B14025 /* Write Postcard.m */,
+				DA0FB2C2185F23ED00B14025 /* Write Postcard.xib */,
+			);
+			name = WritePostcard;
+			sourceTree = "<group>";
+		};
+		DA0FB2CB185F275D00B14025 /* PostcardView */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FB2C6185F274E00B14025 /* PostcardView.h */,
+				DA0FB2C7185F274E00B14025 /* PostcardView.m */,
+				DA0FB2C8185F274E00B14025 /* PostcardView.xib */,
+			);
+			name = PostcardView;
+			sourceTree = "<group>";
+		};
 		DA0FCCF01859D67F00A8F05F /* AlphabetInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +405,8 @@
 				DA0FCCF01859D67F00A8F05F /* AlphabetInfo */,
 				DA0FCCF61859DC4800A8F05F /* ChangeLanguage */,
 				DA15138E185F0D5300EBB93B /* LetterView */,
+				DA0FB2C5185F240700B14025 /* WritePostcard */,
+				DA0FB2CB185F275D00B14025 /* PostcardView */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -542,6 +577,8 @@
 			children = (
 				DA1D326E1859BA1D002F3F75 /* AlphabetMenu.h */,
 				DA1D326F1859BA1D002F3F75 /* AlphabetMenu.m */,
+				DA8C2795185F287B009B0DC1 /* PostcardMenu.h */,
+				DA8C2796185F287B009B0DC1 /* PostcardMenu.m */,
 				DA5862931857506700C4D2A5 /* SaveToDatabase.h */,
 				DA5862941857506700C4D2A5 /* SaveToDatabase.m */,
 				DA5861E8185714A300C4D2A5 /* bottomNavBar */,
@@ -733,6 +770,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0FB2C4185F23ED00B14025 /* Write Postcard.xib in Resources */,
 				DA0FCCEF1859D65D00A8F05F /* AlphabetInfo.xib in Resources */,
 				DA58627F1857459900C4D2A5 /* letter_U.png in Resources */,
 				DA58627C1857459900C4D2A5 /* letter_R.png in Resources */,
@@ -786,6 +824,7 @@
 				DA58626B1857459900C4D2A5 /* letter_D.png in Resources */,
 				DA5862571857459900C4D2A5 /* letter_!.png in Resources */,
 				DA58621518573E6B00C4D2A5 /* icon_Postcard.png in Resources */,
+				DA0FB2CA185F274E00B14025 /* PostcardView.xib in Resources */,
 				DA5862831857459900C4D2A5 /* letter_X.png in Resources */,
 				DA58620A18573E6B00C4D2A5 /* icon_Alphabet.png in Resources */,
 				DA58625E1857459900C4D2A5 /* letter_3.png in Resources */,
@@ -830,6 +869,8 @@
 			files = (
 				DA58622118573F8300C4D2A5 /* CropPhoto.m in Sources */,
 				EDFC41F71851014E00CB3335 /* main.m in Sources */,
+				DA8C2797185F287B009B0DC1 /* PostcardMenu.m in Sources */,
+				DA0FB2C9185F274E00B14025 /* PostcardView.m in Sources */,
 				DA1D32701859BA1D002F3F75 /* AlphabetMenu.m in Sources */,
 				DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */,
 				DA0FCCF41859DC3A00A8F05F /* ChangeLanguage.m in Sources */,
@@ -837,6 +878,7 @@
 				DA15138C185F0D3000EBB93B /* LetterView.m in Sources */,
 				DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */,
 				DA0FCCEE1859D65D00A8F05F /* AlphabetInfo.m in Sources */,
+				DA0FB2C3185F23ED00B14025 /* Write Postcard.m in Sources */,
 				DA58628A185745C500C4D2A5 /* AssignLetter.m in Sources */,
 				EDFC422C1851014F00CB3335 /* C4AppDelegate.m in Sources */,
 				DA5862991857525A00C4D2A5 /* AlphabetView.m in Sources */,

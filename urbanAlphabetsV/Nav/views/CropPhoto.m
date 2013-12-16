@@ -134,7 +134,7 @@
     
     [self.navigationController pushViewController:assignLetter animated:YES];
     
-    [assignLetter grabCurrentAlphabetViaNavigationController];
+    //[assignLetter grabCurrentAlphabetViaNavigationController];
     
 }
 -(C4Image *)cropImage:(C4Image *)originalImage withOrigin:(CGPoint)origin toArea:(CGRect)rect{

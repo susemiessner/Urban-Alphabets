@@ -12,11 +12,13 @@
 #import "SaveToDatabase.h"
 #import "C4WorkSpace.h"
 #import "LetterView.h"
+#import "Write Postcard.h"
 
 @interface AlphabetView (){
     AlphabetInfo *alphabetInfo;
     C4WorkSpace *workspace;
     LetterView *letterView;
+    Write_Postcard *writePostcard;
     
     NSMutableArray *greyRectArray;
     NSString *currentLanguage;
@@ -123,6 +125,13 @@
     [self closeMenu];
     [self saveAlphabet];
 }
+-(void)goToWritePostcard{
+    C4Log(@"goToWritePostcard");
+    writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
+    [writePostcard setupWithLanguage:workspace.currentLanguage Alphabet:workspace.currentAlphabet];
+    [self.navigationController pushViewController:writePostcard animated:YES];
+    [self closeMenu];
+}
 -(void)goToAlphabetInfo{
     C4Log(@"goToAlphabetInfo");
     
@@ -175,7 +184,10 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
+    //alphabet info
     [self listenFor:@"touchesBegan" fromObjects:@[self.menu.alphabetInfoShape, self.menu.alphabetInfoLabel,self.menu.alphabetInfoIcon] andRunMethod:@"goToAlphabetInfo"];
+    //alphabet info
+    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.writePostcardShape, self.menu.writePostcardLabel,self.menu.writePostcardIcon] andRunMethod:@"goToWritePostcard"];
 
 }
 -(void)closeMenu{
