@@ -14,4 +14,5 @@
 @property (readwrite) NSString *postcardText;
 
 -(void)setupWithLanguage: (NSString*)passedLanguage Alphabet:(NSMutableArray*)passedAlphabet;
+-(void)clearPostcard;
 @end

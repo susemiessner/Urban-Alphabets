@@ -34,9 +34,7 @@
 @implementation Write_Postcard
 -(void)viewWillAppear:(BOOL)animated{
     [textViewTest becomeFirstResponder];
-    //to start empty again
-    /*[self.postcardArray removeAllObjects];
-    [self.greyRectArray removeAllObjects];*/
+
     //draw the current postcard text
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -61,8 +59,14 @@
 
     }
 }
+-(void)clearPostcard{
+    [self.postcardArray removeAllObjects];
+    [self.greyRectArray removeAllObjects];
+}
 -(void)setupWithLanguage: (NSString*)passedLanguage Alphabet:(NSMutableArray*)passedAlphabet{
     self.title=@"Write Postcard";
+
+    
     self.maxPostcardLength=24;
     
     

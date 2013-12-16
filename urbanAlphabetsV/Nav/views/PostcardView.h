@@ -7,8 +7,9 @@
 //
 
 #import "C4CanvasController.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface PostcardView : C4CanvasController
+@interface PostcardView : C4CanvasController<CLLocationManagerDelegate>
 @property (readwrite, strong) C4Image *currentPostcardImage;
 @property (readwrite)NSString *previousView;
 @property (readwrite)NSString *currentLanguage;

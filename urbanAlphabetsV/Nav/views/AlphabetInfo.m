@@ -28,7 +28,6 @@
 @implementation AlphabetInfo
 -(void)setup {
     self.title=@"Alphabet Info";
-    
     //self.currentLanguage=theLanguage;
     
     //bottomNavbar WITH 1 ICONS
@@ -36,10 +35,7 @@
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
     [self.canvas addShape:self.bottomNavBar];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetView"];
-    
-    
-    
-    
+  
 }
 
 -(void)grabCurrentLanguageViaNavigationController {

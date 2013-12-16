@@ -36,7 +36,6 @@
 {
     [self redrawAlphabet];
     self.bottomNavBar.centerImage.hidden=YES;
-
 }
 -(void)redrawAlphabet{
     
@@ -48,8 +47,11 @@
     }
     [self grabCurrentAlphabetViaNavigationController];
 }
+-(void)closeView{}
 -(void)setup:(C4Image*)croppedImagePassed  {
     self.title=@"Assign Letter";
+
+    
     
     croppedImage=[C4Image imageWithImage:croppedImagePassed];
     

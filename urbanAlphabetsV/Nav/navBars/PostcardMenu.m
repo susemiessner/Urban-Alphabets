@@ -137,7 +137,7 @@
 
         
         //--------------------------------------------------
-        //ALPHABET INFO
+        //postcard INFO
         //--------------------------------------------------
         self.postcardInfoShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*7+smallMargin*5), width, height)];
         self.postcardInfoShape.fillColor=UA_WHITE_COLOR;

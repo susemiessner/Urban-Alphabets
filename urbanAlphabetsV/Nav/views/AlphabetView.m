@@ -19,13 +19,14 @@
     C4WorkSpace *workspace;
     LetterView *letterView;
     Write_Postcard *writePostcard;
+    SaveToDatabase *save;
     
     NSMutableArray *greyRectArray;
     NSString *currentLanguage;
     
     //saving image
     CGContextRef graphicsContext;
-    SaveToDatabase *save;
+    
     
     //location when saving alphabet to server
     CLLocationManager *locationManager;
@@ -40,6 +41,7 @@
 
 -(void )setup:(NSMutableArray*)passedAlphabet  {
     self.title=@"Alphabet View";
+
     //self.currentAlphabet=[passedAlphabet mutableCopy];
     
     //bottomNavbar WITH 2 ICONS
@@ -117,15 +119,19 @@
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void)goToTakePhoto{
+    self.bottomNavBar.leftImage.backgroundColor=UA_HIGHLIGHT_COLOR;
     [self.navigationController popToRootViewControllerAnimated:YES];
+
 
 }
 -(void)goToSaveAlphabet{
+    self.menu.saveAlphabetShape.fillColor=UA_HIGHLIGHT_COLOR;
     C4Log(@"goToSaveAlphabet");
     [self closeMenu];
     [self saveAlphabet];
 }
 -(void)goToWritePostcard{
+    self.menu.writePostcardShape.fillColor=UA_HIGHLIGHT_COLOR;
     C4Log(@"goToWritePostcard");
     writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
     [writePostcard setupWithLanguage:workspace.currentLanguage Alphabet:workspace.currentAlphabet];
@@ -171,6 +177,7 @@
 //MENU
 //------------------------------------------------------------------------
 -(void)openMenu{
+    self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
     [self saveCurrentAlphabetAsImage];
     CGRect menuFrame = CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];
@@ -219,7 +226,7 @@
     //create a new context ref
     CGContextRef c = UIGraphicsGetCurrentContext();
     
-    //render the original image into the context
+    //render the canvas image into the context
     [self.canvas renderInContext:c];
     
     //grab a UIImage from the context

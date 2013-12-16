@@ -45,12 +45,12 @@
 
 }
 
--(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText{
+-(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText withLocation:(CLLocation*)theLocation{
     C4Log(@"sendingPostcard");
-
+    currentLocation=theLocation;
     path=[NSString stringWithFormat:@"postcard_%@.png", [NSDate date]];
-    longitude= @"0";
-    latitude= @"0";
+    longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
+    latitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
     owner=@"user";
     letter=@"no";
     postcard=@"yes";

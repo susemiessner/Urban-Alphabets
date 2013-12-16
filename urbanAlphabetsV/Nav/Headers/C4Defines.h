@@ -88,6 +88,7 @@ C4_EXTERN BOOL VERBOSELOAD;
  #define UA_ICON_ALPHABET        [C4Image imageNamed:@"icon_Alphabet"]
  #define UA_ICON_CHECKED         [C4Image imageNamed:@"icon_checked"]
  #define UA_ICON_PHOTOLIBRARY    [C4Image imageNamed:@"icon_PhotoLibrary"]
+#define UA_ICON_CLOSE_UI         [UIImage imageNamed:@"icon_Close.png"] 
 
 #define UA_LETTER_EMPTY         [C4Image imageNamed:@"letter_empty"]
 

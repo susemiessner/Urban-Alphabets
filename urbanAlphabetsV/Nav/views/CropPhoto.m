@@ -31,11 +31,16 @@
 @end
 
 @implementation CropPhoto
-
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)setup{
     self.title=@"Crop Photo";
-
-
+    //here it doesn't work
+   // self.navigationItem.leftBarButtonItem.title =@"Back";
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]
+                                                 initWithTitle:@"Back" style:UIBarButtonItemStylePlain
+                                           target:self action:@selector(goBack)];
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];

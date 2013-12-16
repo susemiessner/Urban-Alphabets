@@ -31,6 +31,8 @@
 
 @implementation ChangeLanguage
 -(void) setupWithLanguage: (NSString*)passedLanguage {
+    self.title=@"Change Language";
+   
     self.currentLanguage=passedLanguage;
     
     languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", nil];

@@ -16,6 +16,7 @@
 
 -(void)setup {
     self.title=@"Take Photo";
+
     //load the defaults
     [self loadDefaultAlphabet];
     self.currentLanguage= @"Finnish/Swedish"; 

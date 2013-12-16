@@ -28,5 +28,5 @@
 
 -(void)sendLetterToDatabase: (CLLocation*)currentLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(C4Image*)croppedImage Language:(NSString*)theLanguage;
 -(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withLocation:(CLLocation*)theLocation;
--(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText;
+-(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText withLocation:(CLLocation*)currentLocation;
 @end
