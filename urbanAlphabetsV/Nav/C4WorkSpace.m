@@ -10,6 +10,7 @@
 
 @implementation C4WorkSpace {
     CropPhoto *cropPhoto;
+    
     C4Camera *cam;
 
 }
@@ -31,7 +32,7 @@
     //take photo button
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"captureImage"];
     //photo library button
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToPhotoLibrary"];
+    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToPhotoLibrary"];
     
     
     [self numberOfTouchesRequired:1 forGesture:@"capture"];
@@ -61,8 +62,33 @@
     
     [self.navigationController pushViewController:cropPhoto animated:YES];
 }
+-(void)goToPhotoLibrary{
+    C4Log(@"goToPhotoLibrary");
 
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+//load image from photo library
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    C4Log(@"done");
 
+    
+    self.img = [C4Image imageWithUIImage:image];
+    C4Log(@"goToCropPhoto");
+    cropPhoto = [[CropPhoto alloc] initWithNibName:@"CropPhoto" bundle:[NSBundle mainBundle]];
+    [cropPhoto displayImage:self.img];
+    [cropPhoto setup];
+    
+    [self.navigationController pushViewController:cropPhoto animated:YES];
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+}
 -(void)loadDefaultAlphabet{
     self.currentAlphabet=[NSMutableArray arrayWithObjects:
                           //first row

@@ -8,7 +8,7 @@
 #import "C4CanvasController.h"
 #import "BottomNavBar.h"
 
-@interface C4WorkSpace : C4CanvasController
+@interface C4WorkSpace : C4CanvasController<UIImagePickerControllerDelegate>
 //taking the photo
 @property (readwrite, strong) C4Image *img;//the image captured
 @property (nonatomic) BottomNavBar *bottomNavBar;
