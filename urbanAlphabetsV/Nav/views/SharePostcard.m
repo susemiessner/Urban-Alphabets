@@ -26,6 +26,18 @@
 
 -(void)setup:(UIImage*)imageToShare{
     self.title=@"Share Alphabet";
+    //back button
+    CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;
+    
+    
+    
     imageToSend=[imageToShare copy];
     message=@" ";
 
@@ -149,6 +161,12 @@
 
 -(void)hideKeyBoard {
     [textInput resignFirstResponder];
+}
+//--------------------------------------------------
+//NAVIGATION
+//--------------------------------------------------
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT

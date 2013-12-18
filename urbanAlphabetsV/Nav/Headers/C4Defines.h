@@ -89,11 +89,12 @@ C4_EXTERN BOOL VERBOSELOAD;
  #define UA_ICON_CHECKED         [C4Image imageNamed:@"icon_checked"]
  #define UA_ICON_PHOTOLIBRARY    [C4Image imageNamed:@"icon_PhotoLibrary"]
 #define UA_ICON_CLOSE_UI         [UIImage imageNamed:@"icon_Close.png"] 
-#define UA_ICON_TWITTER           [C4Image imageNamed:@"twitter"];
-#define UA_Icon_FB                  [C4Image imageNamed:@"fb"];
-#define UA_ICON_MAIL              [C4Image imageNamed:@"mail"];
-
+#define UA_ICON_TWITTER           [C4Image imageNamed:@"twitter"]
+#define UA_Icon_FB                  [C4Image imageNamed:@"fb"]
+#define UA_ICON_MAIL              [C4Image imageNamed:@"mail"]
+#define UA_BACK_BUTTON          [UIImage imageNamed:@"backButton"]
 #define UA_LETTER_EMPTY         [C4Image imageNamed:@"letter_empty"]
+
 
 //---------------------------------------------------------------------
 //UA Variables (end)

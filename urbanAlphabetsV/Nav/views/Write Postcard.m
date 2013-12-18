@@ -8,9 +8,11 @@
 
 #import "Write Postcard.h"
 #import "PostcardView.h"
+#import "AlphabetView.h"
 
 @interface Write_Postcard (){
     PostcardView *postcardView;
+    AlphabetView *alphabetView;
     
     UITextView *textViewTest;
     
@@ -65,6 +67,28 @@
 }
 -(void)setupWithLanguage: (NSString*)passedLanguage Alphabet:(NSMutableArray*)passedAlphabet{
     self.title=@"Write Postcard";
+    //back button
+    //gives some confusion so for now I just hide it instead... workaround
+    /*CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;*/
+    self.navigationItem.hidesBackButton = YES;
+    
+    //close button
+    CGRect frame = CGRectMake(0, 0, 22.5, 22.5);
+    UIButton *closeButton = [[UIButton alloc] initWithFrame:frame];
+    [closeButton setBackgroundImage:UA_ICON_CLOSE_UI forState:UIControlStateNormal];
+    [closeButton addTarget:self action:@selector(closeView)
+          forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *rightButton =[[UIBarButtonItem alloc] initWithCustomView:closeButton];
+    self.navigationItem.rightBarButtonItem=rightButton;
 
     
     self.maxPostcardLength=24;
@@ -292,6 +316,23 @@
         [greyRectRemove removeFromSuperview];
         [self.greyRectArray removeObjectAtIndex:[self.greyRectArray count]-1];
     }
+}
+//--------------------------------------------------
+//NAVIGATION
+//--------------------------------------------------
+-(void)goBack{
+    //[self.navigationController popViewControllerAnimated:YES];
+    id obj = [self.navigationController.viewControllers objectAtIndex:3];
+    C4Log(@"obj:%@", obj);
+    alphabetView=(AlphabetView*)obj;
+    [self.navigationController popToViewController:alphabetView animated:YES];
+}
+-(void)closeView{
+    [self.navigationController popViewControllerAnimated:YES];
+    /*id obj = [self.navigationController.viewControllers objectAtIndex:3];
+    C4Log(@"obj:%@", obj);
+    alphabetView=(AlphabetView*)obj;
+    [self.navigationController popToViewController:alphabetView animated:YES];*/
 }
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT

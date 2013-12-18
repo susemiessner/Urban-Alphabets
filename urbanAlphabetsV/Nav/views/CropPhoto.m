@@ -31,16 +31,20 @@
 @end
 
 @implementation CropPhoto
--(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 -(void)setup{
     self.title=@"Crop Photo";
-    //here it doesn't work
-   // self.navigationItem.leftBarButtonItem.title =@"Back";
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]
-                                                 initWithTitle:@"Back" style:UIBarButtonItemStylePlain
-                                           target:self action:@selector(goBack)];
+    
+    //back button
+    CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;
+    
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
@@ -118,6 +122,12 @@
     float newX=self.canvas.center.x-((self.canvas.center.x-oldX)*newWidth/oldWidth);
     float newY=self.canvas.center.y-((self.canvas.center.y-oldY)*newHeight/oldHeight);
     self.photoTaken.center=CGPointMake(newX, newY);
+}
+//--------------------------------------------------
+//NAVIGATION
+//--------------------------------------------------
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //--------------------------------------------------
 //SAVE IMAGE

@@ -44,7 +44,16 @@
 -(void )setup:(NSMutableArray*)passedAlphabet  {
     self.title=@"Alphabet View";
 
-    //self.currentAlphabet=[passedAlphabet mutableCopy];
+    //back button
+    /*CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;*/
+    //for now to prevent the problems
+    self.navigationItem.hidesBackButton = YES;
     
     //bottomNavbar WITH 2 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
@@ -123,8 +132,6 @@
 -(void)goToTakePhoto{
     self.bottomNavBar.leftImage.backgroundColor=UA_HIGHLIGHT_COLOR;
     [self.navigationController popToRootViewControllerAnimated:YES];
-
-
 }
 -(void)goToSaveAlphabet{
     self.menu.saveAlphabetShape.fillColor=UA_HIGHLIGHT_COLOR;
@@ -142,8 +149,7 @@
 }
 -(void)goToAlphabetInfo{
     C4Log(@"goToAlphabetInfo");
-    
-    //--------------------------------------------------
+        //--------------------------------------------------
     //prepare alphabetInfo
     //--------------------------------------------------
     alphabetInfo=[[AlphabetInfo alloc]initWithNibName:@"AlphabetInfo" bundle:[NSBundle mainBundle]];
@@ -182,6 +188,9 @@
     shareAlphabet=[[ShareAlphabet alloc]initWithNibName:@"ShareAlphabet" bundle:[NSBundle mainBundle]];
     [shareAlphabet setup: self.currentAlphabetImageAsUIImage];
     [self.navigationController pushViewController:shareAlphabet animated:YES];
+}
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //------------------------------------------------------------------------
 //MENU

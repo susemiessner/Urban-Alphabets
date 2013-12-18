@@ -36,8 +36,19 @@
 
 -(void)setupWithPostcard: (NSMutableArray*)postcardPassed Rect: (NSMutableArray*)postcardRect withLanguage:(NSString*)language withPostcardText:(NSString*)postcardText{
     self.title=@"Postcard";
+    //back button
+    CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
     
-    CGRect frame = CGRectMake(0, 0, 22.5, 22.5);
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;
+
+    
+    //close button
+    frame = CGRectMake(0, 0, 22.5, 22.5);
     UIButton *closeButton = [[UIButton alloc] initWithFrame:frame];
     [closeButton setBackgroundImage:UA_ICON_CLOSE_UI forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(closeView)
@@ -146,7 +157,6 @@
     C4Log(@"obj:%@", obj);
     alphabetView=(AlphabetView*)obj;
     [self.navigationController popToViewController:alphabetView animated:YES];
-    
 }
 -(void)goToSharePostcard{
     [self savePostcard];
@@ -156,6 +166,9 @@
     [self.navigationController pushViewController:sharePostcard animated:YES];
     [self closeMenu];
     
+}
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS

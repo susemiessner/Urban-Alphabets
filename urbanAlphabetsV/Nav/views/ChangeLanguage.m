@@ -34,6 +34,15 @@
     self.title=@"Change Language";
    
     self.currentLanguage=passedLanguage;
+    //back button
+    CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;
+    
     
     languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", nil];
     shapesForBackground=[[NSMutableArray alloc]init];
@@ -105,6 +114,12 @@
     checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
     //C4Log(@"clickedObjectHeight: %f",clickedObject.height );
     
+}
+//--------------------------------------------------
+//NAVIGATION
+//--------------------------------------------------
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)changeLanguage{
     C4Log(@"changeLanguage");

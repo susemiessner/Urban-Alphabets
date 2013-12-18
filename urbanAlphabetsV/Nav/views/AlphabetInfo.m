@@ -28,7 +28,14 @@
 @implementation AlphabetInfo
 -(void)setup {
     self.title=@"Alphabet Info";
-    //self.currentLanguage=theLanguage;
+    //back button
+    CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;
     
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
@@ -88,6 +95,12 @@
     [self.canvas addLabel:changeLanguage];
     
     [self listenFor:@"touchesBegan" fromObjects:@[languageLabel,language,changeLanguage] andRunMethod:@"goToChangeLanguage"];
+}
+//--------------------------------------------------
+//NAVIGATION
+//--------------------------------------------------
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)changeLanguage{
     language.text=workspace.currentLanguage;

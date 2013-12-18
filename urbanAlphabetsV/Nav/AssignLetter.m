@@ -50,12 +50,18 @@
 -(void)closeView{}
 -(void)setup:(C4Image*)croppedImagePassed  {
     self.title=@"Assign Letter";
-
-    
     
     croppedImage=[C4Image imageWithImage:croppedImagePassed];
     
-    
+    //back button
+    CGRect frame = CGRectMake(0, 0, 60,20);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem=leftButton;
+
     //bottomNavbar WITH 3 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:croppedImage withFrame:CGRectMake(0, 0, 32.788, 40.022) centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_SETTINGS withFrame:CGRectMake(0, 0, 30.017, 30.017)];
@@ -108,7 +114,7 @@
     notificationCounter=0; //to make sure ok button is only added 1x
     //self.currentAlphabet=[currentAlphabetPassed mutableCopy];
     
-    self.currentAlphabet=currentAlphabetPassed;
+    self.currentAlphabet=[currentAlphabetPassed mutableCopy];
     //C4Log(@"currentAlphabetLength: %i", [self.currentAlphabet count]);
     C4Log(@"drawing the alphabet");
     float imageWidth=53.53;
@@ -145,6 +151,12 @@
     }
     notificationCounter++;
     
+}
+//--------------------------------------------------
+//NAVIGATION
+//--------------------------------------------------
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void) goToAlphabetsViewAddingImageToAlphabet{
     
