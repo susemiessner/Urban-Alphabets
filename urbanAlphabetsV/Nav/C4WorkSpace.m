@@ -12,6 +12,13 @@
     CropPhoto *cropPhoto;
     
     C4Camera *cam;
+    
+    //to set a username when first using the app
+    UITextView *userNameField;
+    C4Image *okImage;
+    C4Label *userNameLabel, *enterUserNameLabel;
+   // NSString *userName;
+    C4Shape *backgroundRect;
 
 }
 
@@ -37,9 +44,63 @@
     
     [self numberOfTouchesRequired:1 forGesture:@"capture"];
     [self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"goToCropPhoto"];
+    
+    if (self.userName==nil) {
+        //backgroundrect
+        backgroundRect=[C4Shape rect:CGRectMake(20, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+30, self.canvas.width-40, 180)];
+        backgroundRect.fillColor=UA_NAV_BAR_COLOR;
+        backgroundRect.strokeColor=UA_NAV_CTRL_COLOR;
+        [self.canvas addShape:backgroundRect];
+        
+        //enterUserNameLabel
+        enterUserNameLabel=[C4Label labelWithText:@"Please choose a user name:" font:UA_FAT_FONT];
+        enterUserNameLabel.origin=CGPointMake(backgroundRect.origin.x+10, backgroundRect.origin.y+20);
+        [self.canvas addLabel:enterUserNameLabel];
+        
+        //UserNameLabel:
+        userNameLabel=[C4Label labelWithText:@"username:" font:UA_NORMAL_FONT];
+        userNameLabel.textColor=UA_TYPE_COLOR;
+        userNameLabel.origin=CGPointMake(backgroundRect.origin.x+10, backgroundRect.origin.y+50);
+        [self.canvas addLabel:userNameLabel];
+        
+        //add text field
+        CGRect textViewFrame = CGRectMake(backgroundRect.origin.x+userNameLabel.width+20, backgroundRect.origin.y+50, backgroundRect.width-userNameLabel.width-30, 20.0f);
+        userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
+        userNameField.returnKeyType = UIReturnKeyDone;
+        [userNameField becomeFirstResponder];
+        userNameField.delegate = self;
+        [self.view addSubview:userNameField];
+        
+        //saveButton =okImage
+        okImage=[C4Image imageWithImage:UA_ICON_OK];
+        okImage.width=100;
+        okImage.origin=CGPointMake(self.canvas.center.x-okImage.width/2, backgroundRect.center.y+10);
+        [self listenFor:@"touchesBegan" fromObject:okImage andRunMethod:@"saveUserName"];
+        
+        [self.canvas addImage:okImage];
+        
+    }
+
 }
+-(void)viewDidLoad{
+    self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    C4Log(@"userName:%@", self.userName);
 
-
+}
+-(void)saveUserName{
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    self.userName=userNameField.text;
+    [defaults setValue:self.userName forKey:@"userName"];
+    C4Log(@"userName:%@", self.userName);
+    [defaults synchronize];
+    C4Log(@"defaults: %@", [defaults objectForKey:@"userName"]);
+    //and remove the username stuff
+    [backgroundRect removeFromSuperview];
+    [enterUserNameLabel removeFromSuperview];
+    [userNameLabel removeFromSuperview];
+    [userNameField removeFromSuperview];
+    [okImage removeFromSuperview];
+}
 -(void)cameraSetup{
     cam = [C4Camera cameraWithFrame:CGRectMake(0,0, self.canvas.width, self.canvas.height)];
     cam.cameraPosition = CAMERABACK;

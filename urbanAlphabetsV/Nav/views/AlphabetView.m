@@ -33,6 +33,9 @@
     //location when saving alphabet to server
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
+    
+    //username for database
+    NSString *userName;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (nonatomic) AlphabetMenu *menu;
@@ -74,6 +77,7 @@
     C4Log(@"workspace: %@", workspace);
     self.currentAlphabet=[workspace.currentAlphabet mutableCopy];
     currentLanguage=workspace.currentLanguage;
+    userName=workspace.userName;
     [self drawCurrentAlphabet];
 
 }
@@ -280,7 +284,7 @@
     //upload image to database
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
-    [save sendAlphabetToDatabase:imageData withLanguage: currentLanguage withLocation:currentLocation];
+    [save sendAlphabetToDatabase:imageData withLanguage: currentLanguage withLocation:currentLocation withUsername:userName];
     
     
     NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];

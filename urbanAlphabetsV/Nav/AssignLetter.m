@@ -12,6 +12,7 @@
 #import "C4WorkSpace.h"
 @interface AssignLetter (){
     AlphabetView *alphabetView;
+    C4WorkSpace *workspace;
     
     int notificationCounter; //to make sure Ok button is only added 1x
     NSMutableArray *greyRectArray;
@@ -24,7 +25,6 @@
     CLLocation *currentLocation;
     
     //to grab variables from main view
-    C4WorkSpace *workspace;
     
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
@@ -172,12 +172,20 @@
     
     self.chosenImageNumberInArray=((j-1)*6)+i+1;
     //--------------------------------------------------
+    //getting username from main view
+    //--------------------------------------------------
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    C4Log(@"obj:%@", obj);
+    workspace=(C4WorkSpace*)obj;
+    C4Log(@"workspace: %@", workspace);
+    NSString *userName=workspace.userName;
+    //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
     
     save=[[SaveToDatabase alloc]init];
     //[save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage];
-    [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage Language:self.currentLanguage];
+    [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage Language:self.currentLanguage Username:userName];
 
     //croppedImage.width=1;//216;
     croppedImage=[self imageWithImage:croppedImage];

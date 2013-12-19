@@ -12,12 +12,14 @@
 #import "Write Postcard.h"
 #import "AlphabetView.h"
 #import "SharePostcard.h"
+#import "C4WorkSpace.h"
 
 @interface PostcardView (){
     SaveToDatabase *save;
     Write_Postcard *writePostcard;
     AlphabetView *alphabetView;
     SharePostcard *sharePostcard;
+    C4WorkSpace *workspace;
     
     //saving image
     CGContextRef graphicsContext;
@@ -220,13 +222,21 @@
     UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
     self.currentPostcardImageAsUIImage=[image copy];
     NSData *imageData = UIImagePNGRepresentation(image);
+    //--------------------------------------------------
+    //getting username from main view
+    //--------------------------------------------------
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    C4Log(@"obj:%@", obj);
+    workspace=(C4WorkSpace*)obj;
+    C4Log(@"workspace: %@", workspace);
+    NSString *userName=workspace.userName;
     
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
     C4Log(@"postcardTextBeforeSaving %@", self.postcardText);
-    [save sendPostcardToDatabase:imageData withLanguage: self.currentLanguage withText: self.postcardText withLocation:currentLocation];
+    [save sendPostcardToDatabase:imageData withLanguage: self.currentLanguage withText: self.postcardText withLocation:currentLocation withUsername:userName];
     
     
     NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];

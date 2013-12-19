@@ -8,15 +8,18 @@
 
 #import "SaveToDatabase.h"
 
+
 @implementation SaveToDatabase
 
--(void)sendLetterToDatabase: (CLLocation*)theLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(C4Image*)croppedImage Language:(NSString*)theLanguage{
+-(void)sendLetterToDatabase: (CLLocation*)theLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(C4Image*)croppedImage Language:(NSString*)theLanguage Username:(NSString*)userName{
+   
+    
     currentLocation=theLocation;
     C4Log(@"sendingLetter");
     path=[NSString stringWithFormat:@"letter_%@.png", [NSDate date]];
     longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
     latitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
-    owner=@"user";
+    owner=userName;
     [self findRightLetter:chosenImageNumberInArray Language:theLanguage];
     //letter=[NSString stringWithFormat:@"%lu",(unsigned long)chosenImageNumberInArray];
     postcard=@"no";
@@ -28,14 +31,14 @@
     [self connect:imageData];
     
 }
--(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withLocation:(CLLocation*)theLocation{
+-(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withLocation:(CLLocation*)theLocation  withUsername:(NSString*)userName{
     currentLocation=theLocation;
     C4Log(@"sendingAlphabet");
     
     path=[NSString stringWithFormat:@"alphabet_%@.png", [NSDate date]];
     longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
     latitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
-    owner=@"user";
+    owner=userName;
     letter=@"no";
     postcard=@"no";
     alphabet=@"yes";
@@ -45,13 +48,13 @@
 
 }
 
--(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText withLocation:(CLLocation*)theLocation{
+-(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText withLocation:(CLLocation*)theLocation withUsername:(NSString*)userName{
     C4Log(@"sendingPostcard");
     currentLocation=theLocation;
     path=[NSString stringWithFormat:@"postcard_%@.png", [NSDate date]];
     longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
     latitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
-    owner=@"user";
+    owner=userName;
     letter=@"no";
     postcard=@"yes";
     alphabet=@"no";
