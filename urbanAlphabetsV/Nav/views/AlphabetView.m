@@ -64,7 +64,7 @@
     [self.canvas addShape:self.bottomNavBar];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
-    [self initGreyGrid];
+    //[self initGreyGrid];
 
     
     
@@ -79,6 +79,7 @@
     currentLanguage=workspace.currentLanguage;
     userName=workspace.userName;
     [self drawCurrentAlphabet];
+    [self initGreyGrid];
 
 }
 -(void)initGreyGrid{
@@ -96,6 +97,7 @@
         greyRect.strokeColor=UA_NAV_BAR_COLOR;
         [greyRectArray addObject:greyRect];
         [self.canvas addShape:greyRect];
+        [self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"tappedLetter:"];
     }
 }
 -(void)drawCurrentAlphabet{
@@ -113,7 +115,7 @@
         image.origin=CGPointMake(xPos, yPos);
         image.width=imageWidth;
         [self.canvas addImage:image];
-        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"tappedLetter:"];
+        //[self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"tappedLetter:"];
         
     }
 }
@@ -126,7 +128,11 @@
     
         C4Image *image=[self.currentAlphabet objectAtIndex:i ];
         [image removeFromSuperview];
-        [self stopListeningFor:@"touchesBegan" object:image];
+        //[self stopListeningFor:@"touchesBegan" object:image];
+        C4Shape *rectShape=[greyRectArray objectAtIndex:i];
+        [rectShape removeFromSuperview];
+        [self stopListeningFor:@"touchesBegan" object:rectShape];
+        
     }
     [self grabCurrentLanguageViaNavigationController];
 }
@@ -165,7 +171,7 @@
 }
 -(void)tappedLetter:(NSNotification *)notification {
     //get the current object
-    C4Image *currentImage = (C4Image *)notification.object;
+    C4Shape *currentImage = (C4Shape *)notification.object;
     //
     CGPoint chosenImage=CGPointMake(currentImage.origin.x, currentImage.origin.y);
     //figure out which letter was pressed

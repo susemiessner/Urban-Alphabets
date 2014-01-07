@@ -16,7 +16,7 @@
     
     int notificationCounter; //to make sure Ok button is only added 1x
     NSMutableArray *greyRectArray;
-    C4Image *currentImage; //the image currently highlighted
+    C4Shape *currentImage; //the image currently highlighted
     C4Image *croppedImage;
     
     NSMutableArray *greyGridArray;
@@ -68,7 +68,7 @@
     [self.canvas addShape:self.bottomNavBar];
     self.bottomNavBar.centerImage.hidden=YES;
     
-    [self initGreyGrid];
+    //[self initGreyGrid];
 
     
     //start location updating
@@ -90,6 +90,7 @@
     //C4Log(@"%@", self.currentLanguage);
     
     [self drawCurrentAlphabet:[workspace.currentAlphabet mutableCopy]];
+    [self initGreyGrid];
     //C4Log(@"workspace.currentAlphabet:%@", workspace.currentAlphabet);
 }
 
@@ -108,6 +109,7 @@
         greyRect.strokeColor=UA_NAV_BAR_COLOR;
         [greyGridArray addObject:greyRect];
         [self.canvas addShape:greyRect];
+        [self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"highlightLetter:"];
     }
 }
 -(void)drawCurrentAlphabet: (NSMutableArray*)currentAlphabetPassed{
@@ -128,20 +130,19 @@
         image.origin=CGPointMake(xPos, yPos);
         image.width=imageWidth;
         [self.canvas addImage:image];
-        [self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"highlightLetter:"];
+        //[self listenFor:@"touchesBegan" fromObject:image andRunMethod:@"highlightLetter:"];
     }
 }
 -(void)highlightLetter:(NSNotification *)notification {
     
-    for (int i=0; i<[self.currentAlphabet count]; i++) {
-        currentImage= self.currentAlphabet[i];
+    for (int i=0; i<[greyGridArray count]; i++) {
+        currentImage= greyGridArray[i];
         currentImage.backgroundColor=UA_NAV_CTRL_COLOR;
     }
     
-    currentImage = (C4Image *)notification.object;
+    currentImage = (C4Shape *)notification.object;
     C4Log(@"currentImage x:%f",currentImage.origin.x);
     currentImage.backgroundColor= UA_HIGHLIGHT_COLOR;
-    
     
     //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
     if (notificationCounter==0) {
