@@ -8,7 +8,7 @@
 
 #import "C4CanvasController.h"
 
-@interface AlphabetInfo : C4CanvasController
+@interface AlphabetInfo : C4CanvasController<UITextViewDelegate>
 @property (nonatomic) NSString *currentLanguage;
 
 -(void)setup;

@@ -45,7 +45,7 @@
 @implementation AlphabetView
 
 -(void )setup:(NSMutableArray*)passedAlphabet  {
-    self.title=@"Alphabet View";
+    //self.title=@"Alphabet View";
 
     //back button
     /*CGRect frame = CGRectMake(0, 0, 60,20);
@@ -64,20 +64,29 @@
     [self.canvas addShape:self.bottomNavBar];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
-    //[self initGreyGrid];
 
-    
-    
 }
--(void)grabCurrentLanguageViaNavigationController {
-    C4Log(@"%d",[self.navigationController.viewControllers count]);
+-(void)viewDidAppear:(BOOL)animated{
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
-    C4Log(@"obj:%@", obj);
+    //C4Log(@"obj:%@", obj);
     workspace=(C4WorkSpace*)obj;
     C4Log(@"workspace: %@", workspace);
+    self.title=workspace.alphabetName;
+}
+-(void)grabCurrentLanguageViaNavigationController {
+    //C4Log(@"%d",[self.navigationController.viewControllers count]);
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    //C4Log(@"obj:%@", obj);
+    workspace=(C4WorkSpace*)obj;
+    C4Log(@"workspace: %@", workspace);
+    //load things from main view
     self.currentAlphabet=[workspace.currentAlphabet mutableCopy];
     currentLanguage=workspace.currentLanguage;
     userName=workspace.userName;
+    //set title to current alphabet title
+   // self.title=workspace.alphabetName;
+    //C4Log(@"workspace.alphabetName: %@", workspace.alphabetName);
+    
     [self drawCurrentAlphabet];
     [self initGreyGrid];
 

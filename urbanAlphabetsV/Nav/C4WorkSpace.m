@@ -233,6 +233,10 @@
     C4Log(@"working");
     //save all images under alphabetName
     [self exportHighResImage];
+    NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
+    [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
+    [alphabetName synchronize];
+    C4Log(@"alphabetName: %@", self.alphabetName);
 }
 -(void)appWillBecomeActive:(NSNotification*)note
 {
@@ -246,11 +250,14 @@
         NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
         [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
         [alphabetName synchronize];
-
+    } else{
+        self.alphabetName=loadedName;
     }
     C4Log(@"loaded: %@", loadedName);
     
-    NSString *path= [[self documentsDirectory] stringByAppendingString:@"/Untitled"];
+    //NSString *path= [[self documentsDirectory] stringByAppendingString:@"/Untitled"];
+    NSString *path= [[self documentsDirectory] stringByAppendingString:@"/"];
+    path=[path stringByAppendingPathComponent:self.alphabetName];
      //NSString *path= [self documentsDirectory];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]){
         self.currentAlphabet=[[NSMutableArray alloc]init];
