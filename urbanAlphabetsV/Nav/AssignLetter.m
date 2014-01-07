@@ -95,9 +95,10 @@
 }
 
 -(void)initGreyGrid{
+    greyGridArray=[[NSMutableArray alloc]init];
     float imageWidth=53.53;
     float imageHeight=65.1;
-    greyRectArray=[[NSMutableArray alloc]init];
+   // greyRectArray=[[NSMutableArray alloc]init];
     for (NSUInteger i=0; i<42; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
@@ -108,6 +109,7 @@
         greyRect.lineWidth=2;
         greyRect.strokeColor=UA_NAV_BAR_COLOR;
         [greyGridArray addObject:greyRect];
+        //C4Log(@"greyGridLength: %@", [greyGridArray count]);
         [self.canvas addShape:greyRect];
         [self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"highlightLetter:"];
     }
@@ -135,7 +137,7 @@
 }
 -(void)highlightLetter:(NSNotification *)notification {
     
-    for (int i=0; i<[greyGridArray count]; i++) {
+    for (int i=0; i<42; i++) {
         currentImage= greyGridArray[i];
         currentImage.backgroundColor=UA_NAV_CTRL_COLOR;
     }
@@ -206,7 +208,7 @@
     //--------------------------------------------------
     [locationManager stopUpdatingLocation];
     //--------------------------------------------------
-    //reset the alphabet in main view with new alphabet
+    //replace the alphabet in main view with new alphabet
     //--------------------------------------------------
     workspace.currentAlphabet=self.currentAlphabet;
     //--------------------------------------------------

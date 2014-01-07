@@ -140,7 +140,7 @@
     self.croppedPhoto.origin=CGPointMake(0, 0);
     
     
-    //uncomment to save the photo to photo library and app's image directory
+    // save the photo to photo library and app's image directory
     [self exportHighResImage];
     
     //this goes to the next view
@@ -197,7 +197,13 @@
 -(void)saveImage:(NSString *)fileName {
     UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
     NSData *imageData = UIImagePNGRepresentation(image);
-    NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];
+    //save in a certain folder
+    NSString *dataPath = [[self documentsDirectory] stringByAppendingPathComponent:@"/letters"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
     [imageData writeToFile:savePath atomically:YES];
 }
 -(void)saveImageToLibrary {

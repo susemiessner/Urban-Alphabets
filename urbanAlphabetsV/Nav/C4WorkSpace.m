@@ -19,6 +19,10 @@
     C4Label *userNameLabel, *enterUserNameLabel;
    // NSString *userName;
     C4Shape *backgroundRect;
+    
+    //saving image
+    CGContextRef graphicsContext;
+    C4Image *currentImageToExport;
 
 }
 
@@ -27,7 +31,12 @@
 
     //load the defaults
     [self loadDefaultAlphabet];
-    self.currentLanguage= @"Finnish/Swedish"; 
+    self.currentLanguage= @"Finnish/Swedish";
+    //self.alphabetName=@"Untitled";
+        //to see when app becomes active/inactive
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     //setup the TakePhoto view
     [self cameraSetup];
     
@@ -133,7 +142,9 @@
     
     [self presentViewController:picker animated:YES completion:NULL];
 }
+ //--------------------------------------------------
 //load image from photo library
+ //--------------------------------------------------
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     C4Log(@"done");
@@ -150,6 +161,9 @@
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
 }
+//--------------------------------------------------
+//load default alphabet
+//--------------------------------------------------
 -(void)loadDefaultAlphabet{
     self.currentAlphabet=[NSMutableArray arrayWithObjects:
                           //first row
@@ -211,8 +225,85 @@
                            [C4Image imageNamed:@"letter_Ü.png"], //47*/
                           nil];
 }
+//--------------------------------------------------
+//save alphabet when app becomes inactive
+//--------------------------------------------------
+-(void)appWillResignActive:(NSNotification*)note
+{
+    C4Log(@"working");
+    //save all images under alphabetName
+    [self exportHighResImage];
+}
+-(void)appWillBecomeActive:(NSNotification*)note
+{
+    C4Log(@"becoming active");
 
+    NSString *loadedName;
+    loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
+    if (!loadedName) {
+        self.alphabetName=@"Untitled";
+        //set default alphabet name as first user default
+        NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
+        [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
+        [alphabetName synchronize];
 
+    }
+    C4Log(@"loaded: %@", loadedName);
+    
+    NSString *path= [[self documentsDirectory] stringByAppendingString:@"/Untitled"];
+     //NSString *path= [self documentsDirectory];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]){
+        self.currentAlphabet=[[NSMutableArray alloc]init];
+        C4Log(@"directory exists");
+        for (int i=0; i<42; i++) {
+            NSString *filePath=[[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", i]] stringByAppendingString:@".jpg"];
+            //C4Log(@"filePath:%@", filePath);
+            NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+            UIImage *img = [UIImage imageWithData:imageData];
+            //UIImage *image=[UIImage imageNamed:@"0.jpg"];
+            
+            C4Image *image=[C4Image imageWithUIImage:img];
+            [self.currentAlphabet addObject:image];
+        }
+    } else{
+        C4Log(@"directory does NOT exist");
+    }
+    
+}
+-(void)exportHighResImage {
+    
+    for (int i=0; i<[self.currentAlphabet count]; i++) {
+        
+        currentImageToExport=[self.currentAlphabet objectAtIndex:i];
+        graphicsContext = [self createHighResImageContext];
+        [currentImageToExport renderInContext:graphicsContext];
+        NSString *fileName = [NSString stringWithFormat:@"%d.jpg", i];
+        [self saveImage:fileName];
+    }
+    
+}
+-(CGContextRef)createHighResImageContext { //setting up image context
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(currentImageToExport.width-1, currentImageToExport.height-1), YES, 5.0f);
+    return UIGraphicsGetCurrentContext();
+}
+-(void)saveImage:(NSString *)fileName {
+    UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
+    //NSData *imageData = UIImagePNGRepresentation(image);
+    NSData *imageData = UIImageJPEGRepresentation(image,80);
+    //save in a certain folder
+    NSString *dataPath = [[self documentsDirectory] stringByAppendingString:@"/"];
+    dataPath=[dataPath stringByAppendingPathComponent:self.alphabetName];
 
-
+    //C4Log(@"dataPath=%@", dataPath);
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
+    [imageData writeToFile:savePath atomically:YES];
+}
+-(NSString *)documentsDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return paths[0];
+}
 @end

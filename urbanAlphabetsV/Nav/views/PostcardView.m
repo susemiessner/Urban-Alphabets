@@ -178,6 +178,8 @@
 -(void)savePostcard{
     //crop the screenshot
     self.currentPostcardImage=[self cropImage:self.currentPostcardImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.canvas.width, self.canvas.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))];
+    float imageHeight=65.1;
+    //self.currentPostcardImage=[self cropImage:self.currentPostcardImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.canvas.width, imageHeight*4)];
     [self exportHighResImage];
 }
 
@@ -216,6 +218,8 @@
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.canvas.width, self.canvas.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);
+    //float imageHeight=65.1;
+    //UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.canvas.width, imageHeight*4), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {
@@ -238,9 +242,17 @@
     C4Log(@"postcardTextBeforeSaving %@", self.postcardText);
     [save sendPostcardToDatabase:imageData withLanguage: self.currentLanguage withText: self.postcardText withLocation:currentLocation withUsername:userName];
     
+    //--------------------------------------------------
+    //save to documents directory
+    //--------------------------------------------------
+    NSString *dataPath = [[self documentsDirectory] stringByAppendingPathComponent:@"/postcards"];
     
-    NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
     [imageData writeToFile:savePath atomically:YES];
+
 }
 -(NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

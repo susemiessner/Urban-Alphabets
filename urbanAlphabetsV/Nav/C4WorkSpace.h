@@ -17,6 +17,7 @@
 @property (readwrite) NSMutableArray *currentAlphabet;
 @property (readwrite) NSString *currentLanguage;
 @property (readwrite) NSString *oldLanguage;
+@property (readwrite) NSString *alphabetName;
 @property (readwrite) NSString *userName;
 -(void)setup;
 -(void)cameraSetup;

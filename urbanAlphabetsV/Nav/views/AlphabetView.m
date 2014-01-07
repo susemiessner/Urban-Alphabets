@@ -291,9 +291,15 @@
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
     [save sendAlphabetToDatabase:imageData withLanguage: currentLanguage withLocation:currentLocation withUsername:userName];
+    //--------------------------------------------------
+    //save to documents directory
+    //--------------------------------------------------
+    NSString *dataPath = [[self documentsDirectory] stringByAppendingPathComponent:@"/alphabets"];
     
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
     
-    NSString *savePath = [[self documentsDirectory] stringByAppendingPathComponent:fileName];
+    NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
     [imageData writeToFile:savePath atomically:YES];
     
 }
