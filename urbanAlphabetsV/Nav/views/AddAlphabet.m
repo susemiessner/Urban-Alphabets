@@ -194,6 +194,14 @@
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];
     [self.navigationController popToViewController:alphabetView animated:YES];
+    
+    //delete oldest alphabet if more than a certain number are added (so we don't need a scroll view here)
+    if ([workspace.myAlphabets count]>8) {
+        C4Log(@"before: %@", workspace.myAlphabets);
+        [workspace.myAlphabets removeObjectAtIndex:0];
+        [workspace.myAlphabetsLanguages removeObjectAtIndex:0];
+        C4Log(@"after: %@", workspace.myAlphabets);
+    }
 }
 -(void)updateLanguage{
     //this is a copy of update language from change language view
