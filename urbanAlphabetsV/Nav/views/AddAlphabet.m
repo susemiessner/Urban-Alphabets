@@ -1,39 +1,47 @@
 //
-//  ChangeLanguage.m
+//  AddAlphabet.m
 //  UrbanAlphabets
 //
-//  Created by Suse on 12/12/13.
-//  Copyright (c) 2013 moi. All rights reserved.
+//  Created by Suse on 09/01/14.
+//  Copyright (c) 2014 moi. All rights reserved.
 //
 
-#import "ChangeLanguage.h"
-#import "BottomNavBar.h"
+#import "AddAlphabet.h"
 #import "C4WorkSpace.h"
-#import "AlphabetInfo.h"
+#import "BottomNavBar.h"
 #import "AlphabetView.h"
 
-@interface ChangeLanguage (){
+@interface AddAlphabet (){
     C4WorkSpace *workspace;
-    AlphabetInfo *alphabetInfo;
     AlphabetView *alphabetView;
+    int notificationCounter; //to make sure the ok button is only added 1x
     
+    //the new alphabet name
+    UITextView *textInput;
+    NSString *name;
+    
+    //for the languages
     NSMutableArray *shapesForBackground;
-    NSArray *languages; //all languages available
     NSMutableArray *languageLabels; //for all texts
     C4Image *checkedIcon;
     int elementNoChosen;
+    float firstShapeY;
+    //magic for dismissing the keyboard
+    UITapGestureRecognizer * tapGesture;
+
 
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
-@property (readwrite) NSString *currentLanguage;
-@property (readwrite) NSString *chosenLanguage;
+
 @end
 
-@implementation ChangeLanguage
--(void) setupWithLanguage: (NSString*)passedLanguage {
-    self.title=@"Change Language";
-   
-    self.currentLanguage=passedLanguage;
+@implementation AddAlphabet
+
+-(void) setup{
+    self.title=@"Add New Alphabet";
+    name=@" "; //default new alphabet name
+    notificationCounter=0;
+    
     //back button
     CGRect frame = CGRectMake(0, 0, 60,20);
     UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
@@ -42,65 +50,100 @@
     [backButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"addAlphabet"];
+
     
-    
-    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", nil];
-    shapesForBackground=[[NSMutableArray alloc]init];
-    languageLabels=[[NSMutableArray alloc]init];
-    
-    
-    //bottomNavbar WITH 1 ICONS
+    //bottom bar
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
-    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45) ];
     [self.canvas addShape:self.bottomNavBar];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"changeLanguage"];
+    self.bottomNavBar.centerImage.hidden=YES;
     
-    //content
-    int selectedLanguage=10;
-    for (int i=0; i<[languages count]; i++) {
+    
+    shapesForBackground = [[NSMutableArray alloc] init];
+    //C4Log(@"myArray length: %@", [shapesForBackground count]);
+}
+-(void)grabCurrentLanguageViaNavigationController {
+    C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    workspace=(C4WorkSpace*)obj;
+
+    
+    //name label
+    C4Label *nameLabel=[C4Label labelWithText:@"Name:" font:UA_NORMAL_FONT];
+    nameLabel.origin=CGPointMake(20, 100);
+    [self.canvas addLabel:nameLabel];
+
+    //text field
+    CGRect textViewFrame = CGRectMake(nameLabel.center.x+nameLabel.width, nameLabel.origin.y, self.canvas.width-40-(nameLabel.center.x+nameLabel.width), nameLabel.height+5);
+    textInput = [[UITextView alloc] initWithFrame:textViewFrame];
+    textInput.returnKeyType = UIReturnKeyDone;
+    textInput.layer.borderWidth=1.0f;
+    textInput.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
+    [textInput becomeFirstResponder];
+    textInput.delegate = self;
+    [self.view addSubview:textInput];
+    
+    //magic for dismissing the keyboard
+    tapGesture = [[UITapGestureRecognizer alloc]
+                  initWithTarget:self
+                  action:@selector(hideKeyBoard)];
+    
+    [self.view addGestureRecognizer:tapGesture];
+    
+    //language label
+    C4Label *languageLabel=[C4Label labelWithText:@"Language:" font:UA_NORMAL_FONT];
+    languageLabel.origin=CGPointMake(20, nameLabel.origin.y+40);
+    [self.canvas addLabel:languageLabel];
+    
+    //available languages
+    firstShapeY=languageLabel.origin.y+languageLabel.height+10;
+    int selectedLanguage=60;
+    for (int i=0; i<[workspace.languages count]; i++) {
         //underlying shape
         float height=46.203;
-        float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*height;
+        float yPos=i*height+firstShapeY;
         C4Shape *shape=[C4Shape rect:CGRectMake(0, yPos, self.canvas.width, height)];
         shape.lineWidth=2;
         shape.strokeColor=UA_NAV_BAR_COLOR;
         shape.fillColor=UA_NAV_CTRL_COLOR;
         
-        if ([languages objectAtIndex:i ] == self.currentLanguage) {
-            shape.fillColor=UA_HIGHLIGHT_COLOR;
-            selectedLanguage=i;
-        }
         [shapesForBackground addObject:shape];
+        NSLog(@"%lu",(unsigned long)[shapesForBackground count]);
         [self.canvas addShape:shape];
         
         //text label
-        C4Label *label=[C4Label labelWithText:[languages objectAtIndex:i] font:UA_NORMAL_FONT];
+        C4Label *label=[C4Label labelWithText:[workspace.languages objectAtIndex:i] font:UA_NORMAL_FONT];
         label.textColor=UA_TYPE_COLOR;
         float heightLabel=46.203;
-        float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel+label.height/2+4;
+        float yPosLabel=i*heightLabel+label.height/2+4+languageLabel.origin.y+languageLabel.height+10;
         label.origin=CGPointMake(49.485, yPosLabel);
         [self.canvas addLabel:label];
         [self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"languageChanged:"];
         [languageLabels addObject:label];
     }
-    
-    //√icon only 1x
-    checkedIcon=UA_ICON_CHECKED;
-    checkedIcon.width= 35;
-    float height=46.202999;
-    checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(selectedLanguage+1)*height-height/2);
-    [self.canvas addImage:checkedIcon];
+
 }
 -(void)languageChanged:(NSNotification *)notification{
+    C4Log(@"notification counter currently: %i", notificationCounter);
+
+    C4Log(@"languageChanged");
     C4Shape *clickedObject = (C4Shape *)[notification object];
     //figure out which object was clicked
     float yPos=clickedObject.origin.y;
-    //C4Log("clicked Object y:%f", yPos);
-    yPos=yPos-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT;
+    C4Log(@"clicked Object y        :%f", yPos);
+    /*C4Shape *firstShape=[shapesForBackground objectAtIndex:0];
+    C4Log(@"firstShape: %@", firstShape);
+    C4Log(@"firstShape center: %@", firstShape.frame);*/
+    float firstYPos=firstShapeY;
+    //C4Log(@"start of language fields: %@", firstYPos);
+    yPos=yPos-firstYPos;
+    //C4Log(@"calculated YPos         : %@", yPos);
     float elementNumber=yPos/clickedObject.height;
+    
     elementNoChosen=lroundf(elementNumber);
-    //C4Log(@"elementNumber:%f", elementNumber);
-    //C4Log(@"elementno:    %i", elementNo);
+    C4Log(@"elementNumber:%f", elementNoChosen);
+    C4Log(@"elementno:    %i", elementNoChosen);
     for (int i=0; i<[shapesForBackground count]; i++) {
         C4Shape *shape=[shapesForBackground objectAtIndex:i];
         
@@ -114,34 +157,47 @@
     checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
     //C4Log(@"clickedObjectHeight: %f",clickedObject.height );
     
+    if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<2) {
+        C4Log(@"unhiding the things...");
+        self.bottomNavBar.centerImage.hidden=NO;
+        [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"addAlphabet"];
+        notificationCounter++;
+    }
 }
-//--------------------------------------------------
-//NAVIGATION
-//--------------------------------------------------
--(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
--(void)changeLanguage{
-    C4Log(@"changeLanguage");
-    self.chosenLanguage=[languages objectAtIndex:elementNoChosen];
-    C4Log(@"chosenLanguage:%@", self.chosenLanguage);
-    
-    //C4Log(@"%d",[self.navigationController.viewControllers count]);
-    id obj = [self.navigationController.viewControllers objectAtIndex:0];
-    C4Log(@"obj:%@", obj);
-    workspace=(C4WorkSpace*)obj;
-    C4Log(@"workspace: %@", workspace);
-    workspace.currentLanguage=self.chosenLanguage;
-    workspace.oldLanguage=self.currentLanguage;
+-(void)addAlphabet{
+    C4Log(@"adding Alphabet");
+    self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
+    //save the old alphabet in case u want to reload it later (just as when resigning active)
+    [workspace exportHighResImage];
+    //add new alphabet to my alphabets
+    [workspace.myAlphabets addObject:name];
+    //add a new language to languages array (so u can reload correctly later)
+    [workspace.myAlphabetsLanguages addObject: [workspace.languages objectAtIndex:elementNoChosen]];
+    //C4Log(@"my alphabets: %@", workspace.myAlphabets);
+    //set alphabet name to new one
+    workspace.alphabetName=name;
+    //set current alphabet to new alphabet
+    [workspace loadDefaultAlphabet];
+    //set current language to language chosen
+    workspace.currentLanguage=[workspace.languages objectAtIndex:elementNoChosen];
+    //C4Log(@"current Language: %@", workspace.currentLanguage);
+    //set old language to Finnish/swedish > the default one
+    workspace.oldLanguage=@"Finnish/Swedish";
+    //C4Log(@"old language: %@", workspace.oldLanguage);
+    //set it to the right language
     [self updateLanguage];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    obj=[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-1];
-    alphabetInfo=(AlphabetInfo*)obj;
-    [alphabetInfo changeLanguage];
+
+    //go to alphabets view
+    //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
+    id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
+    //C4Log(@"obj:%@", obj);
+    alphabetView=(AlphabetView*)obj;
+    [alphabetView redrawAlphabet];
+    [self.navigationController popToViewController:alphabetView animated:YES];
 }
 -(void)updateLanguage{
-    C4Log(@"new: %@ old: %@", workspace.currentLanguage, workspace.oldLanguage);
+    //this is a copy of update language from change language view
+    //C4Log(@"new: %@ old: %@", workspace.currentLanguage, workspace.oldLanguage);
     //Finnish>german
     if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         C4Log(@"change Finnish to German");
@@ -284,13 +340,95 @@
     }
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
     //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
-    C4Log(@"obj:%@", obj);
+    //C4Log(@"obj:%@", obj);
     alphabetView=(AlphabetView*)obj;
-    C4Log(@"alphabetView: %@", alphabetView);
+   // C4Log(@"alphabetView: %@", alphabetView);
     [alphabetView redrawAlphabet];
-
-
 }
 
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)hideKeyBoard {
+    [textInput resignFirstResponder];
+}
+//------------------------------------------------------------------------
+//STUFF TO HANDLE THE KEYBOARD INPUT
+//------------------------------------------------------------------------
+
+#pragma mark -
+#pragma mark UITextViewDelegate Methods
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    /*--
+     * This method is called when the textView becomes active, or is the First Responder
+     --*/
+    
+    //NSLog(@"textViewDidBeginEditing:");
+    //textView.textColor = UA_OVERLAY_COLOR;
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    /*--
+     * This method is called when the textView is no longer active
+     --*/
+    //NSLog(@"textViewDidEndEditing:");
+    //set message to what the text in the box is
+    name=textView.text;
+    //C4Log(@"new name: %@", name);
+    /*if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter==0) {
+        //self.bottomNavBar.centerImage.hidden=NO;
+        [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"addAlphabet"];
+        notificationCounter++;
+    }*/
+    
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    // NSLog(@"textView:shouldChangeTextInRange:replacementText:");
+    
+    // NSLog(@"textView.text.length -- %lu",(unsigned long)textView.text.length);
+    //NSLog(@"text.length          -- %lu",(unsigned long)text.length);
+    //NSLog(@"text                 -- '%@'", text);
+   // NSLog(@"textView.text        -- '%@'", textView.text);
+    
+    // newCharacter=text;
+    //self.entireText=textView.text;
+    
+    
+    /*--
+     * This method is called just before text in the textView is displayed
+     * This is a good place to disallow certain characters
+     * Limit textView to 140 characters
+     * Resign keypad if done button pressed comparing the incoming text against the newlineCharacterSet
+     * Return YES to update the textView otherwise return NO
+     --*/
+    
+    
+    NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
+    NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
+    NSUInteger location = replacementTextRange.location;
+    
+    if (textView.text.length + text.length > 140){//140 characters are in the textView
+        if (location != NSNotFound){ //Did not find any newline characters
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    else if (location != NSNotFound){ //Did not find any newline characters
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+   // NSLog(@"textViewDidChange:");
+    //This method is called when the user makes a change to the text in the textview
+}
 
 @end

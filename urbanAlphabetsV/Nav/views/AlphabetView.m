@@ -14,6 +14,7 @@
 #import "LetterView.h"
 #import "Write Postcard.h"
 #import "ShareAlphabet.h"
+#import "MyAlphabets.h"
 
 @interface AlphabetView (){
     AlphabetInfo *alphabetInfo;
@@ -22,6 +23,7 @@
     Write_Postcard *writePostcard;
     SaveToDatabase *save;
     ShareAlphabet *shareAlphabet;
+    MyAlphabets *myAlphabets;
     
     NSMutableArray *greyRectArray;
     NSString *currentLanguage;
@@ -46,6 +48,7 @@
 
 -(void )setup:(NSMutableArray*)passedAlphabet  {
     //self.title=@"Alphabet View";
+   
 
     //back button
     /*CGRect frame = CGRectMake(0, 0, 60,20);
@@ -74,7 +77,7 @@
     self.title=workspace.alphabetName;
 }
 -(void)grabCurrentLanguageViaNavigationController {
-    //C4Log(@"%d",[self.navigationController.viewControllers count]);
+    C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     //C4Log(@"obj:%@", obj);
     workspace=(C4WorkSpace*)obj;
@@ -176,7 +179,6 @@
     [self.navigationController pushViewController:alphabetInfo animated:YES];
     [alphabetInfo grabCurrentLanguageViaNavigationController ];
     [self closeMenu];
-
 }
 -(void)tappedLetter:(NSNotification *)notification {
     //get the current object
@@ -211,6 +213,14 @@
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
+-(void)goToMyAlphabets{
+    C4Log(@"save Alphabet");
+    [self closeMenu];
+    myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
+    [myAlphabets setup];
+    [self.navigationController pushViewController:myAlphabets animated:YES];
+    [myAlphabets grabCurrentLanguageViaNavigationController];
+}
 //------------------------------------------------------------------------
 //MENU
 //------------------------------------------------------------------------
@@ -235,7 +245,8 @@
     [self listenFor:@"touchesBegan" fromObjects:@[self.menu.writePostcardShape, self.menu.writePostcardLabel,self.menu.writePostcardIcon] andRunMethod:@"goToWritePostcard"];
     //share alphabet
     [self listenFor:@"touchesBegan" fromObjects:@[self.menu.shareAlphabetShape, self.menu.shareAlphabetLabel,self.menu.shareAlphabetIcon] andRunMethod:@"goToShareAlphabet"];
-}
+    //my alphabets
+    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.myAlphabetsShape, self.menu.myAlphabetsLabel,self.menu.myAlphabetsIcon] andRunMethod:@"goToMyAlphabets"];}
 -(void)closeMenu{
     //stop location updating
     [locationManager stopUpdatingLocation];
@@ -355,14 +366,14 @@
 //------------------------------------------------------------------------
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+    //NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"didUpdateToLocation: %@", newLocation);
+    //NSLog(@"didUpdateToLocation: %@", newLocation);
     currentLocation = newLocation;
 }
 

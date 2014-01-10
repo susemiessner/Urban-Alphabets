@@ -180,7 +180,7 @@
      * This method is called when the textView becomes active, or is the First Responder
      --*/
     
-    NSLog(@"textViewDidBeginEditing:");
+    //NSLog(@"textViewDidBeginEditing:");
     //textView.textColor = UA_OVERLAY_COLOR;
 }
 
@@ -189,7 +189,7 @@
     /*--
      * This method is called when the textView is no longer active
      --*/
-    NSLog(@"textViewDidEndEditing:");
+    //NSLog(@"textViewDidEndEditing:");
     //set message to what the text in the box is
     message=textView.text;
     
@@ -202,7 +202,7 @@
     // NSLog(@"textView.text.length -- %lu",(unsigned long)textView.text.length);
     //NSLog(@"text.length          -- %lu",(unsigned long)text.length);
     //NSLog(@"text                 -- '%@'", text);
-    NSLog(@"textView.text        -- '%@'", textView.text);
+    //NSLog(@"textView.text        -- '%@'", textView.text);
     
     // newCharacter=text;
     //self.entireText=textView.text;
@@ -236,7 +236,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"textViewDidChange:");
+    //NSLog(@"textViewDidChange:");
     //This method is called when the user makes a change to the text in the textview
 }
 

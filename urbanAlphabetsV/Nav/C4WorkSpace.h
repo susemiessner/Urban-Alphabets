@@ -16,10 +16,18 @@
 //defaults
 @property (readwrite) NSMutableArray *currentAlphabet;
 @property (readwrite) NSString *currentLanguage;
+@property (readwrite) NSMutableArray *languages;
 @property (readwrite) NSString *oldLanguage;
 @property (readwrite) NSString *alphabetName;
 @property (readwrite) NSString *userName;
+@property (readwrite) NSMutableArray *myAlphabets;
+@property (readwrite) NSMutableArray *myAlphabetsLanguages;
+
+
+
 -(void)setup;
 -(void)cameraSetup;
-
+-(void)loadDefaultAlphabet;
+-(void)exportHighResImage;
+-(NSString *)documentsDirectory ;
 @end

@@ -32,7 +32,12 @@
     //load the defaults
     [self loadDefaultAlphabet];
     self.currentLanguage= @"Finnish/Swedish";
-    //self.alphabetName=@"Untitled";
+    self.myAlphabets=[[NSMutableArray alloc]init];
+    self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
+    self.alphabetName=@"Untitled";
+    //C4Log(@"myAlphabets: %@",self.myAlphabets);
+    self.languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", nil];
+
         //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -93,16 +98,16 @@
 }
 -(void)viewDidLoad{
     self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    C4Log(@"userName:%@", self.userName);
+    //C4Log(@"userName:%@", self.userName);
 
 }
 -(void)saveUserName{
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     self.userName=userNameField.text;
     [defaults setValue:self.userName forKey:@"userName"];
-    C4Log(@"userName:%@", self.userName);
+    //C4Log(@"userName:%@", self.userName);
     [defaults synchronize];
-    C4Log(@"defaults: %@", [defaults objectForKey:@"userName"]);
+    //C4Log(@"defaults: %@", [defaults objectForKey:@"userName"]);
     //and remove the username stuff
     [backgroundRect removeFromSuperview];
     [enterUserNameLabel removeFromSuperview];
@@ -120,7 +125,7 @@
 -(void)captureImage{
     self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
     [cam captureImage];
-    C4Log(@"capturing image");
+    //C4Log(@"capturing image");
 }
 
 -(void)goToCropPhoto {
@@ -147,7 +152,7 @@
  //--------------------------------------------------
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    C4Log(@"done");
+    //C4Log(@"done");
 
     
     self.img = [C4Image imageWithUIImage:image];
@@ -235,6 +240,9 @@
     [self exportHighResImage];
     NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
     [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
+    [alphabetName setValue:self.currentLanguage forKey:@"language"];
+    [alphabetName setValue:self.myAlphabets forKey:@"myAlphabets"];
+    [alphabetName setValue:self.myAlphabetsLanguages forKey:@"myAlphabetsLanguages"];
     [alphabetName synchronize];
     C4Log(@"alphabetName: %@", self.alphabetName);
 }
@@ -253,8 +261,26 @@
     } else{
         self.alphabetName=loadedName;
     }
-    C4Log(@"loaded: %@", loadedName);
     
+    NSString *loadedLanguage=[[NSUserDefaults standardUserDefaults]objectForKey:@"language"];
+    if (loadedLanguage) {
+        self.currentLanguage=loadedLanguage;
+    }
+    NSMutableArray *alphabets=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabets"];
+    if (alphabets) {
+        self.myAlphabets=[alphabets mutableCopy];
+    }
+    NSMutableArray *AlphabetsLanguages=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabetsLanguages"];
+    if (AlphabetsLanguages) {
+        self.myAlphabetsLanguages=[AlphabetsLanguages mutableCopy];
+    }
+    C4Log(@"loaded Name    : %@", loadedName);
+    C4Log(@"loaded Language: %@", loadedLanguage);
+    C4Log(@"loaded Alphabets: %@", alphabets);
+    C4Log(@"myAlphabets:      %@", self.myAlphabets);
+    //[self.myAlphabets addObject:self.alphabetName];
+
+    //loading all letters
     //NSString *path= [[self documentsDirectory] stringByAppendingString:@"/Untitled"];
     NSString *path= [[self documentsDirectory] stringByAppendingString:@"/"];
     path=[path stringByAppendingPathComponent:self.alphabetName];

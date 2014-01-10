@@ -81,7 +81,7 @@
 
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    C4Log(@"received response:%@", response);
+    //C4Log(@"received response:%@", response);
 }
 
 -(void)findRightLetter:(NSUInteger)chosenImageNumberInArray Language:(NSString*)theLanguage{

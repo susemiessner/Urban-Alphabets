@@ -51,7 +51,7 @@
 }
 
 -(void)grabCurrentLanguageViaNavigationController {
-    C4Log(@"%d",[self.navigationController.viewControllers count]);
+    C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     //C4Log(@"obj:%@", obj);
     workspace=(C4WorkSpace*)obj;
