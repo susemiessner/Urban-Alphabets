@@ -96,6 +96,7 @@
 		DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5862941857506700C4D2A5 /* SaveToDatabase.m */; };
 		DA5862991857525A00C4D2A5 /* AlphabetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5862971857525A00C4D2A5 /* AlphabetView.m */; };
 		DA58629A1857525A00C4D2A5 /* AlphabetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5862981857525A00C4D2A5 /* AlphabetView.xib */; };
+		DA6B6C5818819CA500F5BE62 /* letter_spanishN.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6B6C5718819CA500F5BE62 /* letter_spanishN.png */; };
 		DA6C388E187E9E830059275B /* AddAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C388C187E9E830059275B /* AddAlphabet.m */; };
 		DA6C388F187E9E830059275B /* AddAlphabet.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6C388D187E9E830059275B /* AddAlphabet.xib */; };
 		DA8C2797185F287B009B0DC1 /* PostcardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2796185F287B009B0DC1 /* PostcardMenu.m */; };
@@ -247,6 +248,7 @@
 		DA5862961857525A00C4D2A5 /* AlphabetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlphabetView.h; path = views/AlphabetView.h; sourceTree = "<group>"; };
 		DA5862971857525A00C4D2A5 /* AlphabetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlphabetView.m; path = views/AlphabetView.m; sourceTree = "<group>"; };
 		DA5862981857525A00C4D2A5 /* AlphabetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlphabetView.xib; path = views/AlphabetView.xib; sourceTree = "<group>"; };
+		DA6B6C5718819CA500F5BE62 /* letter_spanishN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_spanishN.png; sourceTree = "<group>"; };
 		DA6C388B187E9E830059275B /* AddAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddAlphabet.h; path = views/AddAlphabet.h; sourceTree = "<group>"; };
 		DA6C388C187E9E830059275B /* AddAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddAlphabet.m; path = views/AddAlphabet.m; sourceTree = "<group>"; };
 		DA6C388D187E9E830059275B /* AddAlphabet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddAlphabet.xib; path = views/AddAlphabet.xib; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 				DA0812B4187C255100CD4EE1 /* letter_Q.png */,
 				DA0812B5187C255100CD4EE1 /* letter_R.png */,
 				DA0812B6187C255100CD4EE1 /* letter_S.png */,
+				DA6B6C5718819CA500F5BE62 /* letter_spanishN.png */,
 				DA0812B7187C255100CD4EE1 /* letter_T.png */,
 				DA0812B8187C255100CD4EE1 /* letter_U.png */,
 				DA0812B9187C255100CD4EE1 /* letter_Ü.png */,
@@ -931,6 +934,7 @@
 				DA58621A18573E6B00C4D2A5 /* icon_SharePostcard.png in Resources */,
 				DA0812CB187C255100CD4EE1 /* letter_6.png in Resources */,
 				DA0FCCF51859DC3A00A8F05F /* ChangeLanguage.xib in Resources */,
+				DA6B6C5818819CA500F5BE62 /* letter_spanishN.png in Resources */,
 				DA0812D2187C255100CD4EE1 /* letter_ae.png in Resources */,
 				DA58621218573E6B00C4D2A5 /* icon_Menu.png in Resources */,
 				DA0812DA187C255100CD4EE1 /* letter_G.png in Resources */,

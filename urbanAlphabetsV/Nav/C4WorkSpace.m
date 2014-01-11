@@ -36,7 +36,7 @@
     self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
     self.alphabetName=@"Untitled";
     //C4Log(@"myAlphabets: %@",self.myAlphabets);
-    self.languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", nil];
+    self.languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", nil];
 
         //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];

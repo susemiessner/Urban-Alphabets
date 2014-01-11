@@ -44,7 +44,7 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     
-    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", nil];
+    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", nil];
     shapesForBackground=[[NSMutableArray alloc]init];
     languageLabels=[[NSMutableArray alloc]init];
     
@@ -282,6 +282,109 @@
         [workspace.currentAlphabet removeObjectAtIndex:28];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
     }
+    
+    //-------------------------------
+    //SPANISH
+    //-------------------------------
+
+    //English>Spanish
+    if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"English"]) {
+        C4Log(@"change English to Spanish");
+        //insert spanishN
+        //[workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
+        //+ is going to position 27
+        //delete $
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+    }
+    //Spanish>English
+    if ([workspace.currentLanguage isEqual:@"English"] && [workspace.oldLanguage isEqual:@"Spanish"]) {
+        C4Log(@"change Spanish to English");
+        //delete spanishN
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        //insert $
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
+    }
+    //Finnish>Spanish
+    if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
+        C4Log(@"change Finnish to Spanish");
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+    }
+    //Spanish>Finnish
+    if ([workspace.currentLanguage isEqual:@"Finnish/Swedish"] && [workspace.oldLanguage isEqual:@"Spanish"]) {
+        C4Log(@"change Spanish to Finnish");
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
+    }
+    //Danish>Spanish
+    if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Danish/Norwegian"]) {
+        C4Log(@"change Danish to Spanish");
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+    }
+    //Spanish>Danish
+    if ([workspace.currentLanguage isEqual:@"Danish/Norwegian"] && [workspace.oldLanguage isEqual:@"Spanish"]) {
+        C4Log(@"change Spanish to Danish");
+        //change Ä
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
+        //change Ö
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
+    }
+    //German>Spanish
+    if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"German"]) {
+        C4Log(@"change Spanish to German");
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+    }
+    //Spanish>German
+    if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"Spanish"]) {
+        C4Log(@"change Spanish to German");
+        //change Ä
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
+        //change Ö
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
+    }
+
+    
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
     //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
     C4Log(@"obj:%@", obj);
