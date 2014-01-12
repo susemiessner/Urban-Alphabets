@@ -170,6 +170,8 @@
 //load default alphabet
 //--------------------------------------------------
 -(void)loadDefaultAlphabet{
+    //C4Log(@"loading default alphabet");
+    //self.currentAlphabet=[[NSMutableArray alloc]init];
     self.currentAlphabet=[NSMutableArray arrayWithObjects:
                           //first row
                           [C4Image imageNamed:@"letter_A.png"],
@@ -229,6 +231,7 @@
                            [C4Image imageNamed:@"letter_danisho.png"], //46
                            [C4Image imageNamed:@"letter_Ü.png"], //47*/
                           nil];
+    //C4Log(@"%@",self.currentAlphabet);
 }
 //--------------------------------------------------
 //save alphabet when app becomes inactive

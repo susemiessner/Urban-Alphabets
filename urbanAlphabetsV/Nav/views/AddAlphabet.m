@@ -236,116 +236,22 @@
         [workspace.currentAlphabet removeObjectAtIndex:28];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
     }
-    
-    
-    //German>Finnish
-    if ([workspace.currentLanguage isEqual:@"Finnish/Swedish"] && [workspace.oldLanguage isEqual:@"German"]) {
-        C4Log(@"change German to Finnish");
-        //change Ü to Å
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
-    }
-    //Danish/Finnish
-    if ([workspace.currentLanguage isEqual:@"Finnish/Swedish"] && [workspace.oldLanguage isEqual:@"Danish/Norwegian"]) {
-        C4Log(@"change Danish to Finnish");
-        //change Ä to AE
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
-        //change Ö to danishO
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
-    }
-    //English>Finnish
-    if ([workspace.currentLanguage isEqual:@"Finnish/Swedish"] && [workspace.oldLanguage isEqual:@"English"]) {
-        C4Log(@"change English to Finnish");
+    //-------------------------------
+    //SPANISH
+    //Finnish>Spanish
+    if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
+        C4Log(@"change Finnish to Spanish");
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
-        //change Å to ,
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
-    }
-    //German>English
-    if ([workspace.currentLanguage isEqual:@"English"] && [workspace.oldLanguage isEqual:@"German"]) {
-        C4Log(@"change Finnish to English");
-        //change Ä to +
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
-        //change Ö to $
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
     }
-    //Danish>English
-    if ([workspace.currentLanguage isEqual:@"English"] && [workspace.oldLanguage isEqual:@"Danish/Norwegian"]) {
-        C4Log(@"change Finnish to English");
-        //change Ä to +
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
-        //change Ö to $
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
-        //change Å to ,
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
-    }
-    //English>German
-    if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"English"]) {
-        C4Log(@"change English to German");
-        //change Ä
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
-        //change Ö
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
-        //change Å to ,
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
-    }
-    //English>Danish
-    if ([workspace.currentLanguage isEqual:@"Danish/Norwegian"] && [workspace.oldLanguage isEqual:@"English"]) {
-        C4Log(@"change English to Danish");
-        //change Ä
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
-        //change Ö
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
-        //change Å to ,
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
-    }
-    //German>Danish
-    if ([workspace.currentLanguage isEqual:@"Danish/Norwegian"] && [workspace.oldLanguage isEqual:@"German"]) {
-        C4Log(@"change English to Danish");
-        //change Ä
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
-        //change Ö
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
-        //change Å to ,
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
-    }
-    //Danish>German
-    if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"Danish/Norwegian"]) {
-        C4Log(@"change Danish to German");
-        //change Ä
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
-        //change Ö
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
-        //change Å to ,
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
-    }
+    
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
     //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
     //C4Log(@"obj:%@", obj);

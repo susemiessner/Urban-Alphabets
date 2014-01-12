@@ -9,10 +9,12 @@
 #import "AlphabetInfo.h"
 #import "ChangeLanguage.h"
 #import "C4WorkSpace.h"
+#import "AlphabetView.h"
 
 @interface AlphabetInfo (){
     ChangeLanguage *changeLanguageView;
     C4WorkSpace *workspace;
+    AlphabetView *alphabetView;
     //labels for the actual info
     C4Label *nameLabel;
     C4Label *alphabetName;
@@ -20,6 +22,7 @@
     C4Label *language;
     C4Label *changeLanguage;
     C4Label *changeAlphabetName;
+    C4Label *resetLabel;
     
     //to change the alphabet Name
     UITextView *textViewTest;
@@ -123,9 +126,80 @@
     changeLanguage.origin=CGPointMake(xPosChange, yPos);
     [self.canvas addLabel:changeLanguage];
     
+    yPos+=lineHeight;
+    //reset the alphabet
+    resetLabel=[C4Label labelWithText:@"Reset Alphabet" font: UA_NORMAL_FONT];
+    resetLabel.textColor=UA_GREY_TYPE_COLOR;
+    resetLabel.origin=CGPointMake(firstColumX, yPos);
+    [self.canvas addLabel:resetLabel];
+    
     [self listenFor:@"touchesBegan" fromObjects:@[languageLabel,language,changeLanguage] andRunMethod:@"goToChangeLanguage"];
     [self listenFor:@"touchesBegan" fromObjects:@[nameLabel,alphabetName,changeAlphabetName] andRunMethod:@"changeAlphabetName"];
+    [self listenFor:@"touchesBegan" fromObject:resetLabel andRunMethod:@"resetAlphabet"];
 }
+-(void)resetAlphabet{
+    C4Log(@"resetting the alphabet");
+    [workspace.currentAlphabet removeAllObjects];
+    //C4Log(@"empty:%@", workspace.currentAlphabet);
+    [workspace loadDefaultAlphabet];
+    [self updateLanguage];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)updateLanguage{
+        //this is a copy of update language from change language view
+    //C4Log(@"new: %@ old: %@", workspace.currentLanguage, workspace.oldLanguage);
+    //Finnish>german
+    if ([self.currentLanguage isEqual:@"German"]) {
+        C4Log(@"change Finnish to German");
+        //change Å to Ü
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
+    }
+    //Finnish>Danish
+    if ([self.currentLanguage isEqual:@"Danish/Norwegian"]) {
+        C4Log(@"change Finnish to Danish");
+        //change Ä to AE
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
+        //change Ö to danishO
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
+    }
+    //Finnish>English
+    if ([self.currentLanguage isEqual:@"English"] ) {
+        C4Log(@"change Finnish to English");
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+    }
+    //Finnish>Spanish
+    if ([self.currentLanguage isEqual:@"Spanish"]) {
+        C4Log(@"change Finnish to Spanish");
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+    }
+
+    id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
+    //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
+    //C4Log(@"obj:%@", obj);
+    alphabetView=(AlphabetView*)obj;
+    // C4Log(@"alphabetView: %@", alphabetView);
+    [alphabetView redrawAlphabet];
+}
+
 //--------------------------------------------------
 //NAVIGATION
 //--------------------------------------------------

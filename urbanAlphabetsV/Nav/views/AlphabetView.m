@@ -135,7 +135,7 @@
 //REDRAWING AFTER CHANGING LANGUAGE
 //------------------------------------------------------------------------
 -(void)redrawAlphabet{
-    
+    C4Log(@"redrawing the Alphabet");
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
     
         C4Image *image=[self.currentAlphabet objectAtIndex:i ];
