@@ -99,6 +99,7 @@
     self.greyRectArray=[[NSMutableArray alloc]init];
     
     self.currentLanguage=[passedLanguage copy];
+    C4Log(self.currentLanguage);
     self.currentAlphabet=[passedAlphabet copy];
     
     //add text field
@@ -132,7 +133,7 @@
     [self.canvas addLabel:countingLabel];
 }
 -(void)updateCharacterNumber{
-    C4Log(@"updating character number");
+    //C4Log(@"updating character number");
     countingLabel.text=[NSString stringWithFormat:@"%lu/%i", (unsigned long)[self.postcardArray count], self.maxPostcardLength];
     [countingLabel sizeToFit];
 }
@@ -145,7 +146,7 @@
         [self addLetterToPostcard];
     }
     
-    C4Log(@"postCardArrayLength:%i", [self.postcardArray count]);
+    //C4Log(@"postCardArrayLength:%i", [self.postcardArray count]);
     
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -250,16 +251,49 @@
     }else if ([newCharacter isEqual: @"z"]||[newCharacter isEqual: @"Z"]){
         C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 25]];
         [self.postcardArray addObject: image];
-    }else if ([newCharacter isEqual: @"ä"]||[newCharacter isEqual: @"Ä"]){
+    //pos 26
+    }else if (([newCharacter isEqual: @"ä"]||[newCharacter isEqual: @"Ä"])&&([self.currentLanguage isEqual: @"Finnish/Swedish"]||[self.currentLanguage isEqual: @"German"])){
         C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 26]];
         [self.postcardArray addObject: image];
-    }else if ([newCharacter isEqual: @"ö"]||[newCharacter isEqual: @"Ö"]){
+    }else if (([newCharacter isEqual: @"æ"]||[newCharacter isEqual: @"Æ"])&&[self.currentLanguage isEqual: @"Danish/Norwegian"]){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 26]];
+        [self.postcardArray addObject: image];
+    }else if ([newCharacter isEqual: @"+"]&&[self.currentLanguage isEqual: @"English"]){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 26]];
+        [self.postcardArray addObject: image];
+    }else if (([newCharacter isEqual: @"ñ"]||[newCharacter isEqual: @"Ñ"])&&[self.currentLanguage isEqual: @"Spanish"]){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 26]];
+        [self.postcardArray addObject: image];
+    }
+    
+    //pos 27
+    else if (([newCharacter isEqual: @"ö"]||[newCharacter isEqual: @"Ö"]) && ([self.currentLanguage isEqual: @"Finnish/Swedish"]||[self.currentLanguage isEqual: @"German"])){
         C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 27]];
         [self.postcardArray addObject: image];
-    }else if ([newCharacter isEqual: @"å"]||[newCharacter isEqual: @"Å"]){
+    }else if ([newCharacter isEqual: @"+"]&&[self.currentLanguage isEqual: @"Spanish"]){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 27]];
+        [self.postcardArray addObject: image];
+    }else if ([newCharacter isEqual: @"$"] && [self.currentLanguage isEqual: @"English"]){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 27]];
+        [self.postcardArray addObject: image];
+    }else if (([newCharacter isEqual: @"ø"]||[newCharacter isEqual: @"Ø"]) && [self.currentLanguage isEqual: @"Danish/Norwegian"]){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 27]];
+        [self.postcardArray addObject: image];
+    }
+    
+    //pos 28
+    else if (([newCharacter isEqual: @"å"]||[newCharacter isEqual: @"Å"])&& ([self.currentLanguage isEqual: @"Finnish/Swedish"]||[self.currentLanguage isEqual: @"Danish/Norwegian"])){
         C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 28]];
         [self.postcardArray addObject: image];
-    }else if ([newCharacter isEqual: @"."]){
+    }else if (([newCharacter isEqual: @"ü"]||[newCharacter isEqual: @"Ü"])&& [self.currentLanguage isEqual: @"German"]){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 28]];
+        [self.postcardArray addObject: image];
+    }else if ([newCharacter isEqual: @","]&& ([self.currentLanguage isEqual: @"English"]||[self.currentLanguage isEqual: @"Spanish"])){
+        C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 28]];
+        [self.postcardArray addObject: image];
+    }
+    //pos 29
+    else if ([newCharacter isEqual: @"."]){
         C4Image *image=[C4Image imageWithImage:[self.currentAlphabet objectAtIndex: 29]];
         [self.postcardArray addObject: image];
     }else if ([newCharacter isEqual: @"!"]){
@@ -308,7 +342,7 @@
         C4Shape *greyRectRemove=[self.greyRectArray objectAtIndex:[self.greyRectArray count]-1 ];
         [greyRectRemove removeFromSuperview];
         [self.greyRectArray removeObjectAtIndex:[self.greyRectArray count]-1];
-    }else if([newCharacter isEqual: @""] && [self.postcardArray count]==1){//remove last letter if delete button is pressed
+    }else if([newCharacter isEqual: @""] && [self.postcardArray count]==1){//remove last letter if delete button is pressed and only 1 character exists
         C4Image *image=[self.postcardArray objectAtIndex:0];
         [image removeFromSuperview];
         [self.postcardArray removeAllObjects];
@@ -346,7 +380,7 @@
      * This method is called when the textView becomes active, or is the First Responder
      --*/
     
-    NSLog(@"textViewDidBeginEditing:");
+   // NSLog(@"textViewDidBeginEditing:");
     //textView.textColor = UA_OVERLAY_COLOR;
 }
 
@@ -354,8 +388,8 @@
 {
     /*--
      * This method is called when the textView is no longer active
-     --*/
-    NSLog(@"textViewDidEndEditing:");
+    / --*/
+    //NSLog(@"textViewDidEndEditing:");
 //prepare next view and go there
     postcardView=[[PostcardView alloc]initWithNibName:@"PostcardView" bundle:[NSBundle mainBundle]];
     [postcardView setupWithPostcard:self.postcardArray Rect:self.greyRectArray withLanguage:self.currentLanguage withPostcardText:self.entireText];
@@ -369,11 +403,11 @@
     // NSLog(@"textView.text.length -- %lu",(unsigned long)textView.text.length);
     //NSLog(@"text.length          -- %lu",(unsigned long)text.length);
     //NSLog(@"text                 -- '%@'", text);
-    NSLog(@"textView.text        -- '%@'", textView.text);
+    //NSLog(@"textView.text        -- '%@'", textView.text);
     
     newCharacter=text;
     self.entireText=textView.text;
-    
+    C4Log(@"new character: %@", newCharacter);
     
     /*--
      * This method is called just before text in the textView is displayed
@@ -404,7 +438,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"textViewDidChange:");
+    //NSLog(@"textViewDidChange:");
     //This method is called when the user makes a change to the text in the textview
 }
 
