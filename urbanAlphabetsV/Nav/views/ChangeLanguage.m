@@ -34,6 +34,7 @@
     self.title=@"Change Language";
    
     self.currentLanguage=passedLanguage;
+    //C4Log(@"self.currentLanguage: %@", self.currentLanguage);
     //back button
     CGRect frame = CGRectMake(0, 0, 60,20);
     UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
@@ -56,7 +57,7 @@
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"changeLanguage"];
     
     //content
-    int selectedLanguage=10;
+    int selectedLanguage=20;
     for (int i=0; i<[languages count]; i++) {
         //underlying shape
         float height=46.203;
@@ -65,10 +66,11 @@
         shape.lineWidth=2;
         shape.strokeColor=UA_NAV_BAR_COLOR;
         shape.fillColor=UA_NAV_CTRL_COLOR;
-        
-        if ([languages objectAtIndex:i ] == self.currentLanguage) {
+        //C4Log(@"languageLoopped: %@", [languages objectAtIndex:i ]);
+        if ([[languages objectAtIndex:i ] isEqualToString: self.currentLanguage]) {
             shape.fillColor=UA_HIGHLIGHT_COLOR;
             selectedLanguage=i;
+           // C4Log(@"selected Language: %i", selectedLanguage);
         }
         [shapesForBackground addObject:shape];
         [self.canvas addShape:shape];
@@ -468,7 +470,7 @@
         //add RusJu
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJu.png"] atIndex:30];
         //add RusJa
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJa.png"] atIndex:29];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJa.png"] atIndex:31];
     }
     //Russian>Finnish,German,English,Norwegian
     if ( ([workspace.currentLanguage isEqual:@"Finnish/Swedish"]||[workspace.currentLanguage isEqual:@"German"] ||[workspace.currentLanguage isEqual:@"Danish/Norwegian"] || [workspace.currentLanguage isEqual:@"English"]|| [workspace.currentLanguage isEqual:@"Spanish"]) && [workspace.oldLanguage isEqual:@"Russian"]) {

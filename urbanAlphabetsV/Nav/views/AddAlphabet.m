@@ -265,8 +265,7 @@
         //change RusG
         [workspace.currentAlphabet removeObjectAtIndex:3];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusG.png"] atIndex:3];
-        //change RusD
-        //[workspace.currentAlphabet removeObjectAtIndex:4];
+        //add RusD
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusD.png"] atIndex:4];
         //change RusJo
         [workspace.currentAlphabet removeObjectAtIndex:6];
@@ -332,7 +331,7 @@
         //add RusJu
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJu.png"] atIndex:30];
         //add RusJa
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJa.png"] atIndex:29];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJa.png"] atIndex:31];
     }
 
     

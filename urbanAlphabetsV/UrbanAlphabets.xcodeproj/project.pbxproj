@@ -107,7 +107,6 @@
 		DA68A8321883E4D900BE9545 /* letter_RusJo.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A81D1883E4D900BE9545 /* letter_RusJo.png */; };
 		DA68A8331883E4D900BE9545 /* letter_RusJu.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A81E1883E4D900BE9545 /* letter_RusJu.png */; };
 		DA68A8341883E4D900BE9545 /* letter_RusL.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A81F1883E4D900BE9545 /* letter_RusL.png */; };
-		DA68A8351883E4D900BE9545 /* letter_RusMjachkiSnak.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A8201883E4D900BE9545 /* letter_RusMjachkiSnak.png */; };
 		DA68A8361883E4D900BE9545 /* letter_RusN.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A8211883E4D900BE9545 /* letter_RusN.png */; };
 		DA68A8371883E4D900BE9545 /* letter_RusP.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A8221883E4D900BE9545 /* letter_RusP.png */; };
 		DA68A8381883E4D900BE9545 /* letter_RusScha.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A8231883E4D900BE9545 /* letter_RusScha.png */; };
@@ -117,6 +116,7 @@
 		DA68A83C1883E4D900BE9545 /* letter_RusTschescha.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A8271883E4D900BE9545 /* letter_RusTschescha.png */; };
 		DA68A83D1883E4D900BE9545 /* letter_RusUi.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A8281883E4D900BE9545 /* letter_RusUi.png */; };
 		DA68A83E1883E4D900BE9545 /* letter_RusZ.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A8291883E4D900BE9545 /* letter_RusZ.png */; };
+		DA68A840188430CC00BE9545 /* letter_RusMjachkiSnak.png in Resources */ = {isa = PBXBuildFile; fileRef = DA68A83F188430CC00BE9545 /* letter_RusMjachkiSnak.png */; };
 		DA6B6C5818819CA500F5BE62 /* letter_spanishN.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6B6C5718819CA500F5BE62 /* letter_spanishN.png */; };
 		DA6C388E187E9E830059275B /* AddAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C388C187E9E830059275B /* AddAlphabet.m */; };
 		DA6C388F187E9E830059275B /* AddAlphabet.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6C388D187E9E830059275B /* AddAlphabet.xib */; };
@@ -280,7 +280,6 @@
 		DA68A81D1883E4D900BE9545 /* letter_RusJo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusJo.png; sourceTree = "<group>"; };
 		DA68A81E1883E4D900BE9545 /* letter_RusJu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusJu.png; sourceTree = "<group>"; };
 		DA68A81F1883E4D900BE9545 /* letter_RusL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusL.png; sourceTree = "<group>"; };
-		DA68A8201883E4D900BE9545 /* letter_RusMjachkiSnak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusMjachkiSnak.png; sourceTree = "<group>"; };
 		DA68A8211883E4D900BE9545 /* letter_RusN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusN.png; sourceTree = "<group>"; };
 		DA68A8221883E4D900BE9545 /* letter_RusP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusP.png; sourceTree = "<group>"; };
 		DA68A8231883E4D900BE9545 /* letter_RusScha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusScha.png; sourceTree = "<group>"; };
@@ -290,6 +289,7 @@
 		DA68A8271883E4D900BE9545 /* letter_RusTschescha.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusTschescha.png; sourceTree = "<group>"; };
 		DA68A8281883E4D900BE9545 /* letter_RusUi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusUi.png; sourceTree = "<group>"; };
 		DA68A8291883E4D900BE9545 /* letter_RusZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusZ.png; sourceTree = "<group>"; };
+		DA68A83F188430CC00BE9545 /* letter_RusMjachkiSnak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_RusMjachkiSnak.png; sourceTree = "<group>"; };
 		DA6B6C5718819CA500F5BE62 /* letter_spanishN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_spanishN.png; sourceTree = "<group>"; };
 		DA6C388B187E9E830059275B /* AddAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddAlphabet.h; path = views/AddAlphabet.h; sourceTree = "<group>"; };
 		DA6C388C187E9E830059275B /* AddAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddAlphabet.m; path = views/AddAlphabet.m; sourceTree = "<group>"; };
@@ -616,6 +616,7 @@
 		DA68A8141883E4CB00BE9545 /* Russian */ = {
 			isa = PBXGroup;
 			children = (
+				DA68A83F188430CC00BE9545 /* letter_RusMjachkiSnak.png */,
 				DA68A8151883E4D900BE9545 /* letter_RusB.png */,
 				DA68A8161883E4D900BE9545 /* letter_RusD.png */,
 				DA68A8171883E4D900BE9545 /* letter_RusE.png */,
@@ -627,7 +628,6 @@
 				DA68A81D1883E4D900BE9545 /* letter_RusJo.png */,
 				DA68A81E1883E4D900BE9545 /* letter_RusJu.png */,
 				DA68A81F1883E4D900BE9545 /* letter_RusL.png */,
-				DA68A8201883E4D900BE9545 /* letter_RusMjachkiSnak.png */,
 				DA68A8211883E4D900BE9545 /* letter_RusN.png */,
 				DA68A8221883E4D900BE9545 /* letter_RusP.png */,
 				DA68A8231883E4D900BE9545 /* letter_RusScha.png */,
@@ -999,6 +999,7 @@
 				EDFC42361851015300CB3335 /* Main.storyboard in Resources */,
 				DA58621518573E6B00C4D2A5 /* icon_Postcard.png in Resources */,
 				DA0812D1187C255100CD4EE1 /* letter_Ä.png in Resources */,
+				DA68A840188430CC00BE9545 /* letter_RusMjachkiSnak.png in Resources */,
 				DA68A8391883E4D900BE9545 /* letter_RusSche.png in Resources */,
 				DA68A83A1883E4D900BE9545 /* letter_RusSe.png in Resources */,
 				DA0812C6187C255100CD4EE1 /* letter_1.png in Resources */,
@@ -1023,7 +1024,6 @@
 				DA0812D2187C255100CD4EE1 /* letter_ae.png in Resources */,
 				DA58621218573E6B00C4D2A5 /* icon_Menu.png in Resources */,
 				DA0812DA187C255100CD4EE1 /* letter_G.png in Resources */,
-				DA68A8351883E4D900BE9545 /* letter_RusMjachkiSnak.png in Resources */,
 				DA68A8361883E4D900BE9545 /* letter_RusN.png in Resources */,
 				DA68A82F1883E4D900BE9545 /* letter_RusI.png in Resources */,
 				DA0812E1187C255100CD4EE1 /* letter_N.png in Resources */,
