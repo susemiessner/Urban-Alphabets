@@ -23,6 +23,7 @@
     C4Label *changeLanguage;
     C4Label *changeAlphabetName;
     C4Label *resetLabel;
+    C4Label *deleteLabel;
     
     //to change the alphabet Name
     UITextView *textViewTest;
@@ -126,16 +127,24 @@
     changeLanguage.origin=CGPointMake(xPosChange, yPos);
     [self.canvas addLabel:changeLanguage];
     
-    yPos+=lineHeight;
+    yPos+=lineHeight+30;
     //reset the alphabet
     resetLabel=[C4Label labelWithText:@"Reset Alphabet" font: UA_NORMAL_FONT];
     resetLabel.textColor=UA_GREY_TYPE_COLOR;
     resetLabel.origin=CGPointMake(firstColumX, yPos);
     [self.canvas addLabel:resetLabel];
     
+    yPos+=lineHeight;
+    //delete the alphabet
+    deleteLabel=[C4Label labelWithText:@"Delete Alphabet" font: UA_NORMAL_FONT];
+    deleteLabel.textColor=UA_GREY_TYPE_COLOR;
+    deleteLabel.origin=CGPointMake(firstColumX, yPos);
+    [self.canvas addLabel:deleteLabel];
+    
     [self listenFor:@"touchesBegan" fromObjects:@[languageLabel,language,changeLanguage] andRunMethod:@"goToChangeLanguage"];
     [self listenFor:@"touchesBegan" fromObjects:@[nameLabel,alphabetName,changeAlphabetName] andRunMethod:@"changeAlphabetName"];
     [self listenFor:@"touchesBegan" fromObject:resetLabel andRunMethod:@"resetAlphabet"];
+    [self listenFor:@"touchesBegan" fromObject:deleteLabel andRunMethod:@"deleteAlphabet"];
 }
 -(void)resetAlphabet{
     C4Log(@"resetting the alphabet");
@@ -145,8 +154,71 @@
     [self updateLanguage];
     [self.navigationController popViewControllerAnimated:YES];
 }
+-(void)deleteAlphabet{
+    C4Log(@"deleting Alphabet");
+    //C4Log(@"myAlphabetsLanguages: %@", workspace.myAlphabetsLanguages);
+    //delete from the arrays
+    for (int i=0; i< [workspace.myAlphabets count]; i++) {
+        NSString *name=[workspace.myAlphabets objectAtIndex:i];
+        if ([name isEqualToString: workspace.alphabetName]) {
+            if ([workspace.myAlphabets count]>1) {
+                //delete from arrays
+                [workspace.myAlphabets removeObjectAtIndex:i];
+                [workspace.myAlphabetsLanguages removeObjectAtIndex: i];
+                //change name of current alphabet
+                workspace.alphabetName=[workspace.myAlphabets objectAtIndex:0];
+                workspace.currentLanguage=[workspace.myAlphabetsLanguages objectAtIndex:0];
+                //load first alphabet in array
+                NSString *path= [[workspace documentsDirectory] stringByAppendingString:@"/"];
+                path=[path stringByAppendingPathComponent:workspace.alphabetName];
+                //NSString *path= [self documentsDirectory];
+                if ([[NSFileManager defaultManager] fileExistsAtPath:path]){
+                    workspace.currentAlphabet=[[NSMutableArray alloc]init];
+                    C4Log(@"directory exists");
+                    for (int i=0; i<42; i++) {
+                        NSString *filePath=[[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", i]] stringByAppendingString:@".jpg"];
+                        //C4Log(@"filePath:%@", filePath);
+                        NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+                        UIImage *img = [UIImage imageWithData:imageData];
+                        //UIImage *image=[UIImage imageNamed:@"0.jpg"];
+                        
+                        C4Image *image=[C4Image imageWithUIImage:img];
+                        [workspace.currentAlphabet addObject:image];
+                    }
+                }
+            } else{ //if only one alphabet exists
+                //empty arrays
+                [workspace.myAlphabets removeAllObjects];
+                [workspace.myAlphabetsLanguages removeAllObjects];
+                //add untitled alphabet
+                [workspace.myAlphabets addObject:@"Untitled"];
+                [workspace.myAlphabetsLanguages addObject:@"Finnish/Swedish"];
+                //load default alphabet
+                [workspace loadDefaultAlphabet];
+                
+            }
+        }
+    }
+    //write the nsuserdefaults new
+    [workspace writeAlphabetsUserDefaults];
+
+    C4Log(@"alphabetName: %@", workspace.alphabetName);
+    //load the right alphabet
+    //loading all letters
+    
+    //redraw the alphabet
+    C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
+    id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
+    C4Log(@"obj:%@", obj);
+    alphabetView=(AlphabetView*)obj;
+    [alphabetView redrawAlphabet];
+
+    //popviewcontroller
+    [self.navigationController popViewControllerAnimated:YES];
+    // C4Log(@"%@",workspace.myAlphabets);
+}
 -(void)updateLanguage{
-        //this is a copy of update language from change language view
+    //this is a copy of update language from change language view
     //C4Log(@"new: %@ old: %@", workspace.currentLanguage, workspace.oldLanguage);
     //Finnish>german
     if ([self.currentLanguage isEqual:@"German"]) {

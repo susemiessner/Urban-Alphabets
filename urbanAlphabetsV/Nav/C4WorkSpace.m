@@ -241,6 +241,9 @@
     C4Log(@"working");
     //save all images under alphabetName
     [self exportHighResImage];
+    [self writeAlphabetsUserDefaults];
+}
+-(void)writeAlphabetsUserDefaults{
     NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
     [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
     [alphabetName setValue:self.currentLanguage forKey:@"language"];
@@ -257,6 +260,8 @@
     loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
     if (!loadedName) {
         self.alphabetName=@"Untitled";
+        //[self.myAlphabets addObject:self.alphabetName];
+        [self.myAlphabetsLanguages addObject:self.currentLanguage];
         //set default alphabet name as first user default
         NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
         [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
@@ -272,10 +277,14 @@
     NSMutableArray *alphabets=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabets"];
     if (alphabets) {
         self.myAlphabets=[alphabets mutableCopy];
+    }  else{
+        [self.myAlphabets addObject:self.alphabetName];
     }
     NSMutableArray *AlphabetsLanguages=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabetsLanguages"];
     if (AlphabetsLanguages) {
         self.myAlphabetsLanguages=[AlphabetsLanguages mutableCopy];
+    }else{
+        [self.myAlphabetsLanguages addObject:self.currentLanguage];
     }
     C4Log(@"loaded Name    : %@", loadedName);
     C4Log(@"loaded Language: %@", loadedLanguage);

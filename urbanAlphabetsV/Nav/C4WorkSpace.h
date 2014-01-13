@@ -30,4 +30,5 @@
 -(void)loadDefaultAlphabet;
 -(void)exportHighResImage;
 -(NSString *)documentsDirectory ;
+-(void)writeAlphabetsUserDefaults;
 @end

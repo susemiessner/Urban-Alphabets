@@ -251,6 +251,90 @@
         [workspace.currentAlphabet removeObjectAtIndex:28];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
     }
+    //Finnish,German,English,Norwegian>Russian
+    if ([workspace.currentLanguage isEqual:@"Russian"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
+        C4Log(@"change Finnish to Russian");
+        //change RusB
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusB.png"] atIndex:1];
+        
+        //copy c to right position (17)
+        [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:3] atIndex:17];
+        //remove C
+        [workspace.currentAlphabet removeObjectAtIndex:3];
+        
+        //change RusG
+        [workspace.currentAlphabet removeObjectAtIndex:3];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusG.png"] atIndex:3];
+        //change RusD
+        //[workspace.currentAlphabet removeObjectAtIndex:4];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusD.png"] atIndex:4];
+        //change RusJo
+        [workspace.currentAlphabet removeObjectAtIndex:6];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJo.png"] atIndex:6];
+        
+        //change RusSche
+        [workspace.currentAlphabet removeObjectAtIndex:7];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusSche.png"] atIndex:7];
+        //change RusSe
+        [workspace.currentAlphabet removeObjectAtIndex:8];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusSe.png"] atIndex:8];
+        //change RusI
+        [workspace.currentAlphabet removeObjectAtIndex:9];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusI.png"] atIndex:9];
+        //change RusIkratkoje
+        [workspace.currentAlphabet removeObjectAtIndex:10];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusIkratkoje.png"] atIndex:10];
+        //change RusL
+        [workspace.currentAlphabet removeObjectAtIndex:12];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusL.png"] atIndex:12];
+        //change RusN
+        [workspace.currentAlphabet removeObjectAtIndex:14];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusN.png"] atIndex:14];
+        //insert rus p
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusP.png"] atIndex:16];
+        
+        //shift T into right position
+        [workspace.currentAlphabet removeObjectAtIndex:19];
+        [workspace.currentAlphabet removeObjectAtIndex:20];
+        [workspace.currentAlphabet removeObjectAtIndex:21];
+        [workspace.currentAlphabet removeObjectAtIndex:19];
+        
+        //copy X /RusCha into right position
+        [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:22] atIndex:25];
+        
+        //shirt Y /RusU into right position
+        [workspace.currentAlphabet removeObjectAtIndex:20];
+        [workspace.currentAlphabet removeObjectAtIndex:20];
+        [workspace.currentAlphabet removeObjectAtIndex:20];
+        //change RusF
+        [workspace.currentAlphabet removeObjectAtIndex:21];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusF.png"] atIndex:21];
+        //change RusZ
+        [workspace.currentAlphabet removeObjectAtIndex:23];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusZ.png"] atIndex:23];
+        //change RusTsche
+        [workspace.currentAlphabet removeObjectAtIndex:24];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusTsche.png"] atIndex:24];
+        //change RusScha
+        [workspace.currentAlphabet removeObjectAtIndex:25];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusScha.png"] atIndex:25];
+        //change RusTscheScha
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusTschescha.png"] atIndex:26];
+        //change RusMjachkiSnak
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusMjachkiSnak.png"] atIndex:27];
+        //change RusUi
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusUi.png"] atIndex:28];
+        //add RusE
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusE.png"] atIndex:29];
+        //add RusJu
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJu.png"] atIndex:30];
+        //add RusJa
+        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJa.png"] atIndex:29];
+    }
+
     
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
     //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
