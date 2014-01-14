@@ -28,11 +28,9 @@
     float firstShapeY;
     //magic for dismissing the keyboard
     UITapGestureRecognizer * tapGesture;
-
-
+    C4Shape *navigation;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
-
 @end
 
 @implementation AddAlphabet
@@ -50,8 +48,6 @@
     [backButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"addAlphabet"];
-
     
     //bottom bar
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
@@ -59,16 +55,12 @@
     [self.canvas addShape:self.bottomNavBar];
     self.bottomNavBar.centerImage.hidden=YES;
     
-    
     shapesForBackground = [[NSMutableArray alloc] init];
-    //C4Log(@"myArray length: %@", [shapesForBackground count]);
 }
 -(void)grabCurrentLanguageViaNavigationController {
-    C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     workspace=(C4WorkSpace*)obj;
 
-    
     //name label
     C4Label *nameLabel=[C4Label labelWithText:@"Name:" font:UA_NORMAL_FONT];
     nameLabel.origin=CGPointMake(20, 100);
@@ -83,14 +75,12 @@
     [textInput becomeFirstResponder];
     textInput.delegate = self;
     [self.view addSubview:textInput];
-    
     //magic for dismissing the keyboard
     tapGesture = [[UITapGestureRecognizer alloc]
                   initWithTarget:self
                   action:@selector(hideKeyBoard)];
-    
     [self.view addGestureRecognizer:tapGesture];
-    
+
     //language label
     C4Label *languageLabel=[C4Label labelWithText:@"Language:" font:UA_NORMAL_FONT];
     languageLabel.origin=CGPointMake(20, nameLabel.origin.y+40);
@@ -98,7 +88,6 @@
     
     //available languages
     firstShapeY=languageLabel.origin.y+languageLabel.height+10;
-    int selectedLanguage=60;
     for (int i=0; i<[workspace.languages count]; i++) {
         //underlying shape
         float height=46.203;
@@ -109,7 +98,6 @@
         shape.fillColor=UA_NAV_CTRL_COLOR;
         
         [shapesForBackground addObject:shape];
-        NSLog(@"%lu",(unsigned long)[shapesForBackground count]);
         [self.canvas addShape:shape];
         
         //text label
@@ -125,13 +113,9 @@
 
 }
 -(void)languageChanged:(NSNotification *)notification{
-    C4Log(@"notification counter currently: %i", notificationCounter);
-
-    C4Log(@"languageChanged");
     C4Shape *clickedObject = (C4Shape *)[notification object];
     //figure out which object was clicked
     float yPos=clickedObject.origin.y;
-    C4Log(@"clicked Object y        :%f", yPos);
     /*C4Shape *firstShape=[shapesForBackground objectAtIndex:0];
     C4Log(@"firstShape: %@", firstShape);
     C4Log(@"firstShape center: %@", firstShape.frame);*/
@@ -140,32 +124,28 @@
     yPos=yPos-firstYPos;
     //C4Log(@"calculated YPos         : %@", yPos);
     float elementNumber=yPos/clickedObject.height;
-    
     elementNoChosen=lroundf(elementNumber);
-    C4Log(@"elementNumber:%f", elementNoChosen);
-    C4Log(@"elementno:    %i", elementNoChosen);
     for (int i=0; i<[shapesForBackground count]; i++) {
         C4Shape *shape=[shapesForBackground objectAtIndex:i];
-        
         if (i==elementNoChosen) {
             shape.fillColor=UA_HIGHLIGHT_COLOR;
-            //C4Log(@"i=%i",i);
         } else {
             shape.fillColor=UA_NAV_CTRL_COLOR;
         }
     }
     checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
-    //C4Log(@"clickedObjectHeight: %f",clickedObject.height );
-    
     if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<2) {
-        C4Log(@"unhiding the things...");
         self.bottomNavBar.centerImage.hidden=NO;
-        [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"addAlphabet"];
+        C4Shape *shape=[C4Shape rect:CGRectMake(self.bottomNavBar.centerImage.origin.x-20, self.bottomNavBar.origin.y-10, self.bottomNavBar.centerImage.width+40, self.bottomNavBar.centerImage.height+20)];
+        shape.lineWidth=2;
+        shape.strokeColor=UA_NAV_CTRL_COLOR;
+        shape.fillColor=UA_NAV_CTRL_COLOR;
+        [self.canvas addShape:shape];
+        [self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"addAlphabet"];
         notificationCounter++;
     }
 }
 -(void)addAlphabet{
-    C4Log(@"adding Alphabet");
     self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
     //save the old alphabet in case u want to reload it later (just as when resigning active)
     [workspace exportHighResImage];
@@ -193,29 +173,24 @@
     //C4Log(@"obj:%@", obj);
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];
-    [self.navigationController popToViewController:alphabetView animated:YES];
+    [self.navigationController popToViewController:alphabetView animated:NO];
     
     //delete oldest alphabet if more than a certain number are added (so we don't need a scroll view here)
     if ([workspace.myAlphabets count]>8) {
-        C4Log(@"before: %@", workspace.myAlphabets);
         [workspace.myAlphabets removeObjectAtIndex:0];
         [workspace.myAlphabetsLanguages removeObjectAtIndex:0];
-        C4Log(@"after: %@", workspace.myAlphabets);
     }
 }
 -(void)updateLanguage{
     //this is a copy of update language from change language view
-    //C4Log(@"new: %@ old: %@", workspace.currentLanguage, workspace.oldLanguage);
     //Finnish>german
     if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
-        C4Log(@"change Finnish to German");
         //change Å to Ü
         [workspace.currentAlphabet removeObjectAtIndex:28];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
     }
     //Finnish>Danish
     if ([workspace.currentLanguage isEqual:@"Danish/Norwegian"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
-        C4Log(@"change Finnish to Danish");
         //change Ä to AE
         [workspace.currentAlphabet removeObjectAtIndex:26];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
@@ -225,7 +200,6 @@
     }
     //Finnish>English
     if ([workspace.currentLanguage isEqual:@"English"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
-        C4Log(@"change Finnish to English");
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
@@ -240,7 +214,6 @@
     //SPANISH
     //Finnish>Spanish
     if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
-        C4Log(@"change Finnish to Spanish");
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
@@ -253,7 +226,6 @@
     }
     //Finnish,German,English,Norwegian>Russian
     if ([workspace.currentLanguage isEqual:@"Russian"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
-        C4Log(@"change Finnish to Russian");
         //change RusB
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusB.png"] atIndex:1];
         
@@ -333,16 +305,10 @@
         //add RusJa
         [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJa.png"] atIndex:31];
     }
-
-    
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
-    //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
-    //C4Log(@"obj:%@", obj);
     alphabetView=(AlphabetView*)obj;
-   // C4Log(@"alphabetView: %@", alphabetView);
     [alphabetView redrawAlphabet];
 }
-
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -355,60 +321,14 @@
 
 #pragma mark -
 #pragma mark UITextViewDelegate Methods
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    /*--
-     * This method is called when the textView becomes active, or is the First Responder
-     --*/
-    
-    //NSLog(@"textViewDidBeginEditing:");
-    //textView.textColor = UA_OVERLAY_COLOR;
-    
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    /*--
-     * This method is called when the textView is no longer active
-     --*/
-    //NSLog(@"textViewDidEndEditing:");
-    //set message to what the text in the box is
+- (void)textViewDidBeginEditing:(UITextView *)textView{}
+- (void)textViewDidEndEditing:(UITextView *)textView{
     name=textView.text;
-    //C4Log(@"new name: %@", name);
-    /*if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter==0) {
-        //self.bottomNavBar.centerImage.hidden=NO;
-        [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"addAlphabet"];
-        notificationCounter++;
-    }*/
-    
 }
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    // NSLog(@"textView:shouldChangeTextInRange:replacementText:");
-    
-    // NSLog(@"textView.text.length -- %lu",(unsigned long)textView.text.length);
-    //NSLog(@"text.length          -- %lu",(unsigned long)text.length);
-    //NSLog(@"text                 -- '%@'", text);
-   // NSLog(@"textView.text        -- '%@'", textView.text);
-    
-    // newCharacter=text;
-    //self.entireText=textView.text;
-    
-    
-    /*--
-     * This method is called just before text in the textView is displayed
-     * This is a good place to disallow certain characters
-     * Limit textView to 140 characters
-     * Resign keypad if done button pressed comparing the incoming text against the newlineCharacterSet
-     * Return YES to update the textView otherwise return NO
-     --*/
-    
-    
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
     NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
     NSUInteger location = replacementTextRange.location;
-    
     if (textView.text.length + text.length > 140){//140 characters are in the textView
         if (location != NSNotFound){ //Did not find any newline characters
             [textView resignFirstResponder];
@@ -421,11 +341,6 @@
     }
     return YES;
 }
-
-- (void)textViewDidChange:(UITextView *)textView
-{
-   // NSLog(@"textViewDidChange:");
-    //This method is called when the user makes a change to the text in the textview
-}
+- (void)textViewDidChange:(UITextView *)textView{}
 
 @end

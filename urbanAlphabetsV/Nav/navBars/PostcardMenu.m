@@ -64,28 +64,10 @@
         [self addImage:self.myAlphabetsIcon];
         
 
-        
-        //--------------------------------------------------
-        //MY Postcards
-        //--------------------------------------------------
-        self.myPostcardsShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*3+smallMargin), width, height)];
-        self.myPostcardsShape.fillColor=UA_WHITE_COLOR;
-        self.myPostcardsShape.lineWidth=0;
-        [self addShape:self.myPostcardsShape];
-        
-        self.myPostcardsLabel=[C4Label labelWithText:@"My Postcards" font:UA_NORMAL_FONT];
-        self.myPostcardsLabel.origin=CGPointMake(TextmarginFromLeft, self.myPostcardsShape.center.y-self.myPostcardsLabel.height/2);
-        [self addLabel:self.myPostcardsLabel];
-        
-        self.myPostcardsIcon=UA_ICON_MY_POSTCARDS;
-        self.myPostcardsIcon.width= 70;
-        self.myPostcardsIcon.center=CGPointMake(self.myPostcardsShape.origin.x+self.myPostcardsIcon.width/2+5, self.myPostcardsShape.center.y);
-        [self addImage:self.myPostcardsIcon];
-
         //--------------------------------------------------
         //WRITE POSTCARD
         //--------------------------------------------------
-        self.writePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*4+smallMargin*2), width, height)];
+        self.writePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*3+smallMargin*1), width, height)];
         self.writePostcardShape.fillColor=UA_WHITE_COLOR;
         self.writePostcardShape.lineWidth=0;
         [self addShape:self.writePostcardShape];
@@ -103,7 +85,7 @@
         //--------------------------------------------------
         //SAVE POSTCARD
         //--------------------------------------------------
-        self.savePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*5+smallMargin*3), width, height)];
+        self.savePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*4+smallMargin*2), width, height)];
         self.savePostcardShape.fillColor=UA_WHITE_COLOR;
         self.savePostcardShape.lineWidth=0;
         [self addShape:self.savePostcardShape];
@@ -121,7 +103,7 @@
         //--------------------------------------------------
         //SHARE POSTCARD
         //--------------------------------------------------
-        self.sharePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*6+smallMargin*4), width, height)];
+        self.sharePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*5+smallMargin*3), width, height)];
         self.sharePostcardShape.fillColor=UA_WHITE_COLOR;
         self.sharePostcardShape.lineWidth=0;
         [self addShape:self.sharePostcardShape];
@@ -139,7 +121,7 @@
         //--------------------------------------------------
         //postcard INFO
         //--------------------------------------------------
-        self.postcardInfoShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*7+smallMargin*5), width, height)];
+        self.postcardInfoShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*6+smallMargin*4), width, height)];
         self.postcardInfoShape.fillColor=UA_WHITE_COLOR;
         self.postcardInfoShape.lineWidth=0;
         [self addShape:self.postcardInfoShape];

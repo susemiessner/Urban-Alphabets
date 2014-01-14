@@ -13,19 +13,15 @@
 @interface Write_Postcard (){
     PostcardView *postcardView;
     AlphabetView *alphabetView;
-    
     UITextView *textViewTest;
-    
     //-----------------------
     //BAR ON TOP OF KEYBOARD
     //-----------------------
     C4Shape *keyboardBarBackground;
     C4Label *countingLabel;
-    
     //-----------------------
     //FOR KEYBOARD INPUT
     //-----------------------
-    
     NSString *newCharacter;
     
 }
@@ -36,12 +32,10 @@
 @implementation Write_Postcard
 -(void)viewWillAppear:(BOOL)animated{
     [textViewTest becomeFirstResponder];
-
     //draw the current postcard text
     float imageWidth=53.53;
     float imageHeight=65.1;
     for (int i=0; i<[self.postcardArray count]; i++) {
-        
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
@@ -67,16 +61,6 @@
 }
 -(void)setupWithLanguage: (NSString*)passedLanguage Alphabet:(NSMutableArray*)passedAlphabet{
     self.title=@"Write Postcard";
-    //back button
-    //gives some confusion so for now I just hide it instead... workaround
-    /*CGRect frame = CGRectMake(0, 0, 60,20);
-    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setShowsTouchWhenHighlighted:YES];
-    
-    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem=leftButton;*/
     self.navigationItem.hidesBackButton = YES;
     
     //close button
@@ -89,19 +73,12 @@
     
     UIBarButtonItem *rightButton =[[UIBarButtonItem alloc] initWithCustomView:closeButton];
     self.navigationItem.rightBarButtonItem=rightButton;
-
-    
     self.maxPostcardLength=24;
-    
-    
     //initiate postcard arrays
     self.postcardArray=[[NSMutableArray alloc]init];
     self.greyRectArray=[[NSMutableArray alloc]init];
-    
     self.currentLanguage=[passedLanguage copy];
-    C4Log(self.currentLanguage);
     self.currentAlphabet=[passedAlphabet copy];
-    
     //add text field
     CGRect textViewFrame = CGRectMake(20.0f, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+10, self.canvas.width-40, 124.0f);
     textViewTest = [[UITextView alloc] initWithFrame:textViewFrame];
@@ -109,9 +86,7 @@
     [textViewTest becomeFirstResponder];
     textViewTest.delegate = self;
     textViewTest.hidden=true;
-    
     [self.view addSubview:textViewTest];
-    NSLog(@"setupTextFieldDone");
     
     //[self setupKeyboardBar];
 }
@@ -133,7 +108,6 @@
     [self.canvas addLabel:countingLabel];
 }
 -(void)updateCharacterNumber{
-    //C4Log(@"updating character number");
     countingLabel.text=[NSString stringWithFormat:@"%lu/%i", (unsigned long)[self.postcardArray count], self.maxPostcardLength];
     [countingLabel sizeToFit];
 }
@@ -145,9 +119,6 @@
     if([self.postcardArray count]<self.maxPostcardLength){
         [self addLetterToPostcard];
     }
-    
-    //C4Log(@"postCardArrayLength:%i", [self.postcardArray count]);
-    
     float imageWidth=53.53;
     float imageHeight=65.1;
     
@@ -457,18 +428,12 @@
 //NAVIGATION
 //--------------------------------------------------
 -(void)goBack{
-    //[self.navigationController popViewControllerAnimated:YES];
     id obj = [self.navigationController.viewControllers objectAtIndex:3];
-    C4Log(@"obj:%@", obj);
     alphabetView=(AlphabetView*)obj;
-    [self.navigationController popToViewController:alphabetView animated:YES];
+    [self.navigationController popToViewController:alphabetView animated:NO];
 }
 -(void)closeView{
-    [self.navigationController popViewControllerAnimated:YES];
-    /*id obj = [self.navigationController.viewControllers objectAtIndex:3];
-    C4Log(@"obj:%@", obj);
-    alphabetView=(AlphabetView*)obj;
-    [self.navigationController popToViewController:alphabetView animated:YES];*/
+    [self.navigationController popViewControllerAnimated:NO];
 }
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT
@@ -476,55 +441,21 @@
 
 #pragma mark -
 #pragma mark UITextViewDelegate Methods
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    /*--
-     * This method is called when the textView becomes active, or is the First Responder
-     --*/
-    
-   // NSLog(@"textViewDidBeginEditing:");
-    //textView.textColor = UA_OVERLAY_COLOR;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    /*--
-     * This method is called when the textView is no longer active
-    / --*/
-    //NSLog(@"textViewDidEndEditing:");
-//prepare next view and go there
+- (void)textViewDidBeginEditing:(UITextView *)textView{}
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    //prepare next view and go there
     postcardView=[[PostcardView alloc]initWithNibName:@"PostcardView" bundle:[NSBundle mainBundle]];
     [postcardView setupWithPostcard:self.postcardArray Rect:self.greyRectArray withLanguage:self.currentLanguage withPostcardText:self.entireText];
     [self.navigationController pushViewController:postcardView animated:YES];
 }
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    // NSLog(@"textView:shouldChangeTextInRange:replacementText:");
-    
-    // NSLog(@"textView.text.length -- %lu",(unsigned long)textView.text.length);
-    //NSLog(@"text.length          -- %lu",(unsigned long)text.length);
-    //NSLog(@"text                 -- '%@'", text);
-    //NSLog(@"textView.text        -- '%@'", textView.text);
-    
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     newCharacter=text;
     self.entireText=textView.text;
-    C4Log(@"new character: %@", newCharacter);
-    
-    /*--
-     * This method is called just before text in the textView is displayed
-     * This is a good place to disallow certain characters
-     * Limit textView to 140 characters
-     * Resign keypad if done button pressed comparing the incoming text against the newlineCharacterSet
-     * Return YES to update the textView otherwise return NO
-     --*/
     [self displayPostcard];
     [self updateCharacterNumber];
-    
     NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
     NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
     NSUInteger location = replacementTextRange.location;
-    
     if (textView.text.length + text.length > self.maxPostcardLength){//140 characters are in the textView
         if (location != NSNotFound){ //Did not find any newline characters
             [textView resignFirstResponder];
@@ -537,11 +468,6 @@
     }
     return YES;
 }
-
-- (void)textViewDidChange:(UITextView *)textView
-{
-    //NSLog(@"textViewDidChange:");
-    //This method is called when the user makes a change to the text in the textview
-}
+- (void)textViewDidChange:(UITextView *)textView{}
 
 @end

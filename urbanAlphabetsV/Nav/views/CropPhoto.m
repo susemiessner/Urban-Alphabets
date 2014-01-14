@@ -110,7 +110,6 @@
     
 }
 -(void)stepperValueChanged:(UIStepper*)theStepper{
-    C4Log(@"current sender.value %f", theStepper.value);
     float oldHeight=self.photoTaken.height;
     float oldWidth=self.photoTaken.width;
     float oldX=self.photoTaken.center.x;
@@ -134,11 +133,9 @@
 //--------------------------------------------------
 -(void)saveImage{
     self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
-    C4Log(@"saving image!");
     //crop image
-    self.croppedPhoto=[self cropImage:self.photoTaken withOrigin:self.photoTaken.origin toArea:CGRectMake(50.532, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+86.764, self.canvas.width-2*50.532, 266.472)];
+    self.croppedPhoto=[self cropImage:self.photoTaken withOrigin:self.photoTaken.origin toArea:CGRectMake(51, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+86.764, self.canvas.width-2*51, 266)];
     self.croppedPhoto.origin=CGPointMake(0, 0);
-    
     
     // save the photo to photo library and app's image directory
     [self exportHighResImage];
@@ -148,9 +145,6 @@
     [assignLetter setup:self.croppedPhoto];
     
     [self.navigationController pushViewController:assignLetter animated:YES];
-    
-    //[assignLetter grabCurrentAlphabetViaNavigationController];
-    
 }
 -(C4Image *)cropImage:(C4Image *)originalImage withOrigin:(CGPoint)origin toArea:(CGRect)rect{
     //grab the image scale
@@ -185,8 +179,6 @@
     graphicsContext = [self createHighResImageContext];
     [self.croppedPhoto renderInContext:graphicsContext];
     NSString *fileName = [NSString stringWithFormat:@"letter%@.jpg", [NSDate date]];
-    //C4Log(@"%@",s );
-    
     [self saveImage:fileName];
     //[self saveImageToLibrary];
 }
@@ -199,10 +191,8 @@
     NSData *imageData = UIImagePNGRepresentation(image);
     //save in a certain folder
     NSString *dataPath = [[self documentsDirectory] stringByAppendingPathComponent:@"/letters"];
-    
     if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
-    
     NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
     [imageData writeToFile:savePath atomically:YES];
 }

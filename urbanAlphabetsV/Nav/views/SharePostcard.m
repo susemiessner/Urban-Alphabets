@@ -19,11 +19,9 @@
     UITextView *textInput;
     UITapGestureRecognizer * tapGesture;
 }
-
 @end
 
 @implementation SharePostcard
-
 -(void)setup:(UIImage*)imageToShare{
     self.title=@"Share Alphabet";
     //back button
@@ -32,15 +30,11 @@
     [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     [backButton setShowsTouchWhenHighlighted:YES];
-    
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    
-    
     imageToSend=[imageToShare copy];
     message=@" ";
-
     
     postcardImage=[C4Image imageWithUIImage:imageToShare];
     postcardImage.width=46;
@@ -90,8 +84,6 @@
     mailLabel.origin=CGPointMake(mailImage.center.x+labelToLeft, mailImage.center.y-labelUp);
     [self.canvas addLabel:mailLabel];
     
-    
-    
     //interactions
     [self listenFor:@"touchesBegan" fromObjects:@[facebookImage, facebookLabel] andRunMethod:@"shareToFacebook"];
     [self listenFor:@"touchesBegan" fromObjects:@[twitterImage, twitterLabel] andRunMethod:@"shareToTwitter"];
@@ -103,30 +95,21 @@
                   action:@selector(hideKeyBoard)];
     
     [self.view addGestureRecognizer:tapGesture];
-
-    
-    
-    
 }
 
 -(void)shareToFacebook{
-    C4Log(@"sharing toFacebook");
     SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
     [controller setInitialText:message];
     [controller addImage:imageToSend];
     [self presentViewController:controller animated:YES completion:Nil];
-    
 }
 -(void)shareToTwitter{
-    C4Log(@"sharing to Twitter");
     SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
     [controller setInitialText:message];
     [controller addImage:imageToSend];
     [self presentViewController:controller animated:YES completion:Nil];
-    
 }
 -(void)shareToMail{
-    C4Log(@"emailing");
     MFMailComposeViewController *emailShareController = [[MFMailComposeViewController alloc] init];
     emailShareController.mailComposeDelegate = self;
     [emailShareController setSubject:@"Share Urban Alphabets Image"];
@@ -171,56 +154,17 @@
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT
 //------------------------------------------------------------------------
-
 #pragma mark -
 #pragma mark UITextViewDelegate Methods
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    /*--
-     * This method is called when the textView becomes active, or is the First Responder
-     --*/
-    
-    //NSLog(@"textViewDidBeginEditing:");
-    //textView.textColor = UA_OVERLAY_COLOR;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    /*--
-     * This method is called when the textView is no longer active
-     --*/
-    //NSLog(@"textViewDidEndEditing:");
-    //set message to what the text in the box is
+- (void)textViewDidBeginEditing:(UITextView *)textView{}
+- (void)textViewDidEndEditing:(UITextView *)textView{
     message=textView.text;
-    
 }
-
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    // NSLog(@"textView:shouldChangeTextInRange:replacementText:");
-    
-    // NSLog(@"textView.text.length -- %lu",(unsigned long)textView.text.length);
-    //NSLog(@"text.length          -- %lu",(unsigned long)text.length);
-    //NSLog(@"text                 -- '%@'", text);
-    //NSLog(@"textView.text        -- '%@'", textView.text);
-    
-    // newCharacter=text;
-    //self.entireText=textView.text;
-    
-    
-    /*--
-     * This method is called just before text in the textView is displayed
-     * This is a good place to disallow certain characters
-     * Limit textView to 140 characters
-     * Resign keypad if done button pressed comparing the incoming text against the newlineCharacterSet
-     * Return YES to update the textView otherwise return NO
-     --*/
-    
-    
     NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
     NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
     NSUInteger location = replacementTextRange.location;
-    
     if (textView.text.length + text.length > 140){//140 characters are in the textView
         if (location != NSNotFound){ //Did not find any newline characters
             [textView resignFirstResponder];
@@ -234,11 +178,7 @@
     return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView
-{
-    //NSLog(@"textViewDidChange:");
-    //This method is called when the user makes a change to the text in the textview
-}
+- (void)textViewDidChange:(UITextView *)textView{}
 
 
 @end

@@ -94,6 +94,7 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_ICON_MAIL              [C4Image imageNamed:@"mail"]
 #define UA_BACK_BUTTON          [UIImage imageNamed:@"backButton"]
 #define UA_LETTER_EMPTY         [C4Image imageNamed:@"letter_empty"]
+#define UA_ICON_NEXT            [C4Image imageNamed:@"icon_Next"]
 
 
 //---------------------------------------------------------------------

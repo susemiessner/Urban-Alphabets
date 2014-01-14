@@ -14,11 +14,9 @@
     AlphabetView *alphabetView;
     NSInteger currentLetter;
     C4Image *currentImage; //the image currently displayed
-    
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
-
 @end
 
 @implementation LetterView
@@ -33,7 +31,6 @@
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goBackward"];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"goForward"];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetsView"];
-    
     //THE LETTER
     self.currentAlphabet=[passedAlphabet mutableCopy];
     [self displayLetter:chosenNumber];
@@ -44,18 +41,14 @@
     currentImage.width=self.canvas.width;
     currentImage.center=self.canvas.center;
     [self.canvas addImage:currentImage];
-    
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) goToAlphabetsView{
-    C4Log(@"going to Alphabetsview");
     [self.navigationController popViewControllerAnimated:YES];
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-1];
-    C4Log(@"obj:%@", obj);
     alphabetView=(AlphabetView*)obj;
-    C4Log(@"alphabetView: %@", alphabetView);
     [alphabetView redrawAlphabet];
 }
 
