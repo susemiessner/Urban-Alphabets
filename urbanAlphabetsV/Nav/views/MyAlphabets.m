@@ -119,7 +119,7 @@
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];
-    [self.navigationController popToViewController:alphabetView animated:YES];
+    [self.navigationController popToViewController:alphabetView animated:NO];
 }
 -(void)addAlphabet{
     addAlphabet=[[AddAlphabet alloc]initWithNibName:@"AddAlphabet" bundle:[NSBundle mainBundle]];
@@ -128,6 +128,6 @@
     [addAlphabet grabCurrentLanguageViaNavigationController];
 }
 -(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 @end

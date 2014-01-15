@@ -96,7 +96,7 @@
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void)goToTakePhoto{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 -(void)openMenu{
     [self saveCurrentPostcardAsImage];
@@ -133,7 +133,7 @@
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
     writePostcard=(Write_Postcard*)obj;
     [writePostcard clearPostcard];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
     [self closeMenu];
     
 }
@@ -141,23 +141,23 @@
     [self closeMenu];
     myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
     [myAlphabets setup];
-    [self.navigationController pushViewController:myAlphabets animated:YES];
+    [self.navigationController pushViewController:myAlphabets animated:NO];
     [myAlphabets grabCurrentLanguageViaNavigationController];
 }
 -(void)closeView{
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
     alphabetView=(AlphabetView*)obj;
-    [self.navigationController popToViewController:alphabetView animated:YES];
+    [self.navigationController popToViewController:alphabetView animated:NO];
 }
 -(void)goToSharePostcard{
     [self savePostcard];
     sharePostcard=[[SharePostcard alloc]initWithNibName:@"SharePostcard" bundle:[NSBundle mainBundle]];
     [sharePostcard setup:self.currentPostcardImageAsUIImage];
-    [self.navigationController pushViewController:sharePostcard animated:YES];
+    [self.navigationController pushViewController:sharePostcard animated:NO];
     [self closeMenu];
 }
 -(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS
@@ -204,13 +204,11 @@
     //--------------------------------------------------
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     workspace=(C4WorkSpace*)obj;
-    C4Log(@"workspace: %@", workspace);
     NSString *userName=workspace.userName;
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
-    C4Log(@"postcardTextBeforeSaving %@", self.postcardText);
     [save sendPostcardToDatabase:imageData withLanguage: self.currentLanguage withText: self.postcardText withLocation:currentLocation withUsername:userName];
     //--------------------------------------------------
     //save to documents directory

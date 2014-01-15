@@ -101,13 +101,13 @@
     SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
     [controller setInitialText:message];
     [controller addImage:imageToSend];
-    [self presentViewController:controller animated:YES completion:Nil];
+    [self presentViewController:controller animated:NO completion:Nil];
 }
 -(void)shareToTwitter{
     SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
     [controller setInitialText:message];
     [controller addImage:imageToSend];
-    [self presentViewController:controller animated:YES completion:Nil];
+    [self presentViewController:controller animated:NO completion:Nil];
 }
 -(void)shareToMail{
     MFMailComposeViewController *emailShareController = [[MFMailComposeViewController alloc] init];
@@ -115,7 +115,7 @@
     [emailShareController setSubject:@"Share Urban Alphabets Image"];
     [emailShareController setMessageBody:message isHTML:NO];
     [emailShareController addAttachmentData:UIImageJPEGRepresentation(imageToSend, 1) mimeType:@"image/jpeg" fileName:@"urbanAlphabetsImage.jpeg"];
-    if (emailShareController) [self presentViewController:emailShareController animated:YES completion:nil];
+    if (emailShareController) [self presentViewController:emailShareController animated:NO completion:nil];
 }
 - (void)mailComposeController:(MFMailComposeViewController*)controller
           didFinishWithResult:(MFMailComposeResult)result
@@ -139,7 +139,7 @@
             NSLog(@"Message not sent");
             break;
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 -(void)hideKeyBoard {
@@ -149,7 +149,7 @@
 //NAVIGATION
 //--------------------------------------------------
 -(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT

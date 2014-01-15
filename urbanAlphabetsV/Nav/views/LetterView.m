@@ -46,7 +46,7 @@
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) goToAlphabetsView{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-1];
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];

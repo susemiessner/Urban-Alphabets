@@ -119,7 +119,7 @@
     workspace.oldLanguage=self.currentLanguage;
     [self updateLanguage];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
     obj=[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-1];
     alphabetInfo=(AlphabetInfo*)obj;
     [alphabetInfo changeLanguage];

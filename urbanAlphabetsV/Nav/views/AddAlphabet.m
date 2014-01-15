@@ -309,7 +309,7 @@
     [alphabetView redrawAlphabet];
 }
 -(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)hideKeyBoard {
     [textInput resignFirstResponder];

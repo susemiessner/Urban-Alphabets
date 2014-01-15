@@ -134,7 +134,7 @@
     [workspace.currentAlphabet removeAllObjects];
     [workspace loadDefaultAlphabet];
     [self updateLanguage];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)deleteAlphabet{
     //delete from the arrays
@@ -181,7 +181,7 @@
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];
 
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)updateLanguage{
     //this is a copy of update language from change language view
@@ -234,7 +234,7 @@
 //NAVIGATION
 //--------------------------------------------------
 -(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)changeLanguage{
     language.text=workspace.currentLanguage;
@@ -249,10 +249,10 @@
 -(void)goToChangeLanguage{
     changeLanguageView=[[ChangeLanguage alloc]initWithNibName:@"ChangeLanguage" bundle:[NSBundle mainBundle]];
     [changeLanguageView setupWithLanguage:self.currentLanguage];
-    [self.navigationController pushViewController:changeLanguageView animated:YES];
+    [self.navigationController pushViewController:changeLanguageView animated:NO];
 }
 -(void)goToAlphabetView{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT

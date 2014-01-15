@@ -446,7 +446,7 @@
     //prepare next view and go there
     postcardView=[[PostcardView alloc]initWithNibName:@"PostcardView" bundle:[NSBundle mainBundle]];
     [postcardView setupWithPostcard:self.postcardArray Rect:self.greyRectArray withLanguage:self.currentLanguage withPostcardText:self.entireText];
-    [self.navigationController pushViewController:postcardView animated:YES];
+    [self.navigationController pushViewController:postcardView animated:NO];
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     newCharacter=text;
