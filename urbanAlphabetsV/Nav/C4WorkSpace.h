@@ -8,7 +8,8 @@
 #import "C4CanvasController.h"
 #import "BottomNavBar.h"
 
-@interface C4WorkSpace : C4CanvasController<UIImagePickerControllerDelegate, UITextViewDelegate>
+
+@interface C4WorkSpace : C4CanvasController<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 //taking the photo
 @property (readwrite, strong) C4Image *img;//the image captured
 @property (nonatomic) BottomNavBar *bottomNavBar;
@@ -23,12 +24,18 @@
 @property (readwrite) NSMutableArray *myAlphabets;
 @property (readwrite) NSMutableArray *myAlphabetsLanguages;
 
-
+//languages
+@property (readwrite)NSArray *finnish;
+@property (readwrite)NSArray *german;
+@property(readwrite)NSArray *danish;
+@property(readwrite)NSArray *english;
+@property (readwrite)NSArray *spanish;
+@property (readwrite)NSArray *russian;
 
 -(void)setup;
 -(void)cameraSetup;
 -(void)loadDefaultAlphabet;
--(void)exportHighResImage;
--(NSString *)documentsDirectory ;
+-(NSString *)documentsDirectory;
 -(void)writeAlphabetsUserDefaults;
+-(void)loadCorrectAlphabet;
 @end

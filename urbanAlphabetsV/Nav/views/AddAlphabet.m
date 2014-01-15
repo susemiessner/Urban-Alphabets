@@ -147,8 +147,7 @@
 }
 -(void)addAlphabet{
     self.bottomNavBar.centerImage.backgroundColor=UA_HIGHLIGHT_COLOR;
-    //save the old alphabet in case u want to reload it later (just as when resigning active)
-    [workspace exportHighResImage];
+    
     //add new alphabet to my alphabets
     [workspace.myAlphabets addObject:name];
     //add a new language to languages array (so u can reload correctly later)

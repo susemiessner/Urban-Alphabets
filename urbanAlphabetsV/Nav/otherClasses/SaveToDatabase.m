@@ -62,7 +62,7 @@
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
     // now lets make the connection to the web
-    [[NSURLConnection alloc]initWithRequest:request delegate:self];
+    (void)[[NSURLConnection alloc]initWithRequest:request delegate:self];
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
 }

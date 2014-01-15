@@ -59,18 +59,17 @@
     self.postcardArray=[postcardPassed mutableCopy];
     self.greyRectArray=[[NSMutableArray alloc]init];
     self.greyRectArray=[postcardRect mutableCopy];
-    C4Log(@"passed grey rect array:%i", [postcardRect count]);
-    C4Log(@"self grey rect array: %i", [self.greyRectArray count]);
     self.currentLanguage=language;
     self.postcardText=postcardText;
     
     //bottomNavbar WITH 2 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
-    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45)];
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45) rightIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
     [self.canvas addShape:self.bottomNavBar];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
-    
+    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"closeView"];
+
     //display the postcard
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -100,7 +99,6 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void)openMenu{
-    C4Log(@"openMenu");
     [self saveCurrentPostcardAsImage];
     CGRect menuFrame = CGRectMake(0, 0, self.canvas.width, self.canvas.height);
     self.menu=[[PostcardMenu alloc]initWithFrame:menuFrame];
@@ -205,7 +203,6 @@
     //getting username from main view
     //--------------------------------------------------
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
-    C4Log(@"obj:%@", obj);
     workspace=(C4WorkSpace*)obj;
     C4Log(@"workspace: %@", workspace);
     NSString *userName=workspace.userName;

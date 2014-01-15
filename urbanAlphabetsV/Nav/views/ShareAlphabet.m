@@ -139,7 +139,7 @@
             NSLog(@"Message not sent");
             break;
     }
-    [self dismissModalViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)hideKeyBoard {

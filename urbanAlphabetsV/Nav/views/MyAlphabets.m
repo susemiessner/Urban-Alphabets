@@ -25,6 +25,8 @@
     C4Image *checkedIcon;
 
     int elementNoChosen;
+    //images loaded from documents directory
+    C4Image *loadedImage;
 }
 @end
 
@@ -112,18 +114,7 @@
     //change name of current alphabet
     workspace.alphabetName=[workspace.myAlphabets objectAtIndex:elementNoChosen];
     //loading all letters
-    NSString *path= [[workspace documentsDirectory] stringByAppendingString:@"/"];
-    path=[path stringByAppendingPathComponent:workspace.alphabetName];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]){
-        workspace.currentAlphabet=[[NSMutableArray alloc]init];
-        for (int i=0; i<42; i++) {
-            NSString *filePath=[[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", i]] stringByAppendingString:@".jpg"];
-            NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-            UIImage *img = [UIImage imageWithData:imageData];
-            C4Image *image=[C4Image imageWithUIImage:img];
-            [workspace.currentAlphabet addObject:image];
-        }
-    }
+    [workspace loadCorrectAlphabet];
     //go to alphabets view
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
     alphabetView=(AlphabetView*)obj;

@@ -24,7 +24,9 @@
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
     
-    //to grab variables from main view
+    //saving image
+    CGContextRef graphicsContext;
+
     
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
@@ -164,6 +166,9 @@
     save=[[SaveToDatabase alloc]init];
     [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage Language:self.currentLanguage Username:userName];
     croppedImage=[self imageWithImage:croppedImage];
+    
+    //save image here (test)
+    [self exportHighResImage];
     //--------------------------------------------------
     //replace current  with new letter
     //--------------------------------------------------
@@ -217,5 +222,47 @@
 {
     currentLocation = newLocation;
 }
-
+//------------------------------------------------------------------------
+//SAVING CROPPED IMAGE TO DOCUMENTS DIRECTORY (TRY FOR NOW)
+//------------------------------------------------------------------------
+-(void)exportHighResImage {
+    graphicsContext = [self createHighResImageContext];
+    //C4Log(@"graphicsContext: %@", graphicsContext.);
+    [croppedImage renderInContext:graphicsContext];
+    NSString *letterToAdd=@" ";
+    if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]) {
+        letterToAdd=[workspace.finnish objectAtIndex:self.chosenImageNumberInArray];
+    }else if([self.currentLanguage isEqualToString:@"German"]){
+        letterToAdd=[workspace.german objectAtIndex:self.chosenImageNumberInArray];
+    }else if([self.currentLanguage isEqualToString:@"English"]){
+        letterToAdd=[workspace.english objectAtIndex:self.chosenImageNumberInArray];
+    }else if([self.currentLanguage isEqualToString:@"Danish/Norwegian"]){
+        letterToAdd=[workspace.danish objectAtIndex:self.chosenImageNumberInArray];
+    }else if([self.currentLanguage isEqualToString:@"Spanish"]){
+        letterToAdd=[workspace.spanish objectAtIndex:self.chosenImageNumberInArray];
+    }else if([self.currentLanguage isEqualToString:@"Russian"]){
+        letterToAdd=[workspace.russian objectAtIndex:self.chosenImageNumberInArray];
+    }
+    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", letterToAdd ];
+    [self saveImage:fileName];
+}
+-(CGContextRef)createHighResImageContext { //setting up image context
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(croppedImage.width-1, croppedImage.height-1), YES, 5.0f);
+    return UIGraphicsGetCurrentContext();
+}
+-(void)saveImage:(NSString *)fileName {
+    UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
+    NSData *imageData = UIImageJPEGRepresentation(image,80);
+    //save in a certain folder
+    NSString *dataPath = [[self documentsDirectory] stringByAppendingString:@"/"];
+    dataPath=[dataPath stringByAppendingPathComponent:workspace.alphabetName];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+    NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
+    [imageData writeToFile:savePath atomically:YES];
+}
+-(NSString *)documentsDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return paths[0];
+}
 @end
