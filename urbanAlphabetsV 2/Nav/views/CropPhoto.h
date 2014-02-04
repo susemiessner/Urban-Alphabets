@@ -8,11 +8,11 @@
 
 #import "C4CanvasController.h"
 
-@interface CropPhoto : C4CanvasController
+@interface CropPhoto : UIViewController
 @property (readwrite, strong) UIImage *croppedPhoto;
 @property (readwrite, strong) UIImageView *croppedPhotoView;
 -(void)displayImage:(UIImage*)image;
-
+-(void)setup;
 
 
 @end

@@ -22,9 +22,9 @@
         //--------------------------------------------------
         //underlying rect
         //--------------------------------------------------
-        [self rect:self.frame];
+        /*[self rect:self.frame];
         self.fillColor=UA_NAV_BAR_COLOR;
-        self.lineWidth=0;
+        self.lineWidth=0;*/
         
         //--------------------------------------------------
         //LEFT
@@ -56,10 +56,9 @@
 
 -(void)fitToFrameThree:(CGRect)frame {
     self.frame = frame;
-    self.leftImageView.center=CGPointMake(self.leftImage.size.width/2+5, self.height/2);
-    self.centerImageView.center=CGPointMake(self.width/2, self.height/2);
-    self.rightImageView.center=CGPointMake(self.width-(self.rightImage.size.width/2+5), self.height/2);
-
+    self.leftImageView.center=CGPointMake(self.leftImage.size.width/2+5, self.frame.size.height/2);
+    self.centerImageView.center=CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    self.rightImageView.center=CGPointMake(self.frame.size.width-(self.rightImage.size.width/2+5), self.frame.size.height/2);
 }
 //--------------------------------------------------
 //FOR 2 ICONS IN BAR: LEFT AND CENTER
@@ -71,9 +70,9 @@
         //--------------------------------------------------
         //underlying rect
         //--------------------------------------------------
-        [self rect:self.frame];
+        /*[self rect:self.frame];
         self.fillColor=UA_NAV_BAR_COLOR;
-        self.lineWidth=0;
+        self.lineWidth=0;*/
         
         //--------------------------------------------------
         //LEFT
@@ -88,8 +87,6 @@
         self.centerImage=centerIcon;
         self.centerImageView=[[UIImageView alloc]initWithFrame:centerFrame];
         [self addSubview:self.centerImageView];
-
-        
         
         [self fitToFrameTWO:self.frame];
         
@@ -113,9 +110,9 @@
         //--------------------------------------------------
         //underlying rect
         //--------------------------------------------------
-        [self rect:self.frame];
+        /*[self rect:self.frame];
         self.fillColor=UA_NAV_BAR_COLOR;
-        self.lineWidth=0;
+        self.lineWidth=0;*/
         
         //--------------------------------------------------
         //CENTER
@@ -132,8 +129,7 @@
 
 -(void)fitToFrameONE:(CGRect)frame {
     self.frame = frame;
-    self.centerImageView.center=CGPointMake(self.width/2, self.height/2);
-    
+    [self.centerImageView setFrame:frame];
 }
 
 

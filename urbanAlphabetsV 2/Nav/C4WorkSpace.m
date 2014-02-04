@@ -12,11 +12,7 @@
     CropPhoto *cropPhoto;
     
     UIImage *capturedImage;
-    
-
-   // NSString *userName;
-    C4Shape *backgroundRect;
-    
+        
     //saving image
     CGContextRef graphicsContext;
     UIImage *currentImageToExport;
@@ -28,7 +24,7 @@
     int currentNoInIntro;
     UIImage *nextButton;
     UIImageView *nextButtonView;
-    C4Label *webadress;
+    UILabel *webadress;
     
     //images loaded from documents directory
     UIImage *loadedImage;
@@ -119,19 +115,17 @@
         
         if (currentNoInIntro==1) {
             
-            UILabel *lbl1 = [[UILabel alloc] init];
-            /*important--------- */lbl1.textColor = [UIColor blackColor];
-            [lbl1 setFrame:CGRectMake(0, 0, 100, 50)];
-            lbl1.backgroundColor=[UIColor clearColor];
-            lbl1.textColor=[UIColor whiteColor];
-            lbl1.userInteractionEnabled=NO;
-            lbl1.text= @"TEST";
-            [self.view addSubview:lbl1];
+            CGRect labelFrame = CGRectMake( 25, self.view.frame.size.height-150, 100, 30 );
+            UILabel* label = [[UILabel alloc] initWithFrame: labelFrame];
+            [label setText: @"My Label"];
+            [label setTextColor: [UIColor orangeColor]];
+            [self.view addSubview: label];
             
-            webadress=[C4Label labelWithText:@"www.ualphabets.com" font:UA_NORMAL_FONT];
-            webadress.textColor=UA_GREY_TYPE_COLOR;
-            webadress.origin=CGPointMake(25, self.view.frame.size.height-150);
-            //[self.view addLabel:webadress];
+            webadress=[[UILabel alloc] initWithFrame:labelFrame];
+            [webadress setText:@"www.ualphabets.com"];
+            [webadress setTextColor:UA_GREY_TYPE_COLOR];
+           // webadress.origin=CGPointMake(25, self.view.frame.size.height-150);
+            [self.view addSubview:webadress];
             
         }
         if (currentNoInIntro==2) {
@@ -214,7 +208,6 @@
         //[imgPngData writeToFile:fileSavePath atomically:YES];
         
     }
-    
     [self dismissModalViewControllerAnimated:YES];
     [self goToCropPhoto];
 }

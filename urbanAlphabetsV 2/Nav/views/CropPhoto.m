@@ -17,10 +17,10 @@
     C4Stepper *zoomStepper;
     
     //overlay rectangles
-    C4Shape *upperRect;
-    C4Shape *lowerRect;
-    C4Shape *leftRect;
-    C4Shape *rightRect;
+    UIView *upperRect;
+    UIView *lowerRect;
+    UIView *leftRect;
+    UIView *rightRect;
     //saving image
     CGContextRef graphicsContext;
     
@@ -48,13 +48,16 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     //bottomNavbar WITH 1 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
-    [self.canvas addShape:self.bottomNavBar];
+    [self.view addSubview:self.bottomNavBar];
     
-   
+   //ok button
+    UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(saveImage)];
+    okButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
     
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"saveImage"];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"saveImage"];
     
     //--------------------------------------------------
     //ZOOM STEPPER
@@ -64,7 +67,7 @@
     zoomStepper.backgroundColor=UA_NAV_BAR_COLOR;
     zoomStepper.tintColor=UA_TYPE_COLOR;
     [zoomStepper runMethod:@"stepperValueChanged:" target:self forEvent:VALUECHANGED];
-    [self.canvas addSubview:zoomStepper];
+    [self.view addSubview:zoomStepper];
     zoomStepper.maximumValue=10.0f;
     zoomStepper.minimumValue=0.5f;
     zoomStepper.value=1.0f;
@@ -74,9 +77,9 @@
 -(void)displayImage:(UIImage*)image{
     NSLog(@"display image, photoTaken: %@", image);
     self.photoTaken=image;
-    photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.canvas.width, self.canvas.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
+    photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
     photoTakenView.image=self.photoTaken;
-    [self.canvas addSubview:photoTakenView];
+    [self.view addSubview:photoTakenView];
     //pan gesture
     UIPanGestureRecognizer *pgr = [[UIPanGestureRecognizer alloc]
                                    initWithTarget:self action:@selector(handlePan:)];
@@ -100,30 +103,26 @@
     float touchY1=86.764+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
     float touchX1=50.532;
     float touchY2=86.764+266.472+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
-    float touchX2= self.canvas.width-50.3532;
+    float touchX2= self.view.frame.size.width-50.3532;
     //upper rect
-    upperRect=[C4Shape rect: CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.canvas.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
-    upperRect.fillColor=UA_OVERLAY_COLOR;
-    upperRect.lineWidth=0;
-    [self.canvas addShape:upperRect];
+    upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
+    [upperRect setBackgroundColor:UA_OVERLAY_COLOR];
+    [self.view addSubview:upperRect];
     
     //lower rect
-    lowerRect=[C4Shape rect:CGRectMake(0, touchY2, self.canvas.width, self.canvas.height-touchY2-UA_BOTTOM_BAR_HEIGHT)];
-    lowerRect.fillColor=UA_OVERLAY_COLOR;
-    lowerRect.lineWidth=0;
-    [self.canvas addShape:lowerRect];
+    lowerRect=[[UIView alloc] initWithFrame: CGRectMake(0, touchY2, self.view.frame.size.width, self.view.frame.size.height-touchY2-UA_BOTTOM_BAR_HEIGHT)];
+    [lowerRect setBackgroundColor:UA_OVERLAY_COLOR];
+    [self.view addSubview:lowerRect];
     
     //left rect
-    leftRect = [C4Shape rect:CGRectMake(0, touchY1, touchX1, touchY2-touchY1)];
-    leftRect.fillColor=UA_OVERLAY_COLOR;
-    leftRect.lineWidth=0;
-    [self.canvas addShape:leftRect];
+    leftRect = [[UIView alloc] initWithFrame:CGRectMake(0, touchY1, touchX1, touchY2-touchY1)];
+    [leftRect setBackgroundColor:UA_OVERLAY_COLOR];
+    [self.view addSubview:leftRect];
     
     //right rect
-    rightRect = [C4Shape rect: CGRectMake(touchX2, touchY1, self.canvas.width-touchX2, touchY2-touchY1)];
-    rightRect.fillColor=UA_OVERLAY_COLOR;
-    rightRect.lineWidth=0;
-    [self.canvas addShape:rightRect];
+    rightRect = [[UIView alloc] initWithFrame: CGRectMake(touchX2, touchY1, self.view.frame.size.width-touchX2, touchY2-touchY1)];
+    [rightRect setBackgroundColor:UA_OVERLAY_COLOR];
+    [self.view addSubview:rightRect];
     
 }
 -(void)stepperValueChanged:(UIStepper*)theStepper{
@@ -132,14 +131,14 @@
     float oldX=photoTakenView.frame.origin.x+oldWidth/2;
     float oldY=photoTakenView.frame.origin.y+oldHeight/2;
    // self.photoTaken.height=self.canvas.height*theStepper.value;
-    float newHeight=self.canvas.height*theStepper.value;
-    float newWidth=self.canvas.width*theStepper.value;
+    float newHeight=self.view.frame.size.height*theStepper.value;
+    float newWidth=self.view.frame.size.width*theStepper.value;
     
-    float newX=self.canvas.center.x-((self.canvas.center.x-oldX)*newWidth/oldWidth);
-    float newY=self.canvas.center.y-((self.canvas.center.y-oldY)*newHeight/oldHeight);
-    [self.canvas removeObject:photoTakenView];
+    float newX=self.view.frame.origin.x+self.view.frame.size.width/2-((self.view.frame.origin.x+self.view.frame.size.width/2-oldX)*newWidth/oldWidth);
+    float newY=self.view.frame.origin.y+self.view.frame.size.height/2-((self.view.frame.origin.y+self.view.frame.size.height/2-oldY)*newHeight/oldHeight);
+    [photoTakenView removeFromSuperview];
     photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(newX, newY,newWidth, newHeight)];
-    [self.canvas addSubview:photoTakenView];
+    [self.view addSubview:photoTakenView];
 }
 
 //--------------------------------------------------
@@ -154,7 +153,7 @@
 -(void)saveImage{
     self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
     //crop image
-    self.croppedPhoto=[self cropImage:self.photoTaken withOrigin:photoTakenView.frame.origin toArea:CGRectMake(51, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+86.764, self.canvas.width-2*51, 266)];
+    self.croppedPhoto=[self cropImage:self.photoTaken withOrigin:photoTakenView.frame.origin toArea:CGRectMake(51, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+86.764, self.view.frame.size.width-2*51, 266)];
     //------------------------------------------------------------------------------------------------
     //might cause problems here!!!!
     
