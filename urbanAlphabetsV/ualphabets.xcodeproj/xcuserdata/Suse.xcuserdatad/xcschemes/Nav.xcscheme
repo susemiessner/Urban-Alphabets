@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-               BuildableName = "UrbanAlphabets.app"
+               BuildableName = "ualphabets.app"
                BlueprintName = "ualphabets"
                ReferencedContainer = "container:ualphabets.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDFC423D1851015300CB3335"
-               BuildableName = "UrbanAlphabetsTests.xctest"
+               BuildableName = "ualphabetsTests.xctest"
                BlueprintName = "ualphabetsTests"
                ReferencedContainer = "container:ualphabets.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "UrbanAlphabets.app"
+            BuildableName = "ualphabets.app"
             BlueprintName = "ualphabets"
             ReferencedContainer = "container:ualphabets.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "UrbanAlphabets.app"
+            BuildableName = "ualphabets.app"
             BlueprintName = "ualphabets"
             ReferencedContainer = "container:ualphabets.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "UrbanAlphabets.app"
+            BuildableName = "ualphabets.app"
             BlueprintName = "ualphabets"
             ReferencedContainer = "container:ualphabets.xcodeproj">
          </BuildableReference>
