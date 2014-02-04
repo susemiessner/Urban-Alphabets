@@ -49,13 +49,14 @@
     
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    NSLog(@"UA_icon_ok: %@", UA_ICON_OK);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
     [self.view addSubview:self.bottomNavBar];
     
    //ok button
     UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(saveImage)];
     okButtonRecognizer.numberOfTapsRequired = 1;
-    [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
+    //[self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
     
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"saveImage"];
     

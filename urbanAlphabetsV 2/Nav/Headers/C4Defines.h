@@ -70,7 +70,7 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_NORMAL_FONT          [C4Font fontWithName:@"HelveticaNeue" size:17]
 
 //Icons
-#define UA_ICON_TAKE_PHOTO      [UIImage imageNamed:@"icon_TakePhoto"]
+#define UA_ICON_TAKE_PHOTO       [UIImage imageNamed:@"icon_TakePhoto"]
  #define UA_ICON_CLOSE           [UIImage imageNamed:@"icon_Close"]
  #define UA_ICON_BACK            [UIImage imageNamed:@"icon_back1"]
  #define UA_ICON_OK              [UIImage imageNamed:@"icon_OK"]
