@@ -6,9 +6,8 @@
 //  Copyright (c) 2013 moi. All rights reserved.
 //
 
-#import "C4CanvasController.h"
 
-@interface Write_Postcard : C4CanvasController<UITextViewDelegate>
+@interface Write_Postcard : UIViewController<UITextViewDelegate>
 @property (readwrite, strong) NSMutableArray *postcardArray, *greyRectArray, *currentAlphabet;
 @property (readwrite)     NSString *entireText;
 @property (readwrite) NSString *postcardText;

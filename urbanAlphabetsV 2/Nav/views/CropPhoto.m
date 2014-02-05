@@ -193,7 +193,7 @@
     //end the image context
     UIGraphicsEndImageContext();
     
-    //create a new C4Image
+    //create a new UIImage
     UIImage *newImage = newUIImage;
     
     //return the new image

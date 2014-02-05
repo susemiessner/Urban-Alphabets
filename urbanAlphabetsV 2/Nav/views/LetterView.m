@@ -13,7 +13,7 @@
 @interface LetterView (){
     AlphabetView *alphabetView;
     NSInteger currentLetter;
-    C4Image *currentImage; //the image currently displayed
+    UIImage *currentImage; //the image currently displayed
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;

@@ -8,7 +8,7 @@
 
 #import "C4CanvasController.h"
 
-@interface ChangeLanguage : C4CanvasController
+@interface ChangeLanguage : UIViewController
 
 
 -(void) setupWithLanguage: (NSString*)passedLanguage;

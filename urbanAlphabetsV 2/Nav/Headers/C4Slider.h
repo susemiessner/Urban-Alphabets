@@ -103,7 +103,7 @@
  
  This default value of this property is nil.
  */
-@property(nonatomic, weak) C4Image *minimumValueImage;
+@property(nonatomic, weak) UIImage *minimumValueImage;
 
 /**Contains the image that is drawn on the side of the slider representing the maximum value.
  
@@ -111,7 +111,7 @@
  
  This default value of this property is nil.
  */
-@property(nonatomic, weak) C4Image *maximumValueImage;
+@property(nonatomic, weak) UIImage *maximumValueImage;
 
 /*The color used to tint the standard minimum track images.
  
@@ -125,27 +125,27 @@
  
  If no custom track images have been set using the setMinimumTrackImage:forState: method, this property contains the value nil. In that situation, the receiver uses the default minimum track image for drawing.
  */
-@property(readonly, nonatomic, weak) C4Image* currentMinimumTrackImage;
+@property(readonly, nonatomic, weak) UIImage* currentMinimumTrackImage;
 
 /**Returns the minimum track image associated with the specified control state.
  
  @param state The control state whose minimum track image you want (one of: DISABLED, NORMAL, HIGHLIGHTED, SELECTED). You should specify only one control state value for this parameter.
- @return A C4Image. The minimum track image associated with the specified state, or nil if no image has been set. This method might also return nil if you specify multiple control states in the state parameter. For a description of track images, see “Customizing the Slider’s Appearance.”
+ @return A UIImage. The minimum track image associated with the specified state, or nil if no image has been set. This method might also return nil if you specify multiple control states in the state parameter. For a description of track images, see “Customizing the Slider’s Appearance.”
  */
--(C4Image *)minimumTrackImageForState:(C4ControlState)state;
+-(UIImage *)minimumTrackImageForState:(C4ControlState)state;
 
 /**Assigns a minimum track image to the specified control states.
 
  The orientation of the track image must match the orientation of the slider control. To facilitate the stretching of the image to fill the space between the thumb and end point, track images are usually defined in three regions. A stretchable region sits between two end cap regions. The end caps define the portions of the image that remain as is and are not stretched. The stretchable region is a 1-point wide area between the end caps that can be replicated to make the image appear longer.
  
- To define the end cap sizes for a slider, assign an appropriate value to the image’s leftCapWidth property. For more information about how this value defines the regions of the slider, see the C4Image class.
+ To define the end cap sizes for a slider, assign an appropriate value to the image’s leftCapWidth property. For more information about how this value defines the regions of the slider, see the UIImage class.
  
  Setting a new track image for any state clears any custom tint color you may have provided for minimum track images.
 
  @param image The minimum track image to associate with the specified states.
  @param state The control state with which to associate the image (one of: DISABLED, NORMAL, HIGHLIGHTED, SELECTED).
  */
--(void)setMinimumTrackImage:(C4Image *)image forState:(C4ControlState)state;
+-(void)setMinimumTrackImage:(UIImage *)image forState:(C4ControlState)state;
 
 /**The color used to tint the standard maximum track images.
  
@@ -159,14 +159,14 @@
  
  If no custom track images have been set using the setMaximumTrackImage:forState: method, this property contains the value nil. In that situation, the receiver uses the default maximum track image for drawing.
  */
-@property(readonly, nonatomic, weak) C4Image* currentMaximumTrackImage;
+@property(readonly, nonatomic, weak) UIImage* currentMaximumTrackImage;
 
 /**Returns the maximum track image associated with the specified control state.
  
  @param state The control state whose maximum track image you want (one of: DISABLED, NORMAL, HIGHLIGHTED, SELECTED). You should specify only one control state value for this parameter.
- @return A C4Image. The maximum track image associated with the specified state, or nil if an appropriate image could not be retrieved. This method might return nil if you specify multiple control states in the state parameter.
+ @return A UIImage. The maximum track image associated with the specified state, or nil if an appropriate image could not be retrieved. This method might return nil if you specify multiple control states in the state parameter.
  */
--(C4Image *)maximumTrackImageForState:(C4ControlState)state;
+-(UIImage *)maximumTrackImageForState:(C4ControlState)state;
 
 /**Assigns a maximum track image to the specified control states.
  
@@ -179,7 +179,7 @@
  @param image The maximum track image to associate with the specified states.
  @param state The control state with which to associate the image (one of: DISABLED, NORMAL, HIGHLIGHTED, SELECTED).
  */
--(void)setMaximumTrackImage:(C4Image *)image forState:(C4ControlState)state;
+-(void)setMaximumTrackImage:(UIImage *)image forState:(C4ControlState)state;
 
 /**The color used to tint the standard thumb images.
  
@@ -193,14 +193,14 @@
  
  If no custom thumb images have been set using the setThumbImage:forState: method, this property contains the value nil. In that situation, the receiver uses the default thumb image for drawing.
  */
-@property(readonly, nonatomic, weak) C4Image* currentThumbImage;
+@property(readonly, nonatomic, weak) UIImage* currentThumbImage;
 
 /**Returns the thumb image associated with the specified control state.
  
  @param state The control state whose thumb image you want (one of: DISABLED, NORMAL, HIGHLIGHTED, SELECTED). You should specify only one control state value for this parameter.
  @return The thumb image associated with the specified state, or nil if an appropriate image could not be retrieved. This method might return nil if you specify multiple control states in the state parameter.
  */
--(C4Image *)thumbImageForState:(C4ControlState)state;
+-(UIImage *)thumbImageForState:(C4ControlState)state;
 
 /**Assigns a thumb image to the specified control states.
  
@@ -209,7 +209,7 @@
  @param image The thumb image to associate with the specified states.
  @param state The control state with which to associate the image (one of: DISABLED, NORMAL, HIGHLIGHTED, SELECTED).
  */
--(void)setThumbImage:(C4Image *)image forState:(C4ControlState)state;
+-(void)setThumbImage:(UIImage *)image forState:(C4ControlState)state;
 
 #pragma mark - Accessing The UISlider
 ///@name Accessing The UISlider

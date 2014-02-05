@@ -9,6 +9,6 @@
 #import "C4ViewController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
-@interface ShareAlphabet : C4CanvasController<MFMailComposeViewControllerDelegate, UITextViewDelegate>
+@interface ShareAlphabet : UIViewController<MFMailComposeViewControllerDelegate, UITextViewDelegate>
 -(void)setup:(UIImage*)imageToShare;
 @end

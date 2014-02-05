@@ -1,5 +1,5 @@
 //
-//  C4ImageView.h
+//  UIImageView.h
 //  C4iOS
 //
 //  Created by moi on 13-02-18.

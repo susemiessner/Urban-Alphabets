@@ -148,21 +148,21 @@ This class provides methods for setting the title, image, and other appearance p
  */
 @property (readwrite, nonatomic) BOOL showsTouchWhenHighlighted;
 
-/**Returns the C4Image used for the background of a button state.
+/**Returns the UIImage used for the background of a button state.
  
  @param state The state that uses the image. Possible values are described in C4ControlState.
  
  @return The image used for the background of the specified state.
  */
--(C4Image *)backgroundImageForState:(C4ControlState)state;
+-(UIImage *)backgroundImageForState:(C4ControlState)state;
 
-/**Returns the C4Image used for a button state.
+/**Returns the UIImage used for a button state.
  
  @param state The state that uses the image. Possible values are described in C4ControlState.
  
  @return The image used for the specified state.
  */
--(C4Image *)imageForState:(C4ControlState)state;
+-(UIImage *)imageForState:(C4ControlState)state;
 
 /**Sets the background image to use for the specified button state.
  
@@ -171,16 +171,16 @@ This class provides methods for setting the title, image, and other appearance p
  @param image The background image to use for the specified state.
  @param state The state that uses the specified image. The values are described in UIControlState.
  */
--(void)setBackgroundImage:(C4Image *)image forState:(C4ControlState)state;
+-(void)setBackgroundImage:(UIImage *)image forState:(C4ControlState)state;
 
-/**Sets the C4Image to use for the specified state.
+/**Sets the UIImage to use for the specified state.
  
  In general, if a property is not specified for a state, the default is to use the NORMAL value. If the NORMAL value is not set, then the property defaults to a system value. Therefore, at a minimum, you should set the value for the normal state.
  
  @param image The image to use for the specified state.
  @param state The state that uses the specified title. The values are described in C4ControlState.
  */
--(void)setImage:(C4Image *)image forState:(C4ControlState)state;
+-(void)setImage:(UIImage *)image forState:(C4ControlState)state;
 
 /**The tint color for the button.
  
@@ -256,13 +256,13 @@ This class provides methods for setting the title, image, and other appearance p
  
  This value can be nil.
  */
-@property (readonly, nonatomic, weak) C4Image *currentImage;
+@property (readonly, nonatomic, weak) UIImage *currentImage;
 
 /**The current background image displayed on the button. (read-only)
  
  This value can be nil.
  */
-@property (readonly, nonatomic, weak) C4Image *currentBackgroundImage;
+@property (readonly, nonatomic, weak) UIImage *currentBackgroundImage;
 
 #pragma mark - Accessing the UIButton 
 ///@name Accessing the UIButton 

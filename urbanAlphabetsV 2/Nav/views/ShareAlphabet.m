@@ -10,9 +10,9 @@
 #import <Social/Social.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 @interface ShareAlphabet (){
-    C4Image *alphabetImage, *twitterImage, *facebookImage, *mailImage;
+    UIImageView *alphabetImage, *twitterImage, *facebookImage, *mailImage;
     UIImage *imageToSend;
-    C4Label *twitterLabel, *facebookLabel, *mailLabel;
+    UILabel *twitterLabel, *facebookLabel, *mailLabel;
     NSString *message;
     
     UITextView *textInput;
@@ -36,13 +36,13 @@
 
     imageToSend=[imageToShare copy];
     message=@" ";
-    alphabetImage=[C4Image imageWithUIImage:imageToShare];
-    alphabetImage.width=46;
-    alphabetImage.center=CGPointMake(20+alphabetImage.width/2, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+50);
-    [self.canvas addImage:alphabetImage];
+    
+    alphabetImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+50, 46, 46) ];
+    alphabetImage.image=imageToShare;
+    [self.view addSubview:alphabetImage];
 
     //add text field
-    CGRect textViewFrame = CGRectMake(alphabetImage.center.x+alphabetImage.width, alphabetImage.origin.y, self.canvas.width-40-(alphabetImage.center.x+alphabetImage.width), alphabetImage.height);
+    CGRect textViewFrame = CGRectMake(alphabetImage.center.x+alphabetImage.frame.size.width, alphabetImage.frame.origin.y, self.view.frame.size.width-40-(alphabetImage.center.x+alphabetImage.frame.size.width), alphabetImage.frame.size.height);
     textInput = [[UITextView alloc] initWithFrame:textViewFrame];
     textInput.returnKeyType = UIReturnKeyDone;
     textInput.layer.borderWidth=1.0f;
@@ -53,41 +53,41 @@
     
     //share images and labels
     int shareIconYPos=140;
-    twitterImage=UA_ICON_TWITTER;
-    twitterImage.width=40;
-    twitterImage.center=CGPointMake(twitterImage.width/2+20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos);
-    [self.canvas addImage:twitterImage];
+    twitterImage=[[UIImageView alloc]initWithFrame:CGRectMake(20,  UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    twitterImage.image=UA_ICON_TWITTER;
+    [self.view addSubview:twitterImage];
     
     int labelToLeft=60;
     int labelUp=10;
-    twitterLabel=[C4Label labelWithText:@"Twitter" font:UA_NORMAL_FONT];
-    twitterLabel.origin=CGPointMake(twitterImage.center.x+labelToLeft, twitterImage.center.y-labelUp);
-    [self.canvas addLabel:twitterLabel];
+    twitterLabel=[[UILabel alloc]initWithFrame:CGRectMake(twitterImage.center.x+labelToLeft, twitterImage.center.y-labelUp, 100, 20) ];
+                  [twitterLabel setText:@"Twitter"];
+                  [twitterLabel setFont:UA_NORMAL_FONT];
+    [self.view addSubview:twitterLabel];
     
     shareIconYPos+=60;
-    facebookImage=UA_Icon_FB;
-    facebookImage.width=40;
-    facebookImage.center=CGPointMake(facebookImage.width/2+20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos);
-    [self.canvas addImage:facebookImage];
+    facebookImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    facebookImage.image=UA_Icon_FB;
+    [self.view addSubview:facebookImage];
     
-    facebookLabel=[C4Label labelWithText:@"Facebook" font:UA_NORMAL_FONT];
-    facebookLabel.origin=CGPointMake(facebookImage.center.x+labelToLeft, facebookImage.center.y-labelUp);
-    [self.canvas addLabel:facebookLabel];
+    facebookLabel=[[UILabel alloc]initWithFrame:CGRectMake(facebookImage.center.x+labelToLeft, facebookImage.center.y-labelUp, 100, 20)];
+    [facebookLabel setText:@"Facebook"];
+    [facebookLabel setFont:UA_NORMAL_FONT];
+    [self.view addSubview:facebookLabel];
     
     shareIconYPos+=60;
-    mailImage=UA_ICON_MAIL;
-    mailImage.width=46;
-    mailImage.center=CGPointMake(twitterImage.width/2+20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos);
-    [self.canvas addImage:mailImage];
+    mailImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    mailImage.image=UA_Icon_FB;
+    [self.view addSubview:mailImage];
     
-    mailLabel=[C4Label labelWithText:@"Mail" font:UA_NORMAL_FONT];
-    mailLabel.origin=CGPointMake(mailImage.center.x+labelToLeft, mailImage.center.y-labelUp);
-    [self.canvas addLabel:mailLabel];
-    
+    mailLabel=[[UILabel alloc]initWithFrame:CGRectMake(mailImage.center.x+labelToLeft, mailImage.center.y-labelUp, 100, 20)];
+    [mailLabel setText:@"Mail"];
+    [mailLabel setFont:UA_NORMAL_FONT];
+    [self.view addSubview:mailLabel];
+        
     //interactions
-    [self listenFor:@"touchesBegan" fromObjects:@[facebookImage, facebookLabel] andRunMethod:@"shareToFacebook"];
-    [self listenFor:@"touchesBegan" fromObjects:@[twitterImage, twitterLabel] andRunMethod:@"shareToTwitter"];
-    [self listenFor:@"touchesBegan" fromObjects:@[mailImage, mailLabel] andRunMethod:@"shareToMail"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[facebookImage, facebookLabel] andRunMethod:@"shareToFacebook"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[twitterImage, twitterLabel] andRunMethod:@"shareToTwitter"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[mailImage, mailLabel] andRunMethod:@"shareToMail"];
 
     //magic for dismissing the keyboard
     tapGesture = [[UITapGestureRecognizer alloc]

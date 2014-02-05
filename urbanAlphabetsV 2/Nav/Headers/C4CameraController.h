@@ -45,7 +45,7 @@
  
  When a camera object captures an image it overwrites any other image that was previously captured.
  */
-@property (readonly, strong, nonatomic) C4Image *capturedImage;
+@property (readonly, strong, nonatomic) UIImage *capturedImage;
 
 #pragma mark - View & Layer
 ///@name View & Layer

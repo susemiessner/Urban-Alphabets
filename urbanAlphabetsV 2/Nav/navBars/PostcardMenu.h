@@ -11,7 +11,7 @@
 @interface PostcardMenu : C4Shape
 @property (nonatomic) C4Shape *cancelShape, *myAlphabetsShape, *myPostcardsShape, *writePostcardShape, *savePostcardShape, *sharePostcardShape, *postcardInfoShape;
 @property (nonatomic) C4Label *cancelLabel, *myAlphabetsLabel, *myPostcardsLabel, *writePostcardLabel, *savePostcardLabel, *sharePostcardLabel, *postcardInfoLabel;
-@property (nonatomic) C4Image *backButton, *myAlphabetsIcon, *myPostcardsIcon, *writePostcardIcon, *savePostcardIcon, *sharePostcardIcon, *postcardInfoIcon;
+@property (nonatomic) UIImage *backButton, *myAlphabetsIcon, *myPostcardsIcon, *writePostcardIcon, *savePostcardIcon, *sharePostcardIcon, *postcardInfoIcon;
 @property (readwrite, strong) NSString *previousView;
 - (id)initWithFrame:(CGRect)frame;
 @end

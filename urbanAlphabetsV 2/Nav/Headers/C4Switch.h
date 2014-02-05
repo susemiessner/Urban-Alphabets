@@ -81,7 +81,7 @@
  
  The size of this image must be less than or equal to 77 points wide and 27 points tall. If you specify larger images, the edges may be clipped.
  */
-@property (readwrite, nonatomic, strong) C4Image *onImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+@property (readwrite, nonatomic, strong) UIImage *onImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
 
 /**The image displayed while the switch is in the off position.
  
@@ -89,7 +89,7 @@
  
  The size of this image must be less than or equal to 77 points wide and 27 points tall. If you specify larger images, the edges may be clipped.
  */
-@property (readwrite, nonatomic, strong) C4Image *offImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+@property (readwrite, nonatomic, strong) UIImage *offImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
 
 #pragma mark - Accessing The UISwitch
 ///@name Accessing The UISwitch

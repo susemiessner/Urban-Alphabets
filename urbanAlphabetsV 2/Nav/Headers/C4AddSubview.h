@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class C4GL;
-@class C4Image;
+@class UIImage;
 @class C4Label;
 @class C4Movie;
 @class C4Shape;
@@ -39,15 +39,15 @@
  */
 -(void)addGL:(C4GL *)gl;
 
-/** Adds a C4Image to the view.
+/** Adds a UIImage to the view.
  
- Takes a C4Image object and adds it to the view hierarchy.
+ Takes a UIImage object and adds it to the view hierarchy.
  
- Use this method instead of addSubview: when adding C4Image objects, because if there are special conditions for adding shapes this method will handle those.
+ Use this method instead of addSubview: when adding UIImage objects, because if there are special conditions for adding shapes this method will handle those.
  
- @param image A C4Image object.
+ @param image A UIImage object.
  */
--(void)addImage:(C4Image *)image;
+-(void)addImage:(UIImage *)image;
 
 /** Adds a C4Label to the view.
  

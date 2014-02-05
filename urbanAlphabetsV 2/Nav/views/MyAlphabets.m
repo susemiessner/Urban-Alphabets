@@ -22,11 +22,11 @@
     
     NSMutableArray *backgroundShapes;
     NSMutableArray *labels;
-    C4Image *checkedIcon;
+    UIImageView *checkedIcon;
 
     int elementNoChosen;
     //images loaded from documents directory
-    C4Image *loadedImage;
+    UIImage *loadedImage;
 }
 @end
 
@@ -51,38 +51,40 @@
     [currentAlphabets addObject:test];
     backgroundShapes=[[NSMutableArray alloc]init];
     labels=[[NSMutableArray alloc]init];
+    float height=46.203;
     for (int i=0; i<[currentAlphabets count]; i++) {
         //underlying shape
-        float height=46.203;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*height;
-        C4Shape *shape=[C4Shape rect:CGRectMake(0, yPos, self.canvas.width, height)];
-        shape.lineWidth=2;
-        shape.strokeColor=UA_NAV_BAR_COLOR;
-        shape.fillColor=UA_NAV_CTRL_COLOR;
+        UIView *shape = [[UIView alloc]initWithFrame:CGRectMake(0, yPos, self.view.frame.size.width, height)];
+        [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
+        shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        shape.layer.borderWidth=1.0f;
+
         
         if ([currentAlphabets objectAtIndex:i ] == workspace.alphabetName) {
-            shape.fillColor=UA_HIGHLIGHT_COLOR;
+            [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedAlphabet=i;
         }
         [backgroundShapes addObject:shape];
-        [self.canvas addShape:shape];
+        [self.view addSubview:shape];
         
         //text label
-        C4Label *label=[C4Label labelWithText:[currentAlphabets objectAtIndex:i] font:UA_NORMAL_FONT];
-        label.textColor=UA_TYPE_COLOR;
         float heightLabel=46.203;
-        float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel+label.height/2+4;
-        label.origin=CGPointMake(49.485, yPosLabel);
-        [self.canvas addLabel:label];
-        [self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"alphabetChanged:"];
+        float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel+4;
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(49.485, yPosLabel, 100, 20) ];
+        [label setText:[currentAlphabets objectAtIndex:i]];
+        [label setFont:UA_NORMAL_FONT];
+        [label setTextColor:UA_TYPE_COLOR];
+        [self.view addSubview:label];
+        //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"alphabetChanged:"];
         [labels addObject:label];
     }
     //√icon only 1x
-    checkedIcon=UA_ICON_CHECKED;
-    checkedIcon.width= 35;
-    float height=46.202999;
-    checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(selectedAlphabet+1)*height-height/2);
-    [self.canvas addImage:checkedIcon];
+        //√icon only 1x
+    checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(selectedAlphabet)*height+2, 46, 46)];
+    checkedIcon.image=UA_ICON_CHECKED;
+    [self.view addSubview:checkedIcon];
+
 }
 
 -(void)alphabetChanged:(NSNotification *)notification{
@@ -104,7 +106,7 @@
             shape.fillColor=UA_NAV_CTRL_COLOR;
         }
     }
-    checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
+    [checkedIcon setFrame: CGRectMake(+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber)*clickedObject.frame.size.height+2, 46,46)];
     if (elementNoChosen==[backgroundShapes count]-1) {
         [self addAlphabet];
     }

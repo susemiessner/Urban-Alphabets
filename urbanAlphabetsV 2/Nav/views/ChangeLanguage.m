@@ -20,10 +20,10 @@
     NSMutableArray *shapesForBackground;
     NSArray *languages; //all languages available
     NSMutableArray *languageLabels; //for all texts
-    C4Image *checkedIcon;
+    UIImageView *checkedIcon;
     int elementNoChosen;
     //images loaded from documents directory
-    C4Image *loadedImage;
+    UIImage *loadedImage;
     int letterToChange;
 
 }
@@ -50,60 +50,71 @@
     languageLabels=[[NSMutableArray alloc]init];
     
     //bottomNavbar WITH 1 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
-    [self.canvas addShape:self.bottomNavBar];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"changeLanguage"];
-    
+    [self.view addSubview:self.bottomNavBar];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"changeLanguage"];
+    UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeLanguage)];
+    okButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
     //content
     int selectedLanguage=20;
+    int heightLabel=46;
     for (int i=0; i<[languages count]; i++) {
         //underlying shape
         float height=46.203;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*height;
-        C4Shape *shape=[C4Shape rect:CGRectMake(0, yPos, self.canvas.width, height)];
-        shape.lineWidth=2;
-        shape.strokeColor=UA_NAV_BAR_COLOR;
-        shape.fillColor=UA_NAV_CTRL_COLOR;
+        UIView *shape=[[UIView alloc]initWithFrame:CGRectMake(0, yPos, self.view.frame.size.width, height)];
+        shape.layer.borderWidth=1.0f;
+        shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
+        
         if ([[languages objectAtIndex:i ] isEqualToString: self.currentLanguage]) {
-            shape.fillColor=UA_HIGHLIGHT_COLOR;
+            [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedLanguage=i;
+            NSLog(@"selectedLanguage: %i", selectedLanguage);
         }
         [shapesForBackground addObject:shape];
-        [self.canvas addShape:shape];
+        shape.userInteractionEnabled=YES;
+        [self.view addSubview:shape];
+        
+        float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel;
+
         //text label
-        C4Label *label=[C4Label labelWithText:[languages objectAtIndex:i] font:UA_NORMAL_FONT];
-        label.textColor=UA_TYPE_COLOR;
-        float heightLabel=46.203;
-        float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel+label.height/2+4;
-        label.origin=CGPointMake(49.485, yPosLabel);
-        [self.canvas addLabel:label];
-        [self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"languageChanged:"];
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(100, yPosLabel, 200, shape.bounds.size.height) ];
+                        [label setText:[languages objectAtIndex:i]];
+                        [label setFont:UA_NORMAL_FONT];
+                        [label setTextColor:UA_TYPE_COLOR];
+        label.userInteractionEnabled=YES;
+        
+        UITapGestureRecognizer *languageChangedRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(languageChanged:)];
+        languageChangedRecognizer.numberOfTapsRequired = 1;
+        [label addGestureRecognizer:languageChangedRecognizer];
+        
+        [self.view addSubview:label];
         [languageLabels addObject:label];
     }
     //√icon only 1x
-    checkedIcon=UA_ICON_CHECKED;
-    checkedIcon.width= 35;
-    float height=46.202999;
-    checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(selectedLanguage+1)*height-height/2);
-    [self.canvas addImage:checkedIcon];
+    checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(selectedLanguage)*heightLabel+2, 46, 46)];
+    checkedIcon.image=UA_ICON_CHECKED;
+    [self.view addSubview:checkedIcon];
 }
--(void)languageChanged:(NSNotification *)notification{
-    C4Shape *clickedObject = (C4Shape *)[notification object];
+-(void)languageChanged:(UITapGestureRecognizer *)notification{
+    UIView *clickedObject = notification.view;
     //figure out which object was clicked
-    float yPos=clickedObject.origin.y;
+    float yPos=clickedObject.frame.origin.y;
     yPos=yPos-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT;
-    float elementNumber=yPos/clickedObject.height;
+    float elementNumber=yPos/clickedObject.frame.size.height;
     elementNoChosen=lroundf(elementNumber);
     for (int i=0; i<[shapesForBackground count]; i++) {
-        C4Shape *shape=[shapesForBackground objectAtIndex:i];
+        UIView *shape=[shapesForBackground objectAtIndex:i];
         if (i==elementNoChosen) {
-            shape.fillColor=UA_HIGHLIGHT_COLOR;
+            [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
         } else {
-            shape.fillColor=UA_NAV_CTRL_COLOR;
+            [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         }
     }
-    checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
+    [checkedIcon setFrame: CGRectMake(+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber)*clickedObject.frame.size.height+2, 46,46)];
 }
 //--------------------------------------------------
 //NAVIGATION
@@ -119,10 +130,13 @@
     workspace.oldLanguage=self.currentLanguage;
     [self updateLanguage];
     
-    [self.navigationController popViewControllerAnimated:NO];
-    obj=[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-1];
+    obj=[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
+   // NSLog(@"%i",[self.navigationController.viewControllers count]);
+    //NSLog(@"obj: %@", obj);
     alphabetInfo=(AlphabetInfo*)obj;
     [alphabetInfo changeLanguage];
+    
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)checkIfLetterExistsInDocumentsDirectory:(int)number{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -147,7 +161,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
         NSData *imageData = [NSData dataWithContentsOfFile:filePath];
         UIImage *img = [UIImage imageWithData:imageData];
-        loadedImage=[C4Image imageWithUIImage:img];
+        loadedImage=img;
     }else{
         if ([letterToAdd isEqualToString:@"?"]) {
             letterToAdd=@"-";
@@ -157,8 +171,7 @@
         NSString *filepath=@"letter_";
         filepath=[filepath stringByAppendingString:letterToAdd];
         filepath=[filepath stringByAppendingString:@".png"];
-        loadedImage=[C4Image imageNamed:filepath];
-        
+        loadedImage=[UIImage imageNamed:filepath];
     }
     }
 }
@@ -394,13 +407,13 @@
     if ([workspace.currentLanguage isEqual:@"Finnish/Swedish"] && [workspace.oldLanguage isEqual:@"Spanish"]) {
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ä.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ä.png"] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ö.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ö.png"] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Å.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
     }
     //Danish>Spanish
     if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Danish/Norwegian"]) {
@@ -626,7 +639,7 @@
         [workspace.currentAlphabet removeObjectAtIndex:3];
         [workspace.currentAlphabet removeObjectAtIndex:1];
         //copy RusS to C
-        C4Image *image=[workspace.currentAlphabet objectAtIndex:8];
+        UIImage *image=[workspace.currentAlphabet objectAtIndex:8];
         [workspace.currentAlphabet insertObject:image atIndex:2];
         [workspace.currentAlphabet removeObjectAtIndex:9];
         //copy RusN to H

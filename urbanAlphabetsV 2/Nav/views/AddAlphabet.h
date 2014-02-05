@@ -8,7 +8,7 @@
 
 #import "C4CanvasController.h"
 
-@interface AddAlphabet : C4CanvasController <UITextViewDelegate>
+@interface AddAlphabet : UIViewController <UITextViewDelegate>
 -(void)setup;
 -(void)grabCurrentLanguageViaNavigationController;
 @end

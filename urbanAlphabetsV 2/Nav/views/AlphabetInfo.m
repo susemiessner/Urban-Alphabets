@@ -50,6 +50,9 @@
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
     [self.view addSubview:self.bottomNavBar];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetView"];
+    UITapGestureRecognizer *alphabetButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetView)];
+    alphabetButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:alphabetButtonRecognizer];
 }
 
 -(void)grabCurrentLanguageViaNavigationController {
@@ -63,12 +66,15 @@
     int firstColumX=30;
     int secondColumX=firstColumX+100;
     
-    nameLabel=[C4Label labelWithText:@"Name:" font:UA_NORMAL_FONT];
-    nameLabel.textColor=UA_GREY_TYPE_COLOR;
-    nameLabel.origin=CGPointMake(firstColumX, yPos);
-    [self.canvas addLabel:nameLabel];
+    nameLabel=[[UILabel alloc]initWithFrame:CGRectMake(firstColumX, yPos, 200, 20)];
+    [nameLabel setText:@"Name:"];
+    [nameLabel setFont:UA_NORMAL_FONT];
+    [nameLabel setTextColor:UA_GREY_TYPE_COLOR];
+    [self.view addSubview:nameLabel];
+    nameLabel.userInteractionEnabled=YES;
+    
     //add text field
-    CGRect textViewFrame = CGRectMake(secondColumX-3, yPos-10, 100, 124.0f);
+    CGRect textViewFrame = CGRectMake(secondColumX-3, yPos-10, 200, 30);
     textViewTest = [[UITextView alloc] initWithFrame:textViewFrame];
     textViewTest.text=currentAlphabetName;
     textViewTest.font=[UIFont fontWithName:@"HelveticaNeue" size:17];
@@ -77,66 +83,97 @@
     textViewTest.delegate = self;
     [self.view addSubview:textViewTest];
     
-    alphabetName=[C4Label labelWithText:currentAlphabetName font:UA_NORMAL_FONT];
-    alphabetName.textColor=UA_TYPE_COLOR;
-    alphabetName.origin=CGPointMake(secondColumX, yPos);
     
     yPos+=lineHeight-15;
-    
-    changeAlphabetName=[C4Label labelWithText:@"(change)" font:UA_NORMAL_FONT];
-    changeAlphabetName.textColor=UA_GREY_TYPE_COLOR;
-    changeAlphabetName.origin=CGPointMake(secondColumX, yPos);
-    [self.canvas addLabel:changeAlphabetName];
+    changeAlphabetName=[[UILabel alloc]initWithFrame:CGRectMake(secondColumX, yPos, 100, 20)];
+    [changeAlphabetName setText:@"(change)"];
+    [changeAlphabetName setFont:UA_NORMAL_FONT];
+    [changeAlphabetName setTextColor:UA_GREY_TYPE_COLOR];
+    [self.view addSubview:changeAlphabetName];
+    changeAlphabetName.userInteractionEnabled=YES;
     
     yPos+=lineHeight;
+    languageLabel=[[UILabel alloc]initWithFrame:CGRectMake(firstColumX, yPos, 100, 20)];
+    [languageLabel setText:@"Language:"];
+    [languageLabel setFont:UA_NORMAL_FONT];
+    [languageLabel setTextColor:UA_GREY_TYPE_COLOR];
+    [self.view addSubview:languageLabel];
+    languageLabel.userInteractionEnabled=YES;
     
-    languageLabel=[C4Label labelWithText:@"Language:" font:UA_NORMAL_FONT];
-    languageLabel.textColor=UA_GREY_TYPE_COLOR;
-    languageLabel.origin=CGPointMake(firstColumX, yPos);
-    [self.canvas addLabel:languageLabel];
+    language=[[UILabel alloc]initWithFrame:CGRectMake(secondColumX, yPos, 200, 20)];
+    [language setText:self.currentLanguage];
+    [language setFont:UA_NORMAL_FONT];
+    [language setTextColor:UA_TYPE_COLOR];
+    [self.view addSubview:language];
+    language.userInteractionEnabled=YES;
     
-    language=[C4Label labelWithText:self.currentLanguage font: UA_NORMAL_FONT];
-    language.textColor=UA_TYPE_COLOR;
-    language.origin=CGPointMake(secondColumX, yPos);
-    [self.canvas addLabel:language];
-    
-    int xPosChange=secondColumX+language.width+5;
-    
-    changeLanguage=[C4Label labelWithText:@"(change)" font:UA_NORMAL_FONT];
-    if (xPosChange+changeLanguage.width > self.canvas.width) {
+    int xPosChange=secondColumX+language.frame.size.width+5;
+    if (xPosChange+changeLanguage.frame.size.width > self.view.frame.size.width) {
         xPosChange=secondColumX;
         yPos+=lineHeight-15;
     }
-    changeLanguage.textColor=UA_GREY_TYPE_COLOR;
-    changeLanguage.origin=CGPointMake(xPosChange, yPos);
-    [self.canvas addLabel:changeLanguage];
-    
+    changeLanguage=[[UILabel alloc]initWithFrame:CGRectMake(xPosChange, yPos, 100, 20)];
+    [changeLanguage setText:@"(change)"];
+    [changeLanguage setFont:UA_NORMAL_FONT];
+    [changeLanguage setTextColor:UA_GREY_TYPE_COLOR];
+    [self.view addSubview:changeLanguage];
+    changeLanguage.userInteractionEnabled=YES;
+   
     yPos+=lineHeight+30;
     //reset the alphabet
-    resetLabel=[C4Label labelWithText:@"Reset Alphabet" font: UA_NORMAL_FONT];
-    resetLabel.textColor=UA_GREY_TYPE_COLOR;
-    resetLabel.origin=CGPointMake(firstColumX, yPos);
-    [self.canvas addLabel:resetLabel];
+    resetLabel=[[UILabel alloc]initWithFrame:CGRectMake(firstColumX, yPos, 200, 20)];
+    [resetLabel setText:@"Reset Alphabet"];
+    [resetLabel setFont:UA_NORMAL_FONT];
+    [resetLabel setTextColor:UA_GREY_TYPE_COLOR];
+    [self.view addSubview:resetLabel];
+    resetLabel.userInteractionEnabled=YES;
     
     yPos+=lineHeight;
     //delete the alphabet
-    deleteLabel=[C4Label labelWithText:@"Delete Alphabet" font: UA_NORMAL_FONT];
-    deleteLabel.textColor=UA_GREY_TYPE_COLOR;
-    deleteLabel.origin=CGPointMake(firstColumX, yPos);
-    [self.canvas addLabel:deleteLabel];
+    deleteLabel=[[UILabel alloc]initWithFrame:CGRectMake(firstColumX, yPos, 200, 20)];
+    [deleteLabel setText:@"Delete Alphabet"];
+    [deleteLabel setFont:UA_NORMAL_FONT];
+    [deleteLabel setTextColor:UA_GREY_TYPE_COLOR];
+    [self.view addSubview:deleteLabel];
+    deleteLabel.userInteractionEnabled=YES;
     
-    [self listenFor:@"touchesBegan" fromObjects:@[languageLabel,language,changeLanguage] andRunMethod:@"goToChangeLanguage"];
-    [self listenFor:@"touchesBegan" fromObjects:@[nameLabel,alphabetName,changeAlphabetName] andRunMethod:@"changeAlphabetName"];
-    [self listenFor:@"touchesBegan" fromObject:resetLabel andRunMethod:@"resetAlphabet"];
-    [self listenFor:@"touchesBegan" fromObject:deleteLabel andRunMethod:@"deleteAlphabet"];
+    //gesture recognizers
+    //change language
+    UITapGestureRecognizer *languageRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToChangeLanguage)];
+    languageRecognizer.numberOfTapsRequired = 1;
+    [languageLabel addGestureRecognizer:languageRecognizer];
+    UITapGestureRecognizer *changeLanguageLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToChangeLanguage)];
+    changeLanguageLabelRecognizer.numberOfTapsRequired = 1;
+    [language addGestureRecognizer:changeLanguageLabelRecognizer];
+    UITapGestureRecognizer *changeLanguageRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToChangeLanguage)];
+    changeLanguageRecognizer.numberOfTapsRequired = 1;
+    [changeLanguage addGestureRecognizer:changeLanguageRecognizer];
+    //alphabetName
+    UITapGestureRecognizer *nameLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeAlphabetName)];
+    nameLabelRecognizer.numberOfTapsRequired = 1;
+    [nameLabel addGestureRecognizer:nameLabelRecognizer];
+    UITapGestureRecognizer *changeAlphabetNameRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeAlphabetName)];
+    changeAlphabetNameRecognizer.numberOfTapsRequired = 1;
+    [changeAlphabetName addGestureRecognizer:changeAlphabetNameRecognizer];
+    //reset
+    UITapGestureRecognizer *resetRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetAlphabet)];
+    resetRecognizer.numberOfTapsRequired = 1;
+    [resetLabel addGestureRecognizer:resetRecognizer];
+    //delete
+    UITapGestureRecognizer *deleteRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteAlphabet)];
+    deleteRecognizer.numberOfTapsRequired = 1;
+    [deleteLabel addGestureRecognizer:deleteRecognizer];
 }
 -(void)resetAlphabet{
+    NSLog(@"reset Alphabet");
     [workspace.currentAlphabet removeAllObjects];
     [workspace loadDefaultAlphabet];
     [self updateLanguage];
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)deleteAlphabet{
+    NSLog(@"deleteAlphabet");
+
     //delete from the arrays
     for (int i=0; i< [workspace.myAlphabets count]; i++) {
         NSString *name=[workspace.myAlphabets objectAtIndex:i];
@@ -157,8 +194,7 @@
                         NSString *filePath=[[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", i]] stringByAppendingString:@".jpg"];
                         NSData *imageData = [NSData dataWithContentsOfFile:filePath];
                         UIImage *img = [UIImage imageWithData:imageData];
-                        C4Image *image=[C4Image imageWithUIImage:img];
-                        [workspace.currentAlphabet addObject:image];
+                        [workspace.currentAlphabet addObject:img];
                     }
                 }
             } else{ //if only one alphabet exists
@@ -189,45 +225,46 @@
     if ([self.currentLanguage isEqual:@"German"]) {
         //change Å to Ü
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ü.png"] atIndex:28];
     }
     //Finnish>Danish
     if ([self.currentLanguage isEqual:@"Danish/Norwegian"]) {
         //change Ä to AE
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_ae.png"] atIndex:26];
         //change Ö to danishO
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_danisho.png"] atIndex:27];
     }
     //Finnish>English
     if ([self.currentLanguage isEqual:@"English"] ) {
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
     }
     //Finnish>Spanish
     if ([self.currentLanguage isEqual:@"Spanish"]) {
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_spanishN.png"] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
     }
 
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];
+ 
 }
 
 //--------------------------------------------------
@@ -238,6 +275,7 @@
 }
 -(void)changeLanguage{
     language.text=workspace.currentLanguage;
+    NSLog(@"language changed");
 }
 -(void)changeAlphabetName{
     [textViewTest becomeFirstResponder];
@@ -247,7 +285,8 @@
 //------------------------------------------------------------------------
 
 -(void)goToChangeLanguage{
-    changeLanguageView=[[ChangeLanguage alloc]initWithNibName:@"ChangeLanguage" bundle:[NSBundle mainBundle]];
+    NSLog(@"change Language");
+   changeLanguageView=[[ChangeLanguage alloc]initWithNibName:@"ChangeLanguage" bundle:[NSBundle mainBundle]];
     [changeLanguageView setupWithLanguage:self.currentLanguage];
     [self.navigationController pushViewController:changeLanguageView animated:NO];
 }

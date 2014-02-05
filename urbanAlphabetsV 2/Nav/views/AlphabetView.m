@@ -125,12 +125,12 @@
 //------------------------------------------------------------------------
 -(void)redrawAlphabet{
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
-        C4Image *image=[self.currentAlphabet objectAtIndex:i ];
-        [image removeFromSuperview];
-        //[self stopListeningFor:@"touchesBegan" object:image];
+        UIImage *image=[self.currentAlphabet objectAtIndex:i ];
+        UIImageView *imageView=[[UIImageView alloc]initWithImage:image];
+        [imageView removeFromSuperview];
+
         C4Shape *rectShape=[greyRectArray objectAtIndex:i];
         [rectShape removeFromSuperview];
-        //[self stopListeningFor:@"touchesBegan" object:rectShape];
     }
     [self grabCurrentLanguageViaNavigationController];
 }
@@ -150,10 +150,10 @@
 -(void)goToWritePostcard{
     NSLog(@"write Postcard");
     //self.menu.writePostcardShape.fillColor=UA_HIGHLIGHT_COLOR;
-    /*writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
+    writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
     [writePostcard setupWithLanguage:workspace.currentLanguage Alphabet:workspace.currentAlphabet];
     [self.navigationController pushViewController:writePostcard animated:YES];
-    [self closeMenu];*/
+    [self closeMenu];
 }
 -(void)goToAlphabetInfo{
     NSLog(@"goToAlphabetInfo");
@@ -313,7 +313,7 @@
     UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
     //end the image context
     UIGraphicsEndImageContext();
-    //create a new C4Image
+    //create a new UIImage
     self.currentAlphabetImage = newUIImage;
 }
 -(void)exportHighResImage {
@@ -353,7 +353,7 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
--(C4Image *)cropImage:(C4Image *)originalImage toArea:(CGRect)rect{
+-(UIImage *)cropImage:(UIImage *)originalImage toArea:(CGRect)rect{
     //grab the image scale
     CGFloat scale = 1.0;
     //begin an image context
@@ -369,8 +369,8 @@
     UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
     //end the image context
     UIGraphicsEndImageContext();
-    //create a new C4Image
-    C4Image *newImage = [C4Image imageWithUIImage:newUIImage];
+    //create a new UIImage
+    UIImage *newImage = [UIImage imageWithUIImage:newUIImage];
     //return the new image
     return newImage;
 }

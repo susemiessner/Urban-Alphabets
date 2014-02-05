@@ -109,17 +109,17 @@
     
     [C4Stepper defaultStyle].style = basicStyle;
     [C4Stepper defaultStyle].tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lightGrayPattern"]];
-    [[C4Stepper defaultStyle] setDecrementImage:[C4Image imageNamed:@"decrementDisabled"] forState:DISABLED];
-    [[C4Stepper defaultStyle] setDecrementImage:[C4Image imageNamed:@"decrementNormal"] forState:NORMAL];
-    [[C4Stepper defaultStyle] setIncrementImage:[C4Image imageNamed:@"incrementDisabled"] forState:DISABLED];
-    [[C4Stepper defaultStyle] setIncrementImage:[C4Image imageNamed:@"incrementNormal"] forState:NORMAL];
+    [[C4Stepper defaultStyle] setDecrementImage:[UIImage imageNamed:@"decrementDisabled"] forState:DISABLED];
+    [[C4Stepper defaultStyle] setDecrementImage:[UIImage imageNamed:@"decrementNormal"] forState:NORMAL];
+    [[C4Stepper defaultStyle] setIncrementImage:[UIImage imageNamed:@"incrementDisabled"] forState:DISABLED];
+    [[C4Stepper defaultStyle] setIncrementImage:[UIImage imageNamed:@"incrementNormal"] forState:NORMAL];
     
     [C4Switch defaultStyle].style = basicStyle;
     [C4Switch defaultStyle].onTintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lightBluePattern"]];
     [C4Switch defaultStyle].tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lightRedPattern"]];
     [C4Switch defaultStyle].thumbTintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lightGrayPattern"]];
-    [[C4Switch defaultStyle] setOffImage:[C4Image imageNamed:@"switchOff"]];
-    [[C4Switch defaultStyle] setOnImage:[C4Image imageNamed:@"switchOn"]];
+    [[C4Switch defaultStyle] setOffImage:[UIImage imageNamed:@"switchOff"]];
+    [[C4Switch defaultStyle] setOnImage:[UIImage imageNamed:@"switchOn"]];
 }
 
 @end

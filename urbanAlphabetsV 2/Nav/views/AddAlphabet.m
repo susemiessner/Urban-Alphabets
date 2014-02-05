@@ -23,12 +23,12 @@
     //for the languages
     NSMutableArray *shapesForBackground;
     NSMutableArray *languageLabels; //for all texts
-    C4Image *checkedIcon;
+    UIImage *checkedIcon;
     int elementNoChosen;
     float firstShapeY;
     //magic for dismissing the keyboard
     UITapGestureRecognizer * tapGesture;
-    C4Shape *navigation;
+    UIView *navigation;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @end
@@ -50,9 +50,9 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     //bottom bar
-    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45) ];
-    [self.canvas addShape:self.bottomNavBar];
+    [self.view addSubview:self.bottomNavBar];
     self.bottomNavBar.centerImageView.hidden=YES;
     
     shapesForBackground = [[NSMutableArray alloc] init];
@@ -62,9 +62,10 @@
     workspace=(C4WorkSpace*)obj;
 
     //name label
-    C4Label *nameLabel=[C4Label labelWithText:@"Name:" font:UA_NORMAL_FONT];
-    nameLabel.origin=CGPointMake(20, 100);
-    [self.canvas addLabel:nameLabel];
+    UILabel *nameLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 100, 100, 20) ];
+    [nameLabel setText:@"Name:"];
+    [nameLabel setFont:UA_NORMAL_FONT];
+    [self.view addSubview:nameLabel];
 
     //text field
     CGRect textViewFrame = CGRectMake(nameLabel.center.x+nameLabel.width, nameLabel.origin.y, self.canvas.width-40-(nameLabel.center.x+nameLabel.width), nameLabel.height+5);
@@ -133,7 +134,7 @@
             shape.fillColor=UA_NAV_CTRL_COLOR;
         }
     }
-    checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
+    //checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
     if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<2) {
         self.bottomNavBar.centerImageView.hidden=NO;
         C4Shape *shape=[C4Shape rect:CGRectMake(self.bottomNavBar.centerImageView.frame.origin.x-20, self.bottomNavBar.frame.origin.y-10, self.bottomNavBar.centerImage.size.width+40, self.bottomNavBar.centerImage.size.height+20)];
@@ -186,28 +187,28 @@
     if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Å to Ü
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_Ü.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ü.png"] atIndex:28];
     }
     //Finnish>Danish
     if ([workspace.currentLanguage isEqual:@"Danish/Norwegian"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Ä to AE
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_ae.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_ae.png"] atIndex:26];
         //change Ö to danishO
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_danisho.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_danisho.png"] atIndex:27];
     }
     //Finnish>English
     if ([workspace.currentLanguage isEqual:@"English"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_$.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
     }
     //-------------------------------
     //SPANISH
@@ -215,18 +216,18 @@
     if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_spanishN.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_spanishN.png"] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_+.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_,.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
     }
     //Finnish,German,English,Norwegian>Russian
     if ([workspace.currentLanguage isEqual:@"Russian"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change RusB
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusB.png"] atIndex:1];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusB.png"] atIndex:1];
         
         //copy c to right position (17)
         [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:3] atIndex:17];
@@ -235,33 +236,33 @@
         
         //change RusG
         [workspace.currentAlphabet removeObjectAtIndex:3];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusG.png"] atIndex:3];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusG.png"] atIndex:3];
         //add RusD
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusD.png"] atIndex:4];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusD.png"] atIndex:4];
         //change RusJo
         [workspace.currentAlphabet removeObjectAtIndex:6];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJo.png"] atIndex:6];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusJo.png"] atIndex:6];
         
         //change RusSche
         [workspace.currentAlphabet removeObjectAtIndex:7];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusSche.png"] atIndex:7];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusSche.png"] atIndex:7];
         //change RusSe
         [workspace.currentAlphabet removeObjectAtIndex:8];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusSe.png"] atIndex:8];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusSe.png"] atIndex:8];
         //change RusI
         [workspace.currentAlphabet removeObjectAtIndex:9];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusI.png"] atIndex:9];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusI.png"] atIndex:9];
         //change RusIkratkoje
         [workspace.currentAlphabet removeObjectAtIndex:10];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusIkratkoje.png"] atIndex:10];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusIkratkoje.png"] atIndex:10];
         //change RusL
         [workspace.currentAlphabet removeObjectAtIndex:12];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusL.png"] atIndex:12];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusL.png"] atIndex:12];
         //change RusN
         [workspace.currentAlphabet removeObjectAtIndex:14];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusN.png"] atIndex:14];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusN.png"] atIndex:14];
         //insert rus p
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusP.png"] atIndex:16];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusP.png"] atIndex:16];
         
         //shift T into right position
         [workspace.currentAlphabet removeObjectAtIndex:19];
@@ -278,31 +279,31 @@
         [workspace.currentAlphabet removeObjectAtIndex:20];
         //change RusF
         [workspace.currentAlphabet removeObjectAtIndex:21];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusF.png"] atIndex:21];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusF.png"] atIndex:21];
         //change RusZ
         [workspace.currentAlphabet removeObjectAtIndex:23];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusZ.png"] atIndex:23];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusZ.png"] atIndex:23];
         //change RusTsche
         [workspace.currentAlphabet removeObjectAtIndex:24];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusTsche.png"] atIndex:24];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusTsche.png"] atIndex:24];
         //change RusScha
         [workspace.currentAlphabet removeObjectAtIndex:25];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusScha.png"] atIndex:25];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusScha.png"] atIndex:25];
         //change RusTscheScha
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusTschescha.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusTschescha.png"] atIndex:26];
         //change RusMjachkiSnak
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusMjachkiSnak.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusMjachkiSnak.png"] atIndex:27];
         //change RusUi
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusUi.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusUi.png"] atIndex:28];
         //add RusE
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusE.png"] atIndex:29];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusE.png"] atIndex:29];
         //add RusJu
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJu.png"] atIndex:30];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusJu.png"] atIndex:30];
         //add RusJa
-        [workspace.currentAlphabet insertObject:[C4Image imageNamed:@"letter_RusJa.png"] atIndex:31];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusJa.png"] atIndex:31];
     }
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
     alphabetView=(AlphabetView*)obj;

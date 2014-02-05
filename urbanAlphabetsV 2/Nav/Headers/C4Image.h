@@ -1,5 +1,5 @@
 //
-//  C4Image.h
+//  UIImage.h
 //  C4iOS
 //
 //  Created by moi on 13-02-18.
@@ -9,9 +9,9 @@
 #import "C4Control.h"
 #import "C4ImageView.h"
 
-/**This document describes the C4Image class. A C4Image object provides access for creating, showing, interacting and manipulating images. C4Image is a subclass of C4Control and so inherits its animation, gesture and notification abilities.
+/**This document describes the UIImage class. A UIImage object provides access for creating, showing, interacting and manipulating images. UIImage is a subclass of C4Control and so inherits its animation, gesture and notification abilities.
  
- C4Image also takes advantage of its underlying C4Layer to allow for filtering the content of an image. You can apply filters that affect only the image (e.g. hueAdjust, vibranceAdjust, etc.) or use another image as the background for a particular blend or composite filter (e.g. additionComposite:, overlayBlend:, etc).
+ UIImage also takes advantage of its underlying C4Layer to allow for filtering the content of an image. You can apply filters that affect only the image (e.g. hueAdjust, vibranceAdjust, etc.) or use another image as the background for a particular blend or composite filter (e.g. additionComposite:, overlayBlend:, etc).
  
  When working with blends and composite methods, it is recommended that the images you use are of the same size.
  
@@ -24,25 +24,25 @@
  
  @param name A string representation of the file name (e.g. photo.jpg, image.png, etc.)
  */
-+(C4Image *)imageNamed:(NSString *)name;
++(UIImage *)imageNamed:(NSString *)name;
 
-/**Creates and returns a new image using a pre-existing C4Image object.
+/**Creates and returns a new image using a pre-existing UIImage object.
  
- @param image A C4Image whose contents will be used to create a new C4Image object.
+ @param image A UIImage whose contents will be used to create a new UIImage object.
  */
-+(C4Image *)imageWithImage:(C4Image *)image;
++(UIImage *)imageWithImage:(UIImage *)image;
 
 /**Creates and returns a new image using an NSData object.
  
  @param imageData An NSData object.
  */
-+(C4Image *)imageWithData:(NSData *)imageData;
++(UIImage *)imageWithData:(NSData *)imageData;
 
 /**Creates and returns a new image using an UIImage object.
  
- @param image a UIImage used to create the C4Image.
+ @param image a UIImage used to create the UIImage.
  */
-+(C4Image *)imageWithUIImage:(UIImage *)image;
++(UIImage *)imageWithUIImage:(UIImage *)image;
 
 /**Creates and returns a new image using an URL.
  
@@ -50,14 +50,14 @@
  
  @param imageURL the URL for the file used to create the image.
  */
-+(C4Image *)imageWithURL:(NSString *)imageURL;
++(UIImage *)imageWithURL:(NSString *)imageURL;
 
 /**Creates and returns a new animated image from an array of image file names.
  
  @param imageNames An NSArray of image names (e.g. C4Sky, C4Table@2x.png, etc.) used to construct the images for the animation.
  @return a new animatable image.
  */
-+(C4Image *)animatedImageWithNames:(NSArray *)imageNames;
++(UIImage *)animatedImageWithNames:(NSArray *)imageNames;
 
 /**Initializes an image using a file with the given name.
  
@@ -67,19 +67,19 @@
  */
 -(id)initWithImageName:(NSString *)name;
 
-/**Initializes a C4Image using the contents of another C4Image
+/**Initializes a UIImage using the contents of another UIImage
  
- @param image A C4Image whose contents will be used to create a new C4Image object.
+ @param image A UIImage whose contents will be used to create a new UIImage object.
  */
--(id)initWithImage:(C4Image *)image;
+-(id)initWithImage:(UIImage *)image;
 
-/**Initializes a C4Image using an NSData object
+/**Initializes a UIImage using an NSData object
  
  @param imageData an NSData object
  */
 -(id)initWithData:(NSData *)imageData;
 
-/**Initializes a C4Image using an array of raw data.
+/**Initializes a UIImage using an array of raw data.
  
  The raw data is assumed to be RGBA with 8 bits per component.
  
@@ -89,15 +89,15 @@
  */
 -(id)initWithRawData:(unsigned char *)data width:(NSInteger)width height:(NSInteger)height;
 
-/**Initializes a C4Image using a CGImageRef object
+/**Initializes a UIImage using a CGImageRef object
  
- @param image A CGImageRef whose contents will be used to create a new C4Image object.
+ @param image A CGImageRef whose contents will be used to create a new UIImage object.
  */
 -(id)initWithCGImage:(CGImageRef)image;
 
-/**Initializes a C4Image using a UIImage object
+/**Initializes a UIImage using a UIImage object
  
- @param image A UIImage whose contents will be used to create a new C4Image object.
+ @param image A UIImage whose contents will be used to create a new UIImage object.
  */
 -(id)initWithUIImage:(UIImage *)image;
 
@@ -155,11 +155,11 @@
 
 #pragma mark - Set Image
 ///@name Set Image
-/**Sets the current visible representation of a C4Image to that of another image.
+/**Sets the current visible representation of a UIImage to that of another image.
  
- @param image A C4Image whose contents will be used to set the visible representation of the receiver.
+ @param image A UIImage whose contents will be used to set the visible representation of the receiver.
  */
--(void)setImage:(C4Image *)image;
+-(void)setImage:(UIImage *)image;
 
 #pragma mark - Pixels & Colors
 ///@name Pixels & Colors
@@ -476,7 +476,7 @@
  
  @param gradientImage The image that provides the basis for the color map transformation.
  */
--(void)colorMap:(C4Image *)gradientImage;
+-(void)colorMap:(UIImage *)gradientImage;
 
 /**Color monochrome filter.
  Remaps colors so they fall within shades of a single color.
@@ -542,13 +542,13 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)additionComposite:(C4Image *)backgroundImage;
+-(void)additionComposite:(UIImage *)backgroundImage;
 
 /**Color blend filter
  Uses the luminance values of the background with the hue and saturation values of the source image.
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)colorBlend:(C4Image *)backgroundImage;
+-(void)colorBlend:(UIImage *)backgroundImage;
 
 /**Color burn filter
  Darkens the background image samples to reflect the source image samples.
@@ -557,7 +557,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)colorBurn:(C4Image *)backgroundImage;
+-(void)colorBurn:(UIImage *)backgroundImage;
 
 /**Color dodge filter.
  
@@ -567,7 +567,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)colorDodge:(C4Image *)backgroundImage;
+-(void)colorDodge:(UIImage *)backgroundImage;
 
 /**Darken blend filter
  Creates composite image samples by choosing the darker samples (from either the source image or the background).
@@ -576,7 +576,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)darkenBlend:(C4Image *)backgroundImage;
+-(void)darkenBlend:(UIImage *)backgroundImage;
 
 /**Difference blend filter
  Subtracts either the source image sample color from the background image sample color, or the reverse, depending on which sample has the greater brightness value.
@@ -585,7 +585,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)differenceBlend:(C4Image *)backgroundImage;
+-(void)differenceBlend:(UIImage *)backgroundImage;
 
 /**Exclusion blend filter
  Produces an effect similar to that produced by the Difference Blend filter but with lower contrast.
@@ -594,14 +594,14 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)exclusionBlend:(C4Image *)backgroundImage;
+-(void)exclusionBlend:(UIImage *)backgroundImage;
 
 /**Hard light blend filter
  Either multiplies or screens colors, depending on the source image sample color.
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)hardLightBlend:(C4Image *)backgroundImage;
+-(void)hardLightBlend:(UIImage *)backgroundImage;
 
 /**Hue blend filter
  Uses the luminance and saturation values of the background with the hue of the source image.
@@ -610,7 +610,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)hueBlend:(C4Image *)backgroundImage;
+-(void)hueBlend:(UIImage *)backgroundImage;
 
 /**Lighten blend filter
  Creates composite image samples by choosing the lighter samples (either from the source image or the background).
@@ -619,7 +619,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)lightenBlend:(C4Image *)backgroundImage;
+-(void)lightenBlend:(UIImage *)backgroundImage;
 
 /**Luminosity blend filter
  Uses the hue and saturation of the background with the luminance of the source image.
@@ -628,7 +628,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)luminosityBlend:(C4Image *)backgroundImage;
+-(void)luminosityBlend:(UIImage *)backgroundImage;
 
 /**Maximum compositing filter
  Computes the maximum value, by color component, of two input images and creates an output image using the maximum values.
@@ -637,7 +637,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)maximumComposite:(C4Image *)backgroundImage;
+-(void)maximumComposite:(UIImage *)backgroundImage;
 
 /**Minimum compositing filter
  Computes the minimum value, by color component, of two input images and creates an output image using the minimum values.
@@ -646,7 +646,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)minimumComposite:(C4Image *)backgroundImage;
+-(void)minimumComposite:(UIImage *)backgroundImage;
 
 /**Multiply blend filter
  Multiplies the source image samples with the background image samples.
@@ -655,7 +655,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)multiplyBlend:(C4Image *)backgroundImage;
+-(void)multiplyBlend:(UIImage *)backgroundImage;
 
 /**Multiply compositing filter
  Multiplies the color component of two input images and creates an output image using the multiplied values.
@@ -664,7 +664,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)multiplyComposite:(C4Image *)backgroundImage;
+-(void)multiplyComposite:(UIImage *)backgroundImage;
 
 /**Overlay blend filter
  Either multiplies or screens the source image samples with the background image samples, depending on the background color.
@@ -673,7 +673,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)overlayBlend:(C4Image *)backgroundImage;
+-(void)overlayBlend:(UIImage *)backgroundImage;
 
 /**Saturation blend filter
  Uses the luminance and hue values of the background with the saturation of the source image.
@@ -682,7 +682,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)saturationBlend:(C4Image *)backgroundImage;
+-(void)saturationBlend:(UIImage *)backgroundImage;
 
 /**Screen blend filter
  Multiplies the inverse of the source image samples with the inverse of the background image samples.
@@ -691,7 +691,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)screenBlend:(C4Image *)backgroundImage;
+-(void)screenBlend:(UIImage *)backgroundImage;
 
 /**Soft light blend filter
  Either darkens or lightens colors, depending on the source image sample color.
@@ -700,7 +700,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)softLightBlend:(C4Image *)backgroundImage;
+-(void)softLightBlend:(UIImage *)backgroundImage;
 
 /**Source-atop compositing filter
  Places the source image over the background image, then uses the luminance of the background image to determine what to show.
@@ -709,7 +709,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)sourceAtopComposite:(C4Image *)backgroundImage;
+-(void)sourceAtopComposite:(UIImage *)backgroundImage;
 
 /**Source-in compositing filter
  Uses the background image to define what to leave in the source image, effectively cropping the image.
@@ -718,7 +718,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)sourceInComposite:(C4Image *)backgroundImage;
+-(void)sourceInComposite:(UIImage *)backgroundImage;
 
 /**Source-out compositing filter
  Uses the background image to define what to take out of the first image.
@@ -727,7 +727,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)sourceOutComposite:(C4Image *)backgroundImage;
+-(void)sourceOutComposite:(UIImage *)backgroundImage;
 
 /**Source-over compositing filter
  Places the background image over the source image.
@@ -736,7 +736,7 @@
  
  @param backgroundImage The image that will provide the background for this filter.
  */
--(void)sourceOverComposite:(C4Image *)backgroundImage;
+-(void)sourceOverComposite:(UIImage *)backgroundImage;
 
 #pragma mark - Distortion Effects
 /// @name Distortion Effects
@@ -794,17 +794,17 @@
  @param displacementImage The second image to use as the basis for distortion the receiver.
  @param scale The scale of the effect on the receiver's image.
  */
--(void)displacementDistortion:(C4Image *)displacementImage scale:(CGFloat)scale;
+-(void)displacementDistortion:(UIImage *)displacementImage scale:(CGFloat)scale;
 
 /**Distorts an image by applying a glass-like texture.
  
  The raised portions of the output image are the result of applying a texture map.
  
- @param texture A C4Image that acts as a texture map for the filter.
+ @param texture A UIImage that acts as a texture map for the filter.
  @param center A CGPoint representing the center of the texture map.
  @param scale A CGFloat representing the scale of the effect of the distortion.
  */
--(void)glassDistortion:(C4Image *)texture center:(CGPoint)center scale:(CGFloat)scale;
+-(void)glassDistortion:(UIImage *)texture center:(CGPoint)center scale:(CGFloat)scale;
 
 /**Creates a lozenge-shaped lens and distorts the portion of the image over which the lens is placed.
  
@@ -884,17 +884,17 @@
  @param width The width (and height) of the pattern's squares.
  @param sharpness The sharpness of the edges between the squares.
  
- @return A new C4Image whose contents are a checkerboard pattern of two colors.
+ @return A new UIImage whose contents are a checkerboard pattern of two colors.
  */
-+(C4Image *)checkerboard:(CGSize)size center:(CGPoint)center color1:(UIColor *)color1 color2:(UIColor *)color2 squareWidth:(CGFloat)width sharpness:(CGFloat)sharpness;
++(UIImage *)checkerboard:(CGSize)size center:(CGPoint)center color1:(UIColor *)color1 color2:(UIColor *)color2 squareWidth:(CGFloat)width sharpness:(CGFloat)sharpness;
 
 /**Generates a solid color.
  
  @param size The size of the resulting image, this shold be greater than CGPointZero.
  @param color The color used to generate the image.
- @return A new C4Image whose contents are a solid color.
+ @return A new UIImage whose contents are a solid color.
  */
-+(C4Image *)constantColor:(CGSize)size color:(UIColor *)color;
++(UIImage *)constantColor:(CGSize)size color:(UIColor *)color;
 //
 ///**Simulates a lens flare.
 // 
@@ -908,18 +908,18 @@
 // @param contrast Controls the contrast of the rainbow-colored halo area.
 // @param time Adds a randomness to the lens flare; it causes the flare to "sparkle" as it changes through various time values.
 // */
-//+(C4Image *)lenticularHalo:(CGSize)size center:(CGPoint)center color:(UIColor *)color haloRadius:(CGFloat)radius haloWidth:(CGFloat)haloWidth haloOverlap:(CGFloat)overlap striationStrength:(CGFloat)strength striationContrast:(CGFloat)contrast time:(CGFloat)time;
+//+(UIImage *)lenticularHalo:(CGSize)size center:(CGPoint)center color:(UIColor *)color haloRadius:(CGFloat)radius haloWidth:(CGFloat)haloWidth haloOverlap:(CGFloat)overlap striationStrength:(CGFloat)strength striationContrast:(CGFloat)contrast time:(CGFloat)time;
 
 /**Generates an image of infinite extent whose pixel values are made up of four independent, uniformly-distributed random numbers in the 0 to 1 range.
  
  @param size The size of the resulting image, this should be greater than CGPointZero.
  */
-+(C4Image *)random:(CGSize)size;
++(UIImage *)random:(CGSize)size;
 
 //FIXME: I don't think these filters work right now... There's no code online to check
-//+(C4Image *)starShineGenerator:(CGSize)size center:(CGPoint)center color:(UIColor *)color radius:(CGFloat)radius crossScale:(CGFloat)scale crossAngle:(CGFloat)angle crossOpacity:(CGFloat)opacity crossWidth:(CGFloat)width epsilon:(CGFloat)epsilon;
-//+(C4Image *)stripes:(CGSize)size center:(CGPoint)center color1:(UIColor *)color1 color2:(UIColor *)color2 stripeWidth:(CGFloat)width sharpness:(CGFloat)sharpness;
-//+(C4Image *)sunbeams:(CGSize)size center:(CGPoint)center color:(UIColor *)color sunRadius:(CGFloat)sunRadius maxStriationRadius:(CGFloat)striationRadius striationStrength:(CGFloat)striationStrength striationContrast:(CGFloat)striationContrast time:(CGFloat)time;
+//+(UIImage *)starShineGenerator:(CGSize)size center:(CGPoint)center color:(UIColor *)color radius:(CGFloat)radius crossScale:(CGFloat)scale crossAngle:(CGFloat)angle crossOpacity:(CGFloat)opacity crossWidth:(CGFloat)width epsilon:(CGFloat)epsilon;
+//+(UIImage *)stripes:(CGSize)size center:(CGPoint)center color1:(UIColor *)color1 color2:(UIColor *)color2 stripeWidth:(CGFloat)width sharpness:(CGFloat)sharpness;
+//+(UIImage *)sunbeams:(CGSize)size center:(CGPoint)center color:(UIColor *)color sunRadius:(CGFloat)sunRadius maxStriationRadius:(CGFloat)striationRadius striationStrength:(CGFloat)striationStrength striationContrast:(CGFloat)striationContrast time:(CGFloat)time;
 
 #pragma mark - Geometry Adjustments
 /// @name Geometry Adjustments
@@ -986,7 +986,7 @@
  @param outerColor The outer color of the gradient.
  @param radius The radius of the gradient.
  */
-+(C4Image *)gaussianGradient:(CGSize)size center:(CGPoint)center innerColor:(UIColor *)innerColor outerColor:(UIColor *)outerColor radius:(CGFloat)radius;
++(UIImage *)gaussianGradient:(CGSize)size center:(CGPoint)center innerColor:(UIColor *)innerColor outerColor:(UIColor *)outerColor radius:(CGFloat)radius;
 
 /**Generates a gradient that varies along a linear axis between two defined endpoints.
  
@@ -996,7 +996,7 @@
  @param startColor The start color of the gradient.
  @param endColor The end color of the gradient.
  */
-+(C4Image *)linearGradient:(CGSize)size startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint startColor:(UIColor *)startColor endColor:(UIColor *)endColor;
++(UIImage *)linearGradient:(CGSize)size startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint startColor:(UIColor *)startColor endColor:(UIColor *)endColor;
 
 /**Generates a gradient that varies radially between two circles having the same center.
  
@@ -1007,7 +1007,7 @@
  @param innerColor The inner color of the gradient.
  @param outerColor The outer color of the gradient.
  */
-+(C4Image *)radialGradient:(CGSize)size center:(CGPoint)center innerRadius:(CGFloat)innerRadius outerRadius:(CGFloat)outerRadius innerColor:(UIColor *)innerColor outerColor:(UIColor *)outerColor;
++(UIImage *)radialGradient:(CGSize)size center:(CGPoint)center innerRadius:(CGFloat)innerRadius outerRadius:(CGFloat)outerRadius innerColor:(UIColor *)innerColor outerColor:(UIColor *)outerColor;
 
 #pragma mark - Halftone Effects
 /// @name Halftone Effects
@@ -1075,7 +1075,7 @@
  @param backgroundImage The background image that will be revealed by the mask.
  @param maskImage The image to use as the mask (should be black and white).
  */
--(void)blendWithMask:(C4Image *)backgroundImage mask:(C4Image *)maskImage;
+-(void)blendWithMask:(UIImage *)backgroundImage mask:(UIImage *)maskImage;
 
 /**Softens edges and applies a pleasant glow to an image.
  
@@ -1209,12 +1209,12 @@
 
 #pragma mark - Default Style
 ///@name Default Style
-/**Returns the appearance proxy for the object, cast as a C4Image rather than the standard (id) cast provided by UIAppearance.
+/**Returns the appearance proxy for the object, cast as a UIImage rather than the standard (id) cast provided by UIAppearance.
  
- You use this method to grab the appearance object that allows you to change the default style for C4Image objects.
+ You use this method to grab the appearance object that allows you to change the default style for UIImage objects.
  
- @return The appearance proxy for the receiver, cast as a C4Image.
+ @return The appearance proxy for the receiver, cast as a UIImage.
  */
-+(C4Image *)defaultStyle;
++(UIImage *)defaultStyle;
 
 @end

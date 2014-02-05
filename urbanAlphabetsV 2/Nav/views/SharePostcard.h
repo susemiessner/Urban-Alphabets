@@ -9,7 +9,7 @@
 #import "C4CanvasController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
-@interface SharePostcard : C4CanvasController<MFMailComposeViewControllerDelegate, UITextViewDelegate>
+@interface SharePostcard : UIViewController<MFMailComposeViewControllerDelegate, UITextViewDelegate>
 -(void)setup:(UIImage*)imageToShare;
 
 

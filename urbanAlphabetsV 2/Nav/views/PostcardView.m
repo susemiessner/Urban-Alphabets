@@ -63,12 +63,12 @@
     self.postcardText=postcardText;
     
     //bottomNavbar WITH 2 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45) rightIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
-    [self.canvas addShape:self.bottomNavBar];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"closeView"];
+    [self.view addSubview:self.bottomNavBar];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"closeView"];
 
     //display the postcard
     float imageWidth=53.53;
@@ -78,17 +78,16 @@
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        C4Image *image=[self.postcardArray objectAtIndex:i ];
-        image.origin=CGPointMake(xPos, yPos);
-        image.width=imageWidth;
-        [self.canvas addImage:image];
+        UIImageView *image=[self.postcardArray objectAtIndex:i ];
+        UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        [self.view addSubview:imageView];
     }
     for (int i=0; i<[self.greyRectArray count]; i++) {
-        C4Shape *greyRect=[self.greyRectArray objectAtIndex:i];
-        greyRect.fillColor=UA_NAV_CTRL_COLOR;
-        greyRect.lineWidth=2;
-        greyRect.strokeColor=UA_NAV_BAR_COLOR;
-        [self.canvas addShape:greyRect];
+        UIView *greyRect=[self.greyRectArray objectAtIndex:i];
+        [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
+        greyRect.layer.borderWidth=1.0f;
+        greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        [self.view addSubview:greyRect];
         
     }
 }
@@ -100,24 +99,24 @@
 }
 -(void)openMenu{
     [self saveCurrentPostcardAsImage];
-    CGRect menuFrame = CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    CGRect menuFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.menu=[[PostcardMenu alloc]initWithFrame:menuFrame];
-    [self.canvas addShape:self.menu];
+    [self.view addSubview:self.menu];
     //start location updating
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     //cancel shape
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.cancelShape, self.menu.cancelLabel] andRunMethod:@"closeMenu"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[self.menu.cancelShape, self.menu.cancelLabel] andRunMethod:@"closeMenu"];
     //save postcard
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.savePostcardShape, self.menu.savePostcardLabel,self.menu.savePostcardIcon] andRunMethod:@"goToSavePostcard"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[self.menu.savePostcardShape, self.menu.savePostcardLabel,self.menu.savePostcardIcon] andRunMethod:@"goToSavePostcard"];
     //write new postcard
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.writePostcardShape, self.menu.writePostcardLabel,self.menu.writePostcardIcon] andRunMethod:@"goToWritePostcard"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[self.menu.writePostcardShape, self.menu.writePostcardLabel,self.menu.writePostcardIcon] andRunMethod:@"goToWritePostcard"];
     //sharePostcard
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.sharePostcardShape, self.menu.sharePostcardLabel,self.menu.sharePostcardIcon] andRunMethod:@"goToSharePostcard"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[self.menu.sharePostcardShape, self.menu.sharePostcardLabel,self.menu.sharePostcardIcon] andRunMethod:@"goToSharePostcard"];
     //my alphabets
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.myAlphabetsShape, self.menu.myAlphabetsLabel,self.menu.myAlphabetsIcon] andRunMethod:@"goToMyAlphabets"];
+    //[self listenFor:@"touchesBegan" fromObjects:@[self.menu.myAlphabetsShape, self.menu.myAlphabetsLabel,self.menu.myAlphabetsIcon] andRunMethod:@"goToMyAlphabets"];
 }
 -(void)closeMenu{
     [self.menu removeFromSuperview];
@@ -164,35 +163,36 @@
 //------------------------------------------------------------------------
 -(void)savePostcard{
     //crop the screenshot
-    self.currentPostcardImage=[self cropImage:self.currentPostcardImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.canvas.width, self.canvas.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))];
+    self.currentPostcardImage=[self cropImage:self.currentPostcardImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))];
     [self exportHighResImage];
 }
 -(void)saveCurrentPostcardAsImage{
     CGFloat scale = 10.0;
     //begin an image context
-    CGSize  rect=CGSizeMake(self.canvas.width, self.canvas.height);
+    CGSize  rect=CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
     UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
     //create a new context ref
     CGContextRef c = UIGraphicsGetCurrentContext();
     //render the canvas image into the context
-    [self.canvas renderInContext:c];
+
+    //[self.view renderInContext:c];
     //grab a UIImage from the context
     UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
     //end the image context
     UIGraphicsEndImageContext();
-    //create a new C4Image
-    self.currentPostcardImage = [C4Image imageWithUIImage:newUIImage];
+    //create a new UIImage
+    self.currentPostcardImage = newUIImage;
 }
 
 -(void)exportHighResImage {
     graphicsContext = [self createHighResImageContext];
-    [self.currentPostcardImage renderInContext:graphicsContext];
+   // [self.currentPostcardImage renderInContext:graphicsContext];
     NSString *fileName = [NSString stringWithFormat:@"exportedPostcard%@.jpg", [NSDate date]];
     [self saveImage:fileName];
     [self saveImageToLibrary];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.canvas.width, self.canvas.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {
@@ -227,7 +227,7 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
--(C4Image *)cropImage:(C4Image *)originalImage toArea:(CGRect)rect{
+-(UIImage *)cropImage:(UIImage *)originalImage toArea:(CGRect)rect{
     //grab the image scale
     CGFloat scale = 1.0;
     //begin an image context
@@ -238,13 +238,13 @@
     //the area to crop shifts INTO: (0, 0, rect.size.width, rect.size.height)
     CGContextTranslateCTM(c, -rect.origin.x, -rect.origin.y);
     //render the original image into the context
-    [originalImage renderInContext:c];
+    //[originalImage renderInContext:c];
     //grab a UIImage from the context
     UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
     //end the image context
     UIGraphicsEndImageContext();
-    //create a new C4Image
-    C4Image *newImage = [C4Image imageWithUIImage:newUIImage];
+    //create a new UIImage
+    UIImage *newImage = newUIImage;
     //return the new image
     return newImage;
 }
