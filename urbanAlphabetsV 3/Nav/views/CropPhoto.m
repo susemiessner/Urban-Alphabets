@@ -81,12 +81,14 @@
     photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
     photoTakenView.image=self.photoTaken;
     [self.view addSubview:photoTakenView];
+    //------------------------------------------------------------------------------------------------------------
     //pan gesture
     UIPanGestureRecognizer *pgr = [[UIPanGestureRecognizer alloc]
                                    initWithTarget:self action:@selector(handlePan:)];
-    
     [photoTakenView addGestureRecognizer:pgr];
     //[self.photoTaken addGesture:PAN name:@"pan" action:@"move:"];
+
+    //------------------------------------------------------------------------------------------------------------
     //initialize the overlay
     [self transparentOverlay];
     
