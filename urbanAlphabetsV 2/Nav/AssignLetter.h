@@ -15,7 +15,7 @@
 #import <ImageIO/CGImageSource.h>
 #import <ImageIO/CGImageDestination.h>
 
-@interface AssignLetter : C4CanvasController<CLLocationManagerDelegate, NSURLConnectionDelegate>{
+@interface AssignLetter : UIViewController<CLLocationManagerDelegate, NSURLConnectionDelegate>{
     SaveToDatabase *save;
 }
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;

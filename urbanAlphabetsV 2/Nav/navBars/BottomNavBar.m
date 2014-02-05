@@ -60,7 +60,7 @@
 }
 
 -(void)fitToFrameThree:(CGRect)frame {
-    [self.leftImageView setFrame:CGRectMake(self.leftImage.size.width/2+5, self.frame.size.height/2, self.leftImageView.frame.size.width, self.leftImageView.frame.size.height)];
+    [self.leftImageView setFrame:CGRectMake(5, self.frame.size.height/2-self.leftImageView.frame.size.height/2, self.leftImageView.frame.size.width, self.leftImageView.frame.size.height)];
     [self.centerImageView setFrame:CGRectMake(self.frame.size.width/2-self.centerImageView.frame.size.width/2, self.frame.size.height/2-self.centerImageView.frame.size.height/2, self.centerImageView.frame.size.width, self.centerImageView.frame.size.height)];
     [self.rightImageView setFrame:CGRectMake(self.frame.size.width-(self.rightImageView.frame.size.width/2+5), self.frame.size.height/2, self.rightImageView.frame.size.width, self.rightImageView.frame.size.height)];
 }
@@ -101,11 +101,8 @@
 }
 
 -(void)fitToFrameTWO:(CGRect)frame {
-    //self.frame = frame;
-    [self.leftImageView setFrame:CGRectMake(self.leftImage.size.width/2+5, self.frame.size.height/2, self.leftImageView.frame.size.width, self.leftImageView.frame.size.height)];
+    [self.leftImageView setFrame:CGRectMake(5, self.frame.size.height/2-self.leftImageView.frame.size.height/2, self.leftImageView.frame.size.width, self.leftImageView.frame.size.height)];
     [self.centerImageView setFrame:CGRectMake(self.frame.size.width/2-self.centerImageView.frame.size.width/2, self.frame.size.height/2-self.centerImageView.frame.size.height/2, self.centerImageView.frame.size.width, self.centerImageView.frame.size.height)];
-
-    //self.leftImageView.center=CGPointMake(self.leftImage.size.width/2+5, self.height/2);
     
 }
 //--------------------------------------------------

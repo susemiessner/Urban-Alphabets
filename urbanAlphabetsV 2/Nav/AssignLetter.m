@@ -16,7 +16,7 @@
     
     int notificationCounter; //to make sure Ok button is only added 1x
     NSMutableArray *greyRectArray;
-    C4Shape *currentImage; //the image currently highlighted
+    UIView *currentImage; //the image currently highlighted
     UIImage *croppedImage;
     
     NSMutableArray *greyGridArray;
@@ -43,9 +43,9 @@
     
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
         
-        UIImage *image=[self.currentAlphabet objectAtIndex:i ];
-        [self.canvas removeObject:image];
-        [self stopListeningFor:@"touchesBegan" object:image];
+        UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
+        [image removeFromSuperview];
+        //[self stopListeningFor:@"touchesBegan" object:image];
     }
     [self grabCurrentAlphabetViaNavigationController];
 }
@@ -65,10 +65,9 @@
     self.navigationItem.leftBarButtonItem=leftButton;
 
     //bottomNavbar WITH 3 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:croppedImage withFrame:CGRectMake(0, 0, 32.788, 40.022) centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
-    [self.canvas addShape:self.bottomNavBar];
-    self.bottomNavBar.centerImageView.hidden=YES;
+    [self.view addSubview:self.bottomNavBar];
     
     //start location updating
     locationManager = [[CLLocationManager alloc] init];
@@ -95,13 +94,20 @@
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        C4Shape *greyRect=[C4Shape rect:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        greyRect.fillColor=UA_NAV_CTRL_COLOR;
-        greyRect.lineWidth=2;
-        greyRect.strokeColor=UA_NAV_BAR_COLOR;
+        UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
+        
+        greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        greyRect.layer.borderWidth=1.0f;
+        greyRect.userInteractionEnabled=YES;
         [greyGridArray addObject:greyRect];
-        [self.canvas addShape:greyRect];
-        [self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"highlightLetter:"];
+        [self.view addSubview:greyRect];
+        NSLog(@"greyGrid: %i: %@", i, greyRect);
+        
+        //make them touchable
+        UITapGestureRecognizer *letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];
+        letterTapRecognizer.numberOfTapsRequired = 1;
+        [greyRect addGestureRecognizer:letterTapRecognizer];
     }
 }
 -(void)drawCurrentAlphabet: (NSMutableArray*)currentAlphabetPassed{
@@ -116,21 +122,28 @@
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         UIImage *image=[self.currentAlphabet objectAtIndex:i ];
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        [self.canvas addSubview:imageView];
+        imageView.image=image;
+        [self.view addSubview:imageView];
     }
 }
--(void)highlightLetter:(NSNotification *)notification {
+-(void)highlightLetter:(UITapGestureRecognizer *)notification {
+    NSLog(@"highlight letter");
+    NSLog(@"notification object: %@", notification.view);
     for (int i=0; i<42; i++) {
         currentImage= greyGridArray[i];
         currentImage.backgroundColor=UA_NAV_CTRL_COLOR;
     }
-    currentImage = (C4Shape *)notification.object;
+    currentImage = (UIView *)notification.view;
     currentImage.backgroundColor= UA_HIGHLIGHT_COLOR;
     
     //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
     if (notificationCounter==0) {
         self.bottomNavBar.centerImageView.hidden=NO;
-        [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImageView andRunMethod:@"goToAlphabetsViewAddingImageToAlphabet"];
+        //make them touchable
+        UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetsViewAddingImageToAlphabet)];
+        okButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
+        //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImageView andRunMethod:@"goToAlphabetsViewAddingImageToAlphabet"];
     }
     notificationCounter++;
     
@@ -149,8 +162,8 @@
     //--------------------------------------------------
     float imageWidth=53.53;
     float imageHeight=65.1;
-    float i=currentImage.origin.x/imageWidth;
-    float j=currentImage.origin.y/imageHeight;
+    float i=currentImage.frame.origin.x/imageWidth;
+    float j=currentImage.frame.origin.y/imageHeight;
     
     self.chosenImageNumberInArray=((j-1)*6)+i+1;
     //--------------------------------------------------
@@ -225,7 +238,7 @@
     //C4Log(@"graphicsContext: %@", graphicsContext.);
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //surely needs to be changed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    [croppedImage drawInRect:CGRectMake(0, 0, self.canvas.width, self.canvas.height)];
+    [croppedImage drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     //[croppedImage renderInContext:graphicsContext];
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     NSString *letterToAdd=@" ";
