@@ -16,6 +16,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    application.statusBarHidden = YES;
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.workspace = [[C4WorkSpace alloc] init];
+    [self.workspace setup];
     //create the nav controller, and add the workspace to it
     navController = [[UINavigationController alloc] initWithRootViewController:self.workspace];
     //set the window's root view controller to the nav controller
