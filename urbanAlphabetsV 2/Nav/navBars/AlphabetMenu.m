@@ -17,7 +17,7 @@
     if (self) {
         float sideMargin=8.2;
         float smallMargin=1.0;
-        float width=self.width-2*sideMargin;
+        float width=self.frame.size.width-2*sideMargin;
         float height=42.45;
         float TextmarginFromLeft=103.11;
 
@@ -25,113 +25,128 @@
         //--------------------------------------------------
         //underlying rect
         //--------------------------------------------------
-        [self rect:self.frame];
-        self.fillColor=UA_DARKEN_COLOR;
-        self.lineWidth=0;
- 
-        
+        [self setBackgroundColor:UA_OVERLAY_COLOR];
         
         //--------------------------------------------------
         //CANCEL
         //--------------------------------------------------
         //cancelShape
-        self.cancelShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin+height), width, height)];
-        self.cancelShape.fillColor=UA_WHITE_COLOR;
-        self.cancelShape.lineWidth=0;
-        [self addShape: self.cancelShape];
+        
+        self.cancelShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin+height), width, height)];
+        [self.cancelShape setBackgroundColor:UA_WHITE_COLOR];
+        [self addSubview: self.cancelShape];
         
         //cancel Label
-        self.cancelLabel=[C4Label labelWithText:@"Cancel" font:UA_FAT_FONT];
+        self.cancelLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.cancelShape.frame.origin.x, self.cancelShape.frame.origin.y, self.cancelShape.frame.size.width, self.cancelShape.frame.size.height)];
+                          [self.cancelLabel setText:@"Cancel"];
+                          [self.cancelLabel setFont:UA_FAT_FONT];
+        [self.cancelLabel setTextAlignment:UITextAlignmentCenter];
         self.cancelLabel.center=self.cancelShape.center;
-        [self addLabel: self.cancelLabel];
+        [self addSubview: self.cancelLabel];
         
+        self.cancelShape.userInteractionEnabled=YES;
+        self.cancelLabel.userInteractionEnabled=YES;
         //--------------------------------------------------
         //MY ALPHABETS
         //--------------------------------------------------
         //shape
-        self.myAlphabetsShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*2), width, height)];
-        self.myAlphabetsShape.fillColor=UA_WHITE_COLOR;
-        self.myAlphabetsShape.lineWidth=0;
-        [self addShape:self.myAlphabetsShape];
+        self.myAlphabetsShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.self.frame.size.height-(sideMargin*2+height*2), width, height)];
+        [self.myAlphabetsShape setBackgroundColor:UA_WHITE_COLOR];
+        [self addSubview:self.myAlphabetsShape];
         
         //label
-        self.myAlphabetsLabel=[C4Label labelWithText:@"My Alphabets" font:UA_NORMAL_FONT];
-        self.myAlphabetsLabel.origin=CGPointMake(TextmarginFromLeft, self.myAlphabetsShape.center.y-self.myAlphabetsLabel.height/2);
-        [self addLabel:self.myAlphabetsLabel];
+        self.myAlphabetsLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.myAlphabetsShape.frame.origin.x+100, self.myAlphabetsShape.frame.origin.y, self.myAlphabetsShape.frame.size.width, self.myAlphabetsShape.frame.size.height)];
+        [self.myAlphabetsLabel setText:@"My Alphabets"];
+        [self.myAlphabetsLabel setFont:UA_NORMAL_FONT];
+        [self addSubview: self.myAlphabetsLabel];
+
         
         //image
-        self.myAlphabetsIcon=UA_ICON_MY_ALPHABETS;
-        self.myAlphabetsIcon.width= 70;
-        self.myAlphabetsIcon.center=CGPointMake(self.myAlphabetsShape.origin.x+self.myAlphabetsIcon.width/2+5, self.myAlphabetsShape.center.y);
-        [self addImage:self.myAlphabetsIcon];
+        self.myAlphabetsIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.myAlphabetsShape.frame.origin.x+3, self.myAlphabetsShape.frame.origin.y+2, 70, 35)];
+        self.myAlphabetsIcon.image=UA_ICON_MY_ALPHABETS;
+        [self addSubview:self.myAlphabetsIcon];
+        
+        self.myAlphabetsShape.userInteractionEnabled=YES;
+        self.myAlphabetsLabel.userInteractionEnabled=YES;
+        self.myAlphabetsIcon.userInteractionEnabled=YES;
         //--------------------------------------------------
         //WRITE POSTCARD
         //--------------------------------------------------
-        self.writePostcardShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*3+smallMargin), width, height)];
-        self.writePostcardShape.fillColor=UA_WHITE_COLOR;
-        self.writePostcardShape.lineWidth=0;
-        [self addShape:self.writePostcardShape];
+        self.writePostcardShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*3+smallMargin), width, height)];
+        [self.writePostcardShape setBackgroundColor:UA_WHITE_COLOR];
+        [self addSubview:self.writePostcardShape];
         
-        self.writePostcardLabel=[C4Label labelWithText:@"Write Postcard" font:UA_NORMAL_FONT];
-        self.writePostcardLabel.origin=CGPointMake(TextmarginFromLeft, self.writePostcardShape.center.y-self.writePostcardLabel.height/2);
-        [self addLabel:self.writePostcardLabel];
+        self.writePostcardLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.writePostcardShape.frame.origin.x+100, self.writePostcardShape.frame.origin.y, self.writePostcardShape.frame.size.width, self.writePostcardShape.frame.size.height) ];
+                                 [self.writePostcardLabel setText:@"Write Postcard"];
+                                 [self.writePostcardLabel setFont:UA_NORMAL_FONT];
+        [self addSubview:self.writePostcardLabel];
         
-        self.writePostcardIcon=UA_ICON_POSTCARD;
-        self.writePostcardIcon.width= 70;
-        self.writePostcardIcon.center=CGPointMake(self.writePostcardShape.origin.x+self.writePostcardIcon.width/2+5, self.writePostcardShape.center.y);
-        [self addImage:self.writePostcardIcon];
+                                 self.writePostcardIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.writePostcardShape.frame.origin.x+3, self.writePostcardShape.frame.origin.y+2, 70, 35)];
+                                 
+        self.writePostcardIcon.image=UA_ICON_POSTCARD;
+        [self addSubview:self.writePostcardIcon];
         
+        self.writePostcardShape.userInteractionEnabled=YES;
+        self.writePostcardLabel.userInteractionEnabled=YES;
+        self.writePostcardIcon.userInteractionEnabled=YES;
         //--------------------------------------------------
         //SAVE ALPHABET
         //--------------------------------------------------
-        self.saveAlphabetShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*4+smallMargin*2), width, height)];
-        self.saveAlphabetShape.fillColor=UA_WHITE_COLOR;
-        self.saveAlphabetShape.lineWidth=0;
-        [self addShape:self.saveAlphabetShape];
+        self.saveAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*4+smallMargin*2), width, height)];
+        [self.saveAlphabetShape setBackgroundColor:UA_WHITE_COLOR];
+        [self addSubview:self.saveAlphabetShape];
         
-        self.saveAlphabetLabel=[C4Label labelWithText:@"Save Alphabet" font:UA_NORMAL_FONT];
-        self.saveAlphabetLabel.origin=CGPointMake(TextmarginFromLeft, self.saveAlphabetShape.center.y-self.saveAlphabetLabel.height/2);
-        [self addLabel:self.saveAlphabetLabel];
+        self.saveAlphabetLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.saveAlphabetShape.frame.origin.x+100, self.saveAlphabetShape.frame.origin.y, self.saveAlphabetShape.frame.size.width-100, self.saveAlphabetShape.frame.size.height)];
+                                [self.saveAlphabetLabel setText:@"Save Alphabet" ];
+                                [self.saveAlphabetLabel setFont:UA_NORMAL_FONT];
+        [self addSubview:self.saveAlphabetLabel];
         
-        self.saveAlphabetIcon=UA_ICON_SAVE;
-        self.saveAlphabetIcon.width= 40;
-        self.saveAlphabetIcon.center=CGPointMake(self.saveAlphabetShape.origin.x+self.writePostcardIcon.width/2+5, self.saveAlphabetShape.center.y);
-        [self addImage:self.saveAlphabetIcon];
+        self.saveAlphabetIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.saveAlphabetShape.frame.origin.x+3+15, self.saveAlphabetShape.frame.origin.y+2, 40, 40)];
+        self.saveAlphabetIcon.image=UA_ICON_SAVE;
+        [self addSubview:self.saveAlphabetIcon];
         
-
+        self.saveAlphabetShape.userInteractionEnabled=YES;
+        self.saveAlphabetLabel.userInteractionEnabled=YES;
+        self.saveAlphabetIcon.userInteractionEnabled=YES;
         //--------------------------------------------------
         //SHARE ALPHABET
         //--------------------------------------------------
-        self.shareAlphabetShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*5+smallMargin*3), width, height)];
-        self.shareAlphabetShape.fillColor=UA_WHITE_COLOR;
-        self.shareAlphabetShape.lineWidth=0;
-        [self addShape:self.shareAlphabetShape];
+        self.shareAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*5+smallMargin*3), width, height)];
+        [self.shareAlphabetShape setBackgroundColor:UA_WHITE_COLOR];
+        [self addSubview:self.shareAlphabetShape];
         
-        self.shareAlphabetLabel=[C4Label labelWithText:@"Share Alphabet" font:UA_NORMAL_FONT];
-        self.shareAlphabetLabel.origin=CGPointMake(TextmarginFromLeft, self.shareAlphabetShape.center.y-self.shareAlphabetLabel.height/2);
-        [self addLabel:self.shareAlphabetLabel];
+        self.shareAlphabetLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.shareAlphabetShape.frame.origin.x+100, self.shareAlphabetShape.frame.origin.y, self.shareAlphabetShape.frame.size.width, self.shareAlphabetShape.frame.size.height)];
+                                 [self.shareAlphabetLabel setText:@"Share Alphabet"];
+        [self.shareAlphabetLabel setFont:UA_NORMAL_FONT];
+        [self addSubview:self.shareAlphabetLabel];
         
-        self.shareAlphabetIcon=UA_ICON_SHARE_ALPHABET;
-        self.shareAlphabetIcon.width= 70;
-        self.shareAlphabetIcon.center=CGPointMake(self.shareAlphabetShape.origin.x+self.shareAlphabetIcon.width/2+5, self.shareAlphabetShape.center.y);
-        [self addImage:self.shareAlphabetIcon];
+        self.shareAlphabetIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.shareAlphabetShape.frame.origin.x+5, self.shareAlphabetShape.frame.origin.y+3, 70, 35)];
+        self.shareAlphabetIcon.image=UA_ICON_SHARE_ALPHABET;
+        [self addSubview:self.shareAlphabetIcon];
+        
+        self.shareAlphabetShape.userInteractionEnabled=YES;
+        self.shareAlphabetLabel.userInteractionEnabled=YES;
+        self.shareAlphabetIcon.userInteractionEnabled=YES;
 
         //--------------------------------------------------
         //ALPHABET INFO
         //--------------------------------------------------
-        self.alphabetInfoShape=[C4Shape rect:CGRectMake(sideMargin, self.height-(sideMargin*2+height*6+smallMargin*4    ), width, height)];
-        self.alphabetInfoShape.fillColor=UA_WHITE_COLOR;
-        self.alphabetInfoShape.lineWidth=0;
-        [self addShape:self.alphabetInfoShape];
+        self.alphabetInfoShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*6+smallMargin*4    ), width, height)];
+        [self.alphabetInfoShape setBackgroundColor:UA_WHITE_COLOR];
+        [self addSubview:self.alphabetInfoShape];
         
-        self.alphabetInfoLabel=[C4Label labelWithText:@"Alphabet info" font:UA_NORMAL_FONT];
-        self.alphabetInfoLabel.origin=CGPointMake(TextmarginFromLeft, self.alphabetInfoShape.center.y-self.alphabetInfoLabel.height/2);
-        [self addLabel:self.alphabetInfoLabel];
+        self.alphabetInfoLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.alphabetInfoShape.frame.origin.x+100, self.alphabetInfoShape.frame.origin.y, self.alphabetInfoShape.frame.size.width, self.alphabetInfoShape.frame.size.height)];
+                                [self.alphabetInfoLabel setText:@"Alphabet info"];
+                                [self.alphabetInfoLabel setFont:UA_NORMAL_FONT];
+        [self addSubview:self.alphabetInfoLabel];
         
-        self.alphabetInfoIcon=UA_ICON_INFO;
-        self.alphabetInfoIcon.width= 38.676;
-        self.alphabetInfoIcon.center=CGPointMake(self.alphabetInfoShape.origin.x+self.shareAlphabetIcon.width/2+5, self.alphabetInfoShape.center.y);
-        [self addImage:self.alphabetInfoIcon];
+                                self.alphabetInfoIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.alphabetInfoShape.frame.origin.x+5+15, self.alphabetInfoShape.frame.origin.y+3, 40, 40)];
+        self.alphabetInfoIcon.image=UA_ICON_INFO;
+        
+        self.alphabetInfoIcon.userInteractionEnabled=YES;
+        self.alphabetInfoLabel.userInteractionEnabled=YES;
+        self.alphabetInfoShape.userInteractionEnabled=YES;
+        [self addSubview:self.alphabetInfoIcon];
 
     }
     return self;
@@ -139,7 +154,7 @@
 
 -(void)fitToFrame:(CGRect)frame {
     self.frame = frame;
-    self.backButton.center=CGPointMake(10, self.height / 2.0f);
+    //self.backButton.center=CGPointMake(10, self.height / 2.0f);
 }
 
 

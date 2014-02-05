@@ -49,11 +49,21 @@
 -(void )setup:(NSMutableArray*)passedAlphabet  {
     self.navigationItem.hidesBackButton = YES;
     //bottomNavbar WITH 2 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45)];
-    [self.canvas addShape:self.bottomNavBar];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
+    [self.view addSubview:self.bottomNavBar];
+    
+    //make it touchable
+    UITapGestureRecognizer *photoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToTakePhoto)];
+    photoButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.leftImageView addGestureRecognizer:photoButtonRecognizer];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
+    
+    //make it touchable
+    UITapGestureRecognizer *menuButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMenu)];
+    menuButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
 }
 -(void)viewDidAppear:(BOOL)animated{
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
@@ -71,21 +81,29 @@
     [self initGreyGrid];
 }
 -(void)initGreyGrid{
+    greyRectArray=[[NSMutableArray alloc]init];
     float imageWidth=53.53;
     float imageHeight=65.1;
-    greyRectArray=[[NSMutableArray alloc]init];
     for (NSUInteger i=0; i<42; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        C4Shape *greyRect=[C4Shape rect:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        greyRect.fillColor=UA_NAV_CTRL_COLOR;
-        greyRect.lineWidth=2;
-        greyRect.strokeColor=UA_NAV_BAR_COLOR;
+        UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
+        
+        greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        greyRect.layer.borderWidth=1.0f;
+        greyRect.userInteractionEnabled=YES;
         [greyRectArray addObject:greyRect];
-        [self.canvas addShape:greyRect];
-        [self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"tappedLetter:"];
+        [self.view addSubview:greyRect];
+        //NSLog(@"greyGrid: %i: %@", i, greyRect);
+        
+        //make them touchable
+        UITapGestureRecognizer *letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedLetter:)];
+        letterTapRecognizer.numberOfTapsRequired = 1;
+        [greyRect addGestureRecognizer:letterTapRecognizer];
+        //[self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"tappedLetter:"];
     }
 }
 -(void)drawCurrentAlphabet{
@@ -96,10 +114,10 @@
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        C4Image *image=[self.currentAlphabet objectAtIndex:i ];
-        image.origin=CGPointMake(xPos, yPos);
-        image.width=imageWidth;
-        [self.canvas addImage:image];
+        UIImage *image=[self.currentAlphabet objectAtIndex:i ];
+        UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        imageView.image=image;
+        [self.view addSubview:imageView];
     }
 }
 //------------------------------------------------------------------------
@@ -112,7 +130,7 @@
         //[self stopListeningFor:@"touchesBegan" object:image];
         C4Shape *rectShape=[greyRectArray objectAtIndex:i];
         [rectShape removeFromSuperview];
-        [self stopListeningFor:@"touchesBegan" object:rectShape];
+        //[self stopListeningFor:@"touchesBegan" object:rectShape];
     }
     [self grabCurrentLanguageViaNavigationController];
 }
@@ -124,18 +142,22 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void)goToSaveAlphabet{
-    self.menu.saveAlphabetShape.fillColor=UA_HIGHLIGHT_COLOR;
+    NSLog(@"saveAlphabet");
+    //self.menu.saveAlphabetShape.fillColor=UA_HIGHLIGHT_COLOR;
     [self closeMenu];
-    [self saveAlphabet];
+    //[self saveAlphabet];
 }
 -(void)goToWritePostcard{
-    self.menu.writePostcardShape.fillColor=UA_HIGHLIGHT_COLOR;
-    writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
+    NSLog(@"write Postcard");
+    //self.menu.writePostcardShape.fillColor=UA_HIGHLIGHT_COLOR;
+    /*writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
     [writePostcard setupWithLanguage:workspace.currentLanguage Alphabet:workspace.currentAlphabet];
     [self.navigationController pushViewController:writePostcard animated:YES];
-    [self closeMenu];
+    [self closeMenu];*/
 }
 -(void)goToAlphabetInfo{
+    NSLog(@"goToAlphabetInfo");
+    
     //--------------------------------------------------
     //prepare alphabetInfo
     //--------------------------------------------------
@@ -145,10 +167,10 @@
     [alphabetInfo grabCurrentLanguageViaNavigationController ];
     [self closeMenu];
 }
--(void)tappedLetter:(NSNotification *)notification {
+-(void)tappedLetter:(UIGestureRecognizer *)notification {
     //get the current object
-    C4Shape *currentImage = (C4Shape *)notification.object;
-    CGPoint chosenImage=CGPointMake(currentImage.origin.x, currentImage.origin.y);
+    UIView *currentImage = (UIView *)notification.view;
+    CGPoint chosenImage=CGPointMake(currentImage.frame.origin.x, currentImage.frame.origin.y);
     //figure out which letter was pressed
     float imageWidth=53.53;
     float imageHeight=65.1;
@@ -163,47 +185,105 @@
     [self.navigationController pushViewController:letterView animated:YES];
 }
 -(void)goToShareAlphabet{
+    NSLog(@"ShareAlphabet");
     //get the current alphabet as a photo
-    [self saveAlphabet];
+    /*[self saveAlphabet];
     [self closeMenu];
     shareAlphabet=[[ShareAlphabet alloc]initWithNibName:@"ShareAlphabet" bundle:[NSBundle mainBundle]];
     [shareAlphabet setup: self.currentAlphabetImageAsUIImage];
-    [self.navigationController pushViewController:shareAlphabet animated:YES];
+    [self.navigationController pushViewController:shareAlphabet animated:YES];*/
 }
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)goToMyAlphabets{
+    NSLog(@"myAlphabets");
+    /*
     [self closeMenu];
     myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
     [myAlphabets setup];
     [self.navigationController pushViewController:myAlphabets animated:YES];
-    [myAlphabets grabCurrentLanguageViaNavigationController];
+    [myAlphabets grabCurrentLanguageViaNavigationController];*/
 }
 //------------------------------------------------------------------------
 //MENU
 //------------------------------------------------------------------------
 -(void)openMenu{
-    self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
+    NSLog(@"openMenu");
     [self saveCurrentAlphabetAsImage];
-    CGRect menuFrame = CGRectMake(0, 0, self.canvas.width, self.canvas.height);
+    CGRect menuFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];
-    [self.canvas addShape:self.menu];
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.cancelShape, self.menu.cancelLabel] andRunMethod:@"closeMenu"];
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.saveAlphabetShape, self.menu.saveAlphabetLabel,self.menu.saveAlphabetIcon] andRunMethod:@"goToSaveAlphabet"];
-    //start location updating
+    [self.view addSubview:self.menu];
+        //start location updating
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
+    //all gesture recognizers
     //alphabet info
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.alphabetInfoShape, self.menu.alphabetInfoLabel,self.menu.alphabetInfoIcon] andRunMethod:@"goToAlphabetInfo"];
+    UITapGestureRecognizer *alphabetInfoIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
+    alphabetInfoIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.alphabetInfoIcon addGestureRecognizer:alphabetInfoIconRecognizer];
+    UITapGestureRecognizer *alphabetInfoShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
+    alphabetInfoShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.alphabetInfoShape addGestureRecognizer:alphabetInfoShapeRecognizer];
+    UITapGestureRecognizer *alphabetInfoLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
+    alphabetInfoLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.alphabetInfoLabel addGestureRecognizer:alphabetInfoLabelRecognizer];
+    
     //write postcard
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.writePostcardShape, self.menu.writePostcardLabel,self.menu.writePostcardIcon] andRunMethod:@"goToWritePostcard"];
+    UITapGestureRecognizer *writePostcardShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToWritePostcard)];
+    writePostcardShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.writePostcardShape addGestureRecognizer:writePostcardShapeRecognizer];
+    UITapGestureRecognizer *writePostcardLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToWritePostcard)];
+    writePostcardLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.writePostcardLabel addGestureRecognizer:writePostcardLabelRecognizer];
+    UITapGestureRecognizer *writePostcardIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToWritePostcard)];
+    writePostcardIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.writePostcardIcon addGestureRecognizer:writePostcardIconRecognizer];
+    
     //share alphabet
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.shareAlphabetShape, self.menu.shareAlphabetLabel,self.menu.shareAlphabetIcon] andRunMethod:@"goToShareAlphabet"];
+    UITapGestureRecognizer *shareAlphabetShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToShareAlphabet)];
+    shareAlphabetShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.shareAlphabetShape addGestureRecognizer:shareAlphabetShapeRecognizer];
+    UITapGestureRecognizer *shareAlphabetLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToShareAlphabet)];
+    shareAlphabetLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.shareAlphabetLabel addGestureRecognizer:shareAlphabetLabelRecognizer];
+    UITapGestureRecognizer *shareAlphabetIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToShareAlphabet)];
+    shareAlphabetIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.shareAlphabetIcon addGestureRecognizer:shareAlphabetIconRecognizer];
+
+    
     //my alphabets
-    [self listenFor:@"touchesBegan" fromObjects:@[self.menu.myAlphabetsShape, self.menu.myAlphabetsLabel,self.menu.myAlphabetsIcon] andRunMethod:@"goToMyAlphabets"];
+    UITapGestureRecognizer *myAlphabetsShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
+    myAlphabetsShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.myAlphabetsShape addGestureRecognizer:myAlphabetsShapeRecognizer];
+    UITapGestureRecognizer *myAlphabetsLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
+    myAlphabetsLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.myAlphabetsLabel addGestureRecognizer:myAlphabetsLabelRecognizer];
+    UITapGestureRecognizer *myAlphabetsIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
+    myAlphabetsIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.myAlphabetsIcon addGestureRecognizer:myAlphabetsIconRecognizer];
+    
+    //saveAlphabet
+    UITapGestureRecognizer *saveAlphabetShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSaveAlphabet)];
+    saveAlphabetShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.saveAlphabetShape addGestureRecognizer:saveAlphabetShapeRecognizer];
+    UITapGestureRecognizer *saveAlphabetLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSaveAlphabet)];
+    saveAlphabetLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.saveAlphabetLabel addGestureRecognizer:saveAlphabetLabelRecognizer];
+    UITapGestureRecognizer *saveAlphabetIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSaveAlphabet)];
+    saveAlphabetIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.saveAlphabetIcon addGestureRecognizer:saveAlphabetIconRecognizer];
+
+    //cancel
+    UITapGestureRecognizer *cancelShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeMenu)];
+   cancelShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.cancelShape addGestureRecognizer:cancelShapeRecognizer];
+    UITapGestureRecognizer *cancelLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeMenu)];
+    cancelLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.cancelLabel addGestureRecognizer:cancelLabelRecognizer];
+
 }
 -(void)closeMenu{
     //stop location updating
@@ -216,35 +296,35 @@
 //------------------------------------------------------------------------
 -(void)saveAlphabet{
     //crop the screenshot
-    self.currentAlphabetImage=[self cropImage:self.currentAlphabetImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.canvas.width, self.canvas.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))];
+    self.currentAlphabetImage=[self cropImage:self.currentAlphabetImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))];
     [self exportHighResImage];
 }
 
 -(void)saveCurrentAlphabetAsImage{
     CGFloat scale = 10.0;
     //begin an image context
-    CGSize  rect=CGSizeMake(self.canvas.width, self.canvas.height);
+    CGSize  rect=CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
     UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
     //create a new context ref
     CGContextRef c = UIGraphicsGetCurrentContext();
     //render the canvas image into the context
-    [self.canvas renderInContext:c];
+    //[self.view renderInContext:c];
     //grab a UIImage from the context
     UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
     //end the image context
     UIGraphicsEndImageContext();
     //create a new C4Image
-    self.currentAlphabetImage = [C4Image imageWithUIImage:newUIImage];
+    self.currentAlphabetImage = newUIImage;
 }
 -(void)exportHighResImage {
     graphicsContext = [self createHighResImageContext];
-    [self.currentAlphabetImage renderInContext:graphicsContext];
+    //[self.currentAlphabetImage renderInContext:graphicsContext];
     NSString *fileName = [NSString stringWithFormat:@"exportedAlphabet%@.jpg", [NSDate date]];
     [self saveImage:fileName];
     [self saveImageToLibrary];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.canvas.width, self.canvas.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {

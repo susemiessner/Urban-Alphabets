@@ -6,9 +6,8 @@
 //  Copyright (c) 2013 moi. All rights reserved.
 //
 
-#import "C4CanvasController.h"
 
-@interface AlphabetInfo : C4CanvasController<UITextViewDelegate>
+@interface AlphabetInfo : UIViewController<UITextViewDelegate>
 @property (nonatomic) NSString *currentLanguage;
 
 -(void)setup;

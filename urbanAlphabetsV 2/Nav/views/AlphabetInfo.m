@@ -16,14 +16,14 @@
     C4WorkSpace *workspace;
     AlphabetView *alphabetView;
     //labels for the actual info
-    C4Label *nameLabel;
-    C4Label *alphabetName;
-    C4Label *languageLabel;
-    C4Label *language;
-    C4Label *changeLanguage;
-    C4Label *changeAlphabetName;
-    C4Label *resetLabel;
-    C4Label *deleteLabel;
+    UILabel *nameLabel;
+    UILabel *alphabetName;
+    UILabel *languageLabel;
+    UILabel *language;
+    UILabel *changeLanguage;
+    UILabel *changeAlphabetName;
+    UILabel *resetLabel;
+    UILabel *deleteLabel;
     
     //to change the alphabet Name
     UITextView *textViewTest;
@@ -46,10 +46,10 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     //bottomNavbar WITH 1 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
-    [self.canvas addShape:self.bottomNavBar];
-    [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetView"];
+    [self.view addSubview:self.bottomNavBar];
+    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetView"];
 }
 
 -(void)grabCurrentLanguageViaNavigationController {

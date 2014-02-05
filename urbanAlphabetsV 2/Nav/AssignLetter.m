@@ -102,7 +102,7 @@
         greyRect.userInteractionEnabled=YES;
         [greyGridArray addObject:greyRect];
         [self.view addSubview:greyRect];
-        NSLog(@"greyGrid: %i: %@", i, greyRect);
+        //NSLog(@"greyGrid: %i: %@", i, greyRect);
         
         //make them touchable
         UITapGestureRecognizer *letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];

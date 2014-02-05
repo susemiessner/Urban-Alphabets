@@ -11,8 +11,8 @@
 #import "AlphabetInfo.h"
 
 
-@interface AlphabetView : C4CanvasController<CLLocationManagerDelegate>
-@property (readwrite, strong) C4Image *currentAlphabetImage;
+@interface AlphabetView : UIViewController<CLLocationManagerDelegate>
+@property (readwrite, strong) UIImage *currentAlphabetImage;
 @property (readwrite, strong) UIImage *currentAlphabetImageAsUIImage;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
 @property (readwrite) int letterTouched;

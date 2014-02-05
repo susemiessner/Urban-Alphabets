@@ -8,7 +8,7 @@
 
 #import "SaveToDatabase.h"
 @implementation SaveToDatabase
--(void)sendLetterToDatabase: (CLLocation*)theLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(C4Image*)croppedImage Language:(NSString*)theLanguage Username:(NSString*)userName{
+-(void)sendLetterToDatabase: (CLLocation*)theLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(UIImage*)croppedImage Language:(NSString*)theLanguage Username:(NSString*)userName{
     currentLocation=theLocation;
     path=[NSString stringWithFormat:@"letter_%@.png", [NSDate date]];
     longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
@@ -20,7 +20,7 @@
     alphabet=@"no";
     language=@"none";
     postcardText=@"none";
-    NSData *imageData=UIImagePNGRepresentation(croppedImage.UIImage);
+    NSData *imageData=UIImagePNGRepresentation(croppedImage);
     [self connect:imageData];
 }
 -(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withLocation:(CLLocation*)theLocation  withUsername:(NSString*)userName{
@@ -61,10 +61,12 @@
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
+    NSLog(@"request: %@", request);
     // now lets make the connection to the web
     (void)[[NSURLConnection alloc]initWithRequest:request delegate:self];
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    NSLog(@"%@", response);
 }
 -(void)findRightLetter:(NSUInteger)chosenImageNumberInArray Language:(NSString*)theLanguage{
     if ([theLanguage isEqual:@"Finnish/Swedish"]||[theLanguage isEqualToString:@"German"] ||[theLanguage isEqualToString:@"English"] ||[theLanguage isEqualToString:@"Danish/Norwegian"] || [theLanguage isEqualToString:@"Spanish"]) {

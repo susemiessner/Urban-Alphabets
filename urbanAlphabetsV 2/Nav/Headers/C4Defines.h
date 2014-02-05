@@ -66,8 +66,8 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_BOTTOM_BAR_HEIGHT    49.0f
 
 // TYPE/FONTS
-#define UA_FAT_FONT             [C4Font fontWithName:@"HelveticaNeue-Bold" size:17]
-#define UA_NORMAL_FONT          [C4Font fontWithName:@"HelveticaNeue" size:17]
+#define UA_FAT_FONT             [UIFont fontWithName:@"HelveticaNeue-Bold" size:17]
+#define UA_NORMAL_FONT          [UIFont fontWithName:@"HelveticaNeue" size:17]
 
 //Icons
 #define UA_ICON_TAKE_PHOTO       [UIImage imageNamed:@"icon_TakePhoto"]
