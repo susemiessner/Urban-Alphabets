@@ -13,7 +13,7 @@
 @interface LetterView (){
     AlphabetView *alphabetView;
     NSInteger currentLetter;
-    UIImage *currentImage; //the image currently displayed
+    UIImageView *currentImage; //the image currently displayed
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
@@ -26,7 +26,7 @@
     //bottomNavbar WITH 3 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.canvas.height-UA_BOTTOM_BAR_HEIGHT, self.canvas.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_ARROW_BACKWARD withFrame:CGRectMake(0, 0, 70, 35) centerIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 45) rightIcon:UA_ICON_ARROW_FORWARD withFrame:CGRectMake(0, 0, 70, 35)];
-    [self.canvas addShape:self.bottomNavBar];
+    [self.view addSubview:self.bottomNavBar];
     
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goBackward"];
     [self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"goForward"];
@@ -38,9 +38,8 @@
 -(void)displayLetter:(int)chosenNumber{
     currentLetter=chosenNumber;
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
-    currentImage.width=self.canvas.width;
-    currentImage.center=self.canvas.center;
-    [self.canvas addImage:currentImage];
+    currentImage.frame=CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.height);
+    [self.view addSubview:currentImage];
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
