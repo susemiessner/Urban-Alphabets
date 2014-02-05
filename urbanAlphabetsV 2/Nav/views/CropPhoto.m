@@ -49,16 +49,15 @@
     
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
-    NSLog(@"UA_icon_ok: %@", UA_ICON_OK);
+    //NSLog(@"UA_icon_ok: %@", UA_ICON_OK);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
     [self.view addSubview:self.bottomNavBar];
     
-   //ok button
+   //ok button tap
     UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(saveImage)];
     okButtonRecognizer.numberOfTapsRequired = 1;
-    //[self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
-    
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"saveImage"];
+    [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
+    NSLog(@"okButton: %@", self.bottomNavBar.centerImageView);
     
     //--------------------------------------------------
     //ZOOM STEPPER
@@ -152,6 +151,7 @@
 //SAVE IMAGE
 //--------------------------------------------------
 -(void)saveImage{
+    NSLog(@"saveImage");
     self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
     //crop image
     self.croppedPhoto=[self cropImage:self.photoTaken withOrigin:photoTakenView.frame.origin toArea:CGRectMake(51, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+86.764, self.view.frame.size.width-2*51, 266)];
@@ -164,13 +164,13 @@
     [self exportHighResImage];
     
     //this goes to the next view
-    /*assignLetter = [[AssignLetter alloc] initWithNibName:@"AssignLetter" bundle:[NSBundle mainBundle]];
+    assignLetter = [[AssignLetter alloc] initWithNibName:@"AssignLetter" bundle:[NSBundle mainBundle]];
     [assignLetter setup:self.croppedPhoto];
     
-    [self.navigationController pushViewController:assignLetter animated:YES];*/
+    [self.navigationController pushViewController:assignLetter animated:YES];
 }
 -(UIImage *)cropImage:(UIImage *)originalImage withOrigin:(CGPoint)origin toArea:(CGRect)rect{
-    //grab the image scale
+    //grab the image scale 
     CGFloat scale = originalImage.scale;
     
     //begin an image context

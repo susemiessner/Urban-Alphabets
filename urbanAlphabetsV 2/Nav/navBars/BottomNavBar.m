@@ -23,7 +23,6 @@
         //--------------------------------------------------
         //underlying rect
         //--------------------------------------------------
-        self=[[UIView alloc]initWithFrame:frame];
         [self setBackgroundColor:UA_NAV_BAR_COLOR];
         
         //--------------------------------------------------
@@ -31,34 +30,39 @@
         //--------------------------------------------------
         self.leftImage=leftIcon;
         self.leftImageView=[[UIImageView alloc]initWithFrame: leftFrame];
-        [self addSubview:self.leftImageView];
-
+        self.leftImageView.image=self.leftImage;
+        self.leftImageView.userInteractionEnabled=YES;
+       [self addSubview:self.leftImageView];
+        
         //--------------------------------------------------
         //CENTER
         //--------------------------------------------------
         self.centerImage=centerIcon;
         self.centerImageView=[[UIImageView alloc]initWithFrame:centerFrame];
-        [self addSubview:self.centerImageView];
+        self.centerImageView.image=self.centerImage;
+        self.centerImageView.userInteractionEnabled=YES;
 
+        [self addSubview:self.centerImageView];
         //--------------------------------------------------
         //RIGHT
         //--------------------------------------------------
         self.rightImage=rightIcon;
         self.rightImageView=[[UIImageView alloc]initWithFrame:rightFrame];
+        self.rightImageView.image=self.rightImage;
+        self.rightImageView.userInteractionEnabled=YES;
         [self addSubview:self.rightImageView];
 
         
-        //[self fitToFrameThree:self.frame];
+        [self fitToFrameThree:self.frame];
 
     }
     return self;
 }
 
 -(void)fitToFrameThree:(CGRect)frame {
-    self.frame = frame;
-    self.leftImageView.center=CGPointMake(self.leftImage.size.width/2+5, self.frame.size.height/2);
-    self.centerImageView.center=CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-    self.rightImageView.center=CGPointMake(self.frame.size.width-(self.rightImage.size.width/2+5), self.frame.size.height/2);
+    [self.leftImageView setFrame:CGRectMake(self.leftImage.size.width/2+5, self.frame.size.height/2, self.leftImageView.frame.size.width, self.leftImageView.frame.size.height)];
+    [self.centerImageView setFrame:CGRectMake(self.frame.size.width/2-self.centerImageView.frame.size.width/2, self.frame.size.height/2-self.centerImageView.frame.size.height/2, self.centerImageView.frame.size.width, self.centerImageView.frame.size.height)];
+    [self.rightImageView setFrame:CGRectMake(self.frame.size.width-(self.rightImageView.frame.size.width/2+5), self.frame.size.height/2, self.rightImageView.frame.size.width, self.rightImageView.frame.size.height)];
 }
 //--------------------------------------------------
 //FOR 2 ICONS IN BAR: LEFT AND CENTER
@@ -70,7 +74,6 @@
         //--------------------------------------------------
         //underlying rect
         //--------------------------------------------------
-        self=[[UIView alloc]initWithFrame:frame];
         [self setBackgroundColor:UA_NAV_BAR_COLOR];
         
         //--------------------------------------------------
@@ -79,6 +82,7 @@
         self.leftImage=leftIcon;
         self.leftImageView=[[UIImageView alloc]initWithFrame: leftFrame];
         self.leftImageView.image=self.leftImage;
+        self.leftImageView.userInteractionEnabled=YES;
         [self addSubview:self.leftImageView];
         
         //--------------------------------------------------
@@ -86,20 +90,22 @@
         //--------------------------------------------------
         self.centerImage=centerIcon;
         self.centerImageView=[[UIImageView alloc]initWithFrame:centerFrame];
+        self.centerImageView.image=self.centerImage;
+        self.centerImageView.userInteractionEnabled=YES;
         [self addSubview:self.centerImageView];
         
-        //[self fitToFrameTWO:self.frame];
+        [self fitToFrameTWO:self.frame];
         
     }
     return self;
 }
 
 -(void)fitToFrameTWO:(CGRect)frame {
-    self.frame = frame;
-    /*[self.leftImageView setFrame:CGRectMake(self.leftImage.size.width/2+5, self.height/2, self.leftImage, )];
-    
-    self.leftImageView.center=CGPointMake(self.leftImage.size.width/2+5, self.height/2);
-    self.centerImageView.center=CGPointMake(self.width/2, self.height/2);*/
+    //self.frame = frame;
+    [self.leftImageView setFrame:CGRectMake(self.leftImage.size.width/2+5, self.frame.size.height/2, self.leftImageView.frame.size.width, self.leftImageView.frame.size.height)];
+    [self.centerImageView setFrame:CGRectMake(self.frame.size.width/2-self.centerImageView.frame.size.width/2, self.frame.size.height/2-self.centerImageView.frame.size.height/2, self.centerImageView.frame.size.width, self.centerImageView.frame.size.height)];
+
+    //self.leftImageView.center=CGPointMake(self.leftImage.size.width/2+5, self.height/2);
     
 }
 //--------------------------------------------------
@@ -112,28 +118,25 @@
         //--------------------------------------------------
         //underlying rect
         //--------------------------------------------------
-        self=[[UIView alloc]initWithFrame:frame];
         [self setBackgroundColor:UA_NAV_BAR_COLOR];
         
         //--------------------------------------------------
         //CENTER
         //--------------------------------------------------
-       centerFrame=CGRectMake(50, 50, 100, 100); //for testing
-        self.centerImage=[UIImage imageNamed:@"icon_OK.png"]; //for testing
-        //self.centerImage=centerIcon; >>this is the one that should be used
+        self.centerImage=centerIcon;
         self.centerImageView=[[UIImageView alloc]initWithFrame:centerFrame];
         self.centerImageView.image=self.centerImage;
+        self.centerImageView.userInteractionEnabled=YES;
         [self addSubview:self.centerImageView];
         
-        //[self fitToFrameONE:self.frame];
+        [self fitToFrameONE:self.frame];
         
     }
     return self;
 }
 
 -(void)fitToFrameONE:(CGRect)frame {
-    //self.frame = frame;
-    //[self.centerImageView setFrame:frame];
+    [self.centerImageView setFrame:CGRectMake(self.frame.size.width/2-self.centerImageView.frame.size.width/2, self.frame.size.height/2-self.centerImageView.frame.size.height/2, self.centerImageView.frame.size.width, self.centerImageView.frame.size.height)];
 }
 
 
