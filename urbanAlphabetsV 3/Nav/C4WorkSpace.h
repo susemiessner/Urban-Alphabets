@@ -15,7 +15,8 @@
 @property (nonatomic) BottomNavBar *bottomNavBar;
 
 //defaults
-@property (readwrite) NSMutableArray *currentAlphabet;
+@property (readwrite) NSMutableArray *currentAlphabet; //UIImageViews
+@property (readwrite) NSMutableArray *currentAlphabetUIImage;
 @property (readwrite) NSString *currentLanguage;
 @property (readwrite) NSMutableArray *languages;
 @property (readwrite) NSString *oldLanguage;

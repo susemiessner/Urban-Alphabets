@@ -23,7 +23,7 @@
     UIImageView *checkedIcon;
     int elementNoChosen;
     //images loaded from documents directory
-    UIImage *loadedImage;
+    UIImageView *loadedImage;
     int letterToChange;
 
 }
@@ -161,7 +161,8 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
         NSData *imageData = [NSData dataWithContentsOfFile:filePath];
         UIImage *img = [UIImage imageWithData:imageData];
-        loadedImage=img;
+        
+        loadedImage=[[UIImageView alloc]initWithImage:img];
     }else{
         if ([letterToAdd isEqualToString:@"?"]) {
             letterToAdd=@"-";
@@ -171,7 +172,7 @@
         NSString *filepath=@"letter_";
         filepath=[filepath stringByAppendingString:letterToAdd];
         filepath=[filepath stringByAppendingString:@".png"];
-        loadedImage=[UIImage imageNamed:filepath];
+        loadedImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:filepath]];
     }
     }
 }
@@ -406,14 +407,26 @@
     //Spanish>Finnish
     if ([workspace.currentLanguage isEqual:@"Finnish/Swedish"] && [workspace.oldLanguage isEqual:@"Spanish"]) {
         //change Ä to +
-        [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ä.png"] atIndex:26];
+        letterToChange=26;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //[workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ä.png"] atIndex:26];
+        
         //change Ö to $
-        [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ö.png"] atIndex:27];
+        //[workspace.currentAlphabet removeObjectAtIndex:27];
+        //[workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ö.png"] atIndex:27];
+        letterToChange=27;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
         //change Å to ,
-        [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
+        letterToChange=28;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //[workspace.currentAlphabet removeObjectAtIndex:28];
+        //[workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
     }
     //Danish>Spanish
     if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Danish/Norwegian"]) {

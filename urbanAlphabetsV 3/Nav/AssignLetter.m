@@ -120,10 +120,11 @@
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        UIImage *image=[self.currentAlphabet objectAtIndex:i ];
-        UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        imageView.image=image;
-        [self.view addSubview:imageView];
+        UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
+        image.frame=CGRectMake(xPos, yPos, imageWidth, imageHeight);
+        //UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        //imageView.image=image;
+        [self.view addSubview:image];
     }
 }
 -(void)highlightLetter:(UITapGestureRecognizer *)notification {
@@ -186,8 +187,9 @@
     //--------------------------------------------------
     //remove the image currently in that place in the alphabet
     [self.currentAlphabet removeObjectAtIndex:self.chosenImageNumberInArray];
+    UIImageView *croppedImageView=[[UIImageView alloc]initWithImage:croppedImage];
     //add the cropped image in the same position
-    [self.currentAlphabet insertObject:croppedImage atIndex:self.chosenImageNumberInArray];
+    [self.currentAlphabet insertObject:croppedImageView atIndex:self.chosenImageNumberInArray];
     //--------------------------------------------------
     //stop updating location
     //--------------------------------------------------

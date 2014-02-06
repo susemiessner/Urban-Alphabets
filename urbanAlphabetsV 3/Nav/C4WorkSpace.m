@@ -27,7 +27,7 @@
     UILabel *webadress;
     
     //images loaded from documents directory
-    UIImage *loadedImage;
+    UIImageView *loadedImage;
 }
 
 -(void)setup {
@@ -64,7 +64,9 @@
     
    // [self numberOfTouchesRequired:1 forGesture:@"capture"];
    // [self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"goToCropPhoto"];
-    
+    /*
+    self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    NSLog(@"username: %@", self.userName);
     if (self.userName==nil) {
         self.title=@"Intro";
         introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
@@ -93,7 +95,41 @@
     } else{
         [self cameraSetup];
     }
+*/
+}
+-(void)viewDidAppear:(BOOL)animated{
 
+    self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    NSLog(@"username: %@", self.userName);
+    if (self.userName==nil) {
+        self.title=@"Intro";
+        introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
+        introPicsViews=[[NSMutableArray alloc]init];
+        for (int i=0; i<[introPics count]; i++) {
+            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
+            introView.image=[introPics objectAtIndex:i];
+            [introPicsViews addObject:introView];
+        }
+        currentNoInIntro=0;
+        
+        [self.view addSubview:[introPicsViews objectAtIndex:0]];
+        
+        
+        
+        nextButton=UA_ICON_NEXT;
+        //nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.canvas.width-nextButton.size.width-20, self.canvas.height-nextButton.size.height-20, 80, 34)];
+        nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-100, self.view.frame.size.height-100, 80, 34)];
+        nextButtonView.image=nextButton;
+        [self.view addSubview:nextButtonView];
+        nextButtonView.userInteractionEnabled=YES;
+        //[self listenFor:@"touchesBegan" fromObject:nextButtonView andRunMethod:@"nextIntroPic"];
+        UITapGestureRecognizer *nextButtonTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextIntroPic)];
+        nextButtonTap.numberOfTapsRequired = 1;
+        [nextButtonView addGestureRecognizer:nextButtonTap];
+    } else{
+        [self cameraSetup];
+    }
+    
 }
 -(void)nextIntroPic{
     NSLog(@"nextIntroPic");
@@ -145,11 +181,8 @@
 }
 
 
--(void)viewDidLoad{
-    self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-}
-
 -(void)saveUserName{
+    NSLog(@"savingUserName");
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     self.userName=userNameField.text;
     [defaults setValue:self.userName forKey:@"userName"];
@@ -158,6 +191,7 @@
     [userNameField removeFromSuperview];
 }
 -(void)cameraSetup{
+    
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
@@ -165,7 +199,12 @@
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.allowsEditing = NO;
         imagePicker.modalPresentationStyle = UIModalPresentationCurrentContext;
-        [self presentViewController:imagePicker animated:NO completion:nil];
+        //[self presentViewController:imagePicker animated:NO completion:nil];
+        UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        if ([activeController isKindOfClass:[UINavigationController class]]) {
+            activeController = [(UINavigationController*) activeController visibleViewController];
+        }
+        [activeController presentViewController:imagePicker animated:NO completion:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Camera Unavailable"
                                                        message:@"Unable to find a camera on your device."
@@ -176,13 +215,7 @@
         alert = nil;
     }
 }
-/*- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    //show camera...
-    if (!hasLoadedCamera)
-        [self performSelector:@selector(cameraSetup) withObject:nil afterDelay:0.3];
-}*/
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //This creates a filepath with the current date/time as the name to save the image
@@ -241,7 +274,7 @@
 //--------------------------------------------------
 -(void)loadDefaultAlphabet{
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"] ||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"English"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
-        self.currentAlphabet=[NSMutableArray arrayWithObjects:
+        self.currentAlphabetUIImage=[NSMutableArray arrayWithObjects:
                               //first row
                               [UIImage imageNamed:@"letter_A.png"],
                               [UIImage imageNamed:@"letter_B.png"],
@@ -291,32 +324,32 @@
                               [UIImage imageNamed:@"letter_9.png"],
                               nil];
         if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]) {
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ä.png"] atIndex:26];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ö.png"] atIndex:27];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Ä.png"] atIndex:26];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Ö.png"] atIndex:27];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
         }
         if ([self.currentLanguage isEqualToString:@"German"]) {
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ä.png"] atIndex:26];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ö.png"] atIndex:27];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ü.png"] atIndex:28];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Ä.png"] atIndex:26];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Ö.png"] atIndex:27];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Ü.png"] atIndex:28];
         }
         if ([self.currentLanguage isEqualToString:@"Danish/Norwegian"]) {
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_ae.png"] atIndex:26];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_danisho.png"] atIndex:27];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_ae.png"] atIndex:26];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_danisho.png"] atIndex:27];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
         }
         if ([self.currentLanguage isEqualToString:@"English"]) {
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
         }
         if ([self.currentLanguage isEqualToString:@"Spanish"]) {
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_spanishN.png"] atIndex:26];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:27];
-            [self.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_spanishN.png"] atIndex:26];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:27];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
         }
     } else{
-        self.currentAlphabet=[NSMutableArray arrayWithObjects:
+        self.currentAlphabetUIImage=[NSMutableArray arrayWithObjects:
                               //first row
                               [UIImage imageNamed:@"letter_A.png"],
                               [UIImage imageNamed:@"letter_RusB.png"],
@@ -368,6 +401,12 @@
                               [UIImage imageNamed:@"letter_9.png"],
                               nil];
     }
+    self.currentAlphabet=[[NSMutableArray alloc]init];
+    for (int i=0; i<[self.currentAlphabetUIImage count]; i++) {
+        [self.currentAlphabet addObject:[[UIImageView alloc]initWithImage:[self.currentAlphabetUIImage objectAtIndex:i]]];
+    }
+    
+    
     self.finnish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"Ä", @"Ö", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.german=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"Ä", @"Ö", @"Ü", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.danish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"ae", @"danisho", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
@@ -381,6 +420,7 @@
 //--------------------------------------------------
 -(void)appWillResignActive:(NSNotification*)note
 {
+    NSLog(@"resigning active");
     //save all images under alphabetName
     [self writeAlphabetsUserDefaults];
 }
@@ -424,7 +464,7 @@
         [self.myAlphabetsLanguages addObject:self.currentLanguage];
     }
     [self loadCorrectAlphabet];
-    }
+}
 -(void)loadCorrectAlphabet{
     //load default alphabet (in case needed)
     [self loadDefaultAlphabet];
@@ -454,7 +494,8 @@
             if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
                 NSData *imageData = [NSData dataWithContentsOfFile:filePath];
                 UIImage *img = [UIImage imageWithData:imageData];
-                loadedImage=img;
+                UIImageView *imgView=[[UIImageView alloc]initWithImage:img];
+                loadedImage=imgView;
             }else{
                 loadedImage=[defaultAlphabet objectAtIndex:i];
             }

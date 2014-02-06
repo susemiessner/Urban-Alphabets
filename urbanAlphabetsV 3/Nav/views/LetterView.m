@@ -47,7 +47,8 @@
 -(void)displayLetter:(int)chosenNumber{
     currentLetter=chosenNumber;
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
-    currentImage.frame=CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.width*2);
+    //int maxHeight=self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
+    currentImage.frame=CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.width/0.82);
     [self.view addSubview:currentImage];
 }
 //------------------------------------------------------------------------

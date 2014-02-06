@@ -114,10 +114,11 @@
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
-        UIImage *image=[self.currentAlphabet objectAtIndex:i ];
-        UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        imageView.image=image;
-        [self.view addSubview:imageView];
+        UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
+        image.frame=CGRectMake(xPos, yPos, imageWidth, imageHeight);
+        //UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        //imageView.image=image;
+        [self.view addSubview:image];
     }
 }
 //------------------------------------------------------------------------
@@ -125,11 +126,11 @@
 //------------------------------------------------------------------------
 -(void)redrawAlphabet{
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
-        UIImage *image=[self.currentAlphabet objectAtIndex:i ];
-        UIImageView *imageView=[[UIImageView alloc]initWithImage:image];
-        [imageView removeFromSuperview];
+        UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
+        //UIImageView *imageView=[[UIImageView alloc]initWithImage:image];
+        [image removeFromSuperview];
 
-        C4Shape *rectShape=[greyRectArray objectAtIndex:i];
+        UIView *rectShape=[greyRectArray objectAtIndex:i];
         [rectShape removeFromSuperview];
     }
     [self grabCurrentLanguageViaNavigationController];
