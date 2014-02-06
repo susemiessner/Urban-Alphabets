@@ -136,12 +136,12 @@
         //--------------------------------------------------
         //postcard INFO
         //--------------------------------------------------
-        self.postcardInfoShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*6+smallMargin*4    ), width, height)];
+        /*self.postcardInfoShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*6+smallMargin*4    ), width, height)];
         [self.postcardInfoShape setBackgroundColor:UA_WHITE_COLOR];
         [self addSubview:self.postcardInfoShape];
         
         self.postcardInfoLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.postcardInfoShape.frame.origin.x+100, self.postcardInfoShape.frame.origin.y, self.postcardInfoShape.frame.size.width, self.postcardInfoShape.frame.size.height)];
-        [self.postcardInfoLabel setText:@"Alphabet info"];
+        [self.postcardInfoLabel setText:@"Postcard info"];
         [self.postcardInfoLabel setFont:UA_NORMAL_FONT];
         [self addSubview:self.postcardInfoLabel];
         
@@ -151,7 +151,7 @@
 
         self.postcardInfoIcon.userInteractionEnabled=YES;
         self.postcardInfoLabel.userInteractionEnabled=YES;
-        self.postcardInfoShape.userInteractionEnabled=YES;
+        self.postcardInfoShape.userInteractionEnabled=YES;*/
 
         
         

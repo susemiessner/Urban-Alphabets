@@ -62,13 +62,22 @@
     self.currentLanguage=language;
     self.postcardText=postcardText;
     
-    //bottomNavbar WITH 2 ICONS
+    //bottomNavbar WITH 3 ICONS
     CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45) rightIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
     [self.view addSubview:self.bottomNavBar];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
+    UITapGestureRecognizer *photoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToTakePhoto)];
+    photoButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.leftImageView addGestureRecognizer:photoButtonRecognizer];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
+    UITapGestureRecognizer *menuButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMenu)];
+    menuButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"closeView"];
+    UITapGestureRecognizer *alphabetButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
+    alphabetButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.rightImageView addGestureRecognizer:alphabetButtonRecognizer];
 
     //display the postcard
     float imageWidth=53.53;
@@ -80,6 +89,7 @@
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         UIImageView *image=[self.postcardArray objectAtIndex:i ];
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        imageView.image=image.image;
         [self.view addSubview:imageView];
     }
     for (int i=0; i<[self.greyRectArray count]; i++) {
@@ -90,6 +100,8 @@
         [self.view addSubview:greyRect];
         
     }
+    
+    
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
@@ -107,6 +119,71 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
+    
+    //alphabet info
+    UITapGestureRecognizer *postcardInfoIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
+    postcardInfoIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.postcardInfoIcon addGestureRecognizer:postcardInfoIconRecognizer];
+    UITapGestureRecognizer *postcardInfoShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
+    postcardInfoShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.postcardInfoShape addGestureRecognizer:postcardInfoShapeRecognizer];
+    UITapGestureRecognizer *postcardInfoLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
+    postcardInfoLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.postcardInfoLabel addGestureRecognizer:postcardInfoLabelRecognizer];
+    
+    //write postcard
+    UITapGestureRecognizer *writePostcardShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToWritePostcard)];
+    writePostcardShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.writePostcardShape addGestureRecognizer:writePostcardShapeRecognizer];
+    UITapGestureRecognizer *writePostcardLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToWritePostcard)];
+    writePostcardLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.writePostcardLabel addGestureRecognizer:writePostcardLabelRecognizer];
+    UITapGestureRecognizer *writePostcardIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToWritePostcard)];
+    writePostcardIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.writePostcardIcon addGestureRecognizer:writePostcardIconRecognizer];
+    
+    //share alphabet
+    UITapGestureRecognizer *sharePostcardShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSharePostcard)];
+    sharePostcardShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.sharePostcardShape addGestureRecognizer:sharePostcardShapeRecognizer];
+    UITapGestureRecognizer *sharePostcardLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSharePostcard)];
+    sharePostcardLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.sharePostcardLabel addGestureRecognizer:sharePostcardLabelRecognizer];
+    UITapGestureRecognizer *sharePostcardIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSharePostcard)];
+    sharePostcardIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.sharePostcardIcon addGestureRecognizer:sharePostcardIconRecognizer];
+    
+    
+    //my alphabets
+    UITapGestureRecognizer *myAlphabetsShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
+    myAlphabetsShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.myAlphabetsShape addGestureRecognizer:myAlphabetsShapeRecognizer];
+    UITapGestureRecognizer *myAlphabetsLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
+    myAlphabetsLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.myAlphabetsLabel addGestureRecognizer:myAlphabetsLabelRecognizer];
+    UITapGestureRecognizer *myAlphabetsIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
+    myAlphabetsIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.myAlphabetsIcon addGestureRecognizer:myAlphabetsIconRecognizer];
+    
+    //saveAlphabet
+    UITapGestureRecognizer *savePostcardShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSavePostcard)];
+    savePostcardShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.savePostcardShape addGestureRecognizer:savePostcardShapeRecognizer];
+    UITapGestureRecognizer *savePostcardLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSavePostcard)];
+    savePostcardLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.savePostcardLabel addGestureRecognizer:savePostcardLabelRecognizer];
+    UITapGestureRecognizer *savePostcardIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSavePostcard)];
+    savePostcardIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.savePostcardIcon addGestureRecognizer:savePostcardIconRecognizer];
+    
+    //cancel
+    UITapGestureRecognizer *cancelShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeMenu)];
+    cancelShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.cancelShape addGestureRecognizer:cancelShapeRecognizer];
+    UITapGestureRecognizer *cancelLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeMenu)];
+    cancelLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.cancelLabel addGestureRecognizer:cancelLabelRecognizer];
+    
     //cancel shape
     //[self listenFor:@"touchesBegan" fromObjects:@[self.menu.cancelShape, self.menu.cancelLabel] andRunMethod:@"closeMenu"];
     //save postcard

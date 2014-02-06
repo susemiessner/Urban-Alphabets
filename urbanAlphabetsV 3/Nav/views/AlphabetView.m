@@ -151,10 +151,11 @@
 -(void)goToWritePostcard{
     NSLog(@"write Postcard");
     //self.menu.writePostcardShape.fillColor=UA_HIGHLIGHT_COLOR;
+    [self closeMenu];
     writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
     [writePostcard setupWithLanguage:workspace.currentLanguage Alphabet:workspace.currentAlphabet];
     [self.navigationController pushViewController:writePostcard animated:YES];
-    [self closeMenu];
+    
 }
 -(void)goToAlphabetInfo{
     NSLog(@"goToAlphabetInfo");
