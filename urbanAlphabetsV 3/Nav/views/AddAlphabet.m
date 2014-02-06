@@ -151,7 +151,7 @@
     //checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
     [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber-1)*clickedObject.frame.size.height+firstShapeY-10, 46,46)];
 
-    if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<2) {
+    if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<1) {
         NSLog(@"OKButtonAdded");
         self.bottomNavBar.centerImageView.hidden=NO;
         UIView *shape=[[UIView alloc] initWithFrame:CGRectMake(self.bottomNavBar.centerImageView.frame.origin.x-20, self.bottomNavBar.frame.origin.y-10, self.bottomNavBar.centerImage.size.width+40, self.bottomNavBar.centerImage.size.height+20)];
@@ -163,12 +163,13 @@
         //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"addAlphabet"];
         UITapGestureRecognizer *okButtonRecognizerRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAlphabet)];
         okButtonRecognizerRecognizer.numberOfTapsRequired = 1;
-        [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizerRecognizer];
+        [shape addGestureRecognizer:okButtonRecognizerRecognizer];
         notificationCounter++;
     }
 }
 -(void)addAlphabet{
-    self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
+    NSLog(@"addAlphabet");
+    //self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
     
     //add new alphabet to my alphabets
     [workspace.myAlphabets addObject:name];
@@ -186,6 +187,7 @@
     workspace.oldLanguage=@"Finnish/Swedish";
     //C4Log(@"old language: %@", workspace.oldLanguage);
     //set it to the right language
+    
     [self updateLanguage];
 
     //go to alphabets view
@@ -208,28 +210,28 @@
     if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Å to Ü
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ü.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_Ü.png"]] atIndex:28];
     }
     //Finnish>Danish
     if ([workspace.currentLanguage isEqual:@"Danish/Norwegian"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Ä to AE
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_ae.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_ae.png"]] atIndex:26];
         //change Ö to danishO
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_danisho.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_danisho.png"]] atIndex:27];
     }
     //Finnish>English
     if ([workspace.currentLanguage isEqual:@"English"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_+.png"]] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_$.png"]] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_,.png"]] atIndex:28];
     }
     //-------------------------------
     //SPANISH
@@ -237,18 +239,18 @@
     if ([workspace.currentLanguage isEqual:@"Spanish"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Ä to +
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_spanishN.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_spanishN.png"]] atIndex:26];
         //change Ö to $
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_+.png"]] atIndex:27];
         //change Å to ,
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_,.png"]] atIndex:28];
     }
     //Finnish,German,English,Norwegian>Russian
     if ([workspace.currentLanguage isEqual:@"Russian"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change RusB
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusB.png"] atIndex:1];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusB.png"]] atIndex:1];
         
         //copy c to right position (17)
         [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:3] atIndex:17];
@@ -257,33 +259,33 @@
         
         //change RusG
         [workspace.currentAlphabet removeObjectAtIndex:3];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusG.png"] atIndex:3];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusG.png"]] atIndex:3];
         //add RusD
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusD.png"] atIndex:4];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusD.png"]] atIndex:4];
         //change RusJo
         [workspace.currentAlphabet removeObjectAtIndex:6];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusJo.png"] atIndex:6];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusJo.png"]] atIndex:6];
         
         //change RusSche
         [workspace.currentAlphabet removeObjectAtIndex:7];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusSche.png"] atIndex:7];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusSche.png"]] atIndex:7];
         //change RusSe
         [workspace.currentAlphabet removeObjectAtIndex:8];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusSe.png"] atIndex:8];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusSe.png"]] atIndex:8];
         //change RusI
         [workspace.currentAlphabet removeObjectAtIndex:9];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusI.png"] atIndex:9];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusI.png"]] atIndex:9];
         //change RusIkratkoje
         [workspace.currentAlphabet removeObjectAtIndex:10];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusIkratkoje.png"] atIndex:10];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusIkratkoje.png"]] atIndex:10];
         //change RusL
         [workspace.currentAlphabet removeObjectAtIndex:12];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusL.png"] atIndex:12];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusL.png"]] atIndex:12];
         //change RusN
         [workspace.currentAlphabet removeObjectAtIndex:14];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusN.png"] atIndex:14];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusN.png"]] atIndex:14];
         //insert rus p
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusP.png"] atIndex:16];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusP.png"]] atIndex:16];
         
         //shift T into right position
         [workspace.currentAlphabet removeObjectAtIndex:19];
@@ -300,31 +302,31 @@
         [workspace.currentAlphabet removeObjectAtIndex:20];
         //change RusF
         [workspace.currentAlphabet removeObjectAtIndex:21];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusF.png"] atIndex:21];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusF.png"]] atIndex:21];
         //change RusZ
         [workspace.currentAlphabet removeObjectAtIndex:23];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusZ.png"] atIndex:23];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusZ.png"]] atIndex:23];
         //change RusTsche
         [workspace.currentAlphabet removeObjectAtIndex:24];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusTsche.png"] atIndex:24];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusTsche.png"]] atIndex:24];
         //change RusScha
         [workspace.currentAlphabet removeObjectAtIndex:25];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusScha.png"] atIndex:25];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusScha.png"]] atIndex:25];
         //change RusTscheScha
         [workspace.currentAlphabet removeObjectAtIndex:26];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusTschescha.png"] atIndex:26];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusTschescha.png"]] atIndex:26];
         //change RusMjachkiSnak
         [workspace.currentAlphabet removeObjectAtIndex:27];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusMjachkiSnak.png"] atIndex:27];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusMjachkiSnak.png"]] atIndex:27];
         //change RusUi
         [workspace.currentAlphabet removeObjectAtIndex:28];
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusUi.png"] atIndex:28];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusUi.png"]] atIndex:28];
         //add RusE
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusE.png"] atIndex:29];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusE.png"]] atIndex:29];
         //add RusJu
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusJu.png"] atIndex:30];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusJu.png"]] atIndex:30];
         //add RusJa
-        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_RusJa.png"] atIndex:31];
+        [workspace.currentAlphabet insertObject:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"letter_RusJa.png"]] atIndex:31];
     }
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
     alphabetView=(AlphabetView*)obj;

@@ -67,6 +67,7 @@
             [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedAlphabet=i;
         }
+        shape.userInteractionEnabled=YES;
         [backgroundShapes addObject:shape];
         [self.view addSubview:shape];
         
@@ -98,13 +99,18 @@
 }
 
 -(void)alphabetChanged:(UIGestureRecognizer *)notification{
+    NSLog(@"alphabetChanged");
     UIView *clickedObject = (UIView *)notification.view;
     //figure out which object was clicked
     float yPos=clickedObject.frame.origin.y;
+    NSLog(@"original ipos: %f", yPos);
     //C4Log("clicked Object y:%f", yPos);
     yPos=yPos-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT;
+    NSLog(@"ipos-topbar : %f", yPos);
     float elementNumber=yPos/clickedObject.frame.size.height;
+    NSLog(@"elementNumber float: %f", elementNumber);
     elementNoChosen=lroundf(elementNumber);
+    NSLog(@"elementNo int:       %i", elementNoChosen);
     for (int i=0; i<[backgroundShapes count]-1; i++) {
         UIView *shape=[backgroundShapes objectAtIndex:i];
         if (i==elementNoChosen) {
@@ -117,7 +123,8 @@
         }
     }
     [checkedIcon setFrame: CGRectMake(+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber)*clickedObject.frame.size.height+2, 46,46)];
-    if (elementNoChosen==[backgroundShapes count]-1) {
+    NSLog(@"elementNoChosen: backgroundshapes= %i:%i", elementNoChosen, ([backgroundShapes count]-1));
+    if (elementNoChosen==([backgroundShapes count]-1)) {
         [self addAlphabet];
     }
     
