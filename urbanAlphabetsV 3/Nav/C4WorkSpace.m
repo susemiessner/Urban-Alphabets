@@ -115,11 +115,7 @@
         
         if (currentNoInIntro==1) {
             
-            CGRect labelFrame = CGRectMake( 25, self.view.frame.size.height-150, 100, 30 );
-            UILabel* label = [[UILabel alloc] initWithFrame: labelFrame];
-            [label setText: @"My Label"];
-            [label setTextColor: [UIColor orangeColor]];
-            [self.view addSubview: label];
+            CGRect labelFrame = CGRectMake( 25, self.view.frame.size.height-150, 300, 30 );
             
             webadress=[[UILabel alloc] initWithFrame:labelFrame];
             [webadress setText:@"www.ualphabets.com"];

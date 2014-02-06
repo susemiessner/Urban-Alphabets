@@ -59,20 +59,6 @@
     okButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
     NSLog(@"okButton: %@", self.bottomNavBar.centerImageView);
-    
-    //--------------------------------------------------
-    //ZOOM STEPPER
-    //--------------------------------------------------
-    /*zoomStepper=[C4Stepper stepper];
-    zoomStepper.center=CGPointMake(zoomStepper.width/2+5, self.bottomNavBar.center.y);
-    zoomStepper.backgroundColor=UA_NAV_BAR_COLOR;
-    zoomStepper.tintColor=UA_TYPE_COLOR;
-    [zoomStepper runMethod:@"stepperValueChanged:" target:self forEvent:VALUECHANGED];
-    [self.view addSubview:zoomStepper];
-    zoomStepper.maximumValue=10.0f;
-    zoomStepper.minimumValue=0.5f;
-    zoomStepper.value=1.0f;
-    zoomStepper.stepValue=0.25f;*/
 }
 
 -(void)displayImage:(UIImage*)image{

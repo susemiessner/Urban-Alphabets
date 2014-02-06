@@ -29,8 +29,17 @@
     [self.view addSubview:self.bottomNavBar];
     
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goBackward"];
+    UITapGestureRecognizer *backButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goBackward)];
+    backButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.leftImageView addGestureRecognizer:backButtonRecognizer];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"goForward"];
+    UITapGestureRecognizer *forwardButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goForward)];
+    forwardButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.rightImageView addGestureRecognizer:forwardButtonRecognizer];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetsView"];
+    UITapGestureRecognizer *abcButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetsView)];
+    abcButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:abcButtonRecognizer];
     //THE LETTER
     self.currentAlphabet=[passedAlphabet mutableCopy];
     [self displayLetter:chosenNumber];
@@ -38,7 +47,7 @@
 -(void)displayLetter:(int)chosenNumber{
     currentLetter=chosenNumber;
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
-    currentImage.frame=CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.height);
+    currentImage.frame=CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.width*2);
     [self.view addSubview:currentImage];
 }
 //------------------------------------------------------------------------

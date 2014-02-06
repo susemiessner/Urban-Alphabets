@@ -180,6 +180,7 @@
     [self openLetterView];
 }
 -(void)openLetterView{
+    NSLog(@"openLetterView");
     letterView=[[LetterView alloc] initWithNibName:@"LetterView" bundle:[NSBundle mainBundle]];
     [letterView setupWithLetterNo: self.letterTouched currentAlphabet:self.currentAlphabet];
     [self.navigationController pushViewController:letterView animated:YES];
