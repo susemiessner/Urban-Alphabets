@@ -23,7 +23,7 @@
     //for the languages
     NSMutableArray *shapesForBackground;
     NSMutableArray *languageLabels; //for all texts
-    UIImage *checkedIcon;
+    UIImageView *checkedIcon;
     int elementNoChosen;
     float firstShapeY;
     //magic for dismissing the keyboard
@@ -68,7 +68,7 @@
     [self.view addSubview:nameLabel];
 
     //text field
-    CGRect textViewFrame = CGRectMake(nameLabel.frame.size.width, nameLabel.frame.origin.y, self.view.frame.size.width-40+nameLabel.frame.size.width, nameLabel.frame.size.height+5);
+    CGRect textViewFrame = CGRectMake(nameLabel.frame.size.width, nameLabel.frame.origin.y, self.view.frame.size.width-40-nameLabel.frame.size.width, nameLabel.frame.size.height+5);
     textInput = [[UITextView alloc] initWithFrame:textViewFrame];
     textInput.returnKeyType = UIReturnKeyDone;
     textInput.layer.borderWidth=1.0f;
@@ -99,25 +99,38 @@
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         [shapesForBackground addObject:shape];
+        shape.userInteractionEnabled=YES;
         [self.view addSubview:shape];
         
         //text label
         float heightLabel=46.203;
-        float yPosLabel=i*heightLabel+4+languageLabel.frame.origin.y+languageLabel.frame.size.height+10;
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(49, yPosLabel, 100, 20)];
+        float yPosLabel=i*heightLabel+4+languageLabel.frame.origin.y+languageLabel.frame.size.height+10+heightLabel/2-13;
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(75, yPosLabel, 300, 20)];
         [label setText:[workspace.languages objectAtIndex:i]];
         [label setFont:UA_NORMAL_FONT];
         [label setTextColor:UA_TYPE_COLOR];
         [self.view addSubview:label];
-        //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"languageChanged:"];
         [languageLabels addObject:label];
+        
+        //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"alphabetChanged:"];
+        UITapGestureRecognizer *shapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(languageChanged:)];
+        shapeRecognizer.numberOfTapsRequired = 1;
+        [shape addGestureRecognizer:shapeRecognizer];
+        
+        UITapGestureRecognizer *labelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(languageChanged:)];
+        labelRecognizer.numberOfTapsRequired = 1;
+        [label addGestureRecognizer:labelRecognizer];
     }
-
+    //√icon only 1x
+    checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, -50, 46, 46)];
+    checkedIcon.image=UA_ICON_CHECKED;
+    //checkedIcon.hidden=true;
+    [self.view addSubview:checkedIcon];
 }
--(void)languageChanged:(NSNotification *)notification{
-    C4Shape *clickedObject = (C4Shape *)[notification object];
+-(void)languageChanged:(UIGestureRecognizer *)notification{
+    UIView *clickedObject = (UIView *)notification.view;
     //figure out which object was clicked
-    float yPos=clickedObject.origin.y;
+    float yPos=clickedObject.frame.origin.y;
     /*C4Shape *firstShape=[shapesForBackground objectAtIndex:0];
     C4Log(@"firstShape: %@", firstShape);
     C4Log(@"firstShape center: %@", firstShape.frame);*/
@@ -125,25 +138,32 @@
     //C4Log(@"start of language fields: %@", firstYPos);
     yPos=yPos-firstYPos;
     //C4Log(@"calculated YPos         : %@", yPos);
-    float elementNumber=yPos/clickedObject.height;
+    float elementNumber=yPos/clickedObject.frame.size.height;
     elementNoChosen=lroundf(elementNumber);
     for (int i=0; i<[shapesForBackground count]; i++) {
-        C4Shape *shape=[shapesForBackground objectAtIndex:i];
+        UIView *shape=[shapesForBackground objectAtIndex:i];
         if (i==elementNoChosen) {
-            shape.fillColor=UA_HIGHLIGHT_COLOR;
+            [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
         } else {
-            shape.fillColor=UA_NAV_CTRL_COLOR;
+            [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         }
     }
     //checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
+    [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber-1)*clickedObject.frame.size.height+firstShapeY-10, 46,46)];
+
     if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<2) {
+        NSLog(@"OKButtonAdded");
         self.bottomNavBar.centerImageView.hidden=NO;
         UIView *shape=[[UIView alloc] initWithFrame:CGRectMake(self.bottomNavBar.centerImageView.frame.origin.x-20, self.bottomNavBar.frame.origin.y-10, self.bottomNavBar.centerImage.size.width+40, self.bottomNavBar.centerImage.size.height+20)];
         shape.layer.borderWidth=1.0f;
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         [self.view addSubview:shape];
+        
         //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"addAlphabet"];
+        UITapGestureRecognizer *okButtonRecognizerRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAlphabet)];
+        okButtonRecognizerRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizerRecognizer];
         notificationCounter++;
     }
 }

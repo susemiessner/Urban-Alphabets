@@ -52,16 +52,18 @@
     backgroundShapes=[[NSMutableArray alloc]init];
     labels=[[NSMutableArray alloc]init];
     float height=46.203;
+     NSLog(@"workspace.alphabetName: '%@'", workspace.alphabetName);
     for (int i=0; i<[currentAlphabets count]; i++) {
+
         //underlying shape
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*height;
         UIView *shape = [[UIView alloc]initWithFrame:CGRectMake(0, yPos, self.view.frame.size.width, height)];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         shape.layer.borderWidth=1.0f;
-
         
-        if ([currentAlphabets objectAtIndex:i ] == workspace.alphabetName) {
+        NSLog(@"currentAlphabets: '%@'", [currentAlphabets objectAtIndex:i ]);
+        if ([[currentAlphabets objectAtIndex:i ] isEqualToString: workspace.alphabetName]) {
             [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedAlphabet=i;
         }
@@ -70,16 +72,24 @@
         
         //text label
         float heightLabel=46.203;
-        float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel+4;
-        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(49.485, yPosLabel, 100, 20) ];
+        float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel+heightLabel/2-7;
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(75, yPosLabel, 300, 20) ];
         [label setText:[currentAlphabets objectAtIndex:i]];
         [label setFont:UA_NORMAL_FONT];
         [label setTextColor:UA_TYPE_COLOR];
         [self.view addSubview:label];
-        //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"alphabetChanged:"];
+        label.userInteractionEnabled=YES;
         [labels addObject:label];
+        
+        //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"alphabetChanged:"];
+        UITapGestureRecognizer *shapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alphabetChanged:)];
+        shapeRecognizer.numberOfTapsRequired = 1;
+        [shape addGestureRecognizer:shapeRecognizer];
+        
+        UITapGestureRecognizer *labelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alphabetChanged:)];
+        labelRecognizer.numberOfTapsRequired = 1;
+        [label addGestureRecognizer:labelRecognizer];
     }
-    //√icon only 1x
         //√icon only 1x
     checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(selectedAlphabet)*height+2, 46, 46)];
     checkedIcon.image=UA_ICON_CHECKED;
@@ -87,23 +97,23 @@
 
 }
 
--(void)alphabetChanged:(NSNotification *)notification{
-    C4Shape *clickedObject = (C4Shape *)[notification object];
+-(void)alphabetChanged:(UIGestureRecognizer *)notification{
+    UIView *clickedObject = (UIView *)notification.view;
     //figure out which object was clicked
-    float yPos=clickedObject.origin.y;
+    float yPos=clickedObject.frame.origin.y;
     //C4Log("clicked Object y:%f", yPos);
     yPos=yPos-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT;
-    float elementNumber=yPos/clickedObject.height;
+    float elementNumber=yPos/clickedObject.frame.size.height;
     elementNoChosen=lroundf(elementNumber);
     for (int i=0; i<[backgroundShapes count]-1; i++) {
-        C4Shape *shape=[backgroundShapes objectAtIndex:i];
+        UIView *shape=[backgroundShapes objectAtIndex:i];
         if (i==elementNoChosen) {
-            shape.fillColor=UA_HIGHLIGHT_COLOR;
+           [shape setBackgroundColor: UA_HIGHLIGHT_COLOR];
             if (workspace.alphabetName!=[workspace.myAlphabets objectAtIndex:i]) {
                 [self loadTabbedAlphabet];
             }
         } else {
-            shape.fillColor=UA_NAV_CTRL_COLOR;
+            [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         }
     }
     [checkedIcon setFrame: CGRectMake(+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber)*clickedObject.frame.size.height+2, 46,46)];

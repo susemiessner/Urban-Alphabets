@@ -61,12 +61,12 @@
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    NSLog(@"request: %@", request);
+    //NSLog(@"request: %@", request);
     // now lets make the connection to the web
     (void)[[NSURLConnection alloc]initWithRequest:request delegate:self];
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSLog(@"%@", response);
+    //NSLog(@"%@", response);
 }
 -(void)findRightLetter:(NSUInteger)chosenImageNumberInArray Language:(NSString*)theLanguage{
     if ([theLanguage isEqual:@"Finnish/Swedish"]||[theLanguage isEqualToString:@"German"] ||[theLanguage isEqualToString:@"English"] ||[theLanguage isEqualToString:@"Danish/Norwegian"] || [theLanguage isEqualToString:@"Spanish"]) {

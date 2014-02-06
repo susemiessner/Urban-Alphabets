@@ -121,12 +121,12 @@
         [self addSubview:self.sharePostcardShape];
         
         self.sharePostcardLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.sharePostcardShape.frame.origin.x+100, self.sharePostcardShape.frame.origin.y, self.sharePostcardShape.frame.size.width, self.sharePostcardShape.frame.size.height)];
-        [self.sharePostcardLabel setText:@"Share Alphabet"];
+        [self.sharePostcardLabel setText:@"Share Postcard"];
         [self.sharePostcardLabel setFont:UA_NORMAL_FONT];
         [self addSubview:self.sharePostcardLabel];
         
         self.sharePostcardIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.sharePostcardShape.frame.origin.x+5, self.sharePostcardShape.frame.origin.y+3, 70, 35)];
-        self.sharePostcardIcon.image=UA_ICON_SHARE_ALPHABET;
+        self.sharePostcardIcon.image=UA_ICON_SHARE_POSTCARD;
         [self addSubview:self.sharePostcardIcon];
         
         self.sharePostcardShape.userInteractionEnabled=YES;

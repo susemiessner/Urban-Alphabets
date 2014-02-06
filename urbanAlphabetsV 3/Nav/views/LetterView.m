@@ -14,6 +14,7 @@
     AlphabetView *alphabetView;
     NSInteger currentLetter;
     UIImageView *currentImage; //the image currently displayed
+    UIImageView *currentImageView;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
@@ -40,26 +41,32 @@
     UITapGestureRecognizer *abcButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetsView)];
     abcButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:abcButtonRecognizer];
+    
     //THE LETTER
     self.currentAlphabet=[passedAlphabet mutableCopy];
-    [self displayLetter:chosenNumber];
-}
--(void)displayLetter:(int)chosenNumber{
     currentLetter=chosenNumber;
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
-    UIImageView *currentImageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.width/0.82)];
+    //NSLog(@"currentImage: %@", currentImage);
+    currentImageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.width/0.82)];
     currentImageView.image=currentImage.image;
     //int maxHeight=self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
     [self.view addSubview:currentImageView];
+}
+-(void)displayLetter:(int)chosenNumber{
+    //NSLog(@"currentImage: %@", currentImage);
+    currentLetter=chosenNumber;
+    currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
+    currentImageView.image=[currentImage.image copy];
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) goToAlphabetsView{
-    [self.navigationController popViewControllerAnimated:NO];
-    id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-1];
+    id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];
+    [self.navigationController popViewControllerAnimated:NO];
+
 }
 
 -(void) goForward{

@@ -52,9 +52,11 @@
     [self.view addSubview:textInput];
     
     //share images and labels
+    //share images and labels
     int shareIconYPos=140;
     twitterImage=[[UIImageView alloc]initWithFrame:CGRectMake(20,  UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
     twitterImage.image=UA_ICON_TWITTER;
+    twitterImage.userInteractionEnabled=YES;
     [self.view addSubview:twitterImage];
     
     int labelToLeft=60;
@@ -62,34 +64,57 @@
     twitterLabel=[[UILabel alloc]initWithFrame:CGRectMake(twitterImage.center.x+labelToLeft, twitterImage.center.y-labelUp, 100, 20) ];
     [twitterLabel setText:@"Twitter"];
     [twitterLabel setFont:UA_NORMAL_FONT];
+    twitterLabel.userInteractionEnabled=YES;
     [self.view addSubview:twitterLabel];
     
     shareIconYPos+=60;
     facebookImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
     facebookImage.image=UA_Icon_FB;
+    facebookImage.userInteractionEnabled=YES;
     [self.view addSubview:facebookImage];
     
     facebookLabel=[[UILabel alloc]initWithFrame:CGRectMake(facebookImage.center.x+labelToLeft, facebookImage.center.y-labelUp, 100, 20)];
     [facebookLabel setText:@"Facebook"];
     [facebookLabel setFont:UA_NORMAL_FONT];
+    facebookLabel.userInteractionEnabled=YES;
     [self.view addSubview:facebookLabel];
     
     shareIconYPos+=60;
     mailImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
-    mailImage.image=UA_Icon_FB;
+    mailImage.image=UA_ICON_MAIL;
+    mailImage.userInteractionEnabled=YES;
     [self.view addSubview:mailImage];
     
     mailLabel=[[UILabel alloc]initWithFrame:CGRectMake(mailImage.center.x+labelToLeft, mailImage.center.y-labelUp, 100, 20)];
     [mailLabel setText:@"Mail"];
     [mailLabel setFont:UA_NORMAL_FONT];
+    mailLabel.userInteractionEnabled=YES;
     [self.view addSubview:mailLabel];
-
     
     //interactions
     //[self listenFor:@"touchesBegan" fromObjects:@[facebookImage, facebookLabel] andRunMethod:@"shareToFacebook"];
-    //[self listenFor:@"touchesBegan" fromObjects:@[twitterImage, twitterLabel] andRunMethod:@"shareToTwitter"];
-    //[self listenFor:@"touchesBegan" fromObjects:@[mailImage, mailLabel] andRunMethod:@"shareToMail"];
+    UITapGestureRecognizer *facebookImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToFacebook)];
+    facebookImageTapRecognizer.numberOfTapsRequired = 1;
+    [facebookImage addGestureRecognizer:facebookImageTapRecognizer];
+    UITapGestureRecognizer *facebookLabelTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToFacebook)];
+    facebookLabelTapRecognizer.numberOfTapsRequired = 1;
+    [facebookLabel addGestureRecognizer:facebookLabelTapRecognizer];
     
+    //[self listenFor:@"touchesBegan" fromObjects:@[twitterImage, twitterLabel] andRunMethod:@"shareToTwitter"];
+    UITapGestureRecognizer *twitterImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToTwitter)];
+    twitterImageTapRecognizer.numberOfTapsRequired = 1;
+    [twitterImage addGestureRecognizer:twitterImageTapRecognizer];
+    UITapGestureRecognizer *twitterLabelTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToTwitter)];
+    twitterLabelTapRecognizer.numberOfTapsRequired = 1;
+    [twitterLabel addGestureRecognizer:twitterLabelTapRecognizer];
+    
+    //[self listenFor:@"touchesBegan" fromObjects:@[mailImage, mailLabel] andRunMethod:@"shareToMail"];
+    UITapGestureRecognizer *mailImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToMail)];
+    mailImageTapRecognizer.numberOfTapsRequired = 1;
+    [mailImage addGestureRecognizer:mailImageTapRecognizer];
+    UITapGestureRecognizer *mailLabelTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToMail)];
+    mailLabelTapRecognizer.numberOfTapsRequired = 1;
+    [mailLabel addGestureRecognizer:mailLabelTapRecognizer];
     //magic for dismissing the keyboard
     tapGesture = [[UITapGestureRecognizer alloc]
                   initWithTarget:self

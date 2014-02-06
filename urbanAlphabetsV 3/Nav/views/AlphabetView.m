@@ -114,11 +114,13 @@
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
+        
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
         image.frame=CGRectMake(xPos, yPos, imageWidth, imageHeight);
-        //UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        //imageView.image=image;
         [self.view addSubview:image];
+        if (i==0) {
+            NSLog(@"image: %@",image.image);
+        }
     }
 }
 //------------------------------------------------------------------------
@@ -190,23 +192,23 @@
 -(void)goToShareAlphabet{
     NSLog(@"ShareAlphabet");
     //get the current alphabet as a photo
-    /*[self saveAlphabet];
+    //[self saveAlphabet];
     [self closeMenu];
     shareAlphabet=[[ShareAlphabet alloc]initWithNibName:@"ShareAlphabet" bundle:[NSBundle mainBundle]];
     [shareAlphabet setup: self.currentAlphabetImageAsUIImage];
-    [self.navigationController pushViewController:shareAlphabet animated:YES];*/
+    [self.navigationController pushViewController:shareAlphabet animated:YES];
 }
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)goToMyAlphabets{
     NSLog(@"myAlphabets");
-    /*
+    
     [self closeMenu];
     myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
     [myAlphabets setup];
     [self.navigationController pushViewController:myAlphabets animated:YES];
-    [myAlphabets grabCurrentLanguageViaNavigationController];*/
+    [myAlphabets grabCurrentLanguageViaNavigationController];
 }
 //------------------------------------------------------------------------
 //MENU
