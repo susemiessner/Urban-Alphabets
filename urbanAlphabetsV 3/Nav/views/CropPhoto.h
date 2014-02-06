@@ -8,7 +8,7 @@
 
 #import "C4CanvasController.h"
 
-@interface CropPhoto : UIViewController
+@interface CropPhoto : UIViewController <UIGestureRecognizerDelegate>
 @property (readwrite, strong) UIImage *croppedPhoto;
 @property (readwrite, strong) UIImageView *croppedPhotoView;
 -(void)displayImage:(UIImage*)image;

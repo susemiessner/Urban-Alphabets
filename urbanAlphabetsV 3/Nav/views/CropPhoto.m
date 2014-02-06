@@ -81,27 +81,28 @@
     photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
     photoTakenView.image=self.photoTaken;
     [self.view addSubview:photoTakenView];
-    //------------------------------------------------------------------------------------------------------------
-    //pan gesture
-    UIPanGestureRecognizer *pgr = [[UIPanGestureRecognizer alloc]
-                                   initWithTarget:self action:@selector(handlePan:)];
-    [photoTakenView addGestureRecognizer:pgr];
-    //[self.photoTaken addGesture:PAN name:@"pan" action:@"move:"];
-
-    //------------------------------------------------------------------------------------------------------------
-    //initialize the overlay
+    
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
+    [self.view addGestureRecognizer:panRecognizer];
+    
+    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchDetected:)];
+    [self.view addGestureRecognizer:pinchRecognizer];
+    
+    UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotationDetected:)];
+    [self.view addGestureRecognizer:rotationRecognizer];
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected:)];
+    tapRecognizer.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:tapRecognizer];
+    
+    panRecognizer.delegate = self;
+    pinchRecognizer.delegate = self;
+    rotationRecognizer.delegate = self;
+    
     [self transparentOverlay];
     
 }
--(IBAction)handlePan:(UIPanGestureRecognizer *)recognizer {
-    
-    CGPoint translation = [recognizer translationInView:self.view];
-    
-    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x, recognizer.view.center.y + translation.y);
-    
-    [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
-    
-}
+
 -(void)transparentOverlay{
     float touchY1=86.764+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
     float touchX1=50.532;
@@ -233,5 +234,46 @@
     return paths[0];
 }
 
+#pragma mark - Gesture Recognizers
+
+- (void)panDetected:(UIPanGestureRecognizer *)panRecognizer
+{
+    CGPoint translation = [panRecognizer translationInView:self.view];
+    CGPoint imageViewPosition = photoTakenView.center;
+    imageViewPosition.x += translation.x;
+    imageViewPosition.y += translation.y;
+    
+    photoTakenView.center = imageViewPosition;
+    [panRecognizer setTranslation:CGPointZero inView:self.view];
+}
+
+- (void)pinchDetected:(UIPinchGestureRecognizer *)pinchRecognizer
+{
+    CGFloat scale = pinchRecognizer.scale;
+    photoTakenView.transform = CGAffineTransformScale(photoTakenView.transform, scale, scale);
+    pinchRecognizer.scale = 1.0;
+}
+
+- (void)rotationDetected:(UIRotationGestureRecognizer *)rotationRecognizer
+{
+    CGFloat angle = rotationRecognizer.rotation;
+    photoTakenView.transform = CGAffineTransformRotate(photoTakenView.transform, angle);
+    rotationRecognizer.rotation = 0.0;
+}
+
+- (void)tapDetected:(UITapGestureRecognizer *)tapRecognizer
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        photoTakenView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+        photoTakenView.transform = CGAffineTransformIdentity;
+    }];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
 
 @end
