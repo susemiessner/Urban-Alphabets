@@ -28,6 +28,8 @@
     
     //images loaded from documents directory
     UIImageView *loadedImage;
+    
+    UIImagePickerController *picker;
 }
 
 -(void)setup {
@@ -51,10 +53,10 @@
     
     //setup the bottom bar
     //bottomNavbar WITH 2 ICONS
-    /*CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45)];
     UIView *bottomBarView=[[UIView alloc]initWithFrame:bottomBarFrame];
-    [self.view addSubview:bottomBarView];*/
+    [self.view addSubview:bottomBarView];
 
     //take photo button
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"captureImage"];
@@ -191,28 +193,35 @@
     [userNameField removeFromSuperview];
 }
 -(void)cameraSetup{
+    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45)];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-    {
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        imagePicker.allowsEditing = NO;
-        imagePicker.modalPresentationStyle = UIModalPresentationCurrentContext;
-        //[self presentViewController:imagePicker animated:NO completion:nil];
-        UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        if ([activeController isKindOfClass:[UINavigationController class]]) {
-            activeController = [(UINavigationController*) activeController visibleViewController];
-        }
-        [activeController presentViewController:imagePicker animated:NO completion:nil];
+    //create a new image picker instance
+    picker = [[UIImagePickerController alloc]init];
+    picker.delegate = self;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        //set source to video!
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        //hide all controls
+        picker.showsCameraControls = NO;
+        picker.navigationBarHidden = NO;
+        picker.toolbarHidden = YES;
+        picker.editing = NO;
+        //make the video preview full size
+        //picker.wantsFullScreenLayout = YES;
+        
+        picker.cameraViewTransform = CGAffineTransformScale(picker.cameraViewTransform,1, 1);
+
+        [picker.view addSubview:self.bottomNavBar];
+
+        picker.view.frame=CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_WHITE-bottomBarFrame.size.height));
+        [self.view addSubview:picker.view];
+        [picker viewWillAppear:YES];
+        [picker viewDidAppear:YES];
+        
     }else{
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Camera Unavailable"
-                                                       message:@"Unable to find a camera on your device."
-                                                      delegate:nil
-                                             cancelButtonTitle:@"OK"
-                                             otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Test Text" message:@"Camera is Not Availble" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil];
         [alert show];
-        alert = nil;
     }
 }
 

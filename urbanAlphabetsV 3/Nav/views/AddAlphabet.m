@@ -131,13 +131,8 @@
     UIView *clickedObject = (UIView *)notification.view;
     //figure out which object was clicked
     float yPos=clickedObject.frame.origin.y;
-    /*C4Shape *firstShape=[shapesForBackground objectAtIndex:0];
-    C4Log(@"firstShape: %@", firstShape);
-    C4Log(@"firstShape center: %@", firstShape.frame);*/
     float firstYPos=firstShapeY;
-    //C4Log(@"start of language fields: %@", firstYPos);
     yPos=yPos-firstYPos;
-    //C4Log(@"calculated YPos         : %@", yPos);
     float elementNumber=yPos/clickedObject.frame.size.height;
     elementNoChosen=lroundf(elementNumber);
     for (int i=0; i<[shapesForBackground count]; i++) {

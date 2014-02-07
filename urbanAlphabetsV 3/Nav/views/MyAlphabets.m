@@ -27,6 +27,8 @@
     int elementNoChosen;
     //images loaded from documents directory
     UIImage *loadedImage;
+    float firstShapeY;
+
 }
 @end
 
@@ -53,16 +55,17 @@
     labels=[[NSMutableArray alloc]init];
     float height=46.203;
      NSLog(@"workspace.alphabetName: '%@'", workspace.alphabetName);
+    firstShapeY=UA_TOP_BAR_HEIGHT+UA_TOP_WHITE;
     for (int i=0; i<[currentAlphabets count]; i++) {
 
         //underlying shape
-        float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*height;
+        float yPos=firstShapeY+i*height;
         UIView *shape = [[UIView alloc]initWithFrame:CGRectMake(0, yPos, self.view.frame.size.width, height)];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         shape.layer.borderWidth=1.0f;
         
-        NSLog(@"currentAlphabets: '%@'", [currentAlphabets objectAtIndex:i ]);
+        NSLog(@"currentAlphabets: '%@', yPos origin: %f, height: %f", [currentAlphabets objectAtIndex:i ], shape.frame.origin.y, shape.frame.size.height);
         if ([[currentAlphabets objectAtIndex:i ] isEqualToString: workspace.alphabetName]) {
             [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedAlphabet=i;
@@ -100,24 +103,24 @@
 
 -(void)alphabetChanged:(UIGestureRecognizer *)notification{
     NSLog(@"alphabetChanged");
-    UIView *clickedObject = (UIView *)notification.view;
+    UIView *clickedObject = notification.view;
     //figure out which object was clicked
+
     float yPos=clickedObject.frame.origin.y;
-    NSLog(@"original ipos: %f", yPos);
-    //C4Log("clicked Object y:%f", yPos);
-    yPos=yPos-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT;
-    NSLog(@"ipos-topbar : %f", yPos);
+    float firstYPos=firstShapeY;
+    NSLog(@"yPos (orig): %f", yPos);
+    yPos=yPos-firstYPos;
+    NSLog(@"yPos (-top): %f", yPos);
     float elementNumber=yPos/clickedObject.frame.size.height;
-    NSLog(@"elementNumber float: %f", elementNumber);
+    NSLog(@"elementNumber: %f", elementNumber);
+    NSLog(@"elementHeight: %f", clickedObject.frame.size.height);
     elementNoChosen=lroundf(elementNumber);
-    NSLog(@"elementNo int:       %i", elementNoChosen);
-    for (int i=0; i<[backgroundShapes count]-1; i++) {
+    NSLog(@"elementNoChosen: %i", elementNoChosen);
+
+    for (int i=0; i<[backgroundShapes count]; i++) {
         UIView *shape=[backgroundShapes objectAtIndex:i];
         if (i==elementNoChosen) {
-           [shape setBackgroundColor: UA_HIGHLIGHT_COLOR];
-            if (workspace.alphabetName!=[workspace.myAlphabets objectAtIndex:i]) {
-                [self loadTabbedAlphabet];
-            }
+            [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
         } else {
             [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         }
@@ -126,6 +129,8 @@
     NSLog(@"elementNoChosen: backgroundshapes= %i:%i", elementNoChosen, ([backgroundShapes count]-1));
     if (elementNoChosen==([backgroundShapes count]-1)) {
         [self addAlphabet];
+    } else if(elementNoChosen<=([backgroundShapes count]-2)){
+        [self loadTabbedAlphabet];
     }
     
 }
