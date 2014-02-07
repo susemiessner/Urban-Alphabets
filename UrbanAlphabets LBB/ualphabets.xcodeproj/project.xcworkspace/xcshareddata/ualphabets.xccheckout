@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>791840AA-DC1A-4327-96D4-DB1FA5EB2C76</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ualphabets</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E025FCCE-2BEF-450B-9A34-4BC70BDB6642</key>
+		<string>https://bitbucket.org/otavio_aguiar_lbb/urban-alphabet.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ualphabets.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E025FCCE-2BEF-450B-9A34-4BC70BDB6642</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/otavio_aguiar_lbb/urban-alphabet.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E025FCCE-2BEF-450B-9A34-4BC70BDB6642</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E025FCCE-2BEF-450B-9A34-4BC70BDB6642</string>
+			<key>IDESourceControlWCCName</key>
+			<string>UrbanAlphabet</string>
+		</dict>
+	</array>
+</dict>
+</plist>
