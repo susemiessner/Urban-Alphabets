@@ -100,7 +100,7 @@
         [self addSubview:self.savePostcardShape];
         
         self.savePostcardLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.savePostcardShape.frame.origin.x+100, self.savePostcardShape.frame.origin.y, self.savePostcardShape.frame.size.width-100, self.savePostcardShape.frame.size.height)];
-        [self.savePostcardLabel setText:@"Save Alphabet" ];
+        [self.savePostcardLabel setText:@"Save Postcard" ];
         [self.savePostcardLabel setFont:UA_NORMAL_FONT];
         [self addSubview:self.savePostcardLabel];
         

@@ -928,7 +928,7 @@
 				ORGANIZATIONNAME = moi;
 				TargetAttributes = {
 					EDFC41D61851014E00CB3335 = {
-						DevelopmentTeam = 2249VP2372;
+						DevelopmentTeam = 33XFTKG77Q;
 					};
 					EDFC423D1851015300CB3335 = {
 						TestTargetID = EDFC41D61851014E00CB3335;

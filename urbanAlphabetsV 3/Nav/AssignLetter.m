@@ -236,13 +236,13 @@
 //SAVING CROPPED IMAGE TO DOCUMENTS DIRECTORY
 //------------------------------------------------------------------------
 -(void)exportHighResImage {
+    NSLog(@"cropped Image before scaling: %f", croppedImage.size.width);
+    //croppedImage = [UIImage imageWithCGImage:[croppedImage CGImage] scale:(croppedImage.scale * 0.1) orientation:(croppedImage.imageOrientation)];
+    NSLog(@"cropped Image after  scaling: %f", croppedImage.size.width);
+
     graphicsContext = [self createHighResImageContext];
     //C4Log(@"graphicsContext: %@", graphicsContext.);
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //surely needs to be changed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    [croppedImage drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    //[croppedImage renderInContext:graphicsContext];
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     NSString *letterToAdd=@" ";
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]) {
         letterToAdd=[workspace.finnish objectAtIndex:self.chosenImageNumberInArray];
@@ -261,12 +261,14 @@
     [self saveImage:fileName];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
+    NSLog(@"cropped Image in graphics context: %f", croppedImage.size.width);
+    //UIGraphicsBeginImageContextWithOptions(CGSizeMake(218, 266), YES, 5.0f);
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(croppedImage.size.width-1, croppedImage.size.height-1), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {
-    UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
-    NSData *imageData = UIImageJPEGRepresentation(image,80);
+    NSData *imageData = UIImageJPEGRepresentation(croppedImage, 80);
+
     //save in a certain folder
     NSString *dataPath = [[self documentsDirectory] stringByAppendingString:@"/"];
     dataPath=[dataPath stringByAppendingPathComponent:workspace.alphabetName];

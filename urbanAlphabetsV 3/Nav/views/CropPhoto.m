@@ -25,6 +25,11 @@
     CGContextRef graphicsContext;
     
     UIImageView *photoTakenView;
+    
+    float touchX1;
+    float touchX2;
+    float touchY1;
+    float touchY2;
 
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
@@ -49,6 +54,7 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     //bottomNavbar WITH 1 ICONS
+    NSLog(@"view height: %f", self.view.frame.size.height);
     CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
     //NSLog(@"UA_icon_ok: %@", UA_ICON_OK);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
@@ -63,8 +69,15 @@
 
 -(void)displayImage:(UIImage*)image{
     NSLog(@"display image, photoTaken: %@", image);
-    self.photoTaken=image;
+    self.photoTaken = [[UIImage alloc] initWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationRight];
     photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
+    // just adjusting the picture to be on portrait mode correctly
+    double photoWidth = photoTakenView.frame.size.width;
+    double photoHeight = (photoTakenView.frame.size.width * self.photoTaken.size.height) / self.photoTaken.size.width; //photoTakenView.frame.size.height;
+    
+    // centering and resizing image
+    photoTakenView.frame = CGRectMake(0,self.view.frame.size.height/2 - photoHeight/2,photoWidth,photoHeight);
+    
     photoTakenView.image=self.photoTaken;
     [self.view addSubview:photoTakenView];
     
@@ -90,10 +103,10 @@
 }
 
 -(void)transparentOverlay{
-    float touchY1=86.764+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
-    float touchX1=50.532;
-    float touchY2=86.764+266.472+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
-    float touchX2= self.view.frame.size.width-50.3532;
+    touchY1= self.view.frame.size.height/2 - 266.472/2;// 86.764+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
+    touchX1=50.532;
+    touchY2= touchY1 + 266.472;//86.764+266.472+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
+    touchX2= self.view.frame.size.width-50.3532;
     //upper rect
     upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
     [upperRect setBackgroundColor:UA_OVERLAY_COLOR];
@@ -115,21 +128,7 @@
     [self.view addSubview:rightRect];
     
 }
--(void)stepperValueChanged:(UIStepper*)theStepper{
-    float oldHeight=self.photoTaken.size.height;
-    float oldWidth=self.photoTaken.size.width;
-    float oldX=photoTakenView.frame.origin.x+oldWidth/2;
-    float oldY=photoTakenView.frame.origin.y+oldHeight/2;
-   // self.photoTaken.height=self.canvas.height*theStepper.value;
-    float newHeight=self.view.frame.size.height*theStepper.value;
-    float newWidth=self.view.frame.size.width*theStepper.value;
-    
-    float newX=self.view.frame.origin.x+self.view.frame.size.width/2-((self.view.frame.origin.x+self.view.frame.size.width/2-oldX)*newWidth/oldWidth);
-    float newY=self.view.frame.origin.y+self.view.frame.size.height/2-((self.view.frame.origin.y+self.view.frame.size.height/2-oldY)*newHeight/oldHeight);
-    [photoTakenView removeFromSuperview];
-    photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(newX, newY,newWidth, newHeight)];
-    [self.view addSubview:photoTakenView];
-}
+
 
 //--------------------------------------------------
 //NAVIGATION
@@ -144,14 +143,13 @@
     NSLog(@"saveImage");
     self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
     //crop image
-    self.croppedPhoto=[self cropImage:self.photoTaken withOrigin:photoTakenView.frame.origin toArea:CGRectMake(51, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+86.764, self.view.frame.size.width-2*51, 266)];
-    //------------------------------------------------------------------------------------------------
-    //might cause problems here!!!!
+    double screenScale = [[UIScreen mainScreen] scale];
+    CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(touchX1 * screenScale,touchY1 * screenScale,(touchX2 - touchX1) * screenScale, 266.472 * screenScale));
+    self.croppedPhoto = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
     
-    //self.croppedPhoto.origin=CGPointMake(0, 0);
-    //------------------------------------------------------------------------------------------------
     // save the photo to photo library and app's image directory
-    [self exportHighResImage];
+    //[self exportHighResImage];
     
     //this goes to the next view
     assignLetter = [[AssignLetter alloc] initWithNibName:@"AssignLetter" bundle:[NSBundle mainBundle]];
@@ -159,40 +157,24 @@
     
     [self.navigationController pushViewController:assignLetter animated:YES];
 }
--(UIImage *)cropImage:(UIImage *)originalImage withOrigin:(CGPoint)origin toArea:(CGRect)rect{
-    //grab the image scale 
-    CGFloat scale = originalImage.scale;
+
+- (UIImage *)createScreenshot
+{
+    //    UIGraphicsBeginImageContext(pageSize);
+    CGSize pageSize = [[UIScreen mainScreen] bounds].size;
+    UIGraphicsBeginImageContextWithOptions(pageSize, YES, 0.0f);
     
-    //begin an image context
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, scale);
-    
-    //create a new context ref
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    
-    //shift BACKWARDS in both directions because this moves the image
-    //the area to crop shifts INTO: (0, 0, rect.size.width, rect.size.height)
-    CGContextTranslateCTM(c, origin.x-rect.origin.x, origin.y-rect.origin.y);
-    
-    //render the original image into the context
-    [originalImage drawInRect:CGRectMake(0, 0, rect.size.width, rect.size.height)];
-    //[originalImage renderInContext:c];
-    
-    //grab a UIImage from the context
-    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    //end the image context
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    //create a new UIImage
-    UIImage *newImage = newUIImage;
-    
-    //return the new image
-    return newImage;
+    return image;
 }
+
 -(void)exportHighResImage {
     graphicsContext = [self createHighResImageContext];
-    //[self.croppedPhoto renderInContext:graphicsContext];
-    [self.croppedPhoto drawInRect:CGRectMake(0, 0, self.croppedPhoto.size.width, self.croppedPhoto.size.height)];
+
     NSString *fileName = [NSString stringWithFormat:@"letter%@.jpg", [NSDate date]];
     [self saveImage:fileName];
     //[self saveImageToLibrary];
@@ -202,8 +184,7 @@
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {
-    UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
-    NSData *imageData = UIImagePNGRepresentation(image);
+    NSData *imageData = UIImagePNGRepresentation(self.croppedPhoto);
     //save in a certain folder
     NSString *dataPath = [[self documentsDirectory] stringByAppendingPathComponent:@"/letters"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])

@@ -129,7 +129,6 @@
 -(void)redrawAlphabet{
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
-        //UIImageView *imageView=[[UIImageView alloc]initWithImage:image];
         [image removeFromSuperview];
 
         UIView *rectShape=[greyRectArray objectAtIndex:i];
@@ -148,7 +147,9 @@
     NSLog(@"saveAlphabet");
     //self.menu.saveAlphabetShape.fillColor=UA_HIGHLIGHT_COLOR;
     [self closeMenu];
-    //[self saveAlphabet];
+    [self saveCurrentAlphabetAsImage];
+
+    [self saveAlphabet];
 }
 -(void)goToWritePostcard{
     NSLog(@"write Postcard");
@@ -215,7 +216,7 @@
 //------------------------------------------------------------------------
 -(void)openMenu{
     NSLog(@"openMenu");
-    [self saveCurrentAlphabetAsImage];
+    //[self saveCurrentAlphabetAsImage];
     CGRect menuFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];
     [self.view addSubview:self.menu];
@@ -299,31 +300,35 @@
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
+//------------------------------------------------------------------------
 -(void)saveAlphabet{
-    //crop the screenshot
-    self.currentAlphabetImage=[self cropImage:self.currentAlphabetImage toArea:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))];
+    
     [self exportHighResImage];
 }
 
 -(void)saveCurrentAlphabetAsImage{
-    CGFloat scale = 10.0;
-    //begin an image context
-    CGSize  rect=CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
-    UIGraphicsBeginImageContextWithOptions(rect, NO, scale);
-    //create a new context ref
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    //render the canvas image into the context
-    //[self.view renderInContext:c];
-    //grab a UIImage from the context
-    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
-    //end the image context
-    UIGraphicsEndImageContext();
-    //create a new UIImage
-    self.currentAlphabetImage = newUIImage;
+    
+    double screenScale = [[UIScreen mainScreen] scale];
+    CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, self.view.frame.size.width * screenScale, (self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+    self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
 }
+
+- (UIImage *)createScreenshot
+{
+    //    UIGraphicsBeginImageContext(pageSize);
+    CGSize pageSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+    UIGraphicsBeginImageContextWithOptions(pageSize, YES, 0.0f);
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 -(void)exportHighResImage {
-    graphicsContext = [self createHighResImageContext];
-    //[self.currentAlphabetImage renderInContext:graphicsContext];
     NSString *fileName = [NSString stringWithFormat:@"exportedAlphabet%@.jpg", [NSDate date]];
     [self saveImage:fileName];
     [self saveImageToLibrary];
@@ -333,7 +338,7 @@
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {
-    UIImage  *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage  *image = self.currentAlphabetImage;
     self.currentAlphabetImageAsUIImage=[image copy];
     NSData *imageData = UIImagePNGRepresentation(image);
     //--------------------------------------------------
@@ -355,30 +360,10 @@
     return paths[0];
 }
 -(void)saveImageToLibrary {
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *image = self.currentAlphabetImageAsUIImage;
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
--(UIImage *)cropImage:(UIImage *)originalImage toArea:(CGRect)rect{
-    //grab the image scale
-    CGFloat scale = 1.0;
-    //begin an image context
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, scale);
-    //create a new context ref
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    //shift BACKWARDS in both directions because this moves the image
-    //the area to crop shifts INTO: (0, 0, rect.size.width, rect.size.height)
-    CGContextTranslateCTM(c, -rect.origin.x, -rect.origin.y);
-    //render the original image into the context
-    //[originalImage renderInContext:c];
-    //grab a UIImage from the context
-    UIImage *newUIImage = UIGraphicsGetImageFromCurrentImageContext();
-    //end the image context
-    UIGraphicsEndImageContext();
-    //create a new UIImage
-    UIImage *newImage = newUIImage;
-    //return the new image
-    return newImage;
-}
+
 //------------------------------------------------------------------------
 //LOCATION UPDATING
 //------------------------------------------------------------------------
