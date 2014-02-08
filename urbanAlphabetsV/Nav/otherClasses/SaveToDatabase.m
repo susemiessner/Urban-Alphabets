@@ -65,6 +65,7 @@
     (void)[[NSURLConnection alloc]initWithRequest:request delegate:self];
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    NSLog(@"response: %@", response);
 }
 -(void)findRightLetter:(NSUInteger)chosenImageNumberInArray Language:(NSString*)theLanguage{
     if ([theLanguage isEqual:@"Finnish/Swedish"]||[theLanguage isEqualToString:@"German"] ||[theLanguage isEqualToString:@"English"] ||[theLanguage isEqualToString:@"Danish/Norwegian"] || [theLanguage isEqualToString:@"Spanish"]) {
