@@ -18,4 +18,5 @@
 -(void )setup:(NSMutableArray*)passedAlphabet ;
 -(void)grabCurrentLanguageViaNavigationController;
 -(void)redrawAlphabet;
+-(void)goToMyAlphabets;
 @end

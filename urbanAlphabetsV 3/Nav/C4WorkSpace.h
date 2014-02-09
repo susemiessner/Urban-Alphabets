@@ -56,4 +56,5 @@
 -(NSString *)documentsDirectory;
 -(void)writeAlphabetsUserDefaults;
 -(void)loadCorrectAlphabet;
+
 @end

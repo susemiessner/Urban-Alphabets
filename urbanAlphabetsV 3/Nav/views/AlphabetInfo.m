@@ -182,21 +182,11 @@
                 //delete from arrays
                 [workspace.myAlphabets removeObjectAtIndex:i];
                 [workspace.myAlphabetsLanguages removeObjectAtIndex: i];
-                //change name of current alphabet
+                //change name of current alphabet to first one in the array
                 workspace.alphabetName=[workspace.myAlphabets objectAtIndex:0];
                 workspace.currentLanguage=[workspace.myAlphabetsLanguages objectAtIndex:0];
                 //load first alphabet in array
-                NSString *path= [[workspace documentsDirectory] stringByAppendingString:@"/"];
-                path=[path stringByAppendingPathComponent:workspace.alphabetName];
-                if ([[NSFileManager defaultManager] fileExistsAtPath:path]){
-                    workspace.currentAlphabet=[[NSMutableArray alloc]init];
-                    for (int i=0; i<42; i++) {
-                        NSString *filePath=[[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", i]] stringByAppendingString:@".jpg"];
-                        NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-                        UIImage *img = [UIImage imageWithData:imageData];
-                        [workspace.currentAlphabet addObject:img];
-                    }
-                }
+                [workspace loadCorrectAlphabet];
             } else{ //if only one alphabet exists
                 //empty arrays
                 [workspace.myAlphabets removeAllObjects];

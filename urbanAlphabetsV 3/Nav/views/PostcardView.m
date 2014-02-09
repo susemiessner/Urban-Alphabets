@@ -209,10 +209,18 @@
 }
 -(void)goToMyAlphabets{
     [self closeMenu];
-    myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
+    /*myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
     [myAlphabets setup];
     [self.navigationController pushViewController:myAlphabets animated:NO];
-    [myAlphabets grabCurrentLanguageViaNavigationController];
+    [myAlphabets grabCurrentLanguageViaNavigationController];*/
+    [self postcardToMyAlphabets];
+
+}
+-(void)postcardToMyAlphabets{
+    id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
+    alphabetView=(AlphabetView*)obj;
+    [self.navigationController popToViewController:alphabetView animated:NO];
+    [alphabetView goToMyAlphabets];
 }
 -(void)closeView{
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];

@@ -61,15 +61,23 @@
 
 }
 -(void)viewDidAppear:(BOOL)animated{
-
+    
     self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     NSLog(@"username: %@", self.userName);
     if (self.userName==nil) {
         self.title=@"Intro";
+        float yPosIntro=0;
+        //check which device
+        if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            yPosIntro=yPosIntro-88;
+        }
+        
+        
+        
         introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
         introPicsViews=[[NSMutableArray alloc]init];
         for (int i=0; i<[introPics count]; i++) {
-            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
+            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+yPosIntro, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
             introView.image=[introPics objectAtIndex:i];
             [introPicsViews addObject:introView];
         }
@@ -81,7 +89,7 @@
         
         nextButton=UA_ICON_NEXT;
         //nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.canvas.width-nextButton.size.width-20, self.canvas.height-nextButton.size.height-20, 80, 34)];
-        nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-100, self.view.frame.size.height-100, 80, 34)];
+        nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-100, [[UIScreen mainScreen] bounds].size.height-100+yPosIntro, 80, 34)];
         nextButtonView.image=nextButton;
         [self.view addSubview:nextButtonView];
         nextButtonView.userInteractionEnabled=YES;
@@ -114,18 +122,18 @@
         
         if (currentNoInIntro==1) {
             
-            CGRect labelFrame = CGRectMake( 25, self.view.frame.size.height-150, 300, 30 );
+            CGRect labelFrame = CGRectMake( 25, [[UIScreen mainScreen] bounds].size.height-150, 300, 30 );
             
             webadress=[[UILabel alloc] initWithFrame:labelFrame];
             [webadress setText:@"www.ualphabets.com"];
             [webadress setTextColor:UA_GREY_TYPE_COLOR];
-           // webadress.origin=CGPointMake(25, self.view.frame.size.height-150);
+           // webadress.origin=CGPointMake(25, [[UIScreen mainScreen] bounds].size.height-150);
             [self.view addSubview:webadress];
             
         }
         if (currentNoInIntro==2) {
             //add text field
-            CGRect textViewFrame = CGRectMake(20, 200, self.view.frame.size.width-2*20, 25.0f);
+            CGRect textViewFrame = CGRectMake(20, 200, [[UIScreen mainScreen] bounds].size.width-2*20, 25.0f);
             userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
             userNameField.returnKeyType = UIReturnKeyDone;
             userNameField.layer.borderWidth=1.0f;
@@ -161,11 +169,11 @@
     {
         
         self.isCameraAlreadySetup = YES;
-        self.previewLayerHostView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        self.previewLayerHostView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
         
         [self.view addSubview:self.previewLayerHostView];
         //if we wanted to display sth on top of the image (e.g. skip crop photo)
-        //UIImageView *gridView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        //UIImageView *gridView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
         //[gridView setImage:[UIImage imageNamed:@"cameragrid480.png"]];
         //[self.view addSubview:gridView];
         
@@ -218,7 +226,7 @@
         self.stillLayer.transform=transform;
         
         double proportion = 640.0/480.0;
-        double imageTop = (self.view.frame.size.height / 2.0) - (320*proportion / 2.0);
+        double imageTop = ([[UIScreen mainScreen] bounds].size.height / 2.0) - (320*proportion / 2.0);
         
         self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
         
@@ -234,7 +242,7 @@
         self.isPhotoBeingTaken = YES;
         
         
-        CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+        CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
         self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 70, 35)];
         [self.view addSubview:self.bottomNavBar];
         
