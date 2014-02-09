@@ -29,6 +29,8 @@
     //magic for dismissing the keyboard
     UITapGestureRecognizer * tapGesture;
     UIView *navigation;
+    
+    float height;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @end
@@ -50,7 +52,7 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     //bottom bar
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45) ];
     [self.view addSubview:self.bottomNavBar];
     self.bottomNavBar.centerImageView.hidden=YES;
@@ -68,7 +70,7 @@
     [self.view addSubview:nameLabel];
 
     //text field
-    CGRect textViewFrame = CGRectMake(nameLabel.frame.size.width, nameLabel.frame.origin.y, self.view.frame.size.width-40-nameLabel.frame.size.width, nameLabel.frame.size.height+5);
+    CGRect textViewFrame = CGRectMake(nameLabel.frame.size.width, nameLabel.frame.origin.y, [[UIScreen mainScreen] bounds].size.width-40-nameLabel.frame.size.width, nameLabel.frame.size.height+5);
     textInput = [[UITextView alloc] initWithFrame:textViewFrame];
     textInput.returnKeyType = UIReturnKeyDone;
     textInput.layer.borderWidth=1.0f;
@@ -92,9 +94,9 @@
     firstShapeY=languageLabel.frame.origin.y+languageLabel.frame.size.height+10;
     for (int i=0; i<[workspace.languages count]; i++) {
         //underlying shape
-        float height=46.203;
+        height=35.203;
         float yPos=i*height+firstShapeY;
-        UIView *shape=[[UIView alloc]initWithFrame:CGRectMake(0, yPos, self.view.frame.size.width, height)];
+        UIView *shape=[[UIView alloc]initWithFrame:CGRectMake(0, yPos, [[UIScreen mainScreen] bounds].size.width, height)];
         shape.layer.borderWidth=1.0f;
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
@@ -103,7 +105,7 @@
         [self.view addSubview:shape];
         
         //text label
-        float heightLabel=46.203;
+        float heightLabel=height;
         float yPosLabel=i*heightLabel+4+languageLabel.frame.origin.y+languageLabel.frame.size.height+10+heightLabel/2-13;
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(75, yPosLabel, 300, 20)];
         [label setText:[workspace.languages objectAtIndex:i]];
@@ -122,7 +124,7 @@
         [label addGestureRecognizer:labelRecognizer];
     }
     //√icon only 1x
-    checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, -50, 46, 46)];
+    checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, -50, 30, 30)];
     checkedIcon.image=UA_ICON_CHECKED;
     //checkedIcon.hidden=true;
     [self.view addSubview:checkedIcon];
@@ -144,7 +146,7 @@
         }
     }
     //checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
-    [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber-1)*clickedObject.frame.size.height+firstShapeY-10, 46,46)];
+    [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber-1)*height+firstShapeY-22, 30,30)];
 
     if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<1) {
         NSLog(@"OKButtonAdded");

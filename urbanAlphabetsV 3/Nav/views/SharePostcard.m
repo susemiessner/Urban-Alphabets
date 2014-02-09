@@ -42,7 +42,7 @@
 
     
     //add text field
-   CGRect textViewFrame = CGRectMake(postcardImage.center.x+postcardImage.frame.size.width, postcardImage.frame.origin.y, self.view.frame.size.width-40-(postcardImage.center.x+postcardImage.frame.size.width), postcardImage.frame.size.height);
+   CGRect textViewFrame = CGRectMake(postcardImage.center.x+postcardImage.frame.size.width, postcardImage.frame.origin.y, [[UIScreen mainScreen] bounds].size.width-40-(postcardImage.center.x+postcardImage.frame.size.width), postcardImage.frame.size.height);
     textInput = [[UITextView alloc] initWithFrame:textViewFrame];
     textInput.returnKeyType = UIReturnKeyDone;
     textInput.layer.borderWidth=1.0f;

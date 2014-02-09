@@ -53,7 +53,7 @@
 -(void )setup:(NSMutableArray*)passedAlphabet  {
     self.navigationItem.hidesBackButton = YES;
     //bottomNavbar WITH 2 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45)];
     [self.view addSubview:self.bottomNavBar];
     
@@ -73,8 +73,8 @@
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;
-    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
-    //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
@@ -191,9 +191,9 @@
     float i=(currentImage.frame.origin.x-alphabetFromLeft)/imageWidth;
     float j=currentImage.frame.origin.y/imageHeight;
     int j1=j+1;
-    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
-        //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
-        j1=floor(j)+1;
+    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        j1=floor(j);
     }
     NSLog(@"chosen i:j== %f:%i", i,j1);
 
@@ -235,7 +235,7 @@
 -(void)openMenu{
     NSLog(@"openMenu");
     //[self saveCurrentAlphabetAsImage];
-    CGRect menuFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];
     [self.view addSubview:self.menu];
         //start location updating
@@ -325,7 +325,7 @@
 
 -(void)saveCurrentAlphabetAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
-    CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, self.view.frame.size.width * screenScale, (self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+    CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, [[UIScreen mainScreen] bounds].size.width * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
 }
@@ -333,7 +333,7 @@
 - (UIImage *)createScreenshot
 {
     //    UIGraphicsBeginImageContext(pageSize);
-    CGSize pageSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+    CGSize pageSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     UIGraphicsBeginImageContextWithOptions(pageSize, YES, 0.0f);
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -350,7 +350,7 @@
     [self saveImageToLibrary];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }
 -(void)saveImage:(NSString *)fileName {

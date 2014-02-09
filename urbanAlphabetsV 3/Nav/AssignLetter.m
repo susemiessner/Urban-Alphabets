@@ -69,7 +69,7 @@
     self.navigationItem.leftBarButtonItem=leftButton;
 
     //bottomNavbar WITH 3 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:croppedImage withFrame:CGRectMake(0, 0, 32.788, 40.022) centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
     [self.view addSubview:self.bottomNavBar];
     
@@ -83,8 +83,8 @@
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;
-    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
-    //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;

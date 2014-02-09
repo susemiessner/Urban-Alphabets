@@ -40,8 +40,8 @@
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;
-    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
-    //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
@@ -99,7 +99,7 @@
     self.currentLanguage=[passedLanguage copy];
     self.currentAlphabet=[passedAlphabet copy];
     //add text field
-    CGRect textViewFrame = CGRectMake(20.0f, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+10, self.view.frame.size.width-40, 124.0f);
+    CGRect textViewFrame = CGRectMake(20.0f, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+10, [[UIScreen mainScreen] bounds].size.width-40, 124.0f);
     textViewTest = [[UITextView alloc] initWithFrame:textViewFrame];
     textViewTest.returnKeyType = UIReturnKeyDone;
     [textViewTest becomeFirstResponder];
@@ -114,7 +114,7 @@
 //------------------------------------------------------------------------
 -(void)setupKeyboardBar{
     int barHeight=30;
-    keyboardBarBackground=[[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-216-barHeight, self.view.frame.size.width, barHeight)];
+    keyboardBarBackground=[[UIView alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-216-barHeight, [[UIScreen mainScreen] bounds].size.width, barHeight)];
     [keyboardBarBackground setBackgroundColor:UA_NAV_BAR_COLOR];
     [self.view addSubview: keyboardBarBackground];
     

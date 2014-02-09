@@ -42,7 +42,7 @@
     [self.view addSubview:alphabetImage];
 
     //add text field
-    CGRect textViewFrame = CGRectMake(alphabetImage.center.x+alphabetImage.frame.size.width, alphabetImage.frame.origin.y, self.view.frame.size.width-40-(alphabetImage.center.x+alphabetImage.frame.size.width), alphabetImage.frame.size.height);
+    CGRect textViewFrame = CGRectMake(alphabetImage.center.x+alphabetImage.frame.size.width, alphabetImage.frame.origin.y, [[UIScreen mainScreen] bounds].size.width-40-(alphabetImage.center.x+alphabetImage.frame.size.width), alphabetImage.frame.size.height);
     textInput = [[UITextView alloc] initWithFrame:textViewFrame];
     textInput.returnKeyType = UIReturnKeyDone;
     textInput.layer.borderWidth=1.0f;

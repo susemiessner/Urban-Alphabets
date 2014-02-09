@@ -42,6 +42,7 @@
 -(void)setup {
     
     NSLog(@"%f", [[UIScreen mainScreen] bounds].size.height);
+    NSLog(@"%f", self.view.frame.size.height);
     NSLog(@"%f", [[UIScreen mainScreen] bounds].size.width);
 
     self.title=@"Take Photo";

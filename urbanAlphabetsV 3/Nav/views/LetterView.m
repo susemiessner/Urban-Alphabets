@@ -15,6 +15,10 @@
     NSInteger currentLetter;
     UIImageView *currentImage; //the image currently displayed
     UIImageView *currentImageView;
+    
+    float letterWidth;
+    float letterHeight;
+    float letterFromLeft;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite, strong)  NSMutableArray *currentAlphabet;
@@ -25,7 +29,7 @@
     self.title=@"Letter View";
     self.navigationItem.hidesBackButton = YES;
     //bottomNavbar WITH 3 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_ARROW_BACKWARD withFrame:CGRectMake(0, 0, 70, 35) centerIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 45) rightIcon:UA_ICON_ARROW_FORWARD withFrame:CGRectMake(0, 0, 70, 35)];
     [self.view addSubview:self.bottomNavBar];
     
@@ -42,15 +46,28 @@
     abcButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:abcButtonRecognizer];
     
+    //check which phone
+    letterWidth=[[UIScreen mainScreen] bounds].size.width;
+    letterHeight=letterWidth/0.82;
+    letterFromLeft=0;
+    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        letterHeight=[[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
+        letterWidth=letterWidth*0.82;
+        letterFromLeft=([[UIScreen mainScreen] bounds].size.width-letterWidth)/2;
+    }
+
+    
+    
     //THE LETTER
     self.currentAlphabet=[passedAlphabet mutableCopy];
     currentLetter=chosenNumber;
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
     //NSLog(@"currentImage: %@", currentImage);
-    currentImageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.width/0.82)];
+    currentImageView=[[UIImageView alloc] initWithFrame:CGRectMake(letterFromLeft, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, letterWidth, letterHeight)];
     currentImageView.image=currentImage.image;
     currentImageView.userInteractionEnabled=YES;
-    //int maxHeight=self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
+    //int maxHeight=[[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
     [self.view addSubview:currentImageView];
     
     UISwipeGestureRecognizer *swipeLeftRecognizer=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(goForward)];

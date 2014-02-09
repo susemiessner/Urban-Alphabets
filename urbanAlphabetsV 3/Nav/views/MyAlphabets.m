@@ -62,7 +62,7 @@
 
         //underlying shape
         float yPos=firstShapeY+i*height;
-        UIView *shape = [[UIView alloc]initWithFrame:CGRectMake(0, yPos, self.view.frame.size.width, height)];
+        UIView *shape = [[UIView alloc]initWithFrame:CGRectMake(0, yPos, [[UIScreen mainScreen] bounds].size.width, height)];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         shape.layer.borderWidth=1.0f;

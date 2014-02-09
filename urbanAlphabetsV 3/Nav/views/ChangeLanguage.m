@@ -50,7 +50,7 @@
     languageLabels=[[NSMutableArray alloc]init];
     
     //bottomNavbar WITH 1 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
     [self.view addSubview:self.bottomNavBar];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"changeLanguage"];
@@ -64,7 +64,7 @@
         //underlying shape
         float height=46.203;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*height;
-        UIView *shape=[[UIView alloc]initWithFrame:CGRectMake(0, yPos, self.view.frame.size.width, height)];
+        UIView *shape=[[UIView alloc]initWithFrame:CGRectMake(0, yPos, [[UIScreen mainScreen] bounds].size.width, height)];
         shape.layer.borderWidth=1.0f;
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];

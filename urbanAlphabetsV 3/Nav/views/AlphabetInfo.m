@@ -46,7 +46,7 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     //bottomNavbar WITH 1 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
     [self.view addSubview:self.bottomNavBar];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetView"];
@@ -108,7 +108,7 @@
     language.userInteractionEnabled=YES;
     
     int xPosChange=secondColumX+language.frame.size.width+5;
-    if (xPosChange+changeLanguage.frame.size.width > self.view.frame.size.width) {
+    if (xPosChange+changeLanguage.frame.size.width > [[UIScreen mainScreen] bounds].size.width) {
         xPosChange=secondColumX;
         yPos+=lineHeight-15;
     }

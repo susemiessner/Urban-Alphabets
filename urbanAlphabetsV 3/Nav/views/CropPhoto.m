@@ -54,8 +54,10 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     //bottomNavbar WITH 1 ICONS
-    NSLog(@"view height: %f", self.view.frame.size.height);
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+    //NSLog(@"view height: %f", self.view.frame.size.height);
+    //NSLog(@" ui screen : %f", [[UIScreen mainScreen] bounds].size.height);
+
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     //NSLog(@"UA_icon_ok: %@", UA_ICON_OK);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
     [self.view addSubview:self.bottomNavBar];
@@ -70,13 +72,13 @@
 -(void)displayImage:(UIImage*)image{
     NSLog(@"display image, photoTaken: %@", image);
     self.photoTaken = image;
-    photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
+    photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
     // just adjusting the picture to be on portrait mode correctly
     double photoWidth = photoTakenView.frame.size.width;
     double photoHeight = (photoTakenView.frame.size.width * self.photoTaken.size.height) / self.photoTaken.size.width; //photoTakenView.frame.size.height;
     
     // centering and resizing image
-    photoTakenView.frame = CGRectMake(0,self.view.frame.size.height/2 - photoHeight/2,photoWidth,photoHeight);
+    photoTakenView.frame = CGRectMake(0,[[UIScreen mainScreen] bounds].size.height/2 - photoHeight/2,photoWidth,photoHeight);
     
     photoTakenView.image=self.photoTaken;
     [self.view addSubview:photoTakenView];
@@ -103,17 +105,17 @@
 }
 
 -(void)transparentOverlay{
-    touchY1= self.view.frame.size.height/2 - 266.472/2;
+    touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
     touchX1=50.532;
     touchY2= touchY1 + 266.472;
-    touchX2= self.view.frame.size.width-50.3532;
+    touchX2= [[UIScreen mainScreen] bounds].size.width-50.3532;
     //upper rect
-    upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
+    upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
     [upperRect setBackgroundColor:UA_OVERLAY_COLOR];
     [self.view addSubview:upperRect];
     
     //lower rect
-    lowerRect=[[UIView alloc] initWithFrame: CGRectMake(0, touchY2, self.view.frame.size.width, self.view.frame.size.height-touchY2-UA_BOTTOM_BAR_HEIGHT)];
+    lowerRect=[[UIView alloc] initWithFrame: CGRectMake(0, touchY2, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-touchY2-UA_BOTTOM_BAR_HEIGHT)];
     [lowerRect setBackgroundColor:UA_OVERLAY_COLOR];
     [self.view addSubview:lowerRect];
     
@@ -123,7 +125,7 @@
     [self.view addSubview:leftRect];
     
     //right rect
-    rightRect = [[UIView alloc] initWithFrame: CGRectMake(touchX2, touchY1, self.view.frame.size.width-touchX2, touchY2-touchY1)];
+    rightRect = [[UIView alloc] initWithFrame: CGRectMake(touchX2, touchY1, [[UIScreen mainScreen] bounds].size.width-touchX2, touchY2-touchY1)];
     [rightRect setBackgroundColor:UA_OVERLAY_COLOR];
     [self.view addSubview:rightRect];
     
@@ -141,7 +143,6 @@
 //--------------------------------------------------
 -(void)saveImage{
     NSLog(@"saveImage");
-    self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
     //crop image
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(touchX1 * screenScale,touchY1 * screenScale,(touchX2 - touchX1) * screenScale, 266.472 * screenScale));
