@@ -107,7 +107,7 @@
     float firstYPos=firstShapeY;
     yPos=yPos-firstYPos;
     float elementNumber=yPos/alphabetFrameSize;
-    elementNoChosen=lroundf(elementNumber);
+    elementNoChosen=(int)lroundf(elementNumber);
 
     for (int i=0; i<[backgroundShapes count]; i++) {
         UIView *shape=[backgroundShapes objectAtIndex:i];

@@ -104,7 +104,7 @@
     float yPos=clickedObject.frame.origin.y;
     yPos=yPos-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT;
     float elementNumber=yPos/clickedObject.frame.size.height;
-    elementNoChosen=lroundf(elementNumber);
+    elementNoChosen=(int)lroundf(elementNumber);
     for (int i=0; i<[shapesForBackground count]; i++) {
         UIView *shape=[shapesForBackground objectAtIndex:i];
         if (i==elementNoChosen) {

@@ -97,7 +97,7 @@
     if (currentLetter>=[self.currentAlphabet count]) {
         currentLetter=0;
     }
-    [self displayLetter:currentLetter];
+    [self displayLetter:(int)currentLetter];
 }
 -(void) goBackward{
     [currentImage removeFromSuperview];
@@ -105,7 +105,7 @@
     if (currentLetter<=0) {
         currentLetter=[self.currentAlphabet count]-1;
     }
-    [self displayLetter:currentLetter];
+    [self displayLetter:(int)currentLetter];
 }
 
 
