@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BBEA7FA718A70D2800C81F23 /* cameragrid480.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEA7FA618A70D2800C81F23 /* cameragrid480.png */; };
 		DA0812BF187C255100CD4EE1 /* letter_-.png in Resources */ = {isa = PBXBuildFile; fileRef = DA08128E187C255100CD4EE1 /* letter_-.png */; };
 		DA0812C0187C255100CD4EE1 /* letter_,.png in Resources */ = {isa = PBXBuildFile; fileRef = DA08128F187C255100CD4EE1 /* letter_,.png */; };
 		DA0812C1187C255100CD4EE1 /* letter_!.png in Resources */ = {isa = PBXBuildFile; fileRef = DA081290187C255100CD4EE1 /* letter_!.png */; };
@@ -174,6 +175,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BBEA7FA618A70D2800C81F23 /* cameragrid480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameragrid480.png; sourceTree = "<group>"; };
 		DA08128E187C255100CD4EE1 /* letter_-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_-.png"; sourceTree = "<group>"; };
 		DA08128F187C255100CD4EE1 /* letter_,.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_,.png"; sourceTree = "<group>"; };
 		DA081290187C255100CD4EE1 /* letter_!.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_!.png"; sourceTree = "<group>"; };
@@ -770,6 +772,7 @@
 				EDFC422B1851014F00CB3335 /* C4AppDelegate.m */,
 				EDFC42371851015300CB3335 /* C4WorkSpace.h */,
 				EDFC42381851015300CB3335 /* C4WorkSpace.m */,
+				BBEA7FA618A70D2800C81F23 /* cameragrid480.png */,
 				DA5861E71857149A00C4D2A5 /* views */,
 				EDFC41F91851014E00CB3335 /* Media */,
 				EDFC41FE1851014F00CB3335 /* Framework */,
@@ -928,7 +931,7 @@
 				ORGANIZATIONNAME = moi;
 				TargetAttributes = {
 					EDFC41D61851014E00CB3335 = {
-						DevelopmentTeam = 33XFTKG77Q;
+						DevelopmentTeam = 2249VP2372;
 					};
 					EDFC423D1851015300CB3335 = {
 						TestTargetID = EDFC41D61851014E00CB3335;
@@ -1016,6 +1019,7 @@
 				DA8C28B4185F5A97009B0DC1 /* ShareAlphabet.xib in Resources */,
 				DA0812D6187C255100CD4EE1 /* letter_danisho.png in Resources */,
 				DA58621018573E6B00C4D2A5 /* icon_Close.png in Resources */,
+				BBEA7FA718A70D2800C81F23 /* cameragrid480.png in Resources */,
 				DA68A8371883E4D900BE9545 /* letter_RusP.png in Resources */,
 				DA0812C5187C255100CD4EE1 /* letter_0.png in Resources */,
 				DA68A8301883E4D900BE9545 /* letter_RusIkratkoje.png in Resources */,
@@ -1244,6 +1248,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Nav/ualphabets-Prefix.pch";
 				INFOPLIST_FILE = "Nav/ualphabets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/\"/**",
@@ -1264,6 +1269,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Nav/ualphabets-Prefix.pch";
 				INFOPLIST_FILE = "Nav/ualphabets-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/\"/**",

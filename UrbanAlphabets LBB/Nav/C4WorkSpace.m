@@ -8,6 +8,9 @@
 #import "C4Workspace.h"
 #import "CropPhoto.h"
 
+#import <AVFoundation/AVFoundation.h>
+#define degreesToRadians(x) (M_PI * x / 180.0)
+
 @implementation C4WorkSpace {
     CropPhoto *cropPhoto;
     
@@ -97,6 +100,12 @@
     }
 */
 }
+
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    self.isCameraAlreadySetup = NO;
+}
+
 -(void)viewDidAppear:(BOOL)animated{
 
     self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
@@ -190,32 +199,231 @@
     //and remove the username stuff
     [userNameField removeFromSuperview];
 }
--(void)cameraSetup{
-    
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+
+
+// new setup camera code
+-(void)cameraSetup
+{
+    // verification to not set up again
+    if (!self.isCameraAlreadySetup)
     {
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        imagePicker.allowsEditing = NO;
-        imagePicker.modalPresentationStyle = UIModalPresentationCurrentContext;
-        //[self presentViewController:imagePicker animated:NO completion:nil];
-        UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        if ([activeController isKindOfClass:[UINavigationController class]]) {
-            activeController = [(UINavigationController*) activeController visibleViewController];
+        
+        self.isCameraAlreadySetup = YES;
+        self.previewLayerHostView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        
+        [self.view addSubview:self.previewLayerHostView];
+        
+        UIImageView *gridView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        
+        // this grid image is the grid shown over the image.. it can be changed or removed!
+        [gridView setImage:[UIImage imageNamed:@"cameragrid480.png"]];
+        [self.view addSubview:gridView];
+        
+        //crete the "snapshot" display layer
+        self.stillLayer=[CALayer layer];
+        
+        //prepare the preview layer host view
+        [self.previewLayerHostView.layer addSublayer:self.stillLayer];
+        
+        //    self.previewLayerHostView.frame = CGRectMake(0.0, 0.0, 768.0, 1024.0);
+        
+        self.avSession=[AVCaptureSession new];
+        self.avSession.sessionPreset=AVCaptureSessionPresetPhoto;
+        
+        self.avSnapper=[AVCaptureStillImageOutput new];
+        self.avSnapper.outputSettings=[NSDictionary dictionaryWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
+        [self.avSession addOutput:self.avSnapper];
+        
+        NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+        AVCaptureDevice *camera = nil;
+        
+        for (AVCaptureDevice *device in videoDevices)
+        {
+            if (device.position == AVCaptureDevicePositionBack)
+            {
+                camera=device;
+                break;
+            }
         }
-        [activeController presentViewController:imagePicker animated:NO completion:nil];
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Camera Unavailable"
-                                                       message:@"Unable to find a camera on your device."
-                                                      delegate:nil
-                                             cancelButtonTitle:@"OK"
-                                             otherButtonTitles:nil, nil];
-        [alert show];
-        alert = nil;
+        
+        NSError *error=nil;
+        AVCaptureDeviceInput *input=[AVCaptureDeviceInput deviceInputWithDevice:camera error:&error];
+        
+        if(nil!=error)
+        {
+            NSLog(@"AVCaptureDeviceInput failed with error:%@",error);
+            
+            return;
+        }
+        
+        [self.avSession addInput:input];
+        
+        //assign the preview layer and setup the image frames and transformation for device orientation
+        self.avPreviewLayer=[[AVCaptureVideoPreviewLayer alloc] initWithSession:self.avSession];
+        
+        self.avPreviewLayer.frame = self.previewLayerHostView.frame;
+        
+        CATransform3D transform=CATransform3DIdentity;
+        transform=CATransform3DRotate(transform, degreesToRadians(90), 0.0, 0.0, 1.0);
+        transform=CATransform3DScale(transform,1.0,1.0,1.0);
+        
+        self.stillLayer.transform=transform;
+        
+        double proportion = 640.0/480.0;
+        double imageTop = (self.view.frame.size.height / 2.0) - (320*proportion / 2.0);
+        
+        self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
+        
+        [self adjustImageFramesForDeviceOrientation:nil];
+        
+        //add the layer
+        [self.previewLayerHostView.layer addSublayer:self.avPreviewLayer];
+        [self.previewLayerHostView.layer setMasksToBounds:YES];
+        
+        //start the session
+        [self.avSession startRunning];
+        
+        self.isPhotoBeingTaken = YES;
+        
+        
+        CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+        self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 70, 35)];
+        //     UIView *bottomBarView=[[UIView alloc]initWithFrame:bottomBarFrame];
+        [self.view addSubview:self.bottomNavBar];
+        
+        UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
+        takePhotoButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.centerImageView addGestureRecognizer:takePhotoButtonRecognizer];
+        
+        UITapGestureRecognizer *photoLibraryButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToPhotoLibrary)];
+        photoLibraryButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.leftImageView addGestureRecognizer:photoLibraryButtonRecognizer];
+        
+        UITapGestureRecognizer *photoSelectedButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageSelected)];
+        photoSelectedButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.rightImageView addGestureRecognizer:photoSelectedButtonRecognizer];
+        
+        self.bottomNavBar.rightImageView.hidden = YES;
     }
+    else
+    {
+        [self cameraPrepareToRetake];
+        self.bottomNavBar.rightImageView.hidden = YES;
+    }
+    
+    if (![self.avSession isRunning])
+    {
+        [self.avSession startRunning];
+    }
+    
 }
 
+// to fix some orientation problems that I've found in AVFoundation classes
+-(void)adjustImageFramesForDeviceOrientation:(NSNotification*)notification
+{
+    UIDeviceOrientation orientation=[[UIDevice currentDevice] orientation];
+    
+    if(orientation==UIInterfaceOrientationLandscapeRight)
+    {
+        CATransform3D transform = CATransform3DIdentity;
+        transform=CATransform3DRotate(transform, degreesToRadians(0), 0.0, 0.0, 1.0);
+        
+        self.avPreviewLayer.transform=transform;
+    }
+    else if(orientation==UIInterfaceOrientationLandscapeLeft)
+    {
+        CATransform3D transform = CATransform3DIdentity;
+        transform=CATransform3DRotate(transform, degreesToRadians(0), 0.0, 0.0, 1.0);
+        
+        self.avPreviewLayer.transform=transform;
+    }
+    
+}
+
+// this prepares to takes the picture
+-(void)take
+{
+    if (self.isPhotoBeingTaken)
+    {
+        [self snapshot];
+        self.bottomNavBar.rightImageView.hidden = NO;
+        self.isPhotoBeingTaken = NO;
+    }
+    else
+    {
+        [self cameraPrepareToRetake];
+        self.bottomNavBar.rightImageView.hidden = YES;
+        self.isPhotoBeingTaken = YES;
+    }
+    
+}
+
+// when re-taking, this just hides the picture taken
+-(void)cameraPrepareToRetake
+{
+    self.avPreviewLayer.opacity = 1.0;
+}
+
+// snapshot and show picture on screen
+-(void)snapshot
+{
+    AVCaptureConnection *captureConnection=[self.avSnapper connectionWithMediaType:AVMediaTypeVideo];
+    
+    typedef void (^BufferBlock)(CMSampleBufferRef, NSError*);
+    
+    BufferBlock handler=^(CMSampleBufferRef buffer, NSError *error)
+    {
+        NSData *data=[AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
+        
+        dispatch_async(dispatch_get_main_queue(),^(void)
+                       {
+                           [self adjustImageFramesForDeviceOrientation:nil];
+                           
+                           self.avPreviewLayer.opacity=0.0;
+                           self.stillLayer.contents=(id)[[UIImage alloc] initWithData:data].CGImage;
+                           capturedImage = nil;
+                           capturedImage = [[UIImage alloc] initWithData:data];
+                       });
+    };
+    
+    [self.avSnapper captureStillImageAsynchronouslyFromConnection:captureConnection
+                                                completionHandler:handler];
+}
+
+// method used when pressing OK button
+-(void)imageSelected
+{
+    [self.avSession stopRunning];
+    [self goToCropPhoto];
+}
+
+// old code
+//-(void)cameraSetup{
+//    
+//    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+//    {
+//        UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+//        imagePicker.delegate = self;
+//        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        imagePicker.allowsEditing = NO;
+//        imagePicker.modalPresentationStyle = UIModalPresentationCurrentContext;
+//        //[self presentViewController:imagePicker animated:NO completion:nil];
+//        UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
+//        if ([activeController isKindOfClass:[UINavigationController class]]) {
+//            activeController = [(UINavigationController*) activeController visibleViewController];
+//        }
+//        [activeController presentViewController:imagePicker animated:NO completion:nil];
+//    }else{
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Camera Unavailable"
+//                                                       message:@"Unable to find a camera on your device."
+//                                                      delegate:nil
+//                                             cancelButtonTitle:@"OK"
+//                                             otherButtonTitles:nil, nil];
+//        [alert show];
+//        alert = nil;
+//    }
+//}
+//
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //This creates a filepath with the current date/time as the name to save the image
@@ -223,22 +431,26 @@
     //NSString *fileSavePath = [Utilities documentsPath:presentTimeStamp];
     //fileSavePath = [fileSavePath stringByAppendingString:@".png"];
     
-    //This checks to see if the image was edited, if it was it saves the edited version as a .png
-    if ([info objectForKey:UIImagePickerControllerEditedImage]) {
-        //save the edited image
-       // NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerEditedImage]);
-        //[imgPngData writeToFile:fileSavePath atomically:YES];
-        
-        
-    }else{
-        //save the original image
-        NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage]);
-        capturedImage=[UIImage imageWithData:imgPngData];
-        //[imgPngData writeToFile:fileSavePath atomically:YES];
-        
-    }
-    [self dismissModalViewControllerAnimated:YES];
-    [self goToCropPhoto];
+//    //This checks to see if the image was edited, if it was it saves the edited version as a .png
+//    if ([info objectForKey:UIImagePickerControllerEditedImage]) {
+//        //save the edited image
+//       // NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerEditedImage]);
+//        //[imgPngData writeToFile:fileSavePath atomically:YES];
+//        
+//        
+//    }else{
+//        //save the original image
+//        NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage]);
+//        capturedImage=[UIImage imageWithData:imgPngData];
+//        //[imgPngData writeToFile:fileSavePath atomically:YES];
+//        
+//    }
+    
+    capturedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissModalViewControllerAnimated:YES];
+    [self imageSelected];
 }
 
 -(void)goToCropPhoto {
@@ -253,7 +465,7 @@
 -(void)goToPhotoLibrary{
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.allowsEditing = YES;
+    picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:picker animated:YES completion:NULL];
 }
