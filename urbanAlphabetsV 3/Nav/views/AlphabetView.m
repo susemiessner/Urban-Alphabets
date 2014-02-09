@@ -112,7 +112,6 @@
         greyRect.userInteractionEnabled=YES;
         [greyRectArray addObject:greyRect];
         [self.view addSubview:greyRect];
-        //NSLog(@"greyGrid: %i: %@", i, greyRect);
         
         //make them touchable
         UITapGestureRecognizer *letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedLetter:)];
@@ -131,9 +130,6 @@
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
         image.frame=CGRectMake(xPos, yPos, imageWidth, imageHeight);
         [self.view addSubview:image];
-        if (i==0) {
-            NSLog(@"image: %@",image.image);
-        }
     }
 }
 //------------------------------------------------------------------------
@@ -157,16 +153,12 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void)goToSaveAlphabet{
-    NSLog(@"saveAlphabet");
-    //self.menu.saveAlphabetShape.fillColor=UA_HIGHLIGHT_COLOR;
     [self closeMenu];
     [self saveCurrentAlphabetAsImage];
 
     [self saveAlphabet];
 }
 -(void)goToWritePostcard{
-    NSLog(@"write Postcard");
-    //self.menu.writePostcardShape.fillColor=UA_HIGHLIGHT_COLOR;
     [self closeMenu];
     writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
     [writePostcard setupWithLanguage:workspace.currentLanguage Alphabet:workspace.currentAlphabet];
@@ -174,8 +166,6 @@
     
 }
 -(void)goToAlphabetInfo{
-    NSLog(@"goToAlphabetInfo");
-    
     //--------------------------------------------------
     //prepare alphabetInfo
     //--------------------------------------------------
@@ -195,23 +185,16 @@
         //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         j1=floor(j);
     }
-    NSLog(@"chosen i:j== %f:%i", i,j1);
-
     self.letterTouched=((j1-1)*6)+i;
-    NSLog(@"arryNum: %i", self.letterTouched);
-
     [self openLetterView];
 }
 -(void)openLetterView{
-    NSLog(@"openLetterView");
     letterView=[[LetterView alloc] initWithNibName:@"LetterView" bundle:[NSBundle mainBundle]];
     [letterView setupWithLetterNo: self.letterTouched currentAlphabet:self.currentAlphabet];
     [self.navigationController pushViewController:letterView animated:YES];
 }
 -(void)goToShareAlphabet{
-    NSLog(@"ShareAlphabet");
     //get the current alphabet as a photo
-    //[self saveAlphabet];
     [self closeMenu];
     shareAlphabet=[[ShareAlphabet alloc]initWithNibName:@"ShareAlphabet" bundle:[NSBundle mainBundle]];
     [shareAlphabet setup: self.currentAlphabetImageAsUIImage];
@@ -221,9 +204,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)goToMyAlphabets{
-    NSLog(@"myAlphabets");
-    
-    [self closeMenu];
+       [self closeMenu];
     myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
     [myAlphabets setup];
     [self.navigationController pushViewController:myAlphabets animated:NO];
@@ -233,7 +214,6 @@
 //MENU
 //------------------------------------------------------------------------
 -(void)openMenu{
-    NSLog(@"openMenu");
     //[self saveCurrentAlphabetAsImage];
     CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];

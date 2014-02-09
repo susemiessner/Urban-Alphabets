@@ -115,7 +115,6 @@
         greyRect.userInteractionEnabled=YES;
         [greyGridArray addObject:greyRect];
         [self.view addSubview:greyRect];
-        //NSLog(@"greyGrid: %i: %@", i, greyRect);
         
         //make them touchable
         UITapGestureRecognizer *letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];
@@ -138,8 +137,6 @@
     }
 }
 -(void)highlightLetter:(UITapGestureRecognizer *)notification {
-    NSLog(@"highlight letter");
-    NSLog(@"notification object: %@", notification.view);
     for (int i=0; i<42; i++) {
         currentImage= greyGridArray[i];
         currentImage.backgroundColor=UA_NAV_CTRL_COLOR;
@@ -172,7 +169,6 @@
 -(void) goToAlphabetsViewAddingImageToAlphabet{
     
     self.chosenImageNumberInArray=selectedLetter;
-    NSLog(@"arryNum: %i", self.chosenImageNumberInArray);
     //--------------------------------------------------
     //getting username from main view
     //--------------------------------------------------
@@ -242,12 +238,7 @@
 //SAVING CROPPED IMAGE TO DOCUMENTS DIRECTORY
 //------------------------------------------------------------------------
 -(void)exportHighResImage {
-    //NSLog(@"cropped Image before scaling: %f", croppedImage.size.width);
-    //croppedImage = [UIImage imageWithCGImage:[croppedImage CGImage] scale:(croppedImage.scale * 0.1) orientation:(croppedImage.imageOrientation)];
-    //NSLog(@"cropped Image after  scaling: %f", croppedImage.size.width);
-
     graphicsContext = [self createHighResImageContext];
-    //C4Log(@"graphicsContext: %@", graphicsContext.);
 
     NSString *letterToAdd=@" ";
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]) {
@@ -267,8 +258,6 @@
     [self saveImage:fileName];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
-   // NSLog(@"cropped Image in graphics context: %f", croppedImage.size.width);
-    //UIGraphicsBeginImageContextWithOptions(CGSizeMake(218, 266), YES, 5.0f);
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(croppedImage.size.width-1, croppedImage.size.height-1), YES, 5.0f);
     return UIGraphicsGetCurrentContext();
 }

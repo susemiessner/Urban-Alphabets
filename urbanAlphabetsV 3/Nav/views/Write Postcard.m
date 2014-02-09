@@ -36,7 +36,6 @@
 
 @implementation Write_Postcard
 -(void)viewWillAppear:(BOOL)animated{
-    
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;

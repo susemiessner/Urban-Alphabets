@@ -149,7 +149,6 @@
     [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber-1)*height+firstShapeY-22, 30,30)];
 
     if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<1) {
-        NSLog(@"OKButtonAdded");
         self.bottomNavBar.centerImageView.hidden=NO;
         UIView *shape=[[UIView alloc] initWithFrame:CGRectMake(self.bottomNavBar.centerImageView.frame.origin.x-20, self.bottomNavBar.frame.origin.y-10, self.bottomNavBar.centerImage.size.width+40, self.bottomNavBar.centerImage.size.height+20)];
         shape.layer.borderWidth=1.0f;
@@ -165,9 +164,6 @@
     }
 }
 -(void)addAlphabet{
-    NSLog(@"addAlphabet");
-    //self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
-    
     //add new alphabet to my alphabets
     [workspace.myAlphabets addObject:name];
     //add a new language to languages array (so u can reload correctly later)
@@ -179,18 +175,14 @@
     [workspace loadDefaultAlphabet];
     //set current language to language chosen
     workspace.currentLanguage=[workspace.languages objectAtIndex:elementNoChosen];
-    //C4Log(@"current Language: %@", workspace.currentLanguage);
     //set old language to Finnish/swedish > the default one
     workspace.oldLanguage=@"Finnish/Swedish";
-    //C4Log(@"old language: %@", workspace.oldLanguage);
     //set it to the right language
     
     [self updateLanguage];
 
     //go to alphabets view
-    //C4Log(@"number of view Controllers: %d",[self.navigationController.viewControllers count]);
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-3];
-    //C4Log(@"obj:%@", obj);
     alphabetView=(AlphabetView*)obj;
     [alphabetView redrawAlphabet];
     [self.navigationController popToViewController:alphabetView animated:NO];

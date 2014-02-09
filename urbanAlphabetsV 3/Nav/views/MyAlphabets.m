@@ -56,7 +56,6 @@
     labels=[[NSMutableArray alloc]init];
     float height=46.203;
     alphabetFrameSize=height;
-     NSLog(@"workspace.alphabetName: '%@'", workspace.alphabetName);
     firstShapeY=UA_TOP_BAR_HEIGHT+UA_TOP_WHITE;
     for (int i=0; i<[currentAlphabets count]; i++) {
 
@@ -66,8 +65,6 @@
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         shape.layer.borderWidth=1.0f;
-        
-        NSLog(@"currentAlphabets: '%@', yPos origin: %f, height: %f", [currentAlphabets objectAtIndex:i ], shape.frame.origin.y, shape.frame.size.height);
         if ([[currentAlphabets objectAtIndex:i ] isEqualToString: workspace.alphabetName]) {
             [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedAlphabet=i;
@@ -104,20 +101,13 @@
 }
 
 -(void)alphabetChanged:(UIGestureRecognizer *)notification{
-    NSLog(@"alphabetChanged");
     UIView *clickedObject = notification.view;
     //figure out which object was clicked
-
     float yPos=clickedObject.frame.origin.y;
     float firstYPos=firstShapeY;
-    NSLog(@"yPos (orig): %f", yPos);
     yPos=yPos-firstYPos;
-    NSLog(@"yPos (-top): %f", yPos);
     float elementNumber=yPos/alphabetFrameSize;
-    NSLog(@"elementNumber: %f", elementNumber);
-    NSLog(@"elementHeight: %f", clickedObject.frame.size.height);
     elementNoChosen=lroundf(elementNumber);
-    NSLog(@"elementNoChosen: %i", elementNoChosen);
 
     for (int i=0; i<[backgroundShapes count]; i++) {
         UIView *shape=[backgroundShapes objectAtIndex:i];
@@ -128,7 +118,6 @@
         }
     }
     [checkedIcon setFrame: CGRectMake(+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber)*clickedObject.frame.size.height+2, 46,46)];
-    NSLog(@"elementNoChosen: backgroundshapes= %i:%i", elementNoChosen, ([backgroundShapes count]-1));
     if (elementNoChosen==([backgroundShapes count]-1)) {
         [self addAlphabet];
     } else if(elementNoChosen<=([backgroundShapes count]-2)){

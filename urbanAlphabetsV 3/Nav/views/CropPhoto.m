@@ -40,7 +40,6 @@
 @implementation CropPhoto
 
 -(void)setup{
-    NSLog(@"setup cropPhoto");
     self.title=@"Crop Photo";
     
     //back button
@@ -54,11 +53,7 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     //bottomNavbar WITH 1 ICONS
-    //NSLog(@"view height: %f", self.view.frame.size.height);
-    //NSLog(@" ui screen : %f", [[UIScreen mainScreen] bounds].size.height);
-
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
-    //NSLog(@"UA_icon_ok: %@", UA_ICON_OK);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
     [self.view addSubview:self.bottomNavBar];
     
@@ -66,11 +61,9 @@
     UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(saveImage)];
     okButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
-    NSLog(@"okButton: %@", self.bottomNavBar.centerImageView);
 }
 
 -(void)displayImage:(UIImage*)image{
-    NSLog(@"display image, photoTaken: %@", image);
     self.photoTaken = image;
     photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
     // just adjusting the picture to be on portrait mode correctly
@@ -142,7 +135,6 @@
 //SAVE IMAGE
 //--------------------------------------------------
 -(void)saveImage{
-    NSLog(@"saveImage");
     //crop image
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(touchX1 * screenScale,touchY1 * screenScale,(touchX2 - touchX1) * screenScale, 266.472 * screenScale));

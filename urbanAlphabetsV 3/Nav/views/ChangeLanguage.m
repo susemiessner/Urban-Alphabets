@@ -72,7 +72,6 @@
         if ([[languages objectAtIndex:i ] isEqualToString: self.currentLanguage]) {
             [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedLanguage=i;
-            NSLog(@"selectedLanguage: %i", selectedLanguage);
         }
         [shapesForBackground addObject:shape];
         shape.userInteractionEnabled=YES;
@@ -131,8 +130,6 @@
     [self updateLanguage];
     
     obj=[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
-   // NSLog(@"%i",[self.navigationController.viewControllers count]);
-    //NSLog(@"obj: %@", obj);
     alphabetInfo=(AlphabetInfo*)obj;
     [alphabetInfo changeLanguage];
     

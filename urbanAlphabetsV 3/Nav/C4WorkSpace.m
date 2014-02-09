@@ -41,15 +41,9 @@
 }
 
 -(void)setup {
-    
-    NSLog(@"%f", [[UIScreen mainScreen] bounds].size.height);
-    NSLog(@"%f", self.view.frame.size.height);
-    NSLog(@"%f", [[UIScreen mainScreen] bounds].size.width);
-
     self.title=@"Take Photo";
 
     //load the defaults
-    //[self loadDefaultAlphabet];
     self.currentLanguage= @"Finnish/Swedish";
     self.myAlphabets=[[NSMutableArray alloc]init];
     self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
@@ -64,7 +58,6 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    NSLog(@"username: %@", self.userName);
     if (self.userName==nil) {
         self.title=@"Intro";
         
@@ -104,7 +97,6 @@
     
 }
 -(void)nextIntroPic{
-    NSLog(@"nextIntroPic");
     //remove old
     UIImageView *image=[introPicsViews objectAtIndex:currentNoInIntro];
     
@@ -154,7 +146,6 @@
 
 
 -(void)saveUserName{
-    NSLog(@"savingUserName");
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     self.userName=userNameField.text;
     [defaults setValue:self.userName forKey:@"userName"];
@@ -208,8 +199,6 @@
         
         if(nil!=error)
         {
-            NSLog(@"AVCaptureDeviceInput failed with error:%@",error);
-            
             return;
         }
         
@@ -377,7 +366,6 @@
     cropPhoto = [[CropPhoto alloc] initWithNibName:@"CropPhoto" bundle:[NSBundle mainBundle]];
     [cropPhoto displayImage:self.img];
     [cropPhoto setup];
-    NSLog(@"SELF.IMG: %@", self.img);
     [self.navigationController pushViewController:cropPhoto animated:NO];
 }
 
@@ -393,7 +381,6 @@
  //--------------------------------------------------
 - (void) imagePickerController:(UIImagePickerController *)pickerLibrary didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    NSLog(@"picked image: %@", image);
     self.img = image;
     cropPhoto = [[CropPhoto alloc] initWithNibName:@"CropPhoto" bundle:[NSBundle mainBundle]];
     [cropPhoto displayImage:self.img];
@@ -552,7 +539,6 @@
 //--------------------------------------------------
 -(void)appWillResignActive:(NSNotification*)note
 {
-    NSLog(@"resigning active");
     //save all images under alphabetName
     [self writeAlphabetsUserDefaults];
 }
@@ -669,7 +655,6 @@
      * This method is called when the textView becomes active, or is the First Responder
      --*/
     
-    NSLog(@"textViewDidBeginEditing:");
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
@@ -700,7 +685,6 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    //NSLog(@"textViewDidChange:");
     //This method is called when the user makes a change to the text in the textview
 }
 

@@ -150,19 +150,14 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Cancelled sending");
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Message Saved");
             break;
         case MFMailComposeResultSent:
-            NSLog(@"Message Sent");
             break;
         case MFMailComposeResultFailed:
-            NSLog(@"Sending Failed");
             break;
         default:
-            NSLog(@"Message not sent");
             break;
     }
     [self dismissViewControllerAnimated:NO completion:nil];

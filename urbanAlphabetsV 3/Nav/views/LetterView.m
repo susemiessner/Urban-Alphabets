@@ -57,17 +57,13 @@
         letterFromLeft=([[UIScreen mainScreen] bounds].size.width-letterWidth)/2;
     }
 
-    
-    
     //THE LETTER
     self.currentAlphabet=[passedAlphabet mutableCopy];
     currentLetter=chosenNumber;
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
-    //NSLog(@"currentImage: %@", currentImage);
     currentImageView=[[UIImageView alloc] initWithFrame:CGRectMake(letterFromLeft, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, letterWidth, letterHeight)];
     currentImageView.image=currentImage.image;
     currentImageView.userInteractionEnabled=YES;
-    //int maxHeight=[[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
     [self.view addSubview:currentImageView];
     
     UISwipeGestureRecognizer *swipeLeftRecognizer=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(goForward)];
@@ -80,7 +76,6 @@
 
 }
 -(void)displayLetter:(int)chosenNumber{
-    //NSLog(@"currentImage: %@", currentImage);
     currentLetter=chosenNumber;
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
     currentImageView.image=[currentImage.image copy];
@@ -112,9 +107,6 @@
     }
     [self displayLetter:currentLetter];
 }
--(void)swipedLeft{
-    NSLog(@"swiped");
-    [self goForward];
-}
+
 
 @end

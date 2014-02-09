@@ -209,10 +209,6 @@
 }
 -(void)goToMyAlphabets{
     [self closeMenu];
-    /*myAlphabets=[[MyAlphabets alloc] initWithNibName:@"MyAlphabets" bundle:[NSBundle mainBundle]];
-    [myAlphabets setup];
-    [self.navigationController pushViewController:myAlphabets animated:NO];
-    [myAlphabets grabCurrentLanguageViaNavigationController];*/
     [self postcardToMyAlphabets];
 
 }

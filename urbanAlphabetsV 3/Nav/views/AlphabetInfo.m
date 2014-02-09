@@ -165,15 +165,12 @@
     [deleteLabel addGestureRecognizer:deleteRecognizer];
 }
 -(void)resetAlphabet{
-    NSLog(@"reset Alphabet");
     [workspace.currentAlphabet removeAllObjects];
     [workspace loadDefaultAlphabet];
     [self updateLanguage];
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)deleteAlphabet{
-    NSLog(@"deleteAlphabet");
-
     //delete from the arrays
     for (int i=0; i< [workspace.myAlphabets count]; i++) {
         NSString *name=[workspace.myAlphabets objectAtIndex:i];
@@ -265,7 +262,6 @@
 }
 -(void)changeLanguage{
     language.text=workspace.currentLanguage;
-    NSLog(@"language changed");
 }
 -(void)changeAlphabetName{
     [textViewTest becomeFirstResponder];
@@ -275,7 +271,6 @@
 //------------------------------------------------------------------------
 
 -(void)goToChangeLanguage{
-    NSLog(@"change Language");
    changeLanguageView=[[ChangeLanguage alloc]initWithNibName:@"ChangeLanguage" bundle:[NSBundle mainBundle]];
     [changeLanguageView setupWithLanguage:self.currentLanguage];
     [self.navigationController pushViewController:changeLanguageView animated:NO];
