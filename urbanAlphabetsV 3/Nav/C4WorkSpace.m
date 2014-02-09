@@ -11,6 +11,7 @@
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
 @implementation C4WorkSpace {
+
     CropPhoto *cropPhoto;
     
     UIImage *capturedImage;
@@ -39,6 +40,10 @@
 }
 
 -(void)setup {
+    
+    NSLog(@"%f", [[UIScreen mainScreen] bounds].size.height);
+    NSLog(@"%f", [[UIScreen mainScreen] bounds].size.width);
+
     self.title=@"Take Photo";
 
     //load the defaults

@@ -26,8 +26,13 @@
     
     //saving image
     CGContextRef graphicsContext;
-
     
+    float imageWidth;
+    float imageHeight;
+    float alphabetFromLeft;
+
+    int selectedLetter;
+
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 
@@ -45,7 +50,6 @@
         
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
         [image removeFromSuperview];
-        //[self stopListeningFor:@"touchesBegan" object:image];
     }
     [self grabCurrentAlphabetViaNavigationController];
 }
@@ -76,6 +80,16 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     
+    imageWidth=UA_LETTER_IMG_WIDTH_5;
+    imageHeight=UA_LETTER_IMG_HEIGHT_5;
+    alphabetFromLeft=0;
+    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
+    //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+        imageHeight=UA_LETTER_IMG_HEIGHT_4;
+        imageWidth=UA_LETTER_IMG_WIDTH_4;
+        alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
+    }
+    
 }
 -(void)grabCurrentAlphabetViaNavigationController {
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
@@ -87,12 +101,11 @@
 
 -(void)initGreyGrid{
     greyGridArray=[[NSMutableArray alloc]init];
-    float imageWidth=53.53;
-    float imageHeight=65.1;
+
     for (NSUInteger i=0; i<42; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
+        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
@@ -113,17 +126,14 @@
 -(void)drawCurrentAlphabet: (NSMutableArray*)currentAlphabetPassed{
     notificationCounter=0; //to make sure ok button is only added 1x
     self.currentAlphabet=[currentAlphabetPassed mutableCopy];
-    float imageWidth=53.53;
-    float imageHeight=65.1;
+    
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
+        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
         image.frame=CGRectMake(xPos, yPos, imageWidth, imageHeight);
-        //UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        //imageView.image=image;
         [self.view addSubview:image];
     }
 }
@@ -133,6 +143,11 @@
     for (int i=0; i<42; i++) {
         currentImage= greyGridArray[i];
         currentImage.backgroundColor=UA_NAV_CTRL_COLOR;
+        
+        if ((UIView *)notification.view == currentImage)
+        {
+            selectedLetter = i;
+        }
     }
     currentImage = (UIView *)notification.view;
     currentImage.backgroundColor= UA_HIGHLIGHT_COLOR;
@@ -157,16 +172,8 @@
 }
 -(void) goToAlphabetsViewAddingImageToAlphabet{
     
-    self.bottomNavBar.centerImageView.backgroundColor=UA_HIGHLIGHT_COLOR;
-    //--------------------------------------------------
-    //which image was chosen
-    //--------------------------------------------------
-    float imageWidth=53.53;
-    float imageHeight=65.1;
-    float i=currentImage.frame.origin.x/imageWidth;
-    float j=currentImage.frame.origin.y/imageHeight;
-    
-    self.chosenImageNumberInArray=((j-1)*6)+i+1;
+    self.chosenImageNumberInArray=selectedLetter;
+    NSLog(@"arryNum: %i", self.chosenImageNumberInArray);
     //--------------------------------------------------
     //getting username from main view
     //--------------------------------------------------
@@ -236,9 +243,9 @@
 //SAVING CROPPED IMAGE TO DOCUMENTS DIRECTORY
 //------------------------------------------------------------------------
 -(void)exportHighResImage {
-    NSLog(@"cropped Image before scaling: %f", croppedImage.size.width);
+    //NSLog(@"cropped Image before scaling: %f", croppedImage.size.width);
     //croppedImage = [UIImage imageWithCGImage:[croppedImage CGImage] scale:(croppedImage.scale * 0.1) orientation:(croppedImage.imageOrientation)];
-    NSLog(@"cropped Image after  scaling: %f", croppedImage.size.width);
+    //NSLog(@"cropped Image after  scaling: %f", croppedImage.size.width);
 
     graphicsContext = [self createHighResImageContext];
     //C4Log(@"graphicsContext: %@", graphicsContext.);
@@ -261,7 +268,7 @@
     [self saveImage:fileName];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
-    NSLog(@"cropped Image in graphics context: %f", croppedImage.size.width);
+   // NSLog(@"cropped Image in graphics context: %f", croppedImage.size.width);
     //UIGraphicsBeginImageContextWithOptions(CGSizeMake(218, 266), YES, 5.0f);
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(croppedImage.size.width-1, croppedImage.size.height-1), YES, 5.0f);
     return UIGraphicsGetCurrentContext();

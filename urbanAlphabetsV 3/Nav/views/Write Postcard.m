@@ -24,6 +24,11 @@
     //-----------------------
     NSString *newCharacter;
     
+    
+    float imageWidth;
+    float imageHeight;
+    float alphabetFromLeft;
+    
 }
 @property (readwrite) NSString *currentLanguage;
 @property (readwrite) int maxPostcardLength;
@@ -31,14 +36,23 @@
 
 @implementation Write_Postcard
 -(void)viewWillAppear:(BOOL)animated{
+    
+    imageWidth=UA_LETTER_IMG_WIDTH_5;
+    imageHeight=UA_LETTER_IMG_HEIGHT_5;
+    alphabetFromLeft=0;
+    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
+    //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+        imageHeight=UA_LETTER_IMG_HEIGHT_4;
+        imageWidth=UA_LETTER_IMG_WIDTH_4;
+        alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
+    }
+    
     [textViewTest becomeFirstResponder];
     //draw the current postcard text
-    float imageWidth=53.53;
-    float imageHeight=65.1;
     for (int i=0; i<[self.postcardArray count]; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
+        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         
         UIImageView *image=[self.postcardArray objectAtIndex:i];
@@ -124,15 +138,12 @@
     if([self.postcardArray count]<self.maxPostcardLength){
         [self addLetterToPostcard];
     }
-    float imageWidth=53.53;
-    float imageHeight=65.1;
-    
     if (![newCharacter  isEqual:@""]) { //if something was added
         //draw only the last letter
         NSInteger lastLetter=[self.postcardArray count]-1;
         float xMultiplier=(lastLetter)%6;
         float yMultiplier= (lastLetter)/6;
-        float xPos=xMultiplier*imageWidth;
+        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         
         UIImageView *image=[self.postcardArray objectAtIndex:lastLetter];

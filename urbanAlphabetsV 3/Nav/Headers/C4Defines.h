@@ -49,6 +49,16 @@ C4_EXTERN BOOL VERBOSELOAD;
 //---------------------------------------------------------------------
 //UA Variables (start)
 //---------------------------------------------------------------------
+#define UA_IPHONE_5_HEIGHT 568.0f
+
+#define UA_LETTER_IMG_HEIGHT_5 65.1f
+#define UA_LETTER_IMG_WIDTH_5 53.53f
+
+#define UA_LETTER_IMG_HEIGHT_4 52.55f
+#define UA_LETTER_IMG_WIDTH_4 43.019f
+#define UA_LETTER_SIDE_MARGIN_ALPHABETS 30.943f
+
+
 //COLORS
 #define UA_NAV_BAR_COLOR    [UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1]
 #define UA_NAV_CTRL_COLOR   [UIColor colorWithRed:0 green:0 blue:0 alpha:0]

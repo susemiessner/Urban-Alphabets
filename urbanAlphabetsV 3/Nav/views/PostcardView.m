@@ -27,6 +27,10 @@
     //location when saving alphabet to server
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
+    
+    float imageWidth;
+    float imageHeight;
+    float alphabetFromLeft;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite) NSMutableArray  *postcardArray, *greyRectArray;
@@ -79,13 +83,22 @@
     alphabetButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.rightImageView addGestureRecognizer:alphabetButtonRecognizer];
 
+    imageWidth=UA_LETTER_IMG_WIDTH_5;
+    imageHeight=UA_LETTER_IMG_HEIGHT_5;
+    alphabetFromLeft=0;
+    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
+    ///if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+        imageHeight=UA_LETTER_IMG_HEIGHT_4;
+        imageWidth=UA_LETTER_IMG_WIDTH_4;
+        alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
+    }
+
+    
     //display the postcard
-    float imageWidth=53.53;
-    float imageHeight=65.1;
     for (int i=0; i<[self.postcardArray count]; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
+        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         UIImageView *image=[self.postcardArray objectAtIndex:i ];
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];

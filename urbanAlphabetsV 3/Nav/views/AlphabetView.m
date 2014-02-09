@@ -38,6 +38,10 @@
     
     //username for database
     NSString *userName;
+    
+    float imageWidth;
+    float imageHeight;
+    float alphabetFromLeft;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (nonatomic) AlphabetMenu *menu;
@@ -64,6 +68,18 @@
     menuButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
     //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
+    
+    
+    imageWidth=UA_LETTER_IMG_WIDTH_5;
+    imageHeight=UA_LETTER_IMG_HEIGHT_5;
+    alphabetFromLeft=0;
+    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
+    //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+        imageHeight=UA_LETTER_IMG_HEIGHT_4;
+        imageWidth=UA_LETTER_IMG_WIDTH_4;
+        alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
+    }
+
 }
 -(void)viewDidAppear:(BOOL)animated{
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
@@ -82,12 +98,11 @@
 }
 -(void)initGreyGrid{
     greyRectArray=[[NSMutableArray alloc]init];
-    float imageWidth=53.53;
-    float imageHeight=65.1;
+   
     for (NSUInteger i=0; i<42; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
+        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
@@ -107,12 +122,10 @@
     }
 }
 -(void)drawCurrentAlphabet{
-    float imageWidth=53.53;
-    float imageHeight=65.1;
-    for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
+        for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth;
+        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
@@ -173,15 +186,20 @@
     [self closeMenu];
 }
 -(void)tappedLetter:(UIGestureRecognizer *)notification {
-    //get the current object
     UIView *currentImage = (UIView *)notification.view;
-    CGPoint chosenImage=CGPointMake(currentImage.frame.origin.x, currentImage.frame.origin.y);
-    //figure out which letter was pressed
-    float imageWidth=53.53;
-    float imageHeight=65.1;
-    float i=chosenImage.x/imageWidth;
-    float j=chosenImage.y/imageHeight;
-    self.letterTouched=((j-1)*6)+i+1;
+    
+    float i=(currentImage.frame.origin.x-alphabetFromLeft)/imageWidth;
+    float j=currentImage.frame.origin.y/imageHeight;
+    int j1=j;
+    if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
+        //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
+        j1=floor(j)+1;
+    }
+    NSLog(@"chosen i:j== %f:%i", i,j1);
+
+    self.letterTouched=((j1-1)*6)+i;
+    NSLog(@"arryNum: %i", self.letterTouched);
+
     [self openLetterView];
 }
 -(void)openLetterView{
@@ -302,12 +320,10 @@
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 -(void)saveAlphabet{
-    
     [self exportHighResImage];
 }
 
 -(void)saveCurrentAlphabetAsImage{
-    
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, self.view.frame.size.width * screenScale, (self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
