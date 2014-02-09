@@ -412,7 +412,7 @@
         UIImageView *image=[self.currentAlphabet objectAtIndex: 41];
         [self.postcardArray addObject: image];
     }else if ([newCharacter isEqual: @" "]){ //space is displaying an empty letter
-        UIImageView *image=UA_LETTER_EMPTY;
+        UIImageView *image=[[UIImageView alloc]initWithImage:UA_LETTER_EMPTY];
         [self.postcardArray addObject: image];
     } else if([newCharacter isEqual: @""] && [self.postcardArray count]>1){//remove last letter if delete button is pressed
         UIImageView *image=[self.postcardViewArray objectAtIndex:[self.postcardViewArray count]-1];

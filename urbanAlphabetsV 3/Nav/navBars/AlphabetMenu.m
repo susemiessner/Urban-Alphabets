@@ -38,7 +38,7 @@
         self.cancelLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.cancelShape.frame.origin.x, self.cancelShape.frame.origin.y, self.cancelShape.frame.size.width, self.cancelShape.frame.size.height)];
                           [self.cancelLabel setText:@"Cancel"];
                           [self.cancelLabel setFont:UA_FAT_FONT];
-        [self.cancelLabel setTextAlignment:UITextAlignmentCenter];
+        [self.cancelLabel setTextAlignment:NSTextAlignmentCenter];
         self.cancelLabel.center=self.cancelShape.center;
         [self addSubview: self.cancelLabel];
         

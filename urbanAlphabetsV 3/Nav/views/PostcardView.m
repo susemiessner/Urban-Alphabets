@@ -120,17 +120,7 @@
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     
-    //alphabet info
-    UITapGestureRecognizer *postcardInfoIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
-    postcardInfoIconRecognizer.numberOfTapsRequired = 1;
-    [self.menu.postcardInfoIcon addGestureRecognizer:postcardInfoIconRecognizer];
-    UITapGestureRecognizer *postcardInfoShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
-    postcardInfoShapeRecognizer.numberOfTapsRequired = 1;
-    [self.menu.postcardInfoShape addGestureRecognizer:postcardInfoShapeRecognizer];
-    UITapGestureRecognizer *postcardInfoLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
-    postcardInfoLabelRecognizer.numberOfTapsRequired = 1;
-    [self.menu.postcardInfoLabel addGestureRecognizer:postcardInfoLabelRecognizer];
-    
+       
     //write postcard
     UITapGestureRecognizer *writePostcardShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToWritePostcard)];
     writePostcardShapeRecognizer.numberOfTapsRequired = 1;

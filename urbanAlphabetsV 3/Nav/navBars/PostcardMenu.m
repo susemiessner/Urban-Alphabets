@@ -17,7 +17,6 @@
         float smallMargin=1.0;
         float width=self.frame.size.width-2*sideMargin;
         float height=42.45;
-        float TextmarginFromLeft=103.11;
         
         
         //--------------------------------------------------
@@ -37,7 +36,7 @@
         self.cancelLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.cancelShape.frame.origin.x, self.cancelShape.frame.origin.y, self.cancelShape.frame.size.width, self.cancelShape.frame.size.height)];
         [self.cancelLabel setText:@"Cancel"];
         [self.cancelLabel setFont:UA_FAT_FONT];
-        [self.cancelLabel setTextAlignment:UITextAlignmentCenter];
+        [self.cancelLabel setTextAlignment:NSTextAlignmentCenter];
         self.cancelLabel.center=self.cancelShape.center;
         [self addSubview: self.cancelLabel];
         
@@ -133,25 +132,6 @@
         self.sharePostcardLabel.userInteractionEnabled=YES;
         self.sharePostcardIcon.userInteractionEnabled=YES;
         
-        //--------------------------------------------------
-        //postcard INFO
-        //--------------------------------------------------
-        /*self.postcardInfoShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*6+smallMargin*4    ), width, height)];
-        [self.postcardInfoShape setBackgroundColor:UA_WHITE_COLOR];
-        [self addSubview:self.postcardInfoShape];
-        
-        self.postcardInfoLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.postcardInfoShape.frame.origin.x+100, self.postcardInfoShape.frame.origin.y, self.postcardInfoShape.frame.size.width, self.postcardInfoShape.frame.size.height)];
-        [self.postcardInfoLabel setText:@"Postcard info"];
-        [self.postcardInfoLabel setFont:UA_NORMAL_FONT];
-        [self addSubview:self.postcardInfoLabel];
-        
-        self.postcardInfoIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.postcardInfoShape.frame.origin.x+5+15, self.postcardInfoShape.frame.origin.y+3, 40, 40)];
-        self.postcardInfoIcon.image=UA_ICON_INFO;
-        [self addSubview:self.postcardInfoIcon];
-
-        self.postcardInfoIcon.userInteractionEnabled=YES;
-        self.postcardInfoLabel.userInteractionEnabled=YES;
-        self.postcardInfoShape.userInteractionEnabled=YES;*/
 
         
         
