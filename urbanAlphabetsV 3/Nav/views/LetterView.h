@@ -7,6 +7,6 @@
 //
 
 
-@interface LetterView : UIViewController
+@interface LetterView : UIViewController<UIGestureRecognizerDelegate>
 -(void)setupWithLetterNo: (int)chosenNumber currentAlphabet:(NSMutableArray*)passedAlphabet;
 @end

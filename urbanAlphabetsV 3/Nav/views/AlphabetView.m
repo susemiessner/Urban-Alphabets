@@ -190,7 +190,7 @@
     
     float i=(currentImage.frame.origin.x-alphabetFromLeft)/imageWidth;
     float j=currentImage.frame.origin.y/imageHeight;
-    int j1=j;
+    int j1=j+1;
     if ( UA_IPHONE_5_HEIGHT != self.view.frame.size.height) {
         //if ( UA_IPHONE_5_HEIGHT == self.view.frame.size.height) {
         j1=floor(j)+1;

@@ -49,8 +49,18 @@
     //NSLog(@"currentImage: %@", currentImage);
     currentImageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.width/0.82)];
     currentImageView.image=currentImage.image;
+    currentImageView.userInteractionEnabled=YES;
     //int maxHeight=self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
     [self.view addSubview:currentImageView];
+    
+    UISwipeGestureRecognizer *swipeLeftRecognizer=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(goForward)];
+    [swipeLeftRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [currentImageView addGestureRecognizer:swipeLeftRecognizer];
+    
+    UISwipeGestureRecognizer *swipeRightRecognizer=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(goBackward)];
+    [swipeRightRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    [currentImageView addGestureRecognizer:swipeRightRecognizer];
+
 }
 -(void)displayLetter:(int)chosenNumber{
     //NSLog(@"currentImage: %@", currentImage);
@@ -84,6 +94,10 @@
         currentLetter=[self.currentAlphabet count]-1;
     }
     [self displayLetter:currentLetter];
+}
+-(void)swipedLeft{
+    NSLog(@"swiped");
+    [self goForward];
 }
 
 @end
