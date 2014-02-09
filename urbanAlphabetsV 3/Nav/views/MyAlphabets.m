@@ -28,6 +28,7 @@
     //images loaded from documents directory
     UIImage *loadedImage;
     float firstShapeY;
+    float alphabetFrameSize;
 
 }
 @end
@@ -54,6 +55,7 @@
     backgroundShapes=[[NSMutableArray alloc]init];
     labels=[[NSMutableArray alloc]init];
     float height=46.203;
+    alphabetFrameSize=height;
      NSLog(@"workspace.alphabetName: '%@'", workspace.alphabetName);
     firstShapeY=UA_TOP_BAR_HEIGHT+UA_TOP_WHITE;
     for (int i=0; i<[currentAlphabets count]; i++) {
@@ -77,7 +79,7 @@
         //text label
         float heightLabel=46.203;
         float yPosLabel=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+i*heightLabel+heightLabel/2-7;
-        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(75, yPosLabel, 300, 20) ];
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(75, yPosLabel, 200, 20) ];
         [label setText:[currentAlphabets objectAtIndex:i]];
         [label setFont:UA_NORMAL_FONT];
         [label setTextColor:UA_TYPE_COLOR];
@@ -94,7 +96,7 @@
         labelRecognizer.numberOfTapsRequired = 1;
         [label addGestureRecognizer:labelRecognizer];
     }
-        //√icon only 1x
+    //√icon only 1x
     checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(selectedAlphabet)*height+2, 46, 46)];
     checkedIcon.image=UA_ICON_CHECKED;
     [self.view addSubview:checkedIcon];
@@ -111,7 +113,7 @@
     NSLog(@"yPos (orig): %f", yPos);
     yPos=yPos-firstYPos;
     NSLog(@"yPos (-top): %f", yPos);
-    float elementNumber=yPos/clickedObject.frame.size.height;
+    float elementNumber=yPos/alphabetFrameSize;
     NSLog(@"elementNumber: %f", elementNumber);
     NSLog(@"elementHeight: %f", clickedObject.frame.size.height);
     elementNoChosen=lroundf(elementNumber);
@@ -132,8 +134,8 @@
     } else if(elementNoChosen<=([backgroundShapes count]-2)){
         [self loadTabbedAlphabet];
     }
-    
 }
+
 -(void)loadTabbedAlphabet{
     //change name of current alphabet
     workspace.alphabetName=[workspace.myAlphabets objectAtIndex:elementNoChosen];

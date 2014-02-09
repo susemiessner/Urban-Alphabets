@@ -162,7 +162,6 @@
         //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImageView andRunMethod:@"goToAlphabetsViewAddingImageToAlphabet"];
     }
     notificationCounter++;
-    
 }
 //--------------------------------------------------
 //NAVIGATION

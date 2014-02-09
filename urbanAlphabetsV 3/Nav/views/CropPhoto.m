@@ -103,9 +103,9 @@
 }
 
 -(void)transparentOverlay{
-    touchY1= self.view.frame.size.height/2 - 266.472/2;// 86.764+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
+    touchY1= self.view.frame.size.height/2 - 266.472/2;
     touchX1=50.532;
-    touchY2= touchY1 + 266.472;//86.764+266.472+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT;
+    touchY2= touchY1 + 266.472;
     touchX2= self.view.frame.size.width-50.3532;
     //upper rect
     upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
