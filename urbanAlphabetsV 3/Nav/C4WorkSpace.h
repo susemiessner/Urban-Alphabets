@@ -33,6 +33,23 @@
 @property (readwrite)NSArray *spanish;
 @property (readwrite)NSArray *russian;
 
+
+// camera views and layers
+@property (nonatomic, strong) UIView *previewLayerHostView;
+@property (nonatomic, strong) AVCaptureSession *avSession;
+@property (nonatomic, strong) AVCaptureStillImageOutput *avSnapper;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *avPreviewLayer;
+@property (nonatomic, strong) CALayer *stillLayer;
+
+@property (nonatomic, assign) bool isPhotoBeingTaken;
+@property (nonatomic, assign) bool isCameraAlreadySetup;
+
+-(void)take;
+-(void)snapshot;
+-(void)cameraPrepareToRetake;
+-(void)imageSelected;
+
+
 -(void)setup;
 -(void)cameraSetup;
 -(void)loadDefaultAlphabet;

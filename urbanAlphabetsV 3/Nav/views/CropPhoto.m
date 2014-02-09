@@ -69,7 +69,7 @@
 
 -(void)displayImage:(UIImage*)image{
     NSLog(@"display image, photoTaken: %@", image);
-    self.photoTaken = [[UIImage alloc] initWithCGImage:image.CGImage scale:1.0 orientation:UIImageOrientationRight];
+    self.photoTaken = image;
     photoTakenView=[[UIImageView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT*2)];
     // just adjusting the picture to be on portrait mode correctly
     double photoWidth = photoTakenView.frame.size.width;
@@ -134,7 +134,7 @@
 //NAVIGATION
 //--------------------------------------------------
 -(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 //--------------------------------------------------
 //SAVE IMAGE

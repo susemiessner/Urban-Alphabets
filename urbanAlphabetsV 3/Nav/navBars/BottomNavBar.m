@@ -64,6 +64,17 @@
     [self.centerImageView setFrame:CGRectMake(self.frame.size.width/2-self.centerImageView.frame.size.width/2, self.frame.size.height/2-self.centerImageView.frame.size.height/2, self.centerImageView.frame.size.width, self.centerImageView.frame.size.height)];
     [self.rightImageView setFrame:CGRectMake(self.frame.size.width-(self.rightImageView.frame.size.width+5), self.frame.size.height/2-self.rightImageView.frame.size.height/2, self.rightImageView.frame.size.width, self.rightImageView.frame.size.height)];
 }
+
+-(void)changeCenterImage:(UIImage*)newImage withFrame:(CGRect)centerFrame{
+    [self.centerImageView removeFromSuperview];
+    self.centerImage=newImage;
+    self.centerImageView=[[UIImageView alloc]initWithFrame:centerFrame];
+    self.centerImageView.image=self.centerImage;
+    self.centerImageView.userInteractionEnabled=YES;
+    
+    [self addSubview:self.centerImageView];
+    [self fitToFrameThree:self.frame];
+}
 //--------------------------------------------------
 //FOR 2 ICONS IN BAR: LEFT AND CENTER
 //--------------------------------------------------

@@ -18,4 +18,8 @@
 - (id)initWithFrame:(CGRect)frame leftIcon:(UIImage*)leftIcon withFrame:(CGRect)leftFrame  centerIcon:(UIImage*)centerIcon withFrame:(CGRect)centerFrame ;
 //1 icon (center)
 - (id)initWithFrame:(CGRect)frame  centerIcon:(UIImage*)centerIcon withFrame:(CGRect)centerFrame ;
+
+-(void)changeCenterImage:(UIImage*)newImage withFrame:(CGRect)centerFrame;
+
+
 @end

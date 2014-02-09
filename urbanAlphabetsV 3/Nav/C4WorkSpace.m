@@ -7,6 +7,8 @@
 
 #import "C4Workspace.h"
 #import "CropPhoto.h"
+#import <AVFoundation/AVFoundation.h>
+#define degreesToRadians(x) (M_PI * x / 180.0)
 
 @implementation C4WorkSpace {
     CropPhoto *cropPhoto;
@@ -31,6 +33,10 @@
     
     UIImagePickerController *picker;
 }
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    self.isCameraAlreadySetup = NO;
+}
 
 -(void)setup {
     self.title=@"Take Photo";
@@ -46,58 +52,7 @@
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-    
-    
-    //setup the TakePhoto view
-    //[self cameraSetup];
-    
-    //setup the bottom bar
-    //bottomNavbar WITH 2 ICONS
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
-    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45)];
-    UIView *bottomBarView=[[UIView alloc]initWithFrame:bottomBarFrame];
-    [self.view addSubview:bottomBarView];
 
-    //take photo button
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"captureImage"];
-    //photo library button
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToPhotoLibrary"];
-    
-    
-   // [self numberOfTouchesRequired:1 forGesture:@"capture"];
-   // [self listenFor:@"imageWasCaptured" fromObject:cam andRunMethod:@"goToCropPhoto"];
-    /*
-    self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    NSLog(@"username: %@", self.userName);
-    if (self.userName==nil) {
-        self.title=@"Intro";
-        introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
-        introPicsViews=[[NSMutableArray alloc]init];
-        for (int i=0; i<[introPics count]; i++) {
-            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, self.view.frame.size.width, self.view.frame.size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
-            introView.image=[introPics objectAtIndex:i];
-            [introPicsViews addObject:introView];
-        }
-        currentNoInIntro=0;
-       
-        [self.view addSubview:[introPicsViews objectAtIndex:0]];
-
-        
-        
-        nextButton=UA_ICON_NEXT;
-        //nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.canvas.width-nextButton.size.width-20, self.canvas.height-nextButton.size.height-20, 80, 34)];
-        nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-100, self.view.frame.size.height-100, 80, 34)];
-        nextButtonView.image=nextButton;
-        [self.view addSubview:nextButtonView];
-        nextButtonView.userInteractionEnabled=YES;
-        //[self listenFor:@"touchesBegan" fromObject:nextButtonView andRunMethod:@"nextIntroPic"];
-        UITapGestureRecognizer *nextButtonTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextIntroPic)];
-        nextButtonTap.numberOfTapsRequired = 1;
-        [nextButtonView addGestureRecognizer:nextButtonTap];
-    } else{
-        [self cameraSetup];
-    }
-*/
 }
 -(void)viewDidAppear:(BOOL)animated{
 
@@ -192,63 +147,215 @@
     //and remove the username stuff
     [userNameField removeFromSuperview];
 }
--(void)cameraSetup{
-    CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
-    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45)];
+// new setup camera code
+-(void)cameraSetup
+{
+    // verification to not set up again
+    if (!self.isCameraAlreadySetup)
+    {
+        
+        self.isCameraAlreadySetup = YES;
+        self.previewLayerHostView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        
+        [self.view addSubview:self.previewLayerHostView];
+        //if we wanted to display sth on top of the image (e.g. skip crop photo)
+        //UIImageView *gridView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        //[gridView setImage:[UIImage imageNamed:@"cameragrid480.png"]];
+        //[self.view addSubview:gridView];
+        
+        //crete the "snapshot" display layer
+        self.stillLayer=[CALayer layer];
+        
+        //prepare the preview layer host view
+        [self.previewLayerHostView.layer addSublayer:self.stillLayer];
+        
+        self.avSession=[AVCaptureSession new];
+        self.avSession.sessionPreset=AVCaptureSessionPresetPhoto;
+        
+        self.avSnapper=[AVCaptureStillImageOutput new];
+        self.avSnapper.outputSettings=[NSDictionary dictionaryWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
+        [self.avSession addOutput:self.avSnapper];
+        
+        NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+        AVCaptureDevice *camera = nil;
+        
+        for (AVCaptureDevice *device in videoDevices)
+        {
+            if (device.position == AVCaptureDevicePositionBack)
+            {
+                camera=device;
+                break;
+            }
+        }
+        
+        NSError *error=nil;
+        AVCaptureDeviceInput *input=[AVCaptureDeviceInput deviceInputWithDevice:camera error:&error];
+        
+        if(nil!=error)
+        {
+            NSLog(@"AVCaptureDeviceInput failed with error:%@",error);
+            
+            return;
+        }
+        
+        [self.avSession addInput:input];
+        
+        //assign the preview layer and setup the image frames and transformation for device orientation
+        self.avPreviewLayer=[[AVCaptureVideoPreviewLayer alloc] initWithSession:self.avSession];
+        
+        self.avPreviewLayer.frame = self.previewLayerHostView.frame;
+        
+        CATransform3D transform=CATransform3DIdentity;
+        transform=CATransform3DRotate(transform, degreesToRadians(90), 0.0, 0.0, 1.0);
+        transform=CATransform3DScale(transform,1.0,1.0,1.0);
+        
+        self.stillLayer.transform=transform;
+        
+        double proportion = 640.0/480.0;
+        double imageTop = (self.view.frame.size.height / 2.0) - (320*proportion / 2.0);
+        
+        self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
+        
+        [self adjustImageFramesForDeviceOrientation:nil];
+        
+        //add the layer
+        [self.previewLayerHostView.layer addSublayer:self.avPreviewLayer];
+        [self.previewLayerHostView.layer setMasksToBounds:YES];
+        
+        //start the session
+        [self.avSession startRunning];
+        
+        self.isPhotoBeingTaken = YES;
+        
+        
+        CGRect bottomBarFrame = CGRectMake(0, self.view.frame.size.height-UA_BOTTOM_BAR_HEIGHT, self.view.frame.size.width, UA_BOTTOM_BAR_HEIGHT);
+        self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 70, 35)];
+        [self.view addSubview:self.bottomNavBar];
+        
+        UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
+        takePhotoButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.centerImageView addGestureRecognizer:takePhotoButtonRecognizer];
+
+
+        
+        UITapGestureRecognizer *photoLibraryButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToPhotoLibrary)];
+        photoLibraryButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.leftImageView addGestureRecognizer:photoLibraryButtonRecognizer];
+        
+       
+        
+        self.bottomNavBar.rightImageView.hidden = YES;
+    }
+    else
+    {
+        [self cameraPrepareToRetake];
+        self.bottomNavBar.rightImageView.hidden = YES;
+    }
     
-    //create a new image picker instance
-    picker = [[UIImagePickerController alloc]init];
-    picker.delegate = self;
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        //set source to video!
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        //hide all controls
-        picker.showsCameraControls = NO;
-        picker.navigationBarHidden = NO;
-        picker.toolbarHidden = YES;
-        picker.editing = NO;
-        //make the video preview full size
-        //picker.wantsFullScreenLayout = YES;
-        
-        picker.cameraViewTransform = CGAffineTransformScale(picker.cameraViewTransform,1, 1);
+    if (![self.avSession isRunning])
+    {
+        [self.avSession startRunning];
+    }
+    
+}
 
-        [picker.view addSubview:self.bottomNavBar];
-
-        picker.view.frame=CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-(UA_TOP_WHITE+UA_TOP_WHITE-bottomBarFrame.size.height));
-        [self.view addSubview:picker.view];
-        [picker viewWillAppear:YES];
-        [picker viewDidAppear:YES];
+// to fix some orientation problems that I've found in AVFoundation classes
+-(void)adjustImageFramesForDeviceOrientation:(NSNotification*)notification
+{
+    UIDeviceOrientation orientation=[[UIDevice currentDevice] orientation];
+    
+    if(orientation==UIInterfaceOrientationLandscapeRight)
+    {
+        CATransform3D transform = CATransform3DIdentity;
+        transform=CATransform3DRotate(transform, degreesToRadians(0), 0.0, 0.0, 1.0);
         
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Test Text" message:@"Camera is Not Availble" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil];
-        [alert show];
+        self.avPreviewLayer.transform=transform;
+    }
+    else if(orientation==UIInterfaceOrientationLandscapeLeft)
+    {
+        CATransform3D transform = CATransform3DIdentity;
+        transform=CATransform3DRotate(transform, degreesToRadians(0), 0.0, 0.0, 1.0);
+        
+        self.avPreviewLayer.transform=transform;
+    }
+    
+}
+
+// this prepares to takes the picture
+-(void)take
+{
+    if (self.isPhotoBeingTaken)
+    {
+        [self snapshot];
+        [self.bottomNavBar changeCenterImage:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
+        self.bottomNavBar.rightImageView.hidden = NO;
+        
+        //retakes the photo
+        UITapGestureRecognizer *photoSelectedButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageSelected)];
+        photoSelectedButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.centerImageView addGestureRecognizer:photoSelectedButtonRecognizer];
+        
+        UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
+        takePhotoButtonRecognizer.numberOfTapsRequired = 1;
+        [self.bottomNavBar.rightImageView addGestureRecognizer:takePhotoButtonRecognizer];
+
+        
+        self.isPhotoBeingTaken = NO;
+    }
+    else
+    {
+        [self cameraPrepareToRetake];
+        self.isPhotoBeingTaken = YES;
     }
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+// when re-taking, this just hides the picture taken
+-(void)cameraPrepareToRetake
 {
-    //This creates a filepath with the current date/time as the name to save the image
-    //NSString *presentTimeStamp = [Utilities getPresentDateTime];
-    //NSString *fileSavePath = [Utilities documentsPath:presentTimeStamp];
-    //fileSavePath = [fileSavePath stringByAppendingString:@".png"];
+    self.avPreviewLayer.opacity = 1.0;
     
-    //This checks to see if the image was edited, if it was it saves the edited version as a .png
-    if ([info objectForKey:UIImagePickerControllerEditedImage]) {
-        //save the edited image
-       // NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerEditedImage]);
-        //[imgPngData writeToFile:fileSavePath atomically:YES];
+    [self.bottomNavBar changeCenterImage:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45)];
+    self.bottomNavBar.rightImageView.hidden = YES;
+    
+    UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
+    takePhotoButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:takePhotoButtonRecognizer];
+}
+
+// snapshot and show picture on screen
+-(void)snapshot
+{
+    AVCaptureConnection *captureConnection=[self.avSnapper connectionWithMediaType:AVMediaTypeVideo];
+    
+    typedef void (^BufferBlock)(CMSampleBufferRef, NSError*);
+    
+    BufferBlock handler=^(CMSampleBufferRef buffer, NSError *error)
+    {
+        NSData *data=[AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
         
-        
-    }else{
-        //save the original image
-        NSData *imgPngData = UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage]);
-        capturedImage=[UIImage imageWithData:imgPngData];
-        //[imgPngData writeToFile:fileSavePath atomically:YES];
-        
-    }
-    [self dismissModalViewControllerAnimated:YES];
+        dispatch_async(dispatch_get_main_queue(),^(void)
+                       {
+                           [self adjustImageFramesForDeviceOrientation:nil];
+                           
+                           self.avPreviewLayer.opacity=0.0;
+                           self.stillLayer.contents=(id)[[UIImage alloc] initWithData:data].CGImage;
+                           capturedImage = nil;
+                           capturedImage = [[UIImage alloc] initWithData:data];
+                       });
+    };
+    
+    [self.avSnapper captureStillImageAsynchronouslyFromConnection:captureConnection
+                                                completionHandler:handler];
+}
+
+// method used when pressing OK button
+-(void)imageSelected
+{
+    [self.avSession stopRunning];
     [self goToCropPhoto];
 }
+
+
 
 -(void)goToCropPhoto {
     self.img = capturedImage;
@@ -260,23 +367,24 @@
 }
 
 -(void)goToPhotoLibrary{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.allowsEditing = YES;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:picker animated:YES completion:NULL];
+    UIImagePickerController *pickerLibrary = [[UIImagePickerController alloc] init];
+    pickerLibrary.delegate = self;
+    pickerLibrary.allowsEditing = YES;
+    pickerLibrary.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:pickerLibrary animated:YES completion:NULL];
 }
  //--------------------------------------------------
 //load image from photo library
  //--------------------------------------------------
-- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+- (void) imagePickerController:(UIImagePickerController *)pickerLibrary didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
+    NSLog(@"picked image: %@", image);
     self.img = image;
     cropPhoto = [[CropPhoto alloc] initWithNibName:@"CropPhoto" bundle:[NSBundle mainBundle]];
     [cropPhoto displayImage:self.img];
     [cropPhoto setup];
     [self.navigationController pushViewController:cropPhoto animated:YES];
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [pickerLibrary dismissViewControllerAnimated:YES completion:NULL];
 }
 //--------------------------------------------------
 //load default alphabet
