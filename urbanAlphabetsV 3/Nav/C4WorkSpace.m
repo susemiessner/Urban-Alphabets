@@ -33,6 +33,7 @@
     UIImageView *loadedImage;
     
     UIImagePickerController *picker;
+    float yPosIntro;
 }
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -66,18 +67,18 @@
     NSLog(@"username: %@", self.userName);
     if (self.userName==nil) {
         self.title=@"Intro";
-        float yPosIntro=0;
+        
         //check which device
-        if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-            yPosIntro=yPosIntro-88;
+        if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+            yPosIntro=-88;
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro__1_iphone4"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro__4_iphone4"],[UIImage imageNamed:@"intro_5"], nil];
+        } else{
+            yPosIntro=0;
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
         }
-        
-        
-        
-        introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
         introPicsViews=[[NSMutableArray alloc]init];
         for (int i=0; i<[introPics count]; i++) {
-            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+yPosIntro, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
+            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
             introView.image=[introPics objectAtIndex:i];
             [introPicsViews addObject:introView];
         }
@@ -133,7 +134,7 @@
         }
         if (currentNoInIntro==2) {
             //add text field
-            CGRect textViewFrame = CGRectMake(20, 200, [[UIScreen mainScreen] bounds].size.width-2*20, 25.0f);
+            CGRect textViewFrame = CGRectMake(20, 200+yPosIntro, [[UIScreen mainScreen] bounds].size.width-2*20, 25.0f);
             userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
             userNameField.returnKeyType = UIReturnKeyDone;
             userNameField.layer.borderWidth=1.0f;
