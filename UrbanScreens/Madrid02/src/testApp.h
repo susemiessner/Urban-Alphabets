@@ -22,11 +22,19 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     void urlResponse(ofHttpResponse &response);
+    void loadURL_MadridrecentLetters(ofHttpResponse &response);
+    void loadURL_requestMadrid(ofHttpResponse &response);
+    void update_MadridrecentLetters();
+    void update_requestMadrid();
+    void drawInfo();
+    void testOverlayMediaLabPrado();
+    
     bool loading;
     string fullResponse;
     vector<string> individualEntries;
     
     vector<SingleEntry> allEntriesLastLetters;
+    vector<SingleEntry> allEntriesAlphabet;
     
     int currImg1, currImg2, currImg3, currImg4, currImg5;
     int counter;
@@ -36,6 +44,11 @@ class testApp : public ofBaseApp{
     
     string URLsToLoad[LENGTH_OF_URL_ARRAY];
     string currentURL;
+    string loadedURL;
+    string spanishAlphabet[42];
     int currentURLNo;
+    
+    //static info while loading next view
+    ofTrueTypeFont infoFont;
     
 };

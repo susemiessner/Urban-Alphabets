@@ -21,20 +21,20 @@ class SingleEntry{
     string _letter;
     ofImage _image;
     
-    int _xPos=250;
+    int _xPos=200;
     int _yPos=40;
     int _offset=60;
 
     //constructor
-    SingleEntry(string THEID, string PATH, string LONGI, string LA, string LETTER, int constructorNumber, int arraySize){
+    SingleEntry(string THEID, string PATH, string LONGI, string LA, string LETTER, int constructorNumber){
         _id=ofToInt(THEID);
         _path=PATH;
         _longi=ofToFloat(LONGI);
         _lati=ofToFloat(LA);
         _letter=LETTER;
-        if(constructorNumber>arraySize-6){
+        if(constructorNumber<5){
           //  printf("now");
-            _xPos=_xPos+(constructorNumber%5)*_offset;
+            _xPos=_xPos+(constructorNumber)*_offset;
         }
        // printf("inital xpos: %i\n",_xPos);
         
@@ -52,20 +52,28 @@ class SingleEntry{
        // printf("%s \n", URL.c_str());
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
+        printf("letter: %s \n", _letter.c_str());
 
+    }
+    void loadImageDirectory(){
+        string path="letters/letter_";
+        path+=ofToString(_letter);
+        path+=".png";
+        printf("path: %s \n", path.c_str());
+        _image.loadImage(path);
     }
     
     void draw(){
         //printf("xPos %i ", _xPos);
-        _image.draw(_xPos,_yPos);
+        _image.draw(_xPos,_yPos, 52, 75);
     }
     void update(){
         _xPos--;
     }
     bool nextImage(){
         //printf("___ %i::", _xPos);
-        if(_xPos<-50){
-            _xPos=250;
+        if(_xPos<-100){
+            _xPos=200;
             return true;
         } else{
             return false;
