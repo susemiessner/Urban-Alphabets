@@ -80,7 +80,7 @@ class SingleEntry{
     bool nextImage(){
         //printf("___ %i::", _xPos);
         if(_xPos<-100){
-            _xPos=200;
+            //_xPos=200;
             return true;
         } else{
             return false;

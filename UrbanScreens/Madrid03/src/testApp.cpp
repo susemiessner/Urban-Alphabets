@@ -12,7 +12,7 @@ void testApp::setup(){
     URLsToLoad[1]="http://www.mlab.taik.fi/UrbanAlphabets/requests/requestMadrid.php";
     URLsToLoad[2]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php";
     URLsToLoad[3]="Info";
-    currentURLNo=3;
+    currentURLNo=2;
 
     currentURL=URLsToLoad[currentURLNo];
         loadedURL=" ";
@@ -126,6 +126,7 @@ void testApp::sendRequest(){
         loading=true;
         counter++;
     }else{
+        loading=true;
         loadedURL=currentURL;
         loadingResponseDone=true;
         printf("%s", loadedURL.c_str());

@@ -60,9 +60,9 @@ public:
     }
     void update(){
         _xPos--;
-        if(_xPos<-245){
+        /*if(_xPos<-245){
             _xPos=200;
-        }
+        }*/
     }
 };
 

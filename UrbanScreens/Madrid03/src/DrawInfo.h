@@ -16,8 +16,6 @@ class ofDrawInfo{
 public:
     ofDrawInfo(); //constructor
    
-    ofTrueTypeFont text14;
-
     float drawInfoYPos1;
     float drawInfoYPos2;
     float drawInfoYPos3;
