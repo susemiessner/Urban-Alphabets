@@ -12,7 +12,8 @@ void testApp::setup(){
     URLsToLoad[1]="http://www.mlab.taik.fi/UrbanAlphabets/requests/requestMadrid.php";
     URLsToLoad[2]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php";
     URLsToLoad[3]="Info";
-    currentURLNo=2;
+    URLsToLoad[4]="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php";
+    currentURLNo=3;
 
     currentURL=URLsToLoad[currentURLNo];
         loadedURL=" ";
@@ -64,11 +65,13 @@ void testApp::setup(){
     imagesIntro[1].loadImage("intro/intros-05.png");//letters
     imagesIntro[2].loadImage("intro/intros-03.png");//alphabet
     imagesIntro[3].loadImage("intro/intros-04.png");//postcards
+    imagesIntro[4].loadImage("intro/intros-11.png");//by me
 
+    map.loadImage("map.png");
 
     counter=0;
     counterAlphabet=0;
-    secsToNextRequest=45;
+    introImageCounter=0;
     
     //font for info
     infoFont.loadFont("Arial Black.ttf", 20, true, true);
@@ -81,6 +84,7 @@ void testApp::setup(){
     
     
     if (currentURL!="Info") {
+        printf("now \n");
         int id = ofLoadURLAsync(currentURL, "async_req");
     } else {
         loadedURL=currentURL;
@@ -113,8 +117,6 @@ void testApp::update(){
             }
         }
     }
-    fpmin=FRAME_RATE*secsToNextRequest;
-    frameNum=ofGetFrameNum();
 }
 //--------------------------------------------------------------
 void testApp::sendRequest(){
@@ -125,6 +127,7 @@ void testApp::sendRequest(){
         int id = ofLoadURLAsync(currentURL, "async_req");
         loading=true;
         counter++;
+        introImageCounter=0;
     }else{
         loading=true;
         loadedURL=currentURL;
@@ -143,6 +146,8 @@ void testApp::draw(){
         sendRequest();
     } else if(loadedURL==URLsToLoad[2] && recentPostcards.size()>0 && currImg1==recentPostcards.size()-1 &&recentPostcards[currImg1]._xPos<-99 &&counter==0){
         //drawInfo();
+        sendRequest();
+    } else if (loadedURL==URLsToLoad[4] && locations.size()>0 && counter==0 && locations[0].stopDrawing()==true){
         sendRequest();
     }
 
@@ -202,6 +207,12 @@ void testApp::draw(){
             if (recentPostcards.size()>4) {
                 recentPostcards[currImg5].draw();
             }
+        } else if(loadedURL==URLsToLoad[4]){
+            map.draw(0, 0);
+            for (int i =0; i<locations.size(); i++) {
+                locations[i].draw();
+            }
+           // printf("%d",locations[0].stopDrawing());
         }
         if (loadedURL==URLsToLoad[3]){    //projectinfo
             myInfo.draw();
@@ -213,14 +224,6 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-    if (key==OF_KEY_UP) {
-        secsToNextRequest++;
-        printf("UP   current secsToNextRequest: %i\n", secsToNextRequest);
-    }
-    if (key==OF_KEY_DOWN) {
-        secsToNextRequest--;
-        printf("DOWN current secsToNextRequest: %i\n", secsToNextRequest);
-    }
     if (key==OF_KEY_RIGHT) {
         currentURLNo++;
         if(currentURLNo>=LENGTH_OF_URL_ARRAY){ currentURLNo=0;}
@@ -239,51 +242,19 @@ void testApp::drawInfo(){
     /*ofSetColor(50,50,50);
      ofRect(0, 0, ofGetWidth(), ofGetHeight());*/
     ofSetColor(200, 200, 200);
-    /*string myString="Urban";
-     ofRectangle box=infoFont.getStringBoundingBox(myString, 0, 0);
-     infoFont.drawString(myString, ofGetWidth()/2-box.width/2, (ofGetHeight()-box.height)/2);
-     myString="Alphabets";
-     box=infoFont.getStringBoundingBox(myString, 0, 0);
-     infoFont.drawString(myString, ofGetWidth()/2-box.width/2, (ofGetHeight()-box.height)/2+22);*/
     if (loadedURL==URLsToLoad[0]) { //recent letters
         imagesIntro[1].draw(0, 0);
-
-        /*
-        string myString ="recent Letters";
-        ofRectangle box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2);
-        myString="from Madrid";
-        box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2+22);*/
     } else if (loadedURL==URLsToLoad[1]) { //current alphabet
         imagesIntro[2].draw(0, 0);
-
-        /*string myString ="current";
-        ofRectangle box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2);
-        myString="Madrid Alphabet";
-        box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2+22);*/
     }   else if (loadedURL==URLsToLoad[2]) { //recent postcards
         imagesIntro[1].draw(0, 0);
-
-        /*
-        string myString ="recent";
-        ofRectangle box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2);
-        myString="Madrid Postcards";
-        box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2+22);*/
     } else if(loadedURL==URLsToLoad[3]){ //info
-        imagesIntro[0].draw(0, 0);
-        /*
-        string myString ="Urban Alphabets";
-        ofRectangle box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2);
-        myString="by Suse Miessner";
-        box=infoFont.getStringBoundingBox(myString, 0, 0);
-        infoFont.drawString(myString, ofGetWidth()/2-box.width/2, 15+(ofGetHeight()-box.height)/2+22);*/
-
+        introImageCounter++;
+        if (introImageCounter>FRAME_RATE*4) {
+            imagesIntro[4].draw(0, 0);
+        } else{
+            imagesIntro[0].draw(0, 0);
+        }
     }
     ofSetColor(255);
 }
@@ -312,6 +283,8 @@ void testApp::urlResponse(ofHttpResponse & response){
         loadURL_requestMadrid(response);
     } else if (currentURL==URLsToLoad[2]){
         loadURL_MadridrecentPostcards(response);
+    } else if(currentURL==URLsToLoad[4]){
+        loadURL_MadridLocations(response);
     }
     loadingResponseDone=true;
 }
@@ -472,6 +445,40 @@ void testApp::loadURL_MadridrecentPostcards(ofHttpResponse &response){
     }
     
 }
+void testApp::loadURL_MadridLocations(ofHttpResponse &response){
+    locations.clear();
+    //printf(" number of entries: %i \n",(int) individualEntries.size());
+    for(int i=0; i<individualEntries.size(); i++){
+        //printf("individual entries %s\n", individualEntries[i].c_str());
+
+        vector<string> cutEntries =ofSplitString(individualEntries[i], ",");
+        //delete the first parts in all of them
+        ofStringReplace(cutEntries[0], "\"ID\":\"", "");
+        ofStringReplace(cutEntries[1], "\"longitude\":\"", "");
+        ofStringReplace(cutEntries[2], "\"latitude\":\"", "");
+
+        //delete the last " in all of them
+        ofStringReplace(cutEntries[0], "\"", "");
+        ofStringReplace(cutEntries[1], "\"", "");
+        ofStringReplace(cutEntries[2], "\"", "");
+        //printf("%i ", i);
+        //printf("cut entries %s\n", cutEntries[1].c_str());
+        Location location(cutEntries[0], ofToFloat(cutEntries[1]), ofToFloat(cutEntries[2]));
+        locations.push_back(location);
+        //printf("locations length %i\n",(int) locations.size());
+    }
+    /*for (int i=0; i<locations.size(); i++) {
+        locations[i].print();
+     }*/
+    
+    if (response.status==200 && response.request.name=="async_req") {
+        goToNextScreen();
+    } else{
+        printf("not loaded \n");
+        
+    }
+}
+
 void testApp::goToNextScreen(){
     counter=0;
     loadedURL=currentURL;
