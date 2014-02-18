@@ -13,7 +13,7 @@ void testApp::setup(){
     URLsToLoad[2]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php";
     URLsToLoad[3]="Info";
     URLsToLoad[4]="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php";
-    currentURLNo=3;
+    currentURLNo=4;
 
     currentURL=URLsToLoad[currentURLNo];
         loadedURL=" ";
@@ -66,6 +66,7 @@ void testApp::setup(){
     imagesIntro[2].loadImage("intro/intros-03.png");//alphabet
     imagesIntro[3].loadImage("intro/intros-04.png");//postcards
     imagesIntro[4].loadImage("intro/intros-11.png");//by me
+    imagesIntro[5].loadImage("intro/intros-12.png");//map
 
     map.loadImage("map.png");
 
@@ -213,7 +214,7 @@ void testApp::draw(){
                 locations[i].draw();
             }
            // printf("%d",locations[0].stopDrawing());
-        }
+        } 
         if (loadedURL==URLsToLoad[3]){    //projectinfo
             myInfo.draw();
         }
@@ -255,6 +256,8 @@ void testApp::drawInfo(){
         } else{
             imagesIntro[0].draw(0, 0);
         }
+    }else if(loadedURL==URLsToLoad[4]){
+        imagesIntro[5].draw(0, 0);
     }
     ofSetColor(255);
 }
@@ -467,9 +470,9 @@ void testApp::loadURL_MadridLocations(ofHttpResponse &response){
         locations.push_back(location);
         //printf("locations length %i\n",(int) locations.size());
     }
-    /*for (int i=0; i<locations.size(); i++) {
+    for (int i=0; i<locations.size(); i++) {
         locations[i].print();
-     }*/
+     }
     
     if (response.status==200 && response.request.name=="async_req") {
         goToNextScreen();

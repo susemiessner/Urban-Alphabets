@@ -9,7 +9,7 @@
 
 #define LENGTH_OF_URL_ARRAY 5
 #define FRAME_RATE 30
-#define NO_OF_INTRO_IMAGES 5
+#define NO_OF_INTRO_IMAGES 6
 
 
 class testApp : public ofBaseApp{

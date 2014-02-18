@@ -15,13 +15,12 @@ public:
     
     float _xPos=0;
     float _yPos=0;
-    float _scaleFact= 65/0.104;
+    float _scaleFact= 1780;//65/0.104;
     int counter=0;
     
     Location(string THEID, float LONGI, float LATI){
-        _xPos=(LONGI-24.86)*_scaleFact;
-        _yPos=ofGetHeight()-(LATI-60.1309)*_scaleFact-30;
-        
+        _xPos=(LONGI-(-3.7278))*_scaleFact;
+        _yPos=-(LATI-40.452801)*_scaleFact+18;
         _id=ofToInt(THEID);
 
     }
@@ -35,7 +34,7 @@ public:
     void draw(){
         //printf("xPos %f ", _xPos);
         ofEnableAlphaBlending();
-        ofSetColor(247, 247,30,100);
+        ofSetColor(247, 247,30,200);
         ofCircle(_xPos,_yPos,2);
         ofDisableAlphaBlending();
         ofSetColor(255);
