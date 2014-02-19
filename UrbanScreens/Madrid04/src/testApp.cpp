@@ -12,8 +12,8 @@ void testApp::setup(){
     URLsToLoad[1]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentLetters.php";
     URLsToLoad[2]="http://www.mlab.taik.fi/UrbanAlphabets/requests/requestMadrid.php";
     URLsToLoad[3]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php";
-    URLsToLoad[4]="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php";
-    currentURLNo=2;
+    //URLsToLoad[4]="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php";
+    currentURLNo=1;
 
     currentURL=URLsToLoad[currentURLNo];
         loadedURL=" ";
@@ -68,16 +68,12 @@ void testApp::setup(){
     imagesIntro[4].loadImage("intro/intros-11.png");//by me
     imagesIntro[5].loadImage("intro/intros-12.png");//map
 
-    map.loadImage("map.png");
+    //map.loadImage("map.png");
 
     counter=0;
     counterAlphabet=0;
     introImageCounter=0;
     
-    //font for info
-    infoFont.loadFont("Arial Black.ttf", 20, true, true);
-    infoFont.setLineHeight(22.0f);
-    secsFont.loadFont("Arial Black.ttf", 10, true, true);
     
     counterDrawInfo=0;
     loadingResponseDone=false;
@@ -96,7 +92,7 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-    if (ofGetFrameNum()%2) {
+    if (ofGetFrameNum()%4) {
         if (loading==false) {
             if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentLetters.php") {
                 update_MadridrecentLetters();
@@ -122,7 +118,6 @@ void testApp::update(){
 void testApp::sendRequest(){
     if (currentURL!="Info") {
         printf("now\n");
-        //drawInfo();
         individualEntries.clear();
         int id = ofLoadURLAsync(currentURL, "async_req");
         loading=true;
@@ -140,21 +135,15 @@ void testApp::sendRequest(){
 void testApp::draw(){
     ofPushMatrix();
     ofTranslate(40, 40);
-    ofSetColor(50,50,50);
-    //ofNoFill();
-    //ofSetLineWidth(1);
+    ofSetColor(0);
     ofRect(0, 0, 192, 125+32);
-    //ofFill();
     ofSetColor(255);
-    if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentLetters.php" && recentLetters.size()>0 &&currImg1==recentLetters.size()-1 && recentLetters[currImg1]._xPos<-99 && counter==0) {
-        //drawInfo();
+    if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentLetters.php" && recentLetters.size()>0 &&currImg1==recentLetters.size()-1 && recentLetters[currImg1]._xPos<-73 && counter==0) {
         sendRequest();
     } else if(loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/requestMadrid.php" && allEntriesAlphabet.size()>0 && currImg1>39 &&allEntriesAlphabet[currImg1]._xPos<-99 && counter==0){
-        //drawInfo();
         sendRequest();
-    } else if(loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php" && recentPostcards.size()>0 && currImg1==recentPostcards.size()-1 &&recentPostcards[currImg1]._xPos<-99 &&counter==0){
-        //drawInfo();
-        sendRequest();
+    } else if(loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php" && recentPostcards.size()>0 && currImg1==recentPostcards.size()-1 &&recentPostcards[currImg1]._xPos<-120 &&counter==0){
+         sendRequest();
     } else if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php" && locations.size()>0 && counter==0 && locations[0].stopDrawing()==true){
         sendRequest();
     }
@@ -260,7 +249,7 @@ void testApp::drawInfo(){
     } else if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/requestMadrid.php") { //current alphabet
         imagesIntro[2].draw(0, 0);
     }   else if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php") { //recent postcards
-        imagesIntro[1].draw(0, 0);
+        imagesIntro[3].draw(0, 0);
     } else if(loadedURL=="Info"){ //info
         introImageCounter++;
         if (introImageCounter>FRAME_RATE*4) {

@@ -7,7 +7,7 @@
 #include "DrawInfo.h"
 #include "Location.h"
 
-#define LENGTH_OF_URL_ARRAY 5
+#define LENGTH_OF_URL_ARRAY 4
 #define FRAME_RATE 30
 #define NO_OF_INTRO_IMAGES 6
 

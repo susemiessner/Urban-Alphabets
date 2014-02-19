@@ -22,8 +22,8 @@ public:
     string _owner;
     
     int _xPos=200;
-    int _yPos=60;
-    int _offset=89;
+    int _yPos=42;
+    int _offset=120;
     int _constNumber;
     
     Postcard(string THEID, string LONGI, string LA, string TEXT, string OWNER, int constructorNumber){
@@ -56,7 +56,9 @@ public:
     
     void draw(){
         //printf("xPos %i ", _xPos);
-        _image.draw(_xPos,_yPos,81.4, 75);
+       //_image.draw(_xPos,_yPos,81.4, 75);
+        _image.draw(_xPos,_yPos,114, 105);
+
     }
     void update(){
         _xPos--;

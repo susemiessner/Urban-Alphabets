@@ -20,8 +20,8 @@ public:
     string _letter;
     
     int _xPos=200;
-    int _yPos=60;
-    int _offset=60;
+    int _yPos=42;
+    int _offset=79;
     int _constNumber;
     
     Letter(string THEID, string LETTER, string OWNER, int constructorNumber){
@@ -48,7 +48,7 @@ public:
     
     void draw(){
         //printf("xPos %i ", _xPos);
-        _image.draw(_xPos,_yPos,52, 75);
+        _image.draw(_xPos,_yPos,73, 105);
     }
     void update(){
         _xPos--;
