@@ -57,6 +57,8 @@ public:
     void draw(){
         //printf("xPos %i ", _xPos);
        //_image.draw(_xPos,_yPos,81.4, 75);
+        ofSetColor(255);
+        ofRect(_xPos, _yPos, 114, 105);
         _image.draw(_xPos,_yPos,114, 105);
 
     }
