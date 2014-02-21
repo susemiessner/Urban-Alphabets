@@ -62,7 +62,6 @@
 
 /* Begin PBXFileReference section */
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
-		DA0E10B618ACC40E005664EF /* Location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		DA17D28918ABAB9200BE9FC3 /* Entries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Entries.h; sourceTree = "<group>"; };
 		DA17D28A18ABAB9200BE9FC3 /* Postcard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Postcard.h; sourceTree = "<group>"; };
 		DA17D28B18ABAB9200BE9FC3 /* Letter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Letter.h; sourceTree = "<group>"; };
@@ -196,7 +195,6 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
-				DA0E10B618ACC40E005664EF /* Location.h */,
 				DA17D28918ABAB9200BE9FC3 /* Entries.h */,
 				DA17D28A18ABAB9200BE9FC3 /* Postcard.h */,
 				DA17D28B18ABAB9200BE9FC3 /* Letter.h */,

@@ -20,8 +20,8 @@ public:
     string _letter;
     
     int _xPos=200;
-    int _yPos=42;
-    int _offset=79;
+    int _yPos=60;
+    int _offset=60;
     int _constNumber;
     
     Letter(string THEID, string LETTER, string OWNER, int constructorNumber){
@@ -30,7 +30,6 @@ public:
         _letter=LETTER;
         _constNumber=constructorNumber;
         if(constructorNumber<5){
-            //printf("constructorNumber %i", _constNumber);
             _xPos=_xPos+(constructorNumber)*_offset;
         }
     }
@@ -41,20 +40,16 @@ public:
     }
     void loadImage(){
         string URL="http://mlab.taik.fi/UrbanAlphabets/images/75x52/"+ofToString(_id)+".png";
-        // printf("%s \n", URL.c_str());
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
     }
     
     void draw(){
         //printf("xPos %i ", _xPos);
-        _image.draw(_xPos,_yPos,73, 105);
+        _image.draw(_xPos,_yPos,52, 75);
     }
     void update(){
         _xPos--;
-        /*if(_xPos<-100){
-            _xPos=200;
-        }*/
     }
 };
 

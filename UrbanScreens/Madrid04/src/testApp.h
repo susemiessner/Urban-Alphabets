@@ -5,11 +5,10 @@
 #include "Postcard.h"
 #include "Letter.h"
 #include "DrawInfo.h"
-#include "Location.h"
 
-#define LENGTH_OF_URL_ARRAY 4
-#define FRAME_RATE 30
-#define NO_OF_INTRO_IMAGES 6
+#define LENGTH_OF_URL_ARRAY 6
+#define FRAME_RATE 35
+#define NO_OF_INTRO_IMAGES 5
 
 
 class testApp : public ofBaseApp{
@@ -33,7 +32,6 @@ public:
     void loadURL_MadridrecentLetters(ofHttpResponse &response);
     void loadURL_requestMadrid(ofHttpResponse &response);
     void loadURL_MadridrecentPostcards(ofHttpResponse &respnse);
-    void loadURL_MadridLocations(ofHttpResponse &response);
     
     void update_MadridrecentLetters();
     void update_requestMadrid();
@@ -51,7 +49,6 @@ public:
     vector<Letter> recentLetters;
     vector<SingleEntry> allEntriesAlphabet;
     vector<Postcard> recentPostcards;
-    vector<Location> locations;
     
     int currImg1, currImg2, currImg3, currImg4, currImg5;
     int counter;
@@ -77,6 +74,5 @@ public:
     
     ofImage imagesIntro[NO_OF_INTRO_IMAGES];
     int introImageCounter;
-    ofImage map;
     
 };

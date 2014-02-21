@@ -9,11 +9,12 @@ void testApp::setup(){
     loading=true;
     ofRegisterURLNotification(this);
     URLsToLoad[0]="Info";
-    URLsToLoad[1]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentLetters.php";
-    URLsToLoad[2]="http://www.mlab.taik.fi/UrbanAlphabets/requests/requestMadrid.php";
+    URLsToLoad[1]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php";
+    URLsToLoad[2]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentLetters.php";
     URLsToLoad[3]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php";
-    //URLsToLoad[4]="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php";
-    currentURLNo=1;
+    URLsToLoad[4]="http://www.mlab.taik.fi/UrbanAlphabets/requests/requestMadrid.php";
+    URLsToLoad[5]="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php";
+    currentURLNo=0;
 
     currentURL=URLsToLoad[currentURLNo];
         loadedURL=" ";
@@ -44,8 +45,8 @@ void testApp::setup(){
     spanishAlphabet[23]="X";
     spanishAlphabet[24]="Y";
     spanishAlphabet[25]="Z";
-    spanishAlphabet[26]="spanishN";
-    spanishAlphabet[27]="+";
+    spanishAlphabet[26]="NN";
+    spanishAlphabet[27]=" ";
     spanishAlphabet[28]=",";
     spanishAlphabet[29]=".";
     spanishAlphabet[30]="!";
@@ -66,9 +67,7 @@ void testApp::setup(){
     imagesIntro[2].loadImage("intro/intros-03.png");//alphabet
     imagesIntro[3].loadImage("intro/intros-04.png");//postcards
     imagesIntro[4].loadImage("intro/intros-11.png");//by me
-    imagesIntro[5].loadImage("intro/intros-12.png");//map
 
-    //map.loadImage("map.png");
 
     counter=0;
     counterAlphabet=0;
@@ -92,7 +91,7 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-    if (ofGetFrameNum()%4) {
+    if (ofGetFrameNum()%2==0) {
         if (loading==false) {
             if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentLetters.php") {
                 update_MadridrecentLetters();
@@ -101,8 +100,6 @@ void testApp::update(){
                 if (counterAlphabet>FRAME_RATE*3) {
                     update_requestMadrid();
                 }
-            }else if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php"){
-                update_MadridrecentPostcards();
             }else if (loadedURL=="Info"){    //projectinfo
                 myInfo.update();
                 if (myInfo.over) {
@@ -111,6 +108,11 @@ void testApp::update(){
                     sendRequest();
                 }
             }
+        }
+    }
+    if (ofGetFrameNum()%3==0 && loading==false) {
+        if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php"){
+            update_MadridrecentPostcards();
         }
     }
 }
@@ -144,8 +146,6 @@ void testApp::draw(){
         sendRequest();
     } else if(loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php" && recentPostcards.size()>0 && currImg1==recentPostcards.size()-1 &&recentPostcards[currImg1]._xPos<-120 &&counter==0){
          sendRequest();
-    } else if (loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php" && locations.size()>0 && counter==0 && locations[0].stopDrawing()==true){
-        sendRequest();
     }
 
     //draw the title of upcoming stuff for 5seconds
@@ -205,12 +205,6 @@ void testApp::draw(){
             if (recentPostcards.size()>4) {
                 recentPostcards[currImg5].draw();
             }
-        } else if(loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php"){
-            map.draw(0, 0);
-            for (int i =0; i<locations.size(); i++) {
-                locations[i].draw();
-            }
-           // printf("%d",locations[0].stopDrawing());
         } 
         if (loadedURL=="Info"){    //projectinfo
             myInfo.draw();
@@ -252,13 +246,11 @@ void testApp::drawInfo(){
         imagesIntro[3].draw(0, 0);
     } else if(loadedURL=="Info"){ //info
         introImageCounter++;
-        if (introImageCounter>FRAME_RATE*4) {
+        if (introImageCounter>FRAME_RATE*3) {
             imagesIntro[4].draw(0, 0);
         } else{
             imagesIntro[0].draw(0, 0);
         }
-    }else if(loadedURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php"){
-        imagesIntro[5].draw(0, 0);
     }
     ofSetColor(255);
 }
@@ -287,8 +279,6 @@ void testApp::urlResponse(ofHttpResponse & response){
         loadURL_requestMadrid(response);
     } else if (currentURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/MadridrecentPostcards.php"){
         loadURL_MadridrecentPostcards(response);
-    } else if(currentURL=="http://www.mlab.taik.fi/UrbanAlphabets/requests/Madridmap.php"){
-        loadURL_MadridLocations(response);
     }
     loadingResponseDone=true;
 }
@@ -334,15 +324,19 @@ void testApp::loadURL_requestMadrid(ofHttpResponse &response){
     int numberOfLettersAdded=0;
     vector <SingleEntry> allLetters;
     for(int i=0; i<individualEntries.size(); i++){
-        vector<string> cutEntries =ofSplitString(individualEntries[i], ",");
+        //printf("individualEntries %s", individualEntries[i].c_str());
+        ofStringReplace(individualEntries[i], "letter\":\"", "");
+        //printf("individualEntries %s", individualEntries[i].c_str());
+        vector<string> cutEntries =ofSplitString(individualEntries[i], "\",\"");
         //delete the first parts in all of them
-        ofStringReplace(cutEntries[0], "\"ID\":\"", "");
-        ofStringReplace(cutEntries[1], "\"letter\":\"", "");
+        ofStringReplace(cutEntries[0], "\"ID\":\"","");
+        //ofStringReplace(cutEntries[1], "\"letter\":\"", "");
         //delete the last " in all of them
         ofStringReplace(cutEntries[0], "\"", "");
         ofStringReplace(cutEntries[1], "\"", "");
         //printf("%i ", i);
         string letter=cutEntries[1];
+        printf("%s letter:%s\n",cutEntries[0].c_str(), letter.c_str());
         if (i>1) {
             // printf("currentLetter:lastLetter= %s,%s\n", letter.c_str(), allLetters[numberOfLettersAdded-1]._letter.c_str());
             if (allLetters[numberOfLettersAdded-1]._letter!=letter) {
@@ -367,7 +361,8 @@ void testApp::loadURL_requestMadrid(ofHttpResponse &response){
     
     for (int j=0; j<42; j++) {
         //go through all letters we have
-        for (int i=0; i<allLetters.size(); i++) {
+        for (int i=0; i<allLetters.size(); i++){
+           // printf("letter:alphabet %s:%s\n",allLetters[i]._letter.c_str(), spanishAlphabet[j].c_str() );
             if (allLetters[i]._letter==spanishAlphabet[j]) {
                 SingleEntry entry(ofToString(allLetters[i]._id), allLetters[i]._letter, j);
                 allEntriesAlphabet.push_back(entry);
@@ -448,39 +443,6 @@ void testApp::loadURL_MadridrecentPostcards(ofHttpResponse &response){
         
     }
     
-}
-void testApp::loadURL_MadridLocations(ofHttpResponse &response){
-    locations.clear();
-    //printf(" number of entries: %i \n",(int) individualEntries.size());
-    for(int i=0; i<individualEntries.size(); i++){
-        //printf("individual entries %s\n", individualEntries[i].c_str());
-
-        vector<string> cutEntries =ofSplitString(individualEntries[i], ",");
-        //delete the first parts in all of them
-        ofStringReplace(cutEntries[0], "\"ID\":\"", "");
-        ofStringReplace(cutEntries[1], "\"longitude\":\"", "");
-        ofStringReplace(cutEntries[2], "\"latitude\":\"", "");
-
-        //delete the last " in all of them
-        ofStringReplace(cutEntries[0], "\"", "");
-        ofStringReplace(cutEntries[1], "\"", "");
-        ofStringReplace(cutEntries[2], "\"", "");
-        //printf("%i ", i);
-        //printf("cut entries %s\n", cutEntries[1].c_str());
-        Location location(cutEntries[0], ofToFloat(cutEntries[1]), ofToFloat(cutEntries[2]));
-        locations.push_back(location);
-        //printf("locations length %i\n",(int) locations.size());
-    }
-    for (int i=0; i<locations.size(); i++) {
-        locations[i].print();
-     }
-    
-    if (response.status==200 && response.request.name=="async_req") {
-        goToNextScreen();
-    } else{
-        printf("not loaded \n");
-        
-    }
 }
 
 void testApp::goToNextScreen(){
