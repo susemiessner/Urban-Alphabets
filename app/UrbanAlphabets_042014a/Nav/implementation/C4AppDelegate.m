@@ -73,10 +73,10 @@
 	self.window.rootViewController = navController;
    
 
-    /* don't ever do the following !
+     don't ever do the following !
      self.canvasController.view = self.window;
-     */
-/*
+ 
+
     [self.window makeKeyAndVisible];
     
     //strangely, if the following call to set the background color isn't made, then the view doesn't receive touch events...
@@ -91,7 +91,7 @@
 }
 
 +(void)initialize {
-    /*set these before everything else.
+    set these before everything else.
     [C4Control defaultStyle].alpha = 1.0f;
     [C4Control defaultStyle].animationDuration = 0.0f;
     [C4Control defaultStyle].animationDelay = 0.0f;

@@ -70,7 +70,7 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_WHITE_COLOR      [UIColor colorWithRed:1 green:1 blue:1 alpha:1.0]
 
 //BAR HEIGTHS
-#define UA_TOP_BAR_HEIGHT       40.0f
+#define UA_TOP_BAR_HEIGHT       42.0f
 #define UA_TOP_WHITE            20.558f
 #define UA_BOTTOM_BAR_HEIGHT    49.0f
 
