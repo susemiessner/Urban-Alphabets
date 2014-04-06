@@ -456,12 +456,25 @@
 //-----------------------------------------------------------
 
 -(void)saveUserName{
+    if ([userNameField.text isEqualToString: @""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
+                                                        message:@"Your username cannot be empty."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else{
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     self.userName=userNameField.text;
     [defaults setValue:self.userName forKey:@"userName"];
     [defaults synchronize];
     //and remove the username stuff
     [userNameField removeFromSuperview];
+    [self nextIntroPic];
+
+    }
+    
+
 }
 //--------------------------------------------------
 //load default alphabet
@@ -714,9 +727,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    //prepare next view and go there
     [self saveUserName];
-    [self nextIntroPic];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

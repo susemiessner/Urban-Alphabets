@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-               BuildableName = "ualphabets.app"
+               BuildableName = "UAlphabets.temp_caseinsensitive_rename.app"
                BlueprintName = "UAlphabets.temp_caseinsensitive_rename"
                ReferencedContainer = "container:UAlphabets.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDFC423D1851015300CB3335"
-               BuildableName = "ualphabetsTests.xctest"
+               BuildableName = "UAlphabets.temp_caseinsensitive_renameTests.xctest"
                BlueprintName = "UAlphabets.temp_caseinsensitive_renameTests"
                ReferencedContainer = "container:UAlphabets.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "ualphabets.app"
+            BuildableName = "UAlphabets.temp_caseinsensitive_rename.app"
             BlueprintName = "UAlphabets.temp_caseinsensitive_rename"
             ReferencedContainer = "container:UAlphabets.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "ualphabets.app"
+            BuildableName = "UAlphabets.temp_caseinsensitive_rename.app"
             BlueprintName = "UAlphabets.temp_caseinsensitive_rename"
             ReferencedContainer = "container:UAlphabets.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "ualphabets.app"
+            BuildableName = "UAlphabets.temp_caseinsensitive_rename.app"
             BlueprintName = "UAlphabets.temp_caseinsensitive_rename"
             ReferencedContainer = "container:UAlphabets.xcodeproj">
          </BuildableReference>
