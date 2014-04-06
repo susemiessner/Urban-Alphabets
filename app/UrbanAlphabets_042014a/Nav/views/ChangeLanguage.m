@@ -15,6 +15,8 @@
     C4WorkSpace *workspace;
     AlphabetInfo *alphabetInfo;
     
+    NSString *alphabetName;
+    
     NSMutableArray *shapesForBackground;
     NSArray *languages; //all languages available
     NSMutableArray *languageLabels; //for all texts
@@ -31,8 +33,9 @@
 @end
 
 @implementation ChangeLanguage
--(void) setupWithLanguage: (NSString*)passedLanguage {
+-(void) setupWithLanguage: (NSString*)passedLanguage Name:(NSString*)passedName {
     self.title=@"Change Language";
+    alphabetName=passedName;
     self.currentLanguage=passedLanguage;
     //back button
     CGRect frame = CGRectMake(0, 0, 60,20);
@@ -126,7 +129,14 @@
     workspace=(C4WorkSpace*)obj;
     workspace.currentLanguage=self.chosenLanguage;
     workspace.oldLanguage=self.currentLanguage;
+    for (int i=0; i<[workspace.myAlphabets count]; i++) {
+        if ([[workspace.myAlphabets objectAtIndex:i]isEqualToString:alphabetName]) {
+            [workspace.myAlphabetsLanguages replaceObjectAtIndex:i withObject: workspace.currentLanguage];
+        }
+    }
+
     [self updateLanguage];
+    
     obj=[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
     alphabetInfo=(AlphabetInfo*)obj;
     [alphabetInfo changeLanguage];
@@ -137,7 +147,6 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path= [[paths objectAtIndex:0] stringByAppendingString:@"/"];
     path=[path stringByAppendingPathComponent:workspace.alphabetName];
-    NSLog(@"path: %@", path);
     
     NSString *letterToAdd=@" ";
     if ([workspace.currentLanguage isEqualToString:@"Finnish/Swedish"]) {
@@ -153,7 +162,6 @@
     }else if([workspace.currentLanguage isEqualToString:@"Russian"]){
         letterToAdd=[workspace.russian objectAtIndex:number];
     }
-    NSLog(@"here 3x");
     
     NSString *filePath=[[path stringByAppendingPathComponent:letterToAdd] stringByAppendingString:@".jpg"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
@@ -161,7 +169,6 @@
         UIImage *img = [UIImage imageWithData:imageData];
         
         loadedImage=[[UIImageView alloc]initWithImage:img];
-        NSLog(@"loadedImage %@", loadedImage);
     }
     else{
         if ([letterToAdd isEqualToString:@"?"]) {
@@ -173,20 +180,16 @@
         filepath=[filepath stringByAppendingString:letterToAdd];
         filepath=[filepath stringByAppendingString:@".png"];
         loadedImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:filepath]];
-        NSLog(@"loadedImage %@", loadedImage);
         
     }
-    NSLog(@"here4");
 }
 -(void)updateLanguage{
-    NSLog(@"current: %@, old: %@", workspace.currentLanguage, workspace.oldLanguage);
     letterToChange=0;
     //Finnish>german
     if ([workspace.currentLanguage isEqual:@"German"] && [workspace.oldLanguage isEqual:@"Finnish/Swedish"]) {
         //change Å to Ü
         letterToChange=28;
         [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
-        NSLog(@"here");
         [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
         [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
     }

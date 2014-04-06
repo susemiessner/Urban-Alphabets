@@ -169,11 +169,9 @@
         [library addAssetsGroupAlbumWithName:folderName
                                  resultBlock:^(ALAssetsGroup *group)
         {
-            NSLog(@"Added folder:%@", folderName);
         }
                                 failureBlock:^(NSError *error)
         {
-            NSLog(@"Error adding folder");
         }];
         [self alphabetSetup];
     }
@@ -686,7 +684,7 @@
     if (!loadedName) {
         self.alphabetName=@"Untitled";
         //[self.myAlphabets addObject:self.alphabetName];
-        [self.myAlphabetsLanguages addObject:self.currentLanguage];
+        //[self.myAlphabetsLanguages addObject:self.currentLanguage];
         //set default alphabet name as first user default
         NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
         [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
@@ -715,6 +713,15 @@
 }
 -(void)loadCorrectAlphabet{
     //load default alphabet (in case needed)
+    //NSLog(@"my Alphabets languages: %@", self.myAlphabetsLanguages);
+
+    for (int i =0; i<[self.myAlphabets count]; i++) {
+        if ([self.alphabetName isEqualToString:[self.myAlphabets objectAtIndex:i]]) {
+            self.currentLanguage=[self.myAlphabetsLanguages objectAtIndex:i];
+        }
+    }
+    //NSLog(@"current Language: %@", self.currentLanguage);
+    //self.oldLanguage=@"Finnish/Swedish";
     [self loadDefaultAlphabet];
     //loading all letters
     NSString *path= [[self documentsDirectory] stringByAppendingString:@"/"];

@@ -261,7 +261,7 @@
 
 -(void)goToChangeLanguage{
     changeLanguageView=[[ChangeLanguage alloc]initWithNibName:@"ChangeLanguage" bundle:[NSBundle mainBundle]];
-    [changeLanguageView setupWithLanguage:self.currentLanguage];
+    [changeLanguageView setupWithLanguage:self.currentLanguage Name: currentAlphabetName];
     [self.navigationController pushViewController:changeLanguageView animated:NO];
 }
 -(void)goToAlphabetView{
@@ -278,8 +278,15 @@
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     workspace=(C4WorkSpace*)obj;
     workspace.alphabetName=textView.text;
-    NSLog(@"currentAlphabetName %@", workspace.alphabetName);
-    
+    workspace.title=textView.text;
+    for (int i=0; i<[workspace.myAlphabets count]; i++) {
+        if ([[workspace.myAlphabets objectAtIndex:i]isEqualToString:currentAlphabetName]) {
+            [workspace.myAlphabets replaceObjectAtIndex:i withObject: textView.text];
+        }
+    }
+    currentAlphabetName=workspace.alphabetName;
+    [workspace writeAlphabetsUserDefaults];
+
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -300,6 +307,7 @@
     }
     return YES;
 }
-- (void)textViewDidChange:(UITextView *)textView{}
+- (void)textViewDidChange:(UITextView *)textView{
+}
 
 @end

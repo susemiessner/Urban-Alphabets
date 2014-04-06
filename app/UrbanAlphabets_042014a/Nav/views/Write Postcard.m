@@ -79,7 +79,6 @@
 -(void)setupWithLanguage: (NSString*)passedLanguage Alphabet:(NSMutableArray*)passedAlphabet{
     self.title=@"Write Postcard";
     self.navigationItem.hidesBackButton = YES;
-    NSLog(@"alphabetLength: %lu", (unsigned long)[passedAlphabet count]);
     
     //back button
     CGRect frame = CGRectMake(0, 0, 60,20);
@@ -107,7 +106,6 @@
     self.postcardViewArray=[[NSMutableArray alloc]init];
     self.currentLanguage=[passedLanguage copy];
     self.currentAlphabet=[passedAlphabet copy];
-    NSLog(@"alphabetLength: %lu", (unsigned long)[self.currentAlphabet count]);
     
     //add text field
     CGRect textViewFrame = CGRectMake(20.0f, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+10, [[UIScreen mainScreen] bounds].size.width-40, 124.0f);
@@ -147,11 +145,9 @@
 //DISPLAY POSTCARD
 //------------------------------------------------------------------------
 -(void)displayPostcard{
-    NSLog(@"postcardArray: %lu", (unsigned long)[self.postcardArray count]);
     if([self.postcardArray count]<self.maxPostcardLength){
         [self addLetterToPostcard];
     }
-    NSLog(@"postcardArray after: %lu", (unsigned long)[self.postcardArray count]);
     
     if (![newCharacter  isEqual:@""]) { //if something was added
         //draw only the last letter

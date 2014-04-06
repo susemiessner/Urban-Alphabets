@@ -11,7 +11,7 @@
 @interface ChangeLanguage : UIViewController
 
 
--(void) setupWithLanguage: (NSString*)passedLanguage;
+-(void) setupWithLanguage: (NSString*)passedLanguage Name:(NSString*)passedName;
 -(void)updateLanguage;
 -(void)changeLanguage;
 @end

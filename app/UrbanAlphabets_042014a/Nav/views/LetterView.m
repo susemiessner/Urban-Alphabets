@@ -83,7 +83,6 @@
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void) goToAlphabetsView{
-    printf("%i", [self.navigationController.viewControllers count]);
     id obj = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-1];
     alphabetView=(C4WorkSpace*)obj;
     //[alphabetView redrawAlphabet];
