@@ -85,8 +85,6 @@
 		DA58621918573E6B00C4D2A5 /* icon_ShareAlphabet.png in Resources */ = {isa = PBXBuildFile; fileRef = DA58620718573E6B00C4D2A5 /* icon_ShareAlphabet.png */; };
 		DA58621A18573E6B00C4D2A5 /* icon_SharePostcard.png in Resources */ = {isa = PBXBuildFile; fileRef = DA58620818573E6B00C4D2A5 /* icon_SharePostcard.png */; };
 		DA58621B18573E6B00C4D2A5 /* icon_TakePhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = DA58620918573E6B00C4D2A5 /* icon_TakePhoto.png */; };
-		DA58622118573F8300C4D2A5 /* CropPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = DA58621F18573F8300C4D2A5 /* CropPhoto.m */; };
-		DA58622218573F8300C4D2A5 /* CropPhoto.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA58622018573F8300C4D2A5 /* CropPhoto.xib */; };
 		DA58628A185745C500C4D2A5 /* AssignLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA586288185745C500C4D2A5 /* AssignLetter.m */; };
 		DA58628B185745C500C4D2A5 /* AssignLetter.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA586289185745C500C4D2A5 /* AssignLetter.xib */; };
 		DA58628E18574EEF00C4D2A5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA58628D18574EEF00C4D2A5 /* CoreLocation.framework */; };
@@ -261,9 +259,6 @@
 		DA58620718573E6B00C4D2A5 /* icon_ShareAlphabet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_ShareAlphabet.png; sourceTree = "<group>"; };
 		DA58620818573E6B00C4D2A5 /* icon_SharePostcard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_SharePostcard.png; sourceTree = "<group>"; };
 		DA58620918573E6B00C4D2A5 /* icon_TakePhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_TakePhoto.png; sourceTree = "<group>"; };
-		DA58621E18573F8300C4D2A5 /* CropPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CropPhoto.h; path = views/CropPhoto.h; sourceTree = "<group>"; };
-		DA58621F18573F8300C4D2A5 /* CropPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CropPhoto.m; path = views/CropPhoto.m; sourceTree = "<group>"; };
-		DA58622018573F8300C4D2A5 /* CropPhoto.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CropPhoto.xib; path = views/CropPhoto.xib; sourceTree = "<group>"; };
 		DA586287185745C500C4D2A5 /* AssignLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignLetter.h; sourceTree = "<group>"; };
 		DA586288185745C500C4D2A5 /* AssignLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignLetter.m; sourceTree = "<group>"; };
 		DA586289185745C500C4D2A5 /* AssignLetter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssignLetter.xib; sourceTree = "<group>"; };
@@ -343,52 +338,9 @@
 		EDFC41F81851014E00CB3335 /* UAlphabets.temp_caseinsensitive_rename-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UAlphabets.temp_caseinsensitive_rename-Prefix.pch"; sourceTree = "<group>"; };
 		EDFC41FA1851014E00CB3335 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EDFC41FC1851014F00CB3335 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		EDFC41FF1851014F00CB3335 /* C4ActivityIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4ActivityIndicator.h; path = Headers/C4ActivityIndicator.h; sourceTree = "<group>"; };
-		EDFC42001851014F00CB3335 /* C4AddSubview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4AddSubview.h; path = Headers/C4AddSubview.h; sourceTree = "<group>"; };
 		EDFC42011851014F00CB3335 /* C4AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4AppDelegate.h; path = Headers/C4AppDelegate.h; sourceTree = "<group>"; };
-		EDFC42021851014F00CB3335 /* C4AssertionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4AssertionHandler.h; path = Headers/C4AssertionHandler.h; sourceTree = "<group>"; };
-		EDFC42031851014F00CB3335 /* C4Button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Button.h; path = Headers/C4Button.h; sourceTree = "<group>"; };
-		EDFC42041851014F00CB3335 /* C4Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Camera.h; path = Headers/C4Camera.h; sourceTree = "<group>"; };
-		EDFC42051851014F00CB3335 /* C4CameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4CameraController.h; path = Headers/C4CameraController.h; sourceTree = "<group>"; };
-		EDFC42061851014F00CB3335 /* C4CameraLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4CameraLayer.h; path = Headers/C4CameraLayer.h; sourceTree = "<group>"; };
-		EDFC42071851014F00CB3335 /* C4CanvasController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4CanvasController.h; path = Headers/C4CanvasController.h; sourceTree = "<group>"; };
-		EDFC42081851014F00CB3335 /* C4Control.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Control.h; path = Headers/C4Control.h; sourceTree = "<group>"; };
 		EDFC42091851014F00CB3335 /* C4Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Defines.h; path = Headers/C4Defines.h; sourceTree = "<group>"; };
-		EDFC420A1851014F00CB3335 /* C4EAGLES1Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4EAGLES1Renderer.h; path = Headers/C4EAGLES1Renderer.h; sourceTree = "<group>"; };
-		EDFC420B1851014F00CB3335 /* C4EAGLESRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4EAGLESRenderer.h; path = Headers/C4EAGLESRenderer.h; sourceTree = "<group>"; };
-		EDFC420C1851014F00CB3335 /* C4EAGLLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4EAGLLayer.h; path = Headers/C4EAGLLayer.h; sourceTree = "<group>"; };
-		EDFC420D1851014F00CB3335 /* C4Font.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Font.h; path = Headers/C4Font.h; sourceTree = "<group>"; };
-		EDFC420E1851014F00CB3335 /* C4Foundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Foundation.h; path = Headers/C4Foundation.h; sourceTree = "<group>"; };
-		EDFC420F1851014F00CB3335 /* C4Gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Gesture.h; path = Headers/C4Gesture.h; sourceTree = "<group>"; };
-		EDFC42101851014F00CB3335 /* C4GL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4GL.h; path = Headers/C4GL.h; sourceTree = "<group>"; };
-		EDFC42111851014F00CB3335 /* C4GL1Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4GL1Renderer.h; path = Headers/C4GL1Renderer.h; sourceTree = "<group>"; };
-		EDFC42121851014F00CB3335 /* C4Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Image.h; path = Headers/C4Image.h; sourceTree = "<group>"; };
-		EDFC42131851014F00CB3335 /* C4ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4ImageView.h; path = Headers/C4ImageView.h; sourceTree = "<group>"; };
-		EDFC42141851014F00CB3335 /* C4Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Label.h; path = Headers/C4Label.h; sourceTree = "<group>"; };
-		EDFC42151851014F00CB3335 /* C4Layer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Layer.h; path = Headers/C4Layer.h; sourceTree = "<group>"; };
-		EDFC42161851014F00CB3335 /* C4LayerAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4LayerAnimation.h; path = Headers/C4LayerAnimation.h; sourceTree = "<group>"; };
-		EDFC42171851014F00CB3335 /* C4Math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Math.h; path = Headers/C4Math.h; sourceTree = "<group>"; };
-		EDFC42181851014F00CB3335 /* C4MethodDelay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4MethodDelay.h; path = Headers/C4MethodDelay.h; sourceTree = "<group>"; };
-		EDFC42191851014F00CB3335 /* C4Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Movie.h; path = Headers/C4Movie.h; sourceTree = "<group>"; };
-		EDFC421A1851014F00CB3335 /* C4MovieLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4MovieLayer.h; path = Headers/C4MovieLayer.h; sourceTree = "<group>"; };
-		EDFC421B1851014F00CB3335 /* C4Notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Notification.h; path = Headers/C4Notification.h; sourceTree = "<group>"; };
-		EDFC421C1851014F00CB3335 /* C4Object.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Object.h; path = Headers/C4Object.h; sourceTree = "<group>"; };
-		EDFC421D1851014F00CB3335 /* C4Sample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Sample.h; path = Headers/C4Sample.h; sourceTree = "<group>"; };
-		EDFC421E1851014F00CB3335 /* C4ScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4ScrollView.h; path = Headers/C4ScrollView.h; sourceTree = "<group>"; };
-		EDFC421F1851014F00CB3335 /* C4Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Shape.h; path = Headers/C4Shape.h; sourceTree = "<group>"; };
-		EDFC42201851014F00CB3335 /* C4ShapeLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4ShapeLayer.h; path = Headers/C4ShapeLayer.h; sourceTree = "<group>"; };
-		EDFC42211851014F00CB3335 /* C4Slider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Slider.h; path = Headers/C4Slider.h; sourceTree = "<group>"; };
-		EDFC42221851014F00CB3335 /* C4Stepper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Stepper.h; path = Headers/C4Stepper.h; sourceTree = "<group>"; };
-		EDFC42231851014F00CB3335 /* C4Switch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Switch.h; path = Headers/C4Switch.h; sourceTree = "<group>"; };
-		EDFC42241851014F00CB3335 /* C4Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Timer.h; path = Headers/C4Timer.h; sourceTree = "<group>"; };
-		EDFC42251851014F00CB3335 /* C4UIElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4UIElement.h; path = Headers/C4UIElement.h; sourceTree = "<group>"; };
-		EDFC42261851014F00CB3335 /* C4Vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Vector.h; path = Headers/C4Vector.h; sourceTree = "<group>"; };
-		EDFC42271851014F00CB3335 /* C4View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4View.h; path = Headers/C4View.h; sourceTree = "<group>"; };
-		EDFC42281851014F00CB3335 /* C4ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4ViewController.h; path = Headers/C4ViewController.h; sourceTree = "<group>"; };
-		EDFC42291851014F00CB3335 /* C4Window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = C4Window.h; path = Headers/C4Window.h; sourceTree = "<group>"; };
-		EDFC422A1851014F00CB3335 /* UIColor+CIColorFix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIColor+CIColorFix.h"; path = "Headers/UIColor+CIColorFix.h"; sourceTree = "<group>"; };
 		EDFC422B1851014F00CB3335 /* C4AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = C4AppDelegate.m; path = implementation/C4AppDelegate.m; sourceTree = "<group>"; };
-		EDFC42311851015300CB3335 /* libC4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libC4.a; sourceTree = "<group>"; };
 		EDFC42351851015300CB3335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDFC42371851015300CB3335 /* C4WorkSpace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C4WorkSpace.h; sourceTree = "<group>"; };
 		EDFC42381851015300CB3335 /* C4WorkSpace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = C4WorkSpace.m; sourceTree = "<group>"; };
@@ -489,7 +441,6 @@
 			isa = PBXGroup;
 			children = (
 				DAF53FB818F05E56000807E7 /* TakePhoto */,
-				DA58622318573F9400C4D2A5 /* CropPhoto */,
 				DA58628C185745DC00C4D2A5 /* AssignLetter */,
 				DA0FCCF01859D67F00A8F05F /* AlphabetInfo */,
 				DA0FCCF61859DC4800A8F05F /* ChangeLanguage */,
@@ -537,16 +488,6 @@
 				DA58620918573E6B00C4D2A5 /* icon_TakePhoto.png */,
 			);
 			name = icons;
-			sourceTree = "<group>";
-		};
-		DA58622318573F9400C4D2A5 /* CropPhoto */ = {
-			isa = PBXGroup;
-			children = (
-				DA58621E18573F8300C4D2A5 /* CropPhoto.h */,
-				DA58621F18573F8300C4D2A5 /* CropPhoto.m */,
-				DA58622018573F8300C4D2A5 /* CropPhoto.xib */,
-			);
-			name = CropPhoto;
 			sourceTree = "<group>";
 		};
 		DA586286185745AD00C4D2A5 /* letter */ = {
@@ -765,6 +706,7 @@
 		EDFC41F01851014E00CB3335 /* Nav */ = {
 			isa = PBXGroup;
 			children = (
+				EDFC42091851014F00CB3335 /* C4Defines.h */,
 				DA1D326E1859BA1D002F3F75 /* AlphabetMenu.h */,
 				DA1D326F1859BA1D002F3F75 /* AlphabetMenu.m */,
 				DA8C2795185F287B009B0DC1 /* PostcardMenu.h */,
@@ -778,7 +720,6 @@
 				EDFC42381851015300CB3335 /* C4WorkSpace.m */,
 				DA5861E71857149A00C4D2A5 /* views */,
 				EDFC41F91851014E00CB3335 /* Media */,
-				EDFC41FE1851014F00CB3335 /* Framework */,
 				EDFC42331851015300CB3335 /* Storyboards */,
 				EDFC41F11851014E00CB3335 /* Supporting Files */,
 			);
@@ -807,57 +748,6 @@
 				EDFC41FC1851014F00CB3335 /* Media.xcassets */,
 			);
 			name = Media;
-			sourceTree = "<group>";
-		};
-		EDFC41FE1851014F00CB3335 /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				EDFC41FF1851014F00CB3335 /* C4ActivityIndicator.h */,
-				EDFC42001851014F00CB3335 /* C4AddSubview.h */,
-				EDFC42021851014F00CB3335 /* C4AssertionHandler.h */,
-				EDFC42031851014F00CB3335 /* C4Button.h */,
-				EDFC42041851014F00CB3335 /* C4Camera.h */,
-				EDFC42051851014F00CB3335 /* C4CameraController.h */,
-				EDFC42061851014F00CB3335 /* C4CameraLayer.h */,
-				EDFC42071851014F00CB3335 /* C4CanvasController.h */,
-				EDFC42081851014F00CB3335 /* C4Control.h */,
-				EDFC42091851014F00CB3335 /* C4Defines.h */,
-				EDFC420A1851014F00CB3335 /* C4EAGLES1Renderer.h */,
-				EDFC420B1851014F00CB3335 /* C4EAGLESRenderer.h */,
-				EDFC420C1851014F00CB3335 /* C4EAGLLayer.h */,
-				EDFC420D1851014F00CB3335 /* C4Font.h */,
-				EDFC420E1851014F00CB3335 /* C4Foundation.h */,
-				EDFC420F1851014F00CB3335 /* C4Gesture.h */,
-				EDFC42101851014F00CB3335 /* C4GL.h */,
-				EDFC42111851014F00CB3335 /* C4GL1Renderer.h */,
-				EDFC42121851014F00CB3335 /* C4Image.h */,
-				EDFC42131851014F00CB3335 /* C4ImageView.h */,
-				EDFC42141851014F00CB3335 /* C4Label.h */,
-				EDFC42151851014F00CB3335 /* C4Layer.h */,
-				EDFC42161851014F00CB3335 /* C4LayerAnimation.h */,
-				EDFC42171851014F00CB3335 /* C4Math.h */,
-				EDFC42181851014F00CB3335 /* C4MethodDelay.h */,
-				EDFC42191851014F00CB3335 /* C4Movie.h */,
-				EDFC421A1851014F00CB3335 /* C4MovieLayer.h */,
-				EDFC421B1851014F00CB3335 /* C4Notification.h */,
-				EDFC421C1851014F00CB3335 /* C4Object.h */,
-				EDFC421D1851014F00CB3335 /* C4Sample.h */,
-				EDFC421E1851014F00CB3335 /* C4ScrollView.h */,
-				EDFC421F1851014F00CB3335 /* C4Shape.h */,
-				EDFC42201851014F00CB3335 /* C4ShapeLayer.h */,
-				EDFC42211851014F00CB3335 /* C4Slider.h */,
-				EDFC42221851014F00CB3335 /* C4Stepper.h */,
-				EDFC42231851014F00CB3335 /* C4Switch.h */,
-				EDFC42241851014F00CB3335 /* C4Timer.h */,
-				EDFC42251851014F00CB3335 /* C4UIElement.h */,
-				EDFC42261851014F00CB3335 /* C4Vector.h */,
-				EDFC42271851014F00CB3335 /* C4View.h */,
-				EDFC42281851014F00CB3335 /* C4ViewController.h */,
-				EDFC42291851014F00CB3335 /* C4Window.h */,
-				EDFC422A1851014F00CB3335 /* UIColor+CIColorFix.h */,
-				EDFC42311851015300CB3335 /* libC4.a */,
-			);
-			name = Framework;
 			sourceTree = "<group>";
 		};
 		EDFC42331851015300CB3335 /* Storyboards */ = {
@@ -1033,7 +923,6 @@
 				DA8C28B8185F5C66009B0DC1 /* fb.png in Resources */,
 				DA58621118573E6B00C4D2A5 /* icon_information.png in Resources */,
 				DA68A8321883E4D900BE9545 /* letter_RusJo.png in Resources */,
-				DA58622218573F8300C4D2A5 /* CropPhoto.xib in Resources */,
 				EDFC42361851015300CB3335 /* Main.storyboard in Resources */,
 				DA58621518573E6B00C4D2A5 /* icon_Postcard.png in Resources */,
 				DA0812D1187C255100CD4EE1 /* letter_Ä.png in Resources */,
@@ -1101,7 +990,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA6C388E187E9E830059275B /* AddAlphabet.m in Sources */,
-				DA58622118573F8300C4D2A5 /* CropPhoto.m in Sources */,
 				EDFC41F71851014E00CB3335 /* main.m in Sources */,
 				DA8C2797185F287B009B0DC1 /* PostcardMenu.m in Sources */,
 				DA0FB2C9185F274E00B14025 /* PostcardView.m in Sources */,
@@ -1253,6 +1141,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/\"/**",
+					"$(PROJECT_DIR)/Nav",
 				);
 				PRODUCT_NAME = UAlphabets.temp_caseinsensitive_rename;
 				PROVISIONING_PROFILE = "";
@@ -1274,6 +1163,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/\"/**",
+					"$(PROJECT_DIR)/Nav",
 				);
 				PRODUCT_NAME = UAlphabets.temp_caseinsensitive_rename;
 				PROVISIONING_PROFILE = "";

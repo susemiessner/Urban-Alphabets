@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 moi. All rights reserved.
 //
 
-#import "C4CanvasController.h"
+//#import "C4CanvasController.h"
 
 @interface AddAlphabet : UIViewController <UITextViewDelegate>
 -(void)setup;

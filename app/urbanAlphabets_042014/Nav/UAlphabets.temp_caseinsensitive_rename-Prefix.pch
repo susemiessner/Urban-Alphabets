@@ -22,11 +22,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <math.h>
 
-#import "C4AssertionHandler.h"
+//#import "C4AssertionHandler.h"
 
 //protocols
 #import "C4Defines.h"
-#import "C4UIElement.h"
+/*#import "C4UIElement.h"
 #import "C4AddSubview.h"
 #import "C4Notification.h"
 #import "C4Gesture.h"
@@ -69,5 +69,5 @@
 #import "C4WorkSpace.h"
 #import "C4Window.h"
 
-#import "C4AppDelegate.h"
+#import "C4AppDelegate.h"*/
 
