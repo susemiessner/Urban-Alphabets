@@ -568,7 +568,7 @@
         letterToChange=22;
         [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
         [workspace.currentAlphabet insertObject:loadedImage atIndex:25];
-        //shirt Y /RusU into right position
+        //shift Y /RusU into right position
         [workspace.currentAlphabet removeObjectAtIndex:20];
         [workspace.currentAlphabet removeObjectAtIndex:20];
         [workspace.currentAlphabet removeObjectAtIndex:20];

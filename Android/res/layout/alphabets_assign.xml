@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridhostLayoutAssignScreen"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/texViewAssignAlphabets"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/LightGrey"
+        android:contentDescription="@string/desc_icon_image"
+        android:gravity="center"
+        android:minHeight="30dp"
+        android:text="@string/letter_assign"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/Black" />
+
+    <TableLayout
+        android:id="@+id/tableAssignScreenLayoutAlphaGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_weight="1"
+        android:stretchColumns="*" >
+
+          <TableRow
+            android:id="@+id/tableAssignScreenRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenA"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenB"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenC"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenD"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenE"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenF"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableAssignScreenRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenG"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenH"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenI"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenJ"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenK"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenL"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableAssignScreenRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenM"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenN"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenO"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenP"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenQ"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenR"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableAssignScreenRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenS"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenT"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenU"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenV"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenW"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenX"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableAssignScreenRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenY"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenZ"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenAwithDoubleDotabove"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenOWithDoubleDotAbove"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenAWithCircleAbove"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenDot"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableAssignScreenRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenExclaim"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreenLetterDash"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen0"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+                <ImageView
+                    android:id="@+id/ImageViewAssignScreen2"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/cell_border"
+                    android:clickable="true"
+                    android:padding="2dp" />
+
+                <ImageView
+                    android:id="@+id/ImageViewAssignScreen3"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/cell_border"
+                    android:clickable="true"
+                    android:padding="2dp" />
+          
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableAssignScreenRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:weightSum="6" >
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen6"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen7"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen8"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/ImageViewAssignScreen9"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/cell_border"
+                android:clickable="true"
+                android:padding="2dp" />
+        </TableRow>
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="15dp"
+        android:layout_weight="0.05"
+        android:background="@color/LightGrey"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/ImageViewAssignScreenPhotoJustCropped"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/desc_icon_image" />
+
+        <Button
+            android:id="@+id/AssignButtonOk"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/button_bg"
+            android:contentDescription="@string/desc_icon_image"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
+            android:text="@string/ok_btn"
+            android:textColor="@color/Black"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+</LinearLayout>

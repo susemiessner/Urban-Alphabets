@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Urban Alphabets</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="desc_icon_image">Image Icon Description</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="assign_alphabet">Assign Alphabet</string>
+    <string name="crop_photo">Crop Photo</string>
+    <string name="ok_btn">OK</string>
+    <string name="letter_assign">Assign letter</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="untitled_string">Untitled</string>
+    <string name="title_activity_display_alphabet">DisplayAlphabet</string>
+    <string name="letter_view">Letter View</string>
+    <string name="title_activity_display_menu">DisplayMenu</string>
+    <string name="alphabet_info">Alphabet Info</string>
+    <string name="share_alphabets">Share Alphabets</string>
+    <string name="save_alphabet">Save Alphabets</string>
+    <string name="write_postcard">Write Postcard</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="my_alphabets">My Alphabets</string>
+
+</resources>
