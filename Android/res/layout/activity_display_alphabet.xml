@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/displayAlphabetLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textViewLetterView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight=".4"
+        android:background="@color/LightGrey"
+        android:contentDescription="@string/desc_icon_image"
+        android:gravity="center"
+        android:text="@string/letter_view"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/DisplayAlphabetsPreview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="4.66"
+        android:gravity="center" 
+      android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:background="@color/LightGrey"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageViewBackWard"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="false"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/icon_arrowback"
+            android:contentDescription="@string/desc_icon_image"
+            android:gravity="left|center_vertical"
+            android:scaleType="fitCenter" 
+            android:onClick="onClick" />
+
+        <ImageView
+            android:id="@+id/imageViewForeward"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignBottom="@+id/imageViewBackWard"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/icon_arrowforward"
+            android:contentDescription="@string/desc_icon_image"
+            android:gravity="left|center_vertical"
+            android:onClick="onClick"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/imageViewGoToAlphabetsScreen"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:src="@drawable/icon_alphabet" />
+
+    </RelativeLayout>
+
+</LinearLayout>
