@@ -7,6 +7,7 @@
 //
 
 #import "SaveToDatabase.h"
+
 @implementation SaveToDatabase
 -(void)sendLetterToDatabase: (CLLocation*)theLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(UIImage*)croppedImage Language:(NSString*)theLanguage Username:(NSString*)userName{
     currentLocation=theLocation;
@@ -69,330 +70,32 @@
     //NSLog(@"%@", response);
 }
 -(void)findRightLetter:(NSUInteger)chosenImageNumberInArray Language:(NSString*)theLanguage{
-    if ([theLanguage isEqual:@"Finnish/Swedish"]||[theLanguage isEqualToString:@"German"] ||[theLanguage isEqualToString:@"English"] ||[theLanguage isEqualToString:@"Danish/Norwegian"] || [theLanguage isEqualToString:@"Spanish"]) {
-        if ([theLanguage isEqualToString:@"Finnish/Swedish"]) {
-            switch (chosenImageNumberInArray) {
-                case 26:
-                    letter=@"AA"; //Ä
-                    break;
-                case 27:
-                    letter=@"OO"; //Ö
-                    break;
-                case 28:
-                    letter=@"AAA"; //Å
-                    break;
-            }
-        }
-        if ([theLanguage isEqualToString:@"German"]) {
-            switch (chosenImageNumberInArray) {
-                case 26:
-                    letter=@"AA"; //Ä
-                    break;
-                case 27:
-                    letter=@"OO"; //Ö
-                    break;
-                case 28:
-                    letter=@"UU"; //Ü
-                    break;
-            }
-        }
-        if ([theLanguage isEqualToString:@"Danish/Norwegian"]) {
-            switch (chosenImageNumberInArray) {
-                case 26:
-                    letter=@"AE"; //AE
-                    break;
-                case 27:
-                    letter=@"OO"; //Ö
-                    break;
-                case 28:
-                    letter=@"UU"; //Ü
-                    break;
-            }
-        }
-        if ([theLanguage isEqualToString:@"English"]) {
-            switch (chosenImageNumberInArray) {
-                case 26:
-                    letter=@"+"; //+
-                    break;
-                case 27:
-                    letter=@"$"; //$
-                    break;
-                case 28:
-                    letter=@","; //,
-                    break;
-            }
-        }
-        if ([theLanguage isEqualToString:@"Spanish"]) {
-            switch (chosenImageNumberInArray) {
-                case 26:
-                    letter=@"NN"; //spanishN
-                    break;
-                case 27:
-                    letter=@"+"; //+
-                    break;
-                case 28:
-                    letter=@","; //,
-                    break;
-            }
-        }
-        switch (chosenImageNumberInArray) {
-            case 0:
-                letter=@"A";
-                break;
-            case 1:
-                letter=@"B";
-                break;
-            case 2:
-                letter=@"C";
-                break;
-            case 3:
-                letter=@"D";
-                break;
-            case 4:
-                letter=@"E";
-                break;
-            case 5:
-                letter=@"F";
-                break;
-            case 6:
-                letter=@"G";
-                break;
-            case 7:
-                letter=@"H";
-                break;
-            case 8:
-                letter=@"I";
-                break;
-            case 9:
-                letter=@"J";
-                break;
-            case 10:
-                letter=@"K";
-                break;
-            case 11:
-                letter=@"L";
-                break;
-            case 12:
-                letter=@"M";
-                break;
-            case 13:
-                letter=@"N";
-                break;
-            case 14:
-                letter=@"O";
-                break;
-            case 15:
-                letter=@"P";
-                break;
-            case 16:
-                letter=@"Q";
-                break;
-            case 17:
-                letter=@"R";
-                break;
-            case 18:
-                letter=@"S";
-                break;
-            case 19:
-                letter=@"T";
-                break;
-            case 20:
-                letter=@"U";
-                break;
-            case 21:
-                letter=@"V";
-                break;
-            case 22:
-                letter=@"W";
-                break;
-            case 23:
-                letter=@"X";
-                break;
-            case 24:
-                letter=@"Y";
-                break;
-            case 25:
-                letter=@"Z";
-                break;
-            case 29:
-                letter=@".";
-                break;
-            case 30:
-                letter=@"!";
-                break;
-            case 31:
-                letter=@"?";
-                break;
-            case 32:
-                letter=@"0";
-                break;
-            case 33:
-                letter=@"1";
-                break;
-            case 34:
-                letter=@"2";
-                break;
-            case 35:
-                letter=@"3";
-                break;
-            case 36:
-                letter=@"4";
-                break;
-            case 37:
-                letter=@"5";
-                break;
-            case 38:
-                letter=@"6";
-                break;
-            case 39:
-                letter=@"7";
-                break;
-            case 40:
-                letter=@"8";
-                break;
-            case 41:
-                letter=@"9";
-                break;
-            default:
-                if (letter==nil) {
-                    letter=[NSString stringWithFormat:@"%lu",(unsigned long)chosenImageNumberInArray];
-                }
-        }
-        
-    }if ([theLanguage isEqual:@"Russian"]) {
-        switch (chosenImageNumberInArray) {
-            case 0:
-                letter=@"A";
-                break;
-            case 1:
-                letter=@"RusB";
-                break;
-            case 2:
-                letter=@"B";
-                break;
-            case 3:
-                letter=@"RusG";
-                break;
-            case 4:
-                letter=@"RusD";
-                break;
-            case 5:
-                letter=@"E";
-                break;
-            case 6:
-                letter=@"RusJo";
-                break;
-            case 7:
-                letter=@"RusSche";
-                break;
-            case 8:
-                letter=@"RusSe";
-                break;
-            case 9:
-                letter=@"RusI";
-                break;
-            case 10:
-                letter=@"RusIkratkoje";
-                break;
-            case 11:
-                letter=@"K";
-                break;
-            case 12:
-                letter=@"RusL";
-                break;
-            case 13:
-                letter=@"M";
-                break;
-            case 14:
-                letter=@"RusN";
-                break;
-            case 15:
-                letter=@"O";
-                break;
-            case 16:
-                letter=@"RusP";
-                break;
-            case 17:
-                letter=@"P";
-                break;
-            case 18:
-                letter=@"C";
-                break;
-            case 19:
-                letter=@"T";
-                break;
-            case 20:
-                letter=@"Y";
-                break;
-            case 21:
-                letter=@"RusF";
-                break;
-            case 22:
-                letter=@"X";
-                break;
-            case 23:
-                letter=@"RusZ";
-                break;
-            case 24:
-                letter=@"RusTsche";
-                break;
-            case 25:
-                letter=@"RusScha";
-                break;
-            case 26:
-                letter=@"RusTschescha"; //spanishN
-                break;
-            case 27:
-                letter=@"RusMjachkiSnak"; //+
-                break;
-            case 28:
-                letter=@"RusUi"; //,
-                break;
-            case 29:
-                letter=@"RusE";
-                break;
-            case 30:
-                letter=@"RusJu";
-                break;
-            case 31:
-                letter=@"RusJa";
-                break;
-            case 32:
-                letter=@"0";
-                break;
-            case 33:
-                letter=@"1";
-                break;
-            case 34:
-                letter=@"2";
-                break;
-            case 35:
-                letter=@"3";
-                break;
-            case 36:
-                letter=@"4";
-                break;
-            case 37:
-                letter=@"5";
-                break;
-            case 38:
-                letter=@"6";
-                break;
-            case 39:
-                letter=@"7";
-                break;
-            case 40:
-                letter=@"8";
-                break;
-            case 41:
-                letter=@"9";
-                break;
-            default:
-                letter=[NSString stringWithFormat:@"%lu",(unsigned long)chosenImageNumberInArray];
-                break;
-        }
-
+        NSLog(@"language: %@", theLanguage);
+    NSLog(@"chosenNumberinArray: %i", chosenImageNumberInArray);
+    self.finnish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"Ä", @"Ö", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.german=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"Ä", @"Ö", @"Ü", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.danish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"ae", @"danisho", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.english=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"+", @"$", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.spanish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"spanishN", @"+", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.russian=[NSArray arrayWithObjects:@"A", @"RusB", @"B", @"RusG", @"RusD", @"E", @"RusJo", @"RusSche", @"RusSe", @"RusI", @"RusIkratkoje", @"K", @"RusL", @"M", @"RusN", @"O", @"RusP", @"P", @"C", @"T", @"Y", @"RusF", @"X", @"RusZ", @"RusTsche", @"RusScha", @"RusTschescha", @"RusMjachkiSnak", @"RusUi", @"RusE", @"RusJu", @"RusJa", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9",nil];
+    self.latvian=[NSArray arrayWithObjects:@"A",@"LatvA",@"B", @"C", @"LatvC",@"D", @"E", @"LatvE", @"F", @"G", @"LatvG",@"H", @"I", @"LatvI", @"J", @"K", @"LatvK", @"L", @"LatvL", @"M", @"N", @"LatvN", @"O", @"P", @"R", @"S", @"LatvS", @"T", @"U", @"LatvU", @"V", @"Z", @"LatvZ", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+   
+    if ([theLanguage isEqualToString:@"Finnish/Swedish"]) {
+        letter=[self.finnish objectAtIndex:chosenImageNumberInArray];
+    }else if ([theLanguage isEqualToString:@"German"]) {
+        letter=[self.german objectAtIndex:chosenImageNumberInArray];
+    } else if ([theLanguage isEqualToString:@"Danish/Norwegian"]) {
+         letter=[self.danish objectAtIndex:chosenImageNumberInArray];
+    }else if ([theLanguage isEqualToString:@"English"]) {
+        letter=[self.english objectAtIndex:chosenImageNumberInArray];
+    }else if ([theLanguage isEqualToString:@"Spanish"]) {
+        letter=[self.spanish objectAtIndex:chosenImageNumberInArray];
+    } else if ([theLanguage isEqual:@"Russian"]) {
+        letter=[self.russian objectAtIndex:chosenImageNumberInArray];
+    } else if ([theLanguage isEqual:@"Latvian"]) {
+        letter=[self.latvian objectAtIndex:chosenImageNumberInArray];
     }
+
 }
 
 
