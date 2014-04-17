@@ -32,9 +32,7 @@
 @property(readwrite)NSArray *english;
 @property (readwrite)NSArray *spanish;
 @property (readwrite)NSArray *russian;
-
-
-
+@property (readwrite)NSArray *latvian;
 
 
 -(void)setup;

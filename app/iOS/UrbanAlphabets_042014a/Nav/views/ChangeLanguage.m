@@ -46,7 +46,7 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", nil];
+    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", @"Latvian",nil];
     shapesForBackground=[[NSMutableArray alloc]init];
     languageLabels=[[NSMutableArray alloc]init];
     
@@ -161,6 +161,8 @@
         letterToAdd=[workspace.spanish objectAtIndex:number];
     }else if([workspace.currentLanguage isEqualToString:@"Russian"]){
         letterToAdd=[workspace.russian objectAtIndex:number];
+    } else if([workspace.currentLanguage isEqualToString:@"Latvian"]){
+        letterToAdd=[workspace.latvian objectAtIndex:number];
     }
     
     NSString *filePath=[[path stringByAppendingPathComponent:letterToAdd] stringByAppendingString:@".jpg"];
@@ -245,6 +247,7 @@
         [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
         [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
     }
+    
     //English>Finnish
     if ([workspace.currentLanguage isEqual:@"Finnish/Swedish"] && [workspace.oldLanguage isEqual:@"English"]) {
         //change Ä to +
@@ -508,6 +511,174 @@
         [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
     }
     //-------------------------------
+    //LATVIAN
+    //-------------------------------
+    //>> Finnish, Swedish, German, Danish, Norwegian, English > Latvian
+    if ([workspace.currentLanguage isEqual:@"Latvian"] && ([workspace.oldLanguage isEqual:@"Finnish/Swedish"]||[workspace.oldLanguage isEqual:@"German"] ||[workspace.oldLanguage isEqual:@"Danish/Norwegian"] || [workspace.oldLanguage isEqual:@"English"]|| [workspace.oldLanguage isEqual:@"Spanish"])) {
+        //remove 0
+        letterToChange=32;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove ?
+        letterToChange=31;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove !
+        letterToChange=30;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove .
+        letterToChange=29;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove Å
+        letterToChange=28;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove Ö
+        letterToChange=27;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove Ä
+        letterToChange=26;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove Y
+        letterToChange=24;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove X
+        letterToChange=23;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove W
+        letterToChange=22;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //remove Q
+        letterToChange=16;
+        [workspace.currentAlphabet removeObjectAtIndex:16];
+        
+        //Add LatvA
+        letterToChange=1;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvB
+        letterToChange=4;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvE
+        letterToChange=7;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvG
+        letterToChange=10;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvI
+        letterToChange=13;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvK
+        letterToChange=16;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvL
+        letterToChange=18;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvN
+        letterToChange=21;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvS
+        letterToChange=26;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvU
+        letterToChange=29;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //Add LatvZ
+        letterToChange=32;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+    }
+    //Latvian > Finnish
+    if (([workspace.currentLanguage isEqual:@"Finnish/Swedish"]||[workspace.currentLanguage isEqual:@"German"] ||[workspace.currentLanguage isEqual:@"Danish/Norwegian"] || [workspace.currentLanguage isEqual:@"English"]|| [workspace.currentLanguage isEqual:@"Spanish"]) && [workspace.oldLanguage isEqual:@"Latvian"]){
+        //LatvZ
+        letterToChange=32;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvU
+        letterToChange=29;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvS
+        letterToChange=26;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvN
+        letterToChange=21;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvL
+        letterToChange=18;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvK
+        letterToChange=16;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvI
+        letterToChange=13;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvG
+        letterToChange=10;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvE
+        letterToChange=7;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvB
+        letterToChange=4;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvA
+        letterToChange=1;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        
+        //add Q
+        letterToChange=16;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add W
+        letterToChange=22;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add X
+        letterToChange=23;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add Y
+        letterToChange=24;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add Ä
+        letterToChange=26;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add Ö
+        letterToChange=27;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add Å
+        //if ([workspace.currentLanguage isEqualToString:@"Finnish"]) {
+            letterToChange=28;
+            [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+            [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //}
+        //add .
+        letterToChange=29;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add !
+        letterToChange=30;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add ?
+        letterToChange=31;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //add0
+        letterToChange=32;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+    }
+    
+    //-------------------------------
     //RUSSIAN
     //-------------------------------
     //Finnish,German,English,Norwegian>Russian
@@ -753,6 +924,300 @@
         [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
         [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
     }
+    //Latvian > Russian
+    if ([workspace.currentLanguage isEqual:@"Russian"] && ([workspace.oldLanguage isEqual:@"Latvian"])){
+        //LatvZ
+        letterToChange=32;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //Z
+        letterToChange=31;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //V
+        letterToChange=30;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvU
+        letterToChange=29;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //U
+        letterToChange=28;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvS
+        letterToChange=26;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //S
+        letterToChange=25;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //R
+        letterToChange=24;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvN
+        letterToChange=21;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //N
+        letterToChange=20;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvL
+        letterToChange=18;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //L
+        letterToChange=17;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvK
+        letterToChange=16;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //J
+        letterToChange=14;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvI
+        letterToChange=13;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //I
+        letterToChange=12;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //Latv G
+        letterToChange=10;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //G
+        letterToChange=9;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //F
+        letterToChange=8;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvE
+        letterToChange=7;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //D
+        letterToChange=5;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvC
+        letterToChange=4;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //LatvA
+        letterToChange=1;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        
+        //shift C into right
+        [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:2] atIndex:9];
+        [workspace.currentAlphabet removeObjectAtIndex:2];
+        //shift H into right place
+        [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:3] atIndex:6];
+        [workspace.currentAlphabet removeObjectAtIndex:3];
+        
+        //now add the russian letters
+        letterToChange=1;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=3;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=4;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=6;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=7;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=8;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=9;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=10;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=12;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=16;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=20;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=21;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=22;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=23;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=24;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=25;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=26;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=27;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=28;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=29;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=30;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=31;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=32;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+
+    }
+    //Russian > Latvian
+    if ([workspace.currentLanguage isEqual:@"Latvian"] && ([workspace.oldLanguage isEqual:@"Russian"])){
+        //remove
+        letterToChange=32;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=31;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=30;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=29;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=28;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=27;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=26;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=25;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=24;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=23;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=22;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=21;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=20;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=16;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=12;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=10;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=9;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=8;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=7;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=6;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=4;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=3;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        letterToChange=1;
+        [workspace.currentAlphabet removeObjectAtIndex:letterToChange];
+        //copy into right places
+        //shift H into right place
+        [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:5] atIndex:3];
+        [workspace.currentAlphabet removeObjectAtIndex:6];
+        //shift C into right
+        [workspace.currentAlphabet insertObject:[workspace.currentAlphabet objectAtIndex:8] atIndex:2];
+        [workspace.currentAlphabet removeObjectAtIndex:9];
+        
+        // add missing letters
+        //latvA
+        letterToChange=1;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //latvC
+        letterToChange=4;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //D
+        letterToChange=5;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //latvE
+        letterToChange=7;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //F
+        letterToChange=8;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //G
+        letterToChange=9;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //LatvG
+        letterToChange=10;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //I
+        letterToChange=12;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //LatvI
+        letterToChange=13;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //J
+        letterToChange=14;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //LatvK
+        letterToChange=16;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //L
+        letterToChange=17;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        //LatvL
+        letterToChange=18;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=20;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=21;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=24;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=25;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=26;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=28;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=29;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=30;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=31;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+        letterToChange=32;
+        [self checkIfLetterExistsInDocumentsDirectory:letterToChange];
+        [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
+
+    }
+
 }
 
 
