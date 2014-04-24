@@ -10,7 +10,7 @@
 #import "BottomNavBar.h"
 #import "AlphabetMenu.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-@interface C4WorkSpace : UIViewController<UITextViewDelegate,CLLocationManagerDelegate /**/>
+@interface C4WorkSpace : UIViewController<UITextViewDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic) BottomNavBar *bottomNavBar;
 
@@ -33,6 +33,12 @@
 @property (readwrite)NSArray *spanish;
 @property (readwrite)NSArray *russian;
 @property (readwrite)NSArray *latvian;
+
+//for saving the
+@property (readwrite) NSMutableArray *offPicLanguage;
+@property (readwrite) NSMutableArray *offPicLocationLong;
+@property (readwrite) NSMutableArray *offPicLocationLat;
+@property (readwrite) NSMutableArray *offPicImageNo;
 
 
 -(void)setup;

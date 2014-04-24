@@ -11,6 +11,7 @@
 @implementation SaveToDatabase
 -(void)sendLetterToDatabase: (CLLocation*)theLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(UIImage*)croppedImage Language:(NSString*)theLanguage Username:(NSString*)userName{
     currentLocation=theLocation;
+    letterNumberInArray=[NSNumber numberWithInt:chosenImageNumberInArray];;
     path=[NSString stringWithFormat:@"letter_%@.png", [NSDate date]];
     longitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.longitude];
     latitude= [NSString stringWithFormat:@"%f", currentLocation.coordinate.latitude];
@@ -21,6 +22,8 @@
     alphabet=@"no";
     language=@"none";
     postcardText=@"none";
+    theImage=UIImageJPEGRepresentation(croppedImage,0.0);
+    NSLog(@"theImage: %@", theImage);
     NSData *imageData=UIImagePNGRepresentation(croppedImage);
     [self connect:imageData];
 }
@@ -35,8 +38,10 @@
     alphabet=@"yes";
     language=theLanguage;
     postcardText=@"none";
+    theImage=[NSData dataWithData:imageData];
+    NSLog(@"theImage: %@", theImage);
+    NSLog(@"imageData: %@", imageData);
     [self connect:imageData];
-
 }
 
 -(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText withLocation:(CLLocation*)theLocation withUsername:(NSString*)userName{
@@ -50,28 +55,63 @@
     alphabet=@"no";
     language=theLanguage;
     postcardText=thePostcardText;
+    theImage=[NSData dataWithData:imageData];
+    NSLog(@"theImage: %@", theImage);
+    NSLog(@"imageData: %@", imageData);
+
     [self connect:imageData];
 }
 -(void)connect:(NSData*)imageData{
     NSString *post = [NSString stringWithFormat:@"path=%@&longitude=%@&latitude=%@&owner=%@&letter=%@&postcard=%@&alphabet=%@&image=%@&language=%@&postcardText=%@", path, longitude,latitude,owner,letter,postcard,alphabet, imageData, language, postcardText];
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"http://mlab.taik.fi/UrbanAlphabets/add.php"]];
+    request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:@"http://www.ualphabets.com/add.php"]];
+    //[request setURL:[NSURL URLWithString:@"http://mlab.taik.fi/UrbanAlphabets/add.php"]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    //NSLog(@"request: %@", request);
+    //test internet connection
+    //[self testInternetConnection];
     // now lets make the connection to the web
-    (void)[[NSURLConnection alloc]initWithRequest:request delegate:self];
+    [self sendData];
 }
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    //NSLog(@"%@", response);
+    NSLog(@"%@", response);
 }
+-(void)sendData{
+    (void)[[NSURLConnection alloc]initWithRequest:request delegate:self];
+    NSLog(@"sending");
+}
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    [error localizedDescription];
+    NSLog(@"error: %@", error);
+    [self saveImageWhenOffline];
+    [workspace.offPicLanguage addObject:language];
+    [workspace.offPicLocationLong addObject:longitude];
+    [workspace.offPicLocationLat addObject:latitude];
+    [workspace.offPicImageNo addObject:letterNumberInArray];
+    NSLog(@"images: %@, %@, %@, %@", workspace.offPicLanguage, workspace.offPicLocationLong, workspace.offPicLocationLat, workspace.offPicImageNo);
+    
+}
+-(void)saveImageWhenOffline{
+    NSLog(@"savingImageWhenOffline");
+    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", letter];
+    //save in a certain folder
+    NSString *dataPath = [[self documentsDirectory] stringByAppendingString:@"/OfflineImages"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+    NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
+    NSLog(@"theImage: %@", theImage);
+    [theImage writeToFile:savePath atomically:YES];
+}
+-(NSString *)documentsDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    return paths[0];
+}
+
 -(void)findRightLetter:(NSUInteger)chosenImageNumberInArray Language:(NSString*)theLanguage{
-        NSLog(@"language: %@", theLanguage);
-    NSLog(@"chosenNumberinArray: %i", chosenImageNumberInArray);
     self.finnish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"Ä", @"Ö", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.german=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"Ä", @"Ö", @"Ü", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.danish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"ae", @"danisho", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];

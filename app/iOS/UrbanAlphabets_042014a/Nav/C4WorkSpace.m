@@ -26,10 +26,7 @@
     ShareAlphabet *shareAlphabet;
     MyAlphabets *myAlphabetsView;
     TakePhotoViewController *takePhoto;
-    
-    
-    
-    
+
     //saving image
     CGContextRef graphicsContext;
     UIImage *currentImageToExport;
@@ -61,27 +58,27 @@
     
 }
 
-
-
-
 -(void)setup {
-    
-    
     //load the defaults
     self.currentLanguage= @"Finnish/Swedish";
     self.myAlphabets=[[NSMutableArray alloc]init];
     self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
     self.alphabetName=@"Untitled";
-    self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
+    self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
     
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
+    self.offPicLanguage=[[NSMutableArray alloc]init];
+    self.offPicLocationLong=[[NSMutableArray alloc]init];
+    self.offPicLocationLat=[[NSMutableArray alloc]init];
+    self.offPicImageNo =[[NSMutableArray alloc]init];
 }
 -(void)viewDidAppear:(BOOL)animated{
     self.title=self.alphabetName;
     self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    //when app is opened first time
     if (self.userName==nil) {
         self.title=@"Intro";
         
@@ -103,8 +100,6 @@
         
         [self.view addSubview:[introPicsViews objectAtIndex:0]];
         
-        
-        
         nextButton=UA_ICON_NEXT;
         //nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.canvas.width-nextButton.size.width-20, self.canvas.height-nextButton.size.height-20, 80, 34)];
         nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-100, [[UIScreen mainScreen] bounds].size.height-100+yPosIntro, 80, 34)];
@@ -116,10 +111,8 @@
         nextButtonTap.numberOfTapsRequired = 1;
         [nextButtonView addGestureRecognizer:nextButtonTap];
     } else{
-        //[self cameraSetup];
         [self alphabetSetup];
     }
-    
 }
 -(void)nextIntroPic{
     //remove old
@@ -346,7 +339,6 @@
 -(void)goToWritePostcard{
     [self closeMenu];
     writePostcard=[[Write_Postcard alloc] initWithNibName:@"Write Postcard" bundle:[NSBundle mainBundle]];
-    //NSLog(@"postcardLength: %lu", (unsigned long)[self.currentAlphabet count]);
     [writePostcard setupWithLanguage:self.currentLanguage Alphabet:self.currentAlphabet];
     [self.navigationController pushViewController:writePostcard animated:YES];
     
@@ -403,16 +395,13 @@
 -(void)saveAlphabet{
     [self exportHighResImage];
 }
-
 -(void)saveCurrentAlphabetAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, [[UIScreen mainScreen] bounds].size.width * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
 }
-
-- (UIImage *)createScreenshot
-{
+- (UIImage *)createScreenshot{
     //    UIGraphicsBeginImageContext(pageSize);
     CGSize pageSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     UIGraphicsBeginImageContextWithOptions(pageSize, YES, 0.0f);
@@ -491,10 +480,7 @@
                                }];
 
 }
-
-
 //-----------------------------------------------------------
-
 -(void)saveUserName{
     if ([userNameField.text isEqualToString: @""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
@@ -520,7 +506,7 @@
 //load default alphabet
 //--------------------------------------------------
 -(void)loadDefaultAlphabet{
-    if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"] ||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"English"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
+    if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"] ||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
         self.currentAlphabetUIImage=[NSMutableArray arrayWithObjects:
                                      //first row
                                      [UIImage imageNamed:@"letter_A.png"],
@@ -585,7 +571,7 @@
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_danisho.png"] atIndex:27];
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_Å.png"] atIndex:28];
         }
-        if ([self.currentLanguage isEqualToString:@"English"]) {
+        if ([self.currentLanguage isEqualToString:@"English/Portugese"]) {
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
@@ -717,8 +703,7 @@
 //--------------------------------------------------
 //save alphabet when app becomes inactive
 //--------------------------------------------------
--(void)appWillResignActive:(NSNotification*)note
-{
+-(void)appWillResignActive:(NSNotification*)note{
     //save all images under alphabetName
     [self writeAlphabetsUserDefaults];
 }
@@ -762,18 +747,15 @@
         [self.myAlphabetsLanguages addObject:self.currentLanguage];
     }
     [self loadCorrectAlphabet];
+    [self sentOfflineImagesToDatabase];
 }
 -(void)loadCorrectAlphabet{
     //load default alphabet (in case needed)
-    //NSLog(@"my Alphabets languages: %@", self.myAlphabetsLanguages);
-
     for (int i =0; i<[self.myAlphabets count]; i++) {
         if ([self.alphabetName isEqualToString:[self.myAlphabets objectAtIndex:i]]) {
             self.currentLanguage=[self.myAlphabetsLanguages objectAtIndex:i];
         }
     }
-    //NSLog(@"current Language: %@", self.currentLanguage);
-    //self.oldLanguage=@"Finnish/Swedish";
     [self loadDefaultAlphabet];
     //loading all letters
     NSString *path= [[self documentsDirectory] stringByAppendingString:@"/"];
@@ -787,7 +769,7 @@
                 letterToAdd=[self.finnish objectAtIndex:i];
             }else if([self.currentLanguage isEqualToString:@"German"]){
                 letterToAdd=[self.german objectAtIndex:i];
-            }else if([self.currentLanguage isEqualToString:@"English"]){
+            }else if([self.currentLanguage isEqualToString:@"English/Portugese"]){
                 letterToAdd=[self.english objectAtIndex:i];
             }else if([self.currentLanguage isEqualToString:@"Danish/Norwegian"]){
                 letterToAdd=[self.danish objectAtIndex:i];
@@ -811,23 +793,58 @@
     }
     
 }
+-(void)sentOfflineImagesToDatabase{
+    NSString *dataPath = [[self documentsDirectory] stringByAppendingPathComponent:@"/OfflineImages"];
 
+    [self scanPath:dataPath];
+}
+- (void)scanPath:(NSString *) sPath {
+    NSLog(@"scanPath");
+    BOOL isDir;
+    [[NSFileManager defaultManager] fileExistsAtPath:sPath isDirectory:&isDir];
+    if(isDir){
+        NSArray *contentOfDirectory=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:sPath error:NULL];
+        int contentcount = (int)[contentOfDirectory count];
+        int i;
+        for(i=0;i<contentcount;i++){
+            NSString *fileName = [contentOfDirectory objectAtIndex:i];
+            NSString *path = [sPath stringByAppendingFormat:@"%@%@",@"/",fileName];
+            if([[NSFileManager defaultManager] isDeletableFileAtPath:path]){
+               // NSLog(@"path: %@",path);
+                [self scanPath:path];
+            }
+        }
+    }else{
+        NSString *msg=[NSString stringWithFormat:@"%@",sPath];
+        NSLog(@"msg:%@",msg);
+        //load the image
+        UIImage *imageToSend;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:msg]){
+            NSData *imageData = [NSData dataWithContentsOfFile:msg];
+            imageToSend = [UIImage imageWithData:imageData];
+        }
+        //upload image to database
+        save=[[SaveToDatabase alloc]init];
+        [save sendLetterToDatabase: currentLocation ImageNo:0 Image:imageToSend Language:self.currentLanguage Username:self.userName];
+        //delete letter after upload
+        NSError *error = nil;
+        NSData *data;
+        [data writeToFile:msg options:0 error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:msg error:&error];
+    }
+}
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT
 //------------------------------------------------------------------------
-
 #pragma mark -
 #pragma mark UITextViewDelegate Methods
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
+- (void)textViewDidBeginEditing:(UITextView *)textView{
     /*--
      * This method is called when the textView becomes active, or is the First Responder
      --*/
-    
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
+- (void)textViewDidEndEditing:(UITextView *)textView{
     [self saveUserName];
 }
 

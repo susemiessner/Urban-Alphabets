@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-
+#import "C4WorkSpace.h"
 
 @interface SaveToDatabase : NSObject {
     NSString *path;
@@ -20,9 +20,13 @@
     NSString *alphabet;
     NSString *language;
     NSString *postcardText;
+    NSNumber *letterNumberInArray;
     CLLocation *currentLocation;
+    NSMutableURLRequest *request;
     
     NSData *imageToSend;
+    NSData *theImage;
+    C4WorkSpace *workspace;
 }
 //languages
 @property (readwrite)NSArray *finnish;
