@@ -7,7 +7,6 @@
 //
 
 #import "SaveToDatabase.h"
-
 @implementation SaveToDatabase
 -(void)sendLetterToDatabase: (CLLocation*)theLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(UIImage*)croppedImage Language:(NSString*)theLanguage Username:(NSString*)userName{
     currentLocation=theLocation;
@@ -135,7 +134,7 @@
     } else if ([theLanguage isEqual:@"Latvian"]) {
         letter=[self.latvian objectAtIndex:chosenImageNumberInArray];
     }
-
+    
 }
 
 

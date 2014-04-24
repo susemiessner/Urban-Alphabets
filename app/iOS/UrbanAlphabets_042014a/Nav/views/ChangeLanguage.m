@@ -46,11 +46,7 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-<<<<<<< HEAD
     languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", @"Latvian",nil];
-=======
-    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", nil];
->>>>>>> parent of e1106e5... Latvian Alphabet Added
     shapesForBackground=[[NSMutableArray alloc]init];
     languageLabels=[[NSMutableArray alloc]init];
     
@@ -512,7 +508,6 @@
         [workspace.currentAlphabet insertObject:loadedImage atIndex:letterToChange];
     }
     //-------------------------------
-<<<<<<< HEAD
     //LATVIAN
     //-------------------------------
     //>> Finnish, Swedish, German, Danish, Norwegian, English > Latvian
@@ -681,8 +676,6 @@
     }
     
     //-------------------------------
-=======
->>>>>>> parent of e1106e5... Latvian Alphabet Added
     //RUSSIAN
     //-------------------------------
     //Finnish,German,English,Norwegian>Russian

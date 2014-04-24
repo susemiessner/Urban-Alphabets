@@ -36,6 +36,8 @@
 @property (readwrite)NSArray *spanish;
 @property (readwrite)NSArray *russian;
 @property (readwrite)NSArray *latvian;
+
+
 -(void)sendLetterToDatabase: (CLLocation*)currentLocation ImageNo:(NSUInteger)chosenImageNumberInArray Image:(UIImage*)croppedImage Language:(NSString*)theLanguage Username:(NSString*)userName;
 -(void)sendAlphabetToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withLocation:(CLLocation*)theLocation withUsername:(NSString*)userName;
 -(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText withLocation:(CLLocation*)currentLocation withUsername:(NSString*)userName;
