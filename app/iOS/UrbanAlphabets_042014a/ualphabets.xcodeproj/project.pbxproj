@@ -133,17 +133,6 @@
 		DA8C2947185F6FC8009B0DC1 /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = DA8C2946185F6FC8009B0DC1 /* mail.png */; };
 		DA8C294B185F7300009B0DC1 /* SharePostcard.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2949185F7300009B0DC1 /* SharePostcard.m */; };
 		DA8C294C185F7300009B0DC1 /* SharePostcard.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA8C294A185F7300009B0DC1 /* SharePostcard.xib */; };
-		DA94F21E18FEADE10041C1EC /* letter_LatvA.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21318FEADE10041C1EC /* letter_LatvA.png */; };
-		DA94F21F18FEADE10041C1EC /* letter_LatvC.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21418FEADE10041C1EC /* letter_LatvC.png */; };
-		DA94F22018FEADE10041C1EC /* letter_LatvE.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21518FEADE10041C1EC /* letter_LatvE.png */; };
-		DA94F22118FEADE10041C1EC /* letter_LatvG.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21618FEADE10041C1EC /* letter_LatvG.png */; };
-		DA94F22218FEADE10041C1EC /* letter_LatvI.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21718FEADE10041C1EC /* letter_LatvI.png */; };
-		DA94F22318FEADE10041C1EC /* letter_LatvK.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21818FEADE10041C1EC /* letter_LatvK.png */; };
-		DA94F22418FEADE10041C1EC /* letter_LatvL.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21918FEADE10041C1EC /* letter_LatvL.png */; };
-		DA94F22518FEADE10041C1EC /* letter_LatvN.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21A18FEADE10041C1EC /* letter_LatvN.png */; };
-		DA94F22618FEADE10041C1EC /* letter_LatvS.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21B18FEADE10041C1EC /* letter_LatvS.png */; };
-		DA94F22718FEADE10041C1EC /* letter_LatvU.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21C18FEADE10041C1EC /* letter_LatvU.png */; };
-		DA94F22818FEADE10041C1EC /* letter_LatvZ.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21D18FEADE10041C1EC /* letter_LatvZ.png */; };
 		DABB6ADD187D5244005BD903 /* MyAlphabets.m in Sources */ = {isa = PBXBuildFile; fileRef = DABB6ADB187D5244005BD903 /* MyAlphabets.m */; };
 		DABB6ADE187D5244005BD903 /* MyAlphabets.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABB6ADC187D5244005BD903 /* MyAlphabets.xib */; };
 		DAC9D84F190681D0004967F2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC9D84D190681D0004967F2 /* Reachability.m */; };
@@ -324,17 +313,6 @@
 		DA8C2948185F7300009B0DC1 /* SharePostcard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharePostcard.h; path = views/SharePostcard.h; sourceTree = "<group>"; };
 		DA8C2949185F7300009B0DC1 /* SharePostcard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharePostcard.m; path = views/SharePostcard.m; sourceTree = "<group>"; };
 		DA8C294A185F7300009B0DC1 /* SharePostcard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SharePostcard.xib; path = views/SharePostcard.xib; sourceTree = "<group>"; };
-		DA94F21318FEADE10041C1EC /* letter_LatvA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvA.png; sourceTree = "<group>"; };
-		DA94F21418FEADE10041C1EC /* letter_LatvC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvC.png; sourceTree = "<group>"; };
-		DA94F21518FEADE10041C1EC /* letter_LatvE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvE.png; sourceTree = "<group>"; };
-		DA94F21618FEADE10041C1EC /* letter_LatvG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvG.png; sourceTree = "<group>"; };
-		DA94F21718FEADE10041C1EC /* letter_LatvI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvI.png; sourceTree = "<group>"; };
-		DA94F21818FEADE10041C1EC /* letter_LatvK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvK.png; sourceTree = "<group>"; };
-		DA94F21918FEADE10041C1EC /* letter_LatvL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvL.png; sourceTree = "<group>"; };
-		DA94F21A18FEADE10041C1EC /* letter_LatvN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvN.png; sourceTree = "<group>"; };
-		DA94F21B18FEADE10041C1EC /* letter_LatvS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvS.png; sourceTree = "<group>"; };
-		DA94F21C18FEADE10041C1EC /* letter_LatvU.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvU.png; sourceTree = "<group>"; };
-		DA94F21D18FEADE10041C1EC /* letter_LatvZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = letter_LatvZ.png; sourceTree = "<group>"; };
 		DABB6ADA187D5244005BD903 /* MyAlphabets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyAlphabets.h; path = views/MyAlphabets.h; sourceTree = "<group>"; };
 		DABB6ADB187D5244005BD903 /* MyAlphabets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyAlphabets.m; path = views/MyAlphabets.m; sourceTree = "<group>"; };
 		DABB6ADC187D5244005BD903 /* MyAlphabets.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyAlphabets.xib; path = views/MyAlphabets.xib; sourceTree = "<group>"; };
@@ -567,17 +545,6 @@
 		DA586286185745AD00C4D2A5 /* letter */ = {
 			isa = PBXGroup;
 			children = (
-				DA94F21318FEADE10041C1EC /* letter_LatvA.png */,
-				DA94F21418FEADE10041C1EC /* letter_LatvC.png */,
-				DA94F21518FEADE10041C1EC /* letter_LatvE.png */,
-				DA94F21618FEADE10041C1EC /* letter_LatvG.png */,
-				DA94F21718FEADE10041C1EC /* letter_LatvI.png */,
-				DA94F21818FEADE10041C1EC /* letter_LatvK.png */,
-				DA94F21918FEADE10041C1EC /* letter_LatvL.png */,
-				DA94F21A18FEADE10041C1EC /* letter_LatvN.png */,
-				DA94F21B18FEADE10041C1EC /* letter_LatvS.png */,
-				DA94F21C18FEADE10041C1EC /* letter_LatvU.png */,
-				DA94F21D18FEADE10041C1EC /* letter_LatvZ.png */,
 				DA68A8141883E4CB00BE9545 /* Russian */,
 				DA08128E187C255100CD4EE1 /* letter_-.png */,
 				DA08128F187C255100CD4EE1 /* letter_,.png */,
@@ -1001,9 +968,7 @@
 				DA0812E4187C255100CD4EE1 /* letter_P.png in Resources */,
 				DA0FB2C4185F23ED00B14025 /* Write Postcard.xib in Resources */,
 				DA0812EC187C255100CD4EE1 /* letter_W.png in Resources */,
-				DA94F22318FEADE10041C1EC /* letter_LatvK.png in Resources */,
 				DA0FCCEF1859D65D00A8F05F /* AlphabetInfo.xib in Resources */,
-				DA94F22718FEADE10041C1EC /* letter_LatvU.png in Resources */,
 				DA8C28BA185F5C77009B0DC1 /* twitter.png in Resources */,
 				DA58621B18573E6B00C4D2A5 /* icon_TakePhoto.png in Resources */,
 				DA0812BF187C255100CD4EE1 /* letter_-.png in Resources */,
@@ -1019,9 +984,6 @@
 				DA0812CF187C255100CD4EE1 /* letter_A.png in Resources */,
 				DA0812E6187C255100CD4EE1 /* letter_R.png in Resources */,
 				DABB6ADE187D5244005BD903 /* MyAlphabets.xib in Resources */,
-				DA94F22418FEADE10041C1EC /* letter_LatvL.png in Resources */,
-				DA94F21F18FEADE10041C1EC /* letter_LatvC.png in Resources */,
-				DA94F22818FEADE10041C1EC /* letter_LatvZ.png in Resources */,
 				DA58620F18573E6B00C4D2A5 /* icon_checked.png in Resources */,
 				DA0812D4187C255100CD4EE1 /* letter_C.png in Resources */,
 				DA68A83E1883E4D900BE9545 /* letter_RusZ.png in Resources */,
@@ -1029,7 +991,6 @@
 				DA68A85518844F4300BE9545 /* intro_3.png in Resources */,
 				EDFC41F51851014E00CB3335 /* InfoPlist.strings in Resources */,
 				DA0812EB187C255100CD4EE1 /* letter_V.png in Resources */,
-				DA94F22118FEADE10041C1EC /* letter_LatvG.png in Resources */,
 				DA58621718573E6B00C4D2A5 /* icon_Save.png in Resources */,
 				DA0812E9187C255100CD4EE1 /* letter_U.png in Resources */,
 				DA0812C9187C255100CD4EE1 /* letter_4.png in Resources */,
@@ -1061,7 +1022,6 @@
 				DA8C28B4185F5A97009B0DC1 /* ShareAlphabet.xib in Resources */,
 				DA0812D6187C255100CD4EE1 /* letter_danisho.png in Resources */,
 				DA58621018573E6B00C4D2A5 /* icon_Close.png in Resources */,
-				DA94F22618FEADE10041C1EC /* letter_LatvS.png in Resources */,
 				DA68A8371883E4D900BE9545 /* letter_RusP.png in Resources */,
 				DA0812C5187C255100CD4EE1 /* letter_0.png in Resources */,
 				DA68A8301883E4D900BE9545 /* letter_RusIkratkoje.png in Resources */,
@@ -1075,7 +1035,6 @@
 				EDFC42361851015300CB3335 /* Main.storyboard in Resources */,
 				DA58621518573E6B00C4D2A5 /* icon_Postcard.png in Resources */,
 				DA0812D1187C255100CD4EE1 /* letter_Ä.png in Resources */,
-				DA94F22218FEADE10041C1EC /* letter_LatvI.png in Resources */,
 				DA68A840188430CC00BE9545 /* letter_RusMjachkiSnak.png in Resources */,
 				DA68A8391883E4D900BE9545 /* letter_RusSche.png in Resources */,
 				DA68A83A1883E4D900BE9545 /* letter_RusSe.png in Resources */,
@@ -1094,7 +1053,6 @@
 				DA0812E2187C255100CD4EE1 /* letter_O.png in Resources */,
 				DA58620C18573E6B00C4D2A5 /* icon_ArrowBack.png in Resources */,
 				DA58621A18573E6B00C4D2A5 /* icon_SharePostcard.png in Resources */,
-				DA94F21E18FEADE10041C1EC /* letter_LatvA.png in Resources */,
 				DA68A8341883E4D900BE9545 /* letter_RusL.png in Resources */,
 				DA0812CB187C255100CD4EE1 /* letter_6.png in Resources */,
 				DA0FCCF51859DC3A00A8F05F /* ChangeLanguage.xib in Resources */,
@@ -1104,7 +1062,6 @@
 				DA78603518853DEB00D6BD88 /* intro_1_1.png in Resources */,
 				DA58621218573E6B00C4D2A5 /* icon_Menu.png in Resources */,
 				DA0812DA187C255100CD4EE1 /* letter_G.png in Resources */,
-				DA94F22018FEADE10041C1EC /* letter_LatvE.png in Resources */,
 				DA68A8361883E4D900BE9545 /* letter_RusN.png in Resources */,
 				DA68A82F1883E4D900BE9545 /* letter_RusI.png in Resources */,
 				DA0812E1187C255100CD4EE1 /* letter_N.png in Resources */,
@@ -1119,7 +1076,6 @@
 				DA0812C2187C255100CD4EE1 /* letter_.png in Resources */,
 				DA68A83B1883E4D900BE9545 /* letter_RusTsche.png in Resources */,
 				DA8C294C185F7300009B0DC1 /* SharePostcard.xib in Resources */,
-				DA94F22518FEADE10041C1EC /* letter_LatvN.png in Resources */,
 				DAEC5CD01861D97900B0CE62 /* backButton.png in Resources */,
 				DA0812CE187C255100CD4EE1 /* letter_9.png in Resources */,
 			);

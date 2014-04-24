@@ -64,7 +64,11 @@
     self.myAlphabets=[[NSMutableArray alloc]init];
     self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
     self.alphabetName=@"Untitled";
+<<<<<<< HEAD
     self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
+=======
+    self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", nil];
+>>>>>>> parent of e1106e5... Latvian Alphabet Added
     
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -581,58 +585,6 @@
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:27];
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
         }
-    } else if ([self.currentLanguage isEqualToString:@"Latvian"]){
-        self.currentAlphabetUIImage=[NSMutableArray arrayWithObjects:
-                                     //first row
-                                     [UIImage imageNamed:@"letter_A.png"],
-                                     [UIImage imageNamed:@"letter_LatvA.png"],
-                                     [UIImage imageNamed:@"letter_B.png"],
-                                     [UIImage imageNamed:@"letter_C.png"],
-                                     [UIImage imageNamed:@"letter_LatvC.png"],
-                                     [UIImage imageNamed:@"letter_D.png"],
-                                     //second row
-                                     [UIImage imageNamed:@"letter_E.png"],
-                                     [UIImage imageNamed:@"letter_LatvE.png"],
-                                     [UIImage imageNamed:@"letter_F.png"],
-                                     [UIImage imageNamed:@"letter_G.png"],
-                                     [UIImage imageNamed:@"letter_LatvG.png"],
-                                     [UIImage imageNamed:@"letter_H.png"],
-                                     
-                                     [UIImage imageNamed:@"letter_I.png"],
-                                     [UIImage imageNamed:@"letter_LatvI.png"],
-                                     [UIImage imageNamed:@"letter_J.png"],
-                                     [UIImage imageNamed:@"letter_K.png"],
-                                     [UIImage imageNamed:@"letter_LatvK.png"],
-                                     [UIImage imageNamed:@"letter_L.png"],
-                                     
-                                     [UIImage imageNamed:@"letter_LatvL.png"],
-                                     [UIImage imageNamed:@"letter_M.png"],
-                                     [UIImage imageNamed:@"letter_N.png"],
-                                     [UIImage imageNamed:@"letter_LatvN.png"],
-                                     [UIImage imageNamed:@"letter_O.png"],
-                                     [UIImage imageNamed:@"letter_P.png"],
-                                     
-                                     [UIImage imageNamed:@"letter_R.png"],
-                                     [UIImage imageNamed:@"letter_S.png"],
-                                     [UIImage imageNamed:@"letter_LatvS.png"],
-                                     [UIImage imageNamed:@"letter_T.png"],
-                                     [UIImage imageNamed:@"letter_U.png"],
-                                     [UIImage imageNamed:@"letter_LatvU.png"],
-                                     
-                                     [UIImage imageNamed:@"letter_V.png"],
-                                     [UIImage imageNamed:@"letter_Z.png"],
-                                     [UIImage imageNamed:@"letter_LatvZ.png"],
-                                     [UIImage imageNamed:@"letter_1.png"],
-                                     [UIImage imageNamed:@"letter_2.png"],
-                                     [UIImage imageNamed:@"letter_3.png"],
-                                     
-                                     [UIImage imageNamed:@"letter_4.png"],
-                                     [UIImage imageNamed:@"letter_5.png"],
-                                     [UIImage imageNamed:@"letter_6.png"],
-                                     [UIImage imageNamed:@"letter_7.png"],
-                                     [UIImage imageNamed:@"letter_8.png"],
-                                     [UIImage imageNamed:@"letter_9.png"],
-                                     nil];
     } else{
         self.currentAlphabetUIImage=[NSMutableArray arrayWithObjects:
                                      //first row
@@ -698,7 +650,11 @@
     self.english=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"+", @"$", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.spanish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"spanishN", @"+", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.russian=[NSArray arrayWithObjects:@"A", @"RusB", @"B", @"RusG", @"RusD", @"E", @"RusJo", @"RusSche", @"RusSe", @"RusI", @"RusIkratkoje", @"K", @"RusL", @"M", @"RusN", @"O", @"RusP", @"P", @"C", @"T", @"Y", @"RusF", @"X", @"RusZ", @"RusTsche", @"RusScha", @"RusTschescha", @"RusMjachkiSnak", @"RusUi", @"RusE", @"RusJu", @"RusJa", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9",nil];
+<<<<<<< HEAD
     self.latvian=[NSArray arrayWithObjects:@"A",@"LatvA",@"B", @"C", @"LatvC",@"D", @"E", @"LatvE", @"F", @"G", @"LatvG",@"H", @"I", @"LatvI", @"J", @"K", @"LatvK", @"L", @"LatvL", @"M", @"N", @"LatvN", @"O", @"P", @"R", @"S", @"LatvS", @"T", @"U", @"LatvU", @"V", @"Z", @"LatvZ", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+=======
+    
+>>>>>>> parent of e1106e5... Latvian Alphabet Added
 }
 //--------------------------------------------------
 //save alphabet when app becomes inactive

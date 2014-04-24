@@ -200,7 +200,48 @@
     
     [self.navigationController popToRootViewControllerAnimated:NO];
 }
-
+-(void)updateLanguage{
+    //this is a copy of update language from change language view
+    //Finnish>german
+    if ([self.currentLanguage isEqual:@"German"]) {
+        //change Å to Ü
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_Ü.png"] atIndex:28];
+    }
+    //Finnish>Danish
+    if ([self.currentLanguage isEqual:@"Danish/Norwegian"]) {
+        //change Ä to AE
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_ae.png"] atIndex:26];
+        //change Ö to danishO
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_danisho.png"] atIndex:27];
+    }
+    //Finnish>English
+    if ([self.currentLanguage isEqual:@"English"] ) {
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
+    }
+    //Finnish>Spanish
+    if ([self.currentLanguage isEqual:@"Spanish"]) {
+        //change Ä to +
+        [workspace.currentAlphabet removeObjectAtIndex:26];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_spanishN.png"] atIndex:26];
+        //change Ö to $
+        [workspace.currentAlphabet removeObjectAtIndex:27];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:27];
+        //change Å to ,
+        [workspace.currentAlphabet removeObjectAtIndex:28];
+        [workspace.currentAlphabet insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
+    }
+}
 
 //--------------------------------------------------
 //NAVIGATION
