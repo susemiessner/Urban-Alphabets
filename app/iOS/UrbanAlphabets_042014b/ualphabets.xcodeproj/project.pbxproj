@@ -146,7 +146,8 @@
 		DA94F22818FEADE10041C1EC /* letter_LatvZ.png in Resources */ = {isa = PBXBuildFile; fileRef = DA94F21D18FEADE10041C1EC /* letter_LatvZ.png */; };
 		DABB6ADD187D5244005BD903 /* MyAlphabets.m in Sources */ = {isa = PBXBuildFile; fileRef = DABB6ADB187D5244005BD903 /* MyAlphabets.m */; };
 		DABB6ADE187D5244005BD903 /* MyAlphabets.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABB6ADC187D5244005BD903 /* MyAlphabets.xib */; };
-		DAC9D84F190681D0004967F2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC9D84D190681D0004967F2 /* Reachability.m */; };
+		DAEA1C8C1909479F00242152 /* intro__1_iphone4.png in Resources */ = {isa = PBXBuildFile; fileRef = DAEA1C8A1909479F00242152 /* intro__1_iphone4.png */; };
+		DAEA1C8D1909479F00242152 /* intro__4_iphone4.png in Resources */ = {isa = PBXBuildFile; fileRef = DAEA1C8B1909479F00242152 /* intro__4_iphone4.png */; };
 		DAEC5CD01861D97900B0CE62 /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = DAEC5CCF1861D97900B0CE62 /* backButton.png */; };
 		EDFC41DB1851014E00CB3335 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DA1851014E00CB3335 /* Accelerate.framework */; };
 		EDFC41DD1851014E00CB3335 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41DC1851014E00CB3335 /* AVFoundation.framework */; };
@@ -338,8 +339,8 @@
 		DABB6ADA187D5244005BD903 /* MyAlphabets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyAlphabets.h; path = views/MyAlphabets.h; sourceTree = "<group>"; };
 		DABB6ADB187D5244005BD903 /* MyAlphabets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyAlphabets.m; path = views/MyAlphabets.m; sourceTree = "<group>"; };
 		DABB6ADC187D5244005BD903 /* MyAlphabets.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyAlphabets.xib; path = views/MyAlphabets.xib; sourceTree = "<group>"; };
-		DAC9D84D190681D0004967F2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		DAC9D84E190681D0004967F2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		DAEA1C8A1909479F00242152 /* intro__1_iphone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro__1_iphone4.png; sourceTree = "<group>"; };
+		DAEA1C8B1909479F00242152 /* intro__4_iphone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro__4_iphone4.png; sourceTree = "<group>"; };
 		DAEC5CCF1861D97900B0CE62 /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton.png; sourceTree = "<group>"; };
 		EDFC41D71851014E00CB3335 /* ualphabets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ualphabets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDFC41DA1851014E00CB3335 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -674,6 +675,8 @@
 		DA68A8411884466600BE9545 /* IntroPics */ = {
 			isa = PBXGroup;
 			children = (
+				DAEA1C8A1909479F00242152 /* intro__1_iphone4.png */,
+				DAEA1C8B1909479F00242152 /* intro__4_iphone4.png */,
 				DA78603418853DEB00D6BD88 /* intro_1_1.png */,
 				DA78603018853B3600D6BD88 /* intro_4.png */,
 				DA78603118853B3600D6BD88 /* intro_5.png */,
@@ -748,8 +751,6 @@
 		DAC9D84C190681BA004967F2 /* SendingToDatabase */ = {
 			isa = PBXGroup;
 			children = (
-				DAC9D84D190681D0004967F2 /* Reachability.m */,
-				DAC9D84E190681D0004967F2 /* Reachability.h */,
 				DA5862931857506700C4D2A5 /* SaveToDatabase.h */,
 				DA5862941857506700C4D2A5 /* SaveToDatabase.m */,
 			);
@@ -1030,6 +1031,7 @@
 				EDFC41F51851014E00CB3335 /* InfoPlist.strings in Resources */,
 				DA0812EB187C255100CD4EE1 /* letter_V.png in Resources */,
 				DA94F22118FEADE10041C1EC /* letter_LatvG.png in Resources */,
+				DAEA1C8D1909479F00242152 /* intro__4_iphone4.png in Resources */,
 				DA58621718573E6B00C4D2A5 /* icon_Save.png in Resources */,
 				DA0812E9187C255100CD4EE1 /* letter_U.png in Resources */,
 				DA0812C9187C255100CD4EE1 /* letter_4.png in Resources */,
@@ -1051,6 +1053,7 @@
 				DA0812C1187C255100CD4EE1 /* letter_!.png in Resources */,
 				DA0812DE187C255100CD4EE1 /* letter_K.png in Resources */,
 				DA0812DF187C255100CD4EE1 /* letter_L.png in Resources */,
+				DAEA1C8C1909479F00242152 /* intro__1_iphone4.png in Resources */,
 				DA68A83D1883E4D900BE9545 /* letter_RusUi.png in Resources */,
 				DA58621918573E6B00C4D2A5 /* icon_ShareAlphabet.png in Resources */,
 				DA58621418573E6B00C4D2A5 /* icon_PhotoLibrary.png in Resources */,
@@ -1150,7 +1153,6 @@
 				DA0FCCF41859DC3A00A8F05F /* ChangeLanguage.m in Sources */,
 				EDFC42391851015300CB3335 /* C4WorkSpace.m in Sources */,
 				DA19ABC418F1A0D7005EA33E /* TakePhotoViewController.m in Sources */,
-				DAC9D84F190681D0004967F2 /* Reachability.m in Sources */,
 				DA15138C185F0D3000EBB93B /* LetterView.m in Sources */,
 				DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */,
 				DA0FCCEE1859D65D00A8F05F /* AlphabetInfo.m in Sources */,
