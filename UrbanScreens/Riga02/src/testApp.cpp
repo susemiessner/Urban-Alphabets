@@ -4,14 +4,14 @@
 void testApp::setup(){
     //base setup
     ofSetFrameRate(FRAME_RATE);
-    ofBackground(100, 100, 100);
+    ofBackground(0);
 	ofTrueTypeFont::setGlobalDpi(72);
     ofRegisterURLNotification(this);
     
     //
-    recentPostcards="http://www.ualphabets.com/requests/MadridrecentPostcards.php";
-    recentLetters="http://www.ualphabets.com/requests/MadridrecentLetters.php";
-    currentAlphabet="http://www.ualphabets.com/requests/requestMadrid.php";
+    recentPostcards="http://www.ualphabets.com/requests/Riga/postcards.php";
+    recentLetters="http://www.ualphabets.com/requests/Riga/letters.php";
+    currentAlphabet="http://www.ualphabets.com/requests/Riga/alphabet.php";
     info="Info";
     
     
@@ -35,7 +35,14 @@ void testApp::setup(){
     
     //setup for alphabet screen
     counterDrawAlphabet=0;
-    alphabetLength=5;
+    alphabetLength=10;
+    alphabetTitle.loadImage("intro/intro_currentAlphabet.png");
+    
+    //setup for postcards and letters screen
+    lengthPostcardsAndLetters=10;//in secs
+    counterPostcardsAndLetters=0;
+    lettersTitle.loadImage("intro/intro_titleLetters.png");
+    postcardsTitle.loadImage("intro/intro_titlePostcards.png");
     
     //the latvian alphabet
     alphabet[0]="A";
@@ -82,11 +89,10 @@ void testApp::setup(){
     alphabet[41]="9";
     
     //images before the actual screens
-    imagesIntro[0].loadImage("intro/intros-09.png");//logo
-    imagesIntro[1].loadImage("intro/intros-05.png");//letters
-    imagesIntro[2].loadImage("intro/intros-03.png");//alphabet
-    imagesIntro[3].loadImage("intro/intros-04.png");//postcards
-    imagesIntro[4].loadImage("intro/intros-11.png");//by me
+    imagesIntro[0].loadImage("intro/intro_Title.png");//logo
+    imagesIntro[1].loadImage("intro/intro_recentLetters.png");//letters
+    imagesIntro[2].loadImage("intro/intro_currAlphabet.png");//alphabet
+    imagesIntro[3].loadImage("intro/intro_recentPostcards.png");//postcards
     
     //send the first request
     if (currentURL!="Info") {
@@ -271,7 +277,7 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
         allLetters.push_back(entry);
         
     }
-    printf("allLetters length: %lu", allLetters.size());
+    //printf("allLetters length: %lu", allLetters.size());
     
     if (response.status==200 && response.request.name=="async_req") {
         //load all lette images
@@ -384,9 +390,11 @@ void testApp::updatePostcards(){
     if (noOfPostcards>4) {
         allPostcards[currImgNo5].update();
     }
+    counterPostcardsAndLetters++;
     //determining when this is over
-    if (currentURL==recentPostcards && allPostcards.size()>0 && currImgNo1==allPostcards.size()-1 && allPostcards[currImgNo1]._xPos <-120 ) {
+    if (currentURL==recentPostcards && counterPostcardsAndLetters>lengthPostcardsAndLetters*FRAME_RATE ) {
         goToNextScreen();
+        counterPostcardsAndLetters=0;
     }
 }
 void testApp::updateLetters(){
@@ -406,15 +414,73 @@ void testApp::updateLetters(){
     if(noOfLetters>4){
         allLetters[currImgNo5].update();
     }
+    counterPostcardsAndLetters++;
     //determining when it is over
-    if (currentURL==recentLetters && allLetters.size()>0 && currImgNo1==allLetters.size()-1 && allLetters[currImgNo1]._xPos<-73) {
+    if (currentURL==recentLetters && counterPostcardsAndLetters>lengthPostcardsAndLetters*FRAME_RATE) {
         goToNextScreen();
+        counterPostcardsAndLetters=0;
     }
 }
 void testApp::updateAlphabet(){
     counterDrawAlphabet++;
-    //determining when it's over
+    //start updating for the individual letters only
     if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
+        
+        if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
+            if (allAlphabet[currImgNo1].nextImage()) {
+                currImgNo1+=5;
+                if(currImgNo1>allAlphabet.size()-1){
+                    currImgNo1=currImgNo1-allAlphabet.size();
+                }
+                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                
+                //printf("currImg1  after = %i\n", currImg1);
+            }
+            if (allAlphabet[currImgNo2].nextImage()) {
+                currImgNo2+=5;
+                if(currImgNo2>allAlphabet.size()-1){
+                    currImgNo2=currImgNo2-allAlphabet.size();
+                }
+                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                // printf("currImg2  after = %i\n", currImg2);
+            }
+            if (allAlphabet[currImgNo3].nextImage()) {
+                currImgNo3+=5;
+                if(currImgNo3>allAlphabet.size()-1){
+                    currImgNo3=currImgNo3-allAlphabet.size();
+                }
+                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                
+                // printf("currImg3  after = %i\n", currImg3);
+            }
+            if (allAlphabet[currImgNo4].nextImage()) {
+                currImgNo4+=5;
+                if(currImgNo4>allAlphabet.size()-1){
+                    currImgNo4=currImgNo4-allAlphabet.size();
+                }
+                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                
+                // printf("currImg4  after = %i\n", currImg4);
+            }
+            if (allAlphabet[currImgNo5].nextImage()) {
+                currImgNo5+=5;
+                if(currImgNo5>allAlphabet.size()-1){
+                    currImgNo5=currImgNo5-allAlphabet.size();
+                }
+                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                
+                // printf("currImg5  after = %i\n", currImg5);
+            }
+            allAlphabet[currImgNo1].update();
+            allAlphabet[currImgNo2].update();
+            allAlphabet[currImgNo3].update();
+            allAlphabet[currImgNo4].update();
+            allAlphabet[currImgNo5].update();
+
+        }
+    }
+    //determining when it's over
+    if (currentURL==currentAlphabet && currImgNo2>39 && allAlphabet[currImgNo2]._xPos<-415) {
         goToNextScreen();
         counterDrawAlphabet=0;
     }
@@ -422,6 +488,22 @@ void testApp::updateAlphabet(){
 
 void testApp::drawPostcards(){
     int noOfPostcards=(int)allPostcards.size();
+    ofEnableAlphaBlending();
+    //blend in
+    if(counterPostcardsAndLetters<FRAME_RATE){
+        blendInfo+=8;
+        ofSetColor(255, 255, 255, blendInfo);
+    }
+    //blend out
+    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthPostcardsAndLetters-1)){
+        blendInfo-=8;
+        ofSetColor(255, 255, 255, blendInfo);
+    } else{
+        ofSetColor(255);
+    }
+    //draw title
+    postcardsTitle.draw(ofGetWidth()-postcardsTitle.width, ofGetHeight()-100);
+    //draw postcards
     if (noOfPostcards>0) {
         allPostcards[currImgNo1].draw();
     }
@@ -437,9 +519,26 @@ void testApp::drawPostcards(){
     if (noOfPostcards>4) {
         allPostcards[currImgNo5].draw();
     }
+    ofDisableAlphaBlending();
 }
 void testApp::drawLetters(){
     int noOfLetters=(int)allLetters.size();
+    ofEnableAlphaBlending();
+    //blend in
+    if(counterPostcardsAndLetters<FRAME_RATE){
+        blendInfo+=8;
+        ofSetColor(255, 255, 255, blendInfo);
+    }
+    //blend out
+    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthPostcardsAndLetters-1)){
+        blendInfo-=8;
+        ofSetColor(255, 255, 255, blendInfo);
+    } else{
+        ofSetColor(255);
+    }
+    //draw title
+    lettersTitle.draw(ofGetWidth()-lettersTitle.width, ofGetHeight()-100);
+    //draw letters
     if(noOfLetters>0){
         allLetters[currImgNo1].draw();
     }
@@ -455,11 +554,50 @@ void testApp::drawLetters(){
     if(noOfLetters>4){
         allLetters[currImgNo5].draw();
     }
+    ofDisableAlphaBlending();
 }
 void testApp::drawAlphabet(){
+    ofEnableAlphaBlending();
+    //blend in
+    if(counterDrawAlphabet<FRAME_RATE){
+        blendInfo+=8;
+        ofSetColor(255, 255, 255, blendInfo);
+    }
+    //blend out
+    else if(counterDrawAlphabet>FRAME_RATE*(alphabetLength-1)){
+        blendInfo-=8;
+        ofSetColor(255, 255, 255, blendInfo);
+    } else{
+        ofSetColor(255);
+    }
+    alphabetTitle.draw(ofGetWidth()-alphabetTitle.width, ofGetHeight()-100);
+    //draw entire alphabet
     for (int i=0; i<allAlphabet.size(); i++) {
         allAlphabet[i].drawWhole();
     }
+    if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
+        allAlphabet[currImgNo1].draw();
+        allAlphabet[currImgNo2].draw();
+        allAlphabet[currImgNo3].draw();
+        allAlphabet[currImgNo4].draw();
+        allAlphabet[currImgNo5].draw();
+        //blend in
+        if(counterDrawAlphabet<FRAME_RATE*(alphabetLength)){
+            blendInfo+=8;
+            ofSetColor(255, 255, 255, blendInfo);
+        }
+        //blend out
+        else if(currentURL==currentAlphabet && currImgNo2>39 && allAlphabet[currImgNo2]._xPos<-370){
+            blendInfo-=8;
+            ofSetColor(255, 255, 255, blendInfo);
+        } else{
+            ofSetColor(255);
+        }
+        alphabetTitle.draw(ofGetWidth()-alphabetTitle.width, ofGetHeight()-100);
+
+    }
+
+    ofDisableAlphaBlending();
 
 }
 //-------------------------------------------------

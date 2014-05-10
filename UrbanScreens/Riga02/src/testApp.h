@@ -7,7 +7,7 @@
 #include "About.h"
 
 #define LENGTH_OF_URL_ARRAY 6
-#define FRAME_RATE 35
+#define FRAME_RATE 70
 #define NO_OF_INTRO_IMAGES 5
 
 
@@ -73,13 +73,12 @@ public:
     int blendInfo; //for fading in and out the info screen
     int introLength; //how long the intro screen is shown all together (in secs)
     
-    
-
-    
     //
     vector<string> allEntries;//the entries received from database
     vector<Postcard> allPostcards; //all postcards
     vector<Letter> allLetters; //all recent letters
+    int lengthPostcardsAndLetters;
+    int counterPostcardsAndLetters;
     vector<AlphabetEntry> allAlphabet; //the entire alphabet
     int counterDrawAlphabet; //counting how long the entire alphabet is drawn
     int alphabetLength; //how long the entire alphabet should be drawn (in secs)
@@ -87,7 +86,6 @@ public:
     About about;//the info text with credits and stuff
     
     int currImgNo1, currImgNo2, currImgNo3, currImgNo4, currImgNo5;//the numbers of the postcards currently displayed
-    
 
-
+    ofImage alphabetTitle, lettersTitle, postcardsTitle;
 };

@@ -16,9 +16,9 @@ public:
     string _owner;
     string _letter;
     
-    int _xPos=200;
-    int _yPos=60;
-    int _offset=60;
+    int _xPos=39;
+    int _yPos=250;
+    int _offset=342+32;
     int _constNumber;
     
     Letter(string THEID, string LETTER, string OWNER, int constructorNumber){
@@ -36,19 +36,18 @@ public:
         printf("owner %s \n",_owner.c_str());
     }
     void loadImage(){
-        string URL="http://www.ualphabets.com/images/244x200/"+ofToString(_id)+".png";
+        string URL="http://www.ualphabets.com/images/original/"+ofToString(_id)+".png";
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
-        printf("image loaded : %d\n", _image.bAllocated());
     }
     
     void draw(){
-        //printf("xPos %i ", _xPos);
-        ofSetColor(255);
-        _image.draw(_xPos,_yPos,244, 200);
+        //ofSetColor(255);
+        ofRect(_xPos-1, _yPos-1, 344, 496);
+        _image.draw(_xPos,_yPos,342, 494);
     }
     void update(){
-        _xPos--;
+        //_xPos--;
     }
 };
 

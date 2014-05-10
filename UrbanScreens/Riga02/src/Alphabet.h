@@ -15,9 +15,9 @@ public:
     string _letter;
     ofImage _image;
     
-    int _xPos=200;
-    int _yPos=60;
-    int _offset=60;
+    int _xPos=1920;
+    int _yPos=200;
+    int _offset=415+52;
     int _constNo;
     
     //constructor
@@ -39,7 +39,7 @@ public:
         
     }
     void loadImage(){
-        string URL="http://www.ualphabets.com/images/75x52/"+ofToString(_id)+".png";
+        string URL="http://www.ualphabets.com/images/original/"+ofToString(_id)+".png";
         // printf("%s \n", URL.c_str());
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
@@ -56,23 +56,18 @@ public:
     void draw(){
         ofSetColor(255);
         //printf("xPos %i ", _xPos);
-        _image.draw(_xPos,_yPos, 52, 75);
+        _image.draw(_xPos,_yPos, 415, 600);
     }
     void drawWhole(){
-        int width=17;
-        int height=22;
-        int spacing=2;
-        int noOfColumns=9;
+        int width=155;
+        int height=223;
+        int spacing=15;
+        int noOfColumns=11;
         int column=_constNo % noOfColumns;
-        //printf("no: %i ", _constNo);
-        //printf("col: %i ",column);
-        int myXPos=12+column*(width+spacing);
-        //if(_constNo>32){myXPos=myXPos+width+spacing;}
+        int myXPos=30+column*(width+spacing);
         
         int myYPos=35+(_constNo-column)/noOfColumns*(height+spacing);
-        //printf("xPos %i ", myXPos);
-        //printf("yPos %i\n ", myYPos);
-        ofSetColor(255);
+        //ofSetColor(255);
         _image.draw(myXPos,myYPos,width ,height);
     }
     void update(){
@@ -80,9 +75,9 @@ public:
     }
     bool nextImage(){
         //printf("___ %i::", _xPos);
-        if(_xPos<-100){
-            _xPos=200;
-            _yPos=200;
+        if(_xPos<-415){
+            _xPos=1920;
+            _yPos=2000;
             return true;
         } else{
             return false;
