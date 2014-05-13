@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>RigaDebug</string>
 	<key>CFBundleIconFile</key>
-	<string>icon-debug.icns</string>
+	<string>icon_appIconAndroid_512x512</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.yourcompany.openFrameworks</string>
 	<key>CFBundleInfoDictionaryVersion</key>
