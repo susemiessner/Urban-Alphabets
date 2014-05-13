@@ -18,9 +18,9 @@ public:
     string _text;
     string _owner;
     
-    int _xPos=18;
+    int _xPos=15;
     int _yPos=200;
-    int _offset=185+16;
+    int _offset=171+16;
     int _constNumber;
     
     Postcard(string THEID, string LONGI, string LA, string TEXT, string OWNER, int constructorNumber){
@@ -51,8 +51,8 @@ public:
     
     void draw(){
         //ofSetColor(255);
-        ofRect(_xPos-1, _yPos-1, 187, 269);
-        _image.draw(_xPos,_yPos,185, 267);
+        ofRect(_xPos-1, _yPos-1, 173, 211);
+        _image.draw(_xPos,_yPos,171, 209);
     }
     void update(){
         //_xPos--;

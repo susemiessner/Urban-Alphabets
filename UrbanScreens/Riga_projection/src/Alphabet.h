@@ -56,11 +56,11 @@ public:
     void draw(){
         ofSetColor(255);
         //printf("xPos %i ", _xPos);
-        _image.draw(_xPos,_yPos,277, 400);
+        _image.draw(_xPos,_yPos,277, 339);
     }
     void drawWhole(){
-        int width=85;
-        int height=122;
+        int width=78;
+        int height=95;
         int spacing=7;
         int noOfColumns=11;
         int column=_constNo % noOfColumns;

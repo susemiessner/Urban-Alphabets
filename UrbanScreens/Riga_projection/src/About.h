@@ -18,13 +18,14 @@ public:
     int lengthEachScreen=3; //length of each of the images in secs
     int lengthBlend=1;
     int blendAbout=0;
-    ofImage credits, link, contribute;
+    ofImage credits, link, contribute, collective;
     
     About(){
     
-        credits.loadImage("intro/intro_Credits.png"); //produced by mcult
+        credits.loadImage("intro/intro_Credits.png"); //the credits
         link.loadImage("intro/intro_link.png"); //find link at
         contribute.loadImage("intro/intro_Contribute.png"); //contribute
+        collective.loadImage("intro/intro_Collective.png"); //collectively
         
         reset();
     }
@@ -45,22 +46,25 @@ public:
                 blendAbout-=10;
                 ofSetColor(255,255,255,blendAbout);
             }
-            contribute.draw(0,0);
-        } else if( counter>lengthEachScreen*FRAME_RATE && counter<lengthEachScreen*3*FRAME_RATE){ //it's double the length of the other screens
+            collective.draw(0,0);
+        } else if(counter>lengthEachScreen*FRAME_RATE && counter<lengthEachScreen*2*FRAME_RATE){
             //blend in
             if(counter<lengthEachScreen*FRAME_RATE+lengthBlend*FRAME_RATE){
                 blendAbout+=10;
                 ofSetColor(255,255,255,blendAbout);
             }
             //blend out
-            if(counter>3*lengthEachScreen*FRAME_RATE-lengthBlend*FRAME_RATE){
+            if(counter>2*lengthEachScreen*FRAME_RATE-lengthBlend*FRAME_RATE){
                 blendAbout-=10;
                 ofSetColor(255,255,255,blendAbout);
             }
-            link.draw(0,0);
-        } else if(counter>lengthEachScreen*3*FRAME_RATE && counter<lengthEachScreen*4*FRAME_RATE){
+            
+            contribute.draw(0,0);
+        }
+        
+        else if( counter>lengthEachScreen*2*FRAME_RATE && counter<lengthEachScreen*4*FRAME_RATE){ //it's double the length of the other screens
             //blend in
-            if(counter<3*lengthEachScreen*FRAME_RATE+lengthBlend*FRAME_RATE){
+            if(counter<lengthEachScreen*2*FRAME_RATE+lengthBlend*FRAME_RATE){
                 blendAbout+=10;
                 ofSetColor(255,255,255,blendAbout);
             }
@@ -69,9 +73,21 @@ public:
                 blendAbout-=10;
                 ofSetColor(255,255,255,blendAbout);
             }
+            link.draw(0,0);
+        } else if(counter>lengthEachScreen*4*FRAME_RATE && counter<lengthEachScreen*5*FRAME_RATE){
+            //blend in
+            if(counter<4*lengthEachScreen*FRAME_RATE+lengthBlend*FRAME_RATE){
+                blendAbout+=10;
+                ofSetColor(255,255,255,blendAbout);
+            }
+            //blend out
+            if(counter>5*lengthEachScreen*FRAME_RATE-lengthBlend*FRAME_RATE){
+                blendAbout-=10;
+                ofSetColor(255,255,255,blendAbout);
+            }
 
             credits.draw(0,0);
-        } else if (counter>lengthEachScreen*3*FRAME_RATE){
+        } else if (counter>lengthEachScreen*5*FRAME_RATE){
             over=true;
         };
         ofDisableAlphaBlending();

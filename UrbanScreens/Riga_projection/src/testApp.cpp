@@ -23,7 +23,7 @@ void testApp::setup(){
     URLsToLoad[4]=currentAlphabet;
     URLsToLoad[5]=recentPostcards;
     
-    currentURLNo=1; //first screen to be shown
+    currentURLNo=0; //first screen to be shown
     currentURL=URLsToLoad[currentURLNo];
     loading= true; //send the first request on start alphabets/postcards/...
     
@@ -138,6 +138,12 @@ void testApp::sendRequest(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    /* //testing the real screen size
+    ofSetColor(255, 0, 0);
+    ofRect(50, 35, 950, 700);
+                      */
+    ofPushMatrix();
+    ofTranslate(50, 35);
     ofSetColor(0);
     //draw title of upcoming thing for 5 secs
     if (loadingResponseDone) {
@@ -175,6 +181,7 @@ void testApp::draw(){
             about.draw();
         }
     }
+    ofPopMatrix();
 }
 void testApp::drawIntro(){
     if (currentURL==recentLetters) { //recent letters
@@ -503,7 +510,7 @@ void testApp::drawPostcards(){
         ofSetColor(255);
     }
     //draw title
-    postcardsTitle.draw(ofGetWidth()-postcardsTitle.width+40, ofGetHeight()-100);
+    postcardsTitle.draw(0, 600);
     //draw postcards
     if (noOfPostcards>0) {
         allPostcards[currImgNo1].draw();
@@ -538,7 +545,7 @@ void testApp::drawLetters(){
         ofSetColor(255);
     }
     //draw title
-    lettersTitle.draw(ofGetWidth()-lettersTitle.width+40, ofGetHeight()-100);
+    lettersTitle.draw(0, 600);
     //draw letters
     if(noOfLetters>0){
         allLetters[currImgNo1].draw();
@@ -571,7 +578,7 @@ void testApp::drawAlphabet(){
     } else{
         ofSetColor(255);
     }
-    alphabetTitle.draw(ofGetWidth()-alphabetTitle.width+40, ofGetHeight()-100);
+    alphabetTitle.draw(0, 600);
     //draw entire alphabet
     for (int i=0; i<allAlphabet.size(); i++) {
         allAlphabet[i].drawWhole();
@@ -594,7 +601,7 @@ void testApp::drawAlphabet(){
         } else{
             ofSetColor(255);
         }
-        alphabetTitle.draw(ofGetWidth()-alphabetTitle.width+40, ofGetHeight()-100);
+        alphabetTitle.draw(0, 600);
 
     }
 
