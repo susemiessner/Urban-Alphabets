@@ -249,8 +249,11 @@
         letterToAdd=[workspace.spanish objectAtIndex:self.chosenImageNumberInArray];
     }else if([self.currentLanguage isEqualToString:@"Russian"]){
         letterToAdd=[workspace.russian objectAtIndex:self.chosenImageNumberInArray];
+    } else if([self.currentLanguage isEqualToString:@"Latvian"]){
+        letterToAdd=[workspace.latvian objectAtIndex:self.chosenImageNumberInArray];
     }
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", letterToAdd ];
+    NSLog(@"fileName: %@", fileName);
     [self saveImage:fileName];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context

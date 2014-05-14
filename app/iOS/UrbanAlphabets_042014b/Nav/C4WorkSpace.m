@@ -434,6 +434,7 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
     NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
+    NSLog(@"filename %@", fileName);
     [imageData writeToFile:savePath atomically:YES];
 }
 -(NSString *)documentsDirectory {
