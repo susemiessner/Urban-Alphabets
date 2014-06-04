@@ -1,0 +1,113 @@
+{
+   "search_metadata" : {
+      "completed_in" : 0.0180,
+      "count" : 1,
+      "max_id" : 470957056443564032,
+      "max_id_str" : "470957056443564032",
+      "next_results" : "?max_id=470957056443564031&q=%23medialabhelsinki&count=1&include_entities=1",
+      "query" : "%23medialabhelsinki",
+      "refresh_url" : "?since_id=470957056443564032&q=%23medialabhelsinki&include_entities=1",
+      "since_id" : 0,
+      "since_id_str" : "0"
+   },
+   "statuses" : [
+      {
+         "contributors" : null,
+         "coordinates" : null,
+         "created_at" : "Mon May 26 15:58:06 +0000 2014",
+         "entities" : {
+            "hashtags" : [
+               {
+                  "indices" : [ 0, 17 ],
+                  "text" : "medialabhelsinki"
+               },
+               {
+                  "indices" : [ 18, 26 ],
+                  "text" : "demoday"
+               }
+            ],
+            "symbols" : [],
+            "urls" : [],
+            "user_mentions" : []
+         },
+         "favorite_count" : 0,
+         "favorited" : false,
+         "geo" : null,
+         "id" : 470957056443564032,
+         "id_str" : "470957056443564032",
+         "in_reply_to_screen_name" : null,
+         "in_reply_to_status_id" : null,
+         "in_reply_to_status_id_str" : null,
+         "in_reply_to_user_id" : null,
+         "in_reply_to_user_id_str" : null,
+         "lang" : "en",
+         "metadata" : {
+            "iso_language_code" : "en",
+            "result_type" : "recent"
+         },
+         "place" : null,
+         "retweet_count" : 0,
+         "retweeted" : false,
+         "source" : "<a href=\"http://itunes.apple.com/us/app/twitter/id409789998?mt=12\" rel=\"nofollow\">Twitter for Mac</a>",
+         "text" : "#medialabhelsinki #demoday",
+         "truncated" : false,
+         "user" : {
+            "contributors_enabled" : false,
+            "created_at" : "Sat Jul 18 13:34:44 +0000 2009",
+            "default_profile" : false,
+            "default_profile_image" : false,
+            "description" : "new media, design, art, urban space; loves longboarding (!!!),  enjoying nature, photography, typography, ...",
+            "entities" : {
+               "description" : {
+                  "urls" : []
+               },
+               "url" : {
+                  "urls" : [
+                     {
+                        "display_url" : "susemiessner.org",
+                        "expanded_url" : "http://susemiessner.org/",
+                        "indices" : [ 0, 22 ],
+                        "url" : "http://t.co/juXjHrtghd"
+                     }
+                  ]
+               }
+            },
+            "favourites_count" : 857,
+            "follow_request_sent" : false,
+            "followers_count" : 109,
+            "following" : false,
+            "friends_count" : 335,
+            "geo_enabled" : false,
+            "id" : 57933169,
+            "id_str" : "57933169",
+            "is_translation_enabled" : false,
+            "is_translator" : false,
+            "lang" : "en",
+            "listed_count" : 13,
+            "location" : "Helsinki, Finland",
+            "name" : "suse",
+            "notifications" : false,
+            "profile_background_color" : "C0DEED",
+            "profile_background_image_url" : "http://pbs.twimg.com/profile_background_images/178424754/picturedifferencing_3_100_pics_in_setup.png",
+            "profile_background_image_url_https" : "https://pbs.twimg.com/profile_background_images/178424754/picturedifferencing_3_100_pics_in_setup.png",
+            "profile_background_tile" : true,
+            "profile_banner_url" : "https://pbs.twimg.com/profile_banners/57933169/1374734850",
+            "profile_image_url" : "http://pbs.twimg.com/profile_images/1362501143/suse1_normal.jpg",
+            "profile_image_url_https" : "https://pbs.twimg.com/profile_images/1362501143/suse1_normal.jpg",
+            "profile_link_color" : "B3003C",
+            "profile_sidebar_border_color" : "000000",
+            "profile_sidebar_fill_color" : "DDEEF6",
+            "profile_text_color" : "F50525",
+            "profile_use_background_image" : true,
+            "protected" : false,
+            "screen_name" : "suse_miessner",
+            "statuses_count" : 3071,
+            "time_zone" : "Helsinki",
+            "url" : "http://t.co/juXjHrtghd",
+            "utc_offset" : 10800,
+            "verified" : false
+         }
+      }
+   ]
+}
+

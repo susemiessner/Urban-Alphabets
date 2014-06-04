@@ -1,0 +1,328 @@
+{
+   "search_metadata" : {
+      "completed_in" : 0.0250,
+      "count" : 1,
+      "max_id" : 470892903100059648,
+      "max_id_str" : "470892903100059648",
+      "next_results" : "?max_id=470892903100059647&q=photography&count=1&include_entities=1",
+      "query" : "photography",
+      "refresh_url" : "?since_id=470892903100059648&q=photography&include_entities=1",
+      "since_id" : 0,
+      "since_id_str" : "0"
+   },
+   "statuses" : [
+      {
+         "contributors" : null,
+         "coordinates" : null,
+         "created_at" : "Mon May 26 11:43:11 +0000 2014",
+         "entities" : {
+            "hashtags" : [
+               {
+                  "indices" : [ 21, 37 ],
+                  "text" : "TheSeventhStone"
+               },
+               {
+                  "indices" : [ 38, 42 ],
+                  "text" : "art"
+               },
+               {
+                  "indices" : [ 43, 50 ],
+                  "text" : "horror"
+               },
+               {
+                  "indices" : [ 51, 59 ],
+                  "text" : "mystery"
+               },
+               {
+                  "indices" : [ 60, 65 ],
+                  "text" : "dead"
+               },
+               {
+                  "indices" : [ 66, 72 ],
+                  "text" : "skull"
+               },
+               {
+                  "indices" : [ 73, 85 ],
+                  "text" : "photography"
+               }
+            ],
+            "media" : [
+               {
+                  "display_url" : "pic.twitter.com/DaU7sFranK",
+                  "expanded_url" : "http://twitter.com/Marillyons_Pics/status/470891794851692544/photo/1",
+                  "id" : 470891727226544129,
+                  "id_str" : "470891727226544129",
+                  "indices" : [ 86, 108 ],
+                  "media_url" : "http://pbs.twimg.com/media/Bojxh_ECIAEMJcZ.jpg",
+                  "media_url_https" : "https://pbs.twimg.com/media/Bojxh_ECIAEMJcZ.jpg",
+                  "sizes" : {
+                     "large" : {
+                        "h" : 640,
+                        "resize" : "fit",
+                        "w" : 960
+                     },
+                     "medium" : {
+                        "h" : 400,
+                        "resize" : "fit",
+                        "w" : 600
+                     },
+                     "small" : {
+                        "h" : 226,
+                        "resize" : "fit",
+                        "w" : 339
+                     },
+                     "thumb" : {
+                        "h" : 150,
+                        "resize" : "crop",
+                        "w" : 150
+                     }
+                  },
+                  "source_status_id" : 470891794851692544,
+                  "source_status_id_str" : "470891794851692544",
+                  "type" : "photo",
+                  "url" : "http://t.co/DaU7sFranK"
+               }
+            ],
+            "symbols" : [],
+            "urls" : [],
+            "user_mentions" : [
+               {
+                  "id" : 2476228561,
+                  "id_str" : "2476228561",
+                  "indices" : [ 3, 19 ],
+                  "name" : "M. M. W.",
+                  "screen_name" : "Marillyons_Pics"
+               }
+            ]
+         },
+         "favorite_count" : 0,
+         "favorited" : false,
+         "geo" : null,
+         "id" : 470892903100059648,
+         "id_str" : "470892903100059648",
+         "in_reply_to_screen_name" : null,
+         "in_reply_to_status_id" : null,
+         "in_reply_to_status_id_str" : null,
+         "in_reply_to_user_id" : null,
+         "in_reply_to_user_id_str" : null,
+         "lang" : "en",
+         "metadata" : {
+            "iso_language_code" : "en",
+            "result_type" : "recent"
+         },
+         "place" : null,
+         "possibly_sensitive" : false,
+         "retweet_count" : 1,
+         "retweeted" : false,
+         "retweeted_status" : {
+            "contributors" : null,
+            "coordinates" : null,
+            "created_at" : "Mon May 26 11:38:47 +0000 2014",
+            "entities" : {
+               "hashtags" : [
+                  {
+                     "indices" : [ 0, 16 ],
+                     "text" : "TheSeventhStone"
+                  },
+                  {
+                     "indices" : [ 17, 21 ],
+                     "text" : "art"
+                  },
+                  {
+                     "indices" : [ 22, 29 ],
+                     "text" : "horror"
+                  },
+                  {
+                     "indices" : [ 30, 38 ],
+                     "text" : "mystery"
+                  },
+                  {
+                     "indices" : [ 39, 44 ],
+                     "text" : "dead"
+                  },
+                  {
+                     "indices" : [ 45, 51 ],
+                     "text" : "skull"
+                  },
+                  {
+                     "indices" : [ 52, 64 ],
+                     "text" : "photography"
+                  }
+               ],
+               "media" : [
+                  {
+                     "display_url" : "pic.twitter.com/DaU7sFranK",
+                     "expanded_url" : "http://twitter.com/Marillyons_Pics/status/470891794851692544/photo/1",
+                     "id" : 470891727226544129,
+                     "id_str" : "470891727226544129",
+                     "indices" : [ 65, 87 ],
+                     "media_url" : "http://pbs.twimg.com/media/Bojxh_ECIAEMJcZ.jpg",
+                     "media_url_https" : "https://pbs.twimg.com/media/Bojxh_ECIAEMJcZ.jpg",
+                     "sizes" : {
+                        "large" : {
+                           "h" : 640,
+                           "resize" : "fit",
+                           "w" : 960
+                        },
+                        "medium" : {
+                           "h" : 400,
+                           "resize" : "fit",
+                           "w" : 600
+                        },
+                        "small" : {
+                           "h" : 226,
+                           "resize" : "fit",
+                           "w" : 339
+                        },
+                        "thumb" : {
+                           "h" : 150,
+                           "resize" : "crop",
+                           "w" : 150
+                        }
+                     },
+                     "type" : "photo",
+                     "url" : "http://t.co/DaU7sFranK"
+                  }
+               ],
+               "symbols" : [],
+               "urls" : [],
+               "user_mentions" : []
+            },
+            "favorite_count" : 0,
+            "favorited" : false,
+            "geo" : null,
+            "id" : 470891794851692544,
+            "id_str" : "470891794851692544",
+            "in_reply_to_screen_name" : null,
+            "in_reply_to_status_id" : null,
+            "in_reply_to_status_id_str" : null,
+            "in_reply_to_user_id" : null,
+            "in_reply_to_user_id_str" : null,
+            "lang" : "en",
+            "metadata" : {
+               "iso_language_code" : "en",
+               "result_type" : "recent"
+            },
+            "place" : null,
+            "possibly_sensitive" : false,
+            "retweet_count" : 1,
+            "retweeted" : false,
+            "source" : "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+            "text" : "#TheSeventhStone #art #horror #mystery #dead #skull #photography http://t.co/DaU7sFranK",
+            "truncated" : false,
+            "user" : {
+               "contributors_enabled" : false,
+               "created_at" : "Sun May 04 01:41:26 +0000 2014",
+               "default_profile" : false,
+               "default_profile_image" : false,
+               "description" : "I love photoraphy and Art. My favorite motifs are #LostPlaces. #Photograhy is my hobby since last year.",
+               "entities" : {
+                  "description" : {
+                     "urls" : []
+                  }
+               },
+               "favourites_count" : 278,
+               "follow_request_sent" : false,
+               "followers_count" : 9,
+               "following" : false,
+               "friends_count" : 30,
+               "geo_enabled" : false,
+               "id" : 2476228561,
+               "id_str" : "2476228561",
+               "is_translation_enabled" : false,
+               "is_translator" : false,
+               "lang" : "de",
+               "listed_count" : 0,
+               "location" : "I came from Germany",
+               "name" : "M. M. W.",
+               "notifications" : false,
+               "profile_background_color" : "C0DEED",
+               "profile_background_image_url" : "http://abs.twimg.com/images/themes/theme1/bg.png",
+               "profile_background_image_url_https" : "https://abs.twimg.com/images/themes/theme1/bg.png",
+               "profile_background_tile" : false,
+               "profile_banner_url" : "https://pbs.twimg.com/profile_banners/2476228561/1399168842",
+               "profile_image_url" : "http://pbs.twimg.com/profile_images/462771919121444865/VvWU_bk9_normal.jpeg",
+               "profile_image_url_https" : "https://pbs.twimg.com/profile_images/462771919121444865/VvWU_bk9_normal.jpeg",
+               "profile_link_color" : "B30057",
+               "profile_sidebar_border_color" : "C0DEED",
+               "profile_sidebar_fill_color" : "DDEEF6",
+               "profile_text_color" : "333333",
+               "profile_use_background_image" : true,
+               "protected" : false,
+               "screen_name" : "Marillyons_Pics",
+               "statuses_count" : 75,
+               "time_zone" : null,
+               "url" : null,
+               "utc_offset" : null,
+               "verified" : false
+            }
+         },
+         "source" : "<a href=\"https://roundteam.co\" rel=\"nofollow\">RoundTeam</a>",
+         "text" : "RT @Marillyons_Pics: #TheSeventhStone #art #horror #mystery #dead #skull #photography http://t.co/DaU7sFranK",
+         "truncated" : false,
+         "user" : {
+            "contributors_enabled" : false,
+            "created_at" : "Thu Jul 07 18:03:32 +0000 2011",
+            "default_profile" : false,
+            "default_profile_image" : false,
+            "description" : "Kindle e-books/Mysteries about annoyingly tenacious uppity women #IndieAuthor, #mystery #romance http://t.co/NHhDy83RmU",
+            "entities" : {
+               "description" : {
+                  "urls" : [
+                     {
+                        "display_url" : "tinyurl.com/6hdg3bf",
+                        "expanded_url" : "http://tinyurl.com/6hdg3bf",
+                        "indices" : [ 97, 119 ],
+                        "url" : "http://t.co/NHhDy83RmU"
+                     }
+                  ]
+               },
+               "url" : {
+                  "urls" : [
+                     {
+                        "display_url" : "rpdahlke.com",
+                        "expanded_url" : "http://www.rpdahlke.com",
+                        "indices" : [ 0, 22 ],
+                        "url" : "http://t.co/Ec7QcBBy1N"
+                     }
+                  ]
+               }
+            },
+            "favourites_count" : 119,
+            "follow_request_sent" : false,
+            "followers_count" : 9668,
+            "following" : false,
+            "friends_count" : 10123,
+            "geo_enabled" : false,
+            "id" : 331132813,
+            "id_str" : "331132813",
+            "is_translation_enabled" : false,
+            "is_translator" : false,
+            "lang" : "en",
+            "listed_count" : 270,
+            "location" : "California/Arizona",
+            "name" : "RP Dahlke",
+            "notifications" : false,
+            "profile_background_color" : "C0DEED",
+            "profile_background_image_url" : "http://pbs.twimg.com/profile_background_images/285457174/Twitter3.jpg",
+            "profile_background_image_url_https" : "https://pbs.twimg.com/profile_background_images/285457174/Twitter3.jpg",
+            "profile_background_tile" : false,
+            "profile_image_url" : "http://pbs.twimg.com/profile_images/1431023454/rpdahlkesmaller_normal.jpg",
+            "profile_image_url_https" : "https://pbs.twimg.com/profile_images/1431023454/rpdahlkesmaller_normal.jpg",
+            "profile_link_color" : "0084B4",
+            "profile_sidebar_border_color" : "C0DEED",
+            "profile_sidebar_fill_color" : "DDEEF6",
+            "profile_text_color" : "333333",
+            "profile_use_background_image" : true,
+            "protected" : false,
+            "screen_name" : "rpdahlke",
+            "statuses_count" : 150762,
+            "time_zone" : "Arizona",
+            "url" : "http://t.co/Ec7QcBBy1N",
+            "utc_offset" : -25200,
+            "verified" : false
+         }
+      }
+   ]
+}
+
