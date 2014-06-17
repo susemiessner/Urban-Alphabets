@@ -434,7 +434,6 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
         [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
     NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
-    NSLog(@"filename %@", fileName);
     [imageData writeToFile:savePath atomically:YES];
 }
 -(NSString *)documentsDirectory {
@@ -772,6 +771,8 @@
                 letterToAdd=[self.spanish objectAtIndex:i];
             }else if([self.currentLanguage isEqualToString:@"Russian"]){
                 letterToAdd=[self.russian objectAtIndex:i];
+            }else if([self.currentLanguage isEqualToString:@"Latvian"]){
+                letterToAdd=[self.latvian objectAtIndex:i];
             }
             
             NSString *filePath=[[path stringByAppendingPathComponent:letterToAdd] stringByAppendingString:@".jpg"];

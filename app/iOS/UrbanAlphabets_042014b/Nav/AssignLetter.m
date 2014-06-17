@@ -253,7 +253,6 @@
         letterToAdd=[workspace.latvian objectAtIndex:self.chosenImageNumberInArray];
     }
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", letterToAdd ];
-    NSLog(@"fileName: %@", fileName);
     [self saveImage:fileName];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
