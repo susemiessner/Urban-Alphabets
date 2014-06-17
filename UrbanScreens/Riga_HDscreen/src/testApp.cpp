@@ -23,7 +23,7 @@ void testApp::setup(){
     URLsToLoad[4]=currentAlphabet;
     URLsToLoad[5]=recentPostcards;
     
-    currentURLNo=4; //first screen to be shown
+    currentURLNo=0; //first screen to be shown
     currentURL=URLsToLoad[currentURLNo];
     loading= true; //send the first request on start alphabets/postcards/...
     
@@ -204,7 +204,7 @@ void testApp::urlResponse(ofHttpResponse & response){
     theResponse=ofToString(response.data);
     ofStringReplace(theResponse, "[{", "");
     ofStringReplace(theResponse, "}]", "");
-    printf("%s", theResponse.c_str());
+    //printf("%s", theResponse.c_str());
     
     allEntries=ofSplitString(theResponse, "},{");
     if (currentURL==recentPostcards){
@@ -255,7 +255,7 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
         currImgNo4=allPostcards.size()-4;
         currImgNo5=allPostcards.size()-5;
     } else{
-        printf("not loaded \n");
+        //printf("not loaded \n");
         
     }
 }
@@ -291,7 +291,7 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
         currImgNo4=allLetters.size()-4;
         currImgNo5=allLetters.size()-5;
     } else{
-        printf("not loaded \n");
+        //printf("not loaded \n");
         
     }
 }
@@ -308,7 +308,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
         ofStringReplace(cutEntries[1], "\"", "");
         //printf("%i ", i);
         string letter=cutEntries[1];
-        printf("%s letter:%s\n",cutEntries[0].c_str(), letter.c_str());
+        //printf("%s letter:%s\n",cutEntries[0].c_str(), letter.c_str());
         if (i>1) {
 
             if (allLetters[numberOfLettersAdded-1]._letter!=letter) {
@@ -322,7 +322,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
             numberOfLettersAdded++;
         }
     }
-    printf("number of Letters received: %i\n", numberOfLettersAdded);
+    //printf("number of Letters received: %i\n", numberOfLettersAdded);
     
     for (int j=0; j<42; j++) {
         //go through all letters we have
@@ -342,7 +342,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
             }
         }
     }
-    printf("number of Letters in alphabet array: %lu \n", allAlphabet.size());
+    //printf("number of Letters in alphabet array: %lu \n", allAlphabet.size());
     if (response.status==200 && response.request.name=="async_req") {
         for (int i=0; i<allAlphabet.size(); i++) {
             if (allAlphabet[i]._id!=0) {

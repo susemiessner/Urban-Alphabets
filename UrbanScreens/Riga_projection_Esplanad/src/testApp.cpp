@@ -25,7 +25,7 @@ void testApp::setup(){
     URLsToLoad[4]=currentAlphabet;
     URLsToLoad[5]=recentPostcards;
     
-    currentURLNo=4; //first screen to be shown
+    currentURLNo=0; //first screen to be shown
     currentURL=URLsToLoad[currentURLNo];
     loading= true; //send the first request on start alphabets/postcards/...
     
@@ -179,10 +179,10 @@ void testApp::draw(){
     }
     
     //upper and lower bar
-    ofSetColor(200,200,200);
+    /*ofSetColor(200,200,200);
     ofRect(0, 0, ofGetWidth(), barHeight);
     ofRect(0, ofGetHeight()-barHeight, ofGetWidth(), barHeight);
-    ofSetColor(0);
+    ofSetColor(0);*/
 }
 void testApp::drawIntro(){
     if (currentURL==recentLetters) { //recent letters
@@ -212,7 +212,7 @@ void testApp::urlResponse(ofHttpResponse & response){
     theResponse=ofToString(response.data);
     ofStringReplace(theResponse, "[{", "");
     ofStringReplace(theResponse, "}]", "");
-    printf("%s", theResponse.c_str());
+    //printf("%s", theResponse.c_str());
     
     allEntries=ofSplitString(theResponse, "},{");
     if (currentURL==recentPostcards){
@@ -263,7 +263,7 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
         currImgNo4=allPostcards.size()-4;
         currImgNo5=allPostcards.size()-5;
     } else{
-        printf("not loaded \n");
+        //printf("not loaded \n");
         
     }
 }
@@ -299,7 +299,7 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
         currImgNo4=allLetters.size()-4;
         currImgNo5=allLetters.size()-5;
     } else{
-        printf("not loaded \n");
+        //printf("not loaded \n");
         
     }
 }
@@ -316,7 +316,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
         ofStringReplace(cutEntries[1], "\"", "");
         //printf("%i ", i);
         string letter=cutEntries[1];
-        printf("%s letter:%s\n",cutEntries[0].c_str(), letter.c_str());
+        //printf("%s letter:%s\n",cutEntries[0].c_str(), letter.c_str());
         if (i>1) {
 
             if (allLetters[numberOfLettersAdded-1]._letter!=letter) {
@@ -330,7 +330,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
             numberOfLettersAdded++;
         }
     }
-    printf("number of Letters received: %i\n", numberOfLettersAdded);
+    //printf("number of Letters received: %i\n", numberOfLettersAdded);
     
     for (int j=0; j<42; j++) {
         //go through all letters we have
@@ -350,7 +350,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
             }
         }
     }
-    printf("number of Letters in alphabet array: %lu \n", allAlphabet.size());
+    //printf("number of Letters in alphabet array: %lu \n", allAlphabet.size());
     if (response.status==200 && response.request.name=="async_req") {
         for (int i=0; i<allAlphabet.size(); i++) {
             if (allAlphabet[i]._id!=0) {
@@ -366,7 +366,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
         currImgNo4=3;
         currImgNo5=4;
     } else{
-        printf("not loaded \n");
+        //printf("not loaded \n");
         
     }
 
@@ -378,7 +378,7 @@ void testApp::goToNextScreen(){
         currentURLNo=0;
     }
     currentURL=URLsToLoad[currentURLNo];
-    printf("next screen :%s\n", currentURL.c_str());
+    //printf("next screen :%s\n", currentURL.c_str());
     sendRequest();
 }
 void testApp::updatePostcards(){
@@ -440,7 +440,7 @@ void testApp::updateAlphabet(){
                 if(currImgNo1>allAlphabet.size()-1){
                     currImgNo1=currImgNo1-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+               // printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
                 
                 //printf("currImg1  after = %i\n", currImg1);
             }
@@ -449,7 +449,7 @@ void testApp::updateAlphabet(){
                 if(currImgNo2>allAlphabet.size()-1){
                     currImgNo2=currImgNo2-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+               // printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
                 // printf("currImg2  after = %i\n", currImg2);
             }
             if (allAlphabet[currImgNo3].nextImage()) {
@@ -457,7 +457,7 @@ void testApp::updateAlphabet(){
                 if(currImgNo3>allAlphabet.size()-1){
                     currImgNo3=currImgNo3-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                //printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
                 
                 // printf("currImg3  after = %i\n", currImg3);
             }
@@ -466,7 +466,7 @@ void testApp::updateAlphabet(){
                 if(currImgNo4>allAlphabet.size()-1){
                     currImgNo4=currImgNo4-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                //printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
                 
                 // printf("currImg4  after = %i\n", currImg4);
             }
@@ -475,7 +475,7 @@ void testApp::updateAlphabet(){
                 if(currImgNo5>allAlphabet.size()-1){
                     currImgNo5=currImgNo5-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
+                //printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
                 
                 // printf("currImg5  after = %i\n", currImg5);
             }
