@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/layout_camera"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	    
+    <FrameLayout 
+        android:id="@+id/cameraPreview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center" />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp" >
+    
+        <ImageButton
+            android:id="@+id/imagebutton_photo_libray"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/photolibrary"
+            android:clickable="true"
+            android:contentDescription="@string/string_description"
+            android:onClick="onClickOpenGallery" />
+        
+        <ImageButton
+            android:id="@+id/imagebutton_take_photo"
+            android:layout_width="90dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/takephoto_big"
+            android:clickable="true"
+            android:contentDescription="@string/string_description"
+            android:onClick="onClickTakePhoto" />
+            
+ 	</RelativeLayout>        
+</LinearLayout>
+

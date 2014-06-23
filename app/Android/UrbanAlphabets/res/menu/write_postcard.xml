@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.susemiessner.urbanalphabets.WritePostcardActivity" >
+
+    <item 
+        android:id="@+id/item_wp_share_postcard"
+        android:title="@string/string_share_postcard" />
+    
+    <item
+        android:id="@+id/item_wp_save_postcard"
+        android:title="@string/string_save_postcard" />
+      
+    <item 
+        android:id="@+id/item_wp_write_postcard"
+        android:title="@string/string_write_postcard" />
+    
+    <item
+        android:id="@+id/item_wp_my_alphabets"
+        android:title="@string/string_my_alphabets" />
+    
+</menu>

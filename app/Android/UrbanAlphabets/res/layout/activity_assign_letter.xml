@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_assign_letter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <TableLayout
+    android:id="@+id/tableview_assign_letter"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:stretchColumns="*"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/LightGrey" >
+        
+	<TableRow 
+    	android:id="@+id/tablerow_assign_letter_1"
+        android:layout_width="wrap_content"
+    	android:layout_height="0dp"
+    	android:layout_weight="1"
+    	android:layout_marginLeft="1dp"
+    	android:layout_marginTop="1dp"
+    	android:layout_marginRight="1dp"
+       	android:weightSum="6" >  
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_1"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_2"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_3"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_4"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_5"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+                       
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_6"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+		</TableRow>
+        
+    	<TableRow 
+    		android:id="@+id/tablerow_assign_letter_2"
+        	android:layout_width="wrap_content"
+        	android:layout_height="0dp"
+        	android:layout_weight="1"
+        	android:layout_marginLeft="1dp"
+    		android:layout_marginTop="1dp"
+    		android:layout_marginRight="1dp"
+        	android:weightSum="6" >    
+        
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_7"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+        
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_8"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+        
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_9"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+        
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_10"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+        
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_11"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+        
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_12"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+        
+		</TableRow>
+        
+		<TableRow 
+    		android:id="@+id/tablerow_assign_letter_3"
+        	android:layout_width="wrap_content"
+        	android:layout_height="0dp"
+        	android:layout_weight="1"
+        	android:layout_marginLeft="1dp"
+    		android:layout_marginTop="1dp"
+    		android:layout_marginRight="1dp"
+        	android:weightSum="6" >    
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_13"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:background="@color/White"
+		    	android:layout_weight="1"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_14"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_15"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_16"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_17"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_18"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+
+		</TableRow>
+        
+    	<TableRow 
+    		android:id="@+id/tablerow_assign_letter_4"
+        	android:layout_width="wrap_content"
+        	android:layout_height="0dp"
+        	android:layout_weight="1"
+        	android:layout_marginLeft="1dp"
+    		android:layout_marginTop="1dp"
+    		android:layout_marginRight="1dp"
+        	android:weightSum="6" >    
+            
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_19"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_20"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_21"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_22"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_23"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            	
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_24"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+
+		</TableRow>
+        
+    	<TableRow 
+    		android:id="@+id/tablerow_assign_letter_5"
+        	android:layout_width="wrap_content"
+        	android:layout_height="0dp"
+        	android:layout_weight="1"
+        	android:layout_marginLeft="1dp"
+    		android:layout_marginTop="1dp"
+    		android:layout_marginRight="1dp"
+        	android:weightSum="6" >    
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_25"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_26"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_27"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_28"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_29"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_30"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+		</TableRow>
+        
+    	<TableRow 
+    		android:id="@+id/tablerow_assign_letter_6"
+        	android:layout_width="wrap_content"
+        	android:layout_height="0dp"
+        	android:layout_marginLeft="1dp"
+    		android:layout_marginTop="1dp"
+    		android:layout_marginRight="1dp"
+        	android:layout_weight="1"
+        	android:weightSum="6" >
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_31"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_32"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_33"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            	
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_34"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_35"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		   		android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_36"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+		</TableRow>
+        
+    	<TableRow 
+    		android:id="@+id/tablerow_assign_letter_7"
+        	android:layout_width="wrap_content"
+        	android:layout_height="0dp"
+        	android:layout_weight="1"
+        	android:layout_marginLeft="1dp"
+    		android:layout_marginTop="1dp"
+    		android:layout_marginRight="1dp"
+    		android:layout_marginBottom="1dp"
+        	android:weightSum="6" >
+            
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_37"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_38"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_39"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_40"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+        
+        	<ImageView
+            	android:id="@+id/imageview_assign_letter_41"
+            	android:layout_width="0dp"
+            	android:layout_height="match_parent"
+            	android:layout_weight="1"
+            	android:background="@color/White"
+            	android:layout_marginLeft="1dp"
+            	android:clickable="true"
+            	android:contentDescription="@string/string_description"
+            	android:onClick="onClick" />
+            
+			<ImageView
+		    	android:id="@+id/imageview_assign_letter_42"
+		    	android:layout_width="0dp"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:background="@color/White"
+		    	android:layout_marginLeft="1dp"
+		    	android:clickable="true"
+		    	android:contentDescription="@string/string_description"
+		    	android:onClick="onClick" />
+            
+		</TableRow>
+    	        
+	</TableLayout>
+    
+    <RelativeLayout
+    	android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:background="@color/LightGrey" >
+
+		<ImageView
+		    android:id="@+id/imageview_assign_letter"
+		    android:layout_width="37dp"
+		    android:layout_height="45dp"
+		    android:layout_marginLeft="5dp"
+		    android:layout_alignParentLeft="true"
+		    android:layout_centerVertical="true"
+		    android:contentDescription="@string/string_description" />
+		
+		<ImageButton
+		    android:id="@+id/imagebutton_assign_letter"
+		    android:layout_width="70dp"
+		    android:layout_height="45dp"
+		    android:layout_centerInParent="true"
+		    android:layout_centerVertical="true"
+		    android:background="@drawable/ok_big"
+		    android:contentDescription="@string/string_description"
+		    android:onClick="onClickAssign"
+		    android:visibility="gone" />
+		
+	</RelativeLayout>
+    
+</LinearLayout>

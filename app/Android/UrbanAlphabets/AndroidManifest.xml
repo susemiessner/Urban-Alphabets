@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.susemiessner.android.urbanalphabets"
+    android:versionCode="3"
+    android:versionName="1.2" >
+
+    <!-- camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!-- write permission -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.TakePhotoActivity"
+            android:icon="@drawable/icon_takephoto"
+            android:label="@string/string_take_photo"
+            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.susemiessner.urbanalphabets.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.WritePostcardActivity"
+            android:icon="@drawable/icon_postcard"
+            android:label="@string/string_write_postcard"
+            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.susemiessner.urbanalphabets.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.ShareActivity"
+            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.susemiessner.urbanalphabets.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.ViewLetterActivity"
+            android:label="@string/string_view_letter"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.AlphabetInfoActivity"
+            android:icon="@drawable/icon_information"
+            android:label="@string/string_alphabet_info"
+            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.susemiessner.urbanalphabets.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.MyAlphabetsActivity"
+            android:icon="@drawable/icon_alphabet"
+            android:label="@string/string_my_alphabets"
+            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.susemiessner.urbanalphabets.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.AddAlphabetActivity"
+            android:icon="@drawable/icon_add"
+            android:label="@string/string_add_alphabet"
+            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.susemiessner.urbanalphabets.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.CropPhotoActivity"
+            android:icon="@drawable/icon_cropphoto"
+            android:label="@string/string_crop_photo"
+            android:parentActivityName="org.susemiessner.android.urbanalphabets.TakePhotoActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.susemiessner.urbanalphabets.TakePhotoActivity" />
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.AssignLetterActivity"
+            android:icon="@drawable/icon_add"
+            android:label="@string/string_assign_letter"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.ChangeLanguageActivity"
+            android:label="@string/string_change_language"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.WelcomeActivity"
+            android:label="@string/string_welcome"
+            android:screenOrientation="portrait" >
+        </activity>
+    </application>
+
+</manifest>

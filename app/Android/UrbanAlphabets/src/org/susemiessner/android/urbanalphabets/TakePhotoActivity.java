@@ -1,0 +1,110 @@
+package org.susemiessner.android.urbanalphabets;
+
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
+import android.hardware.Camera.PictureCallback;
+import android.hardware.Camera.Size;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.FrameLayout;
+
+public class TakePhotoActivity extends ActionBarActivity {
+	private Camera mCamera;
+	private CameraPreview mPreview;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_take_photo);
+		// Create an instance of Camera
+				try {
+					mCamera = Camera.open();
+				} catch (Exception e) {
+					mCamera = null;
+				}
+				Camera.Parameters parameters = mCamera.getParameters();
+				List<Size> sizes = parameters.getSupportedPictureSizes();
+				Size mSize = null;
+				// TODO: Best size
+				for (Size size : sizes) {
+					mSize = size;
+				    break;
+				}
+				//parameters.setPictureSize(mSize.width, mSize.height);
+				
+				parameters.setRotation(90);
+				mCamera.setDisplayOrientation(90);
+				mCamera.setParameters(parameters);
+				
+				// create view
+				mPreview = new CameraPreview(this, mCamera);
+				FrameLayout preview = (FrameLayout) findViewById (R.id.cameraPreview);
+				preview.addView(mPreview);
+	}
+	
+	public void onClickTakePhoto(View v) {
+		mCamera.takePicture(null, null, mPicture);
+	}
+	
+	public void onClickOpenGallery(View v) {
+		Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(openGalleryIntent, Data.OPEN_GALLERY);
+	}
+	
+	private PictureCallback mPicture = new PictureCallback() {
+		@Override
+		public void onPictureTaken(byte[] data, Camera camera) {
+			Data.setRawImageData(data);
+			cropPhoto();
+		}
+	};
+	
+	private void cropPhoto(){
+		Intent cropPhotoIntent = new Intent(this, CropPhotoActivity.class);
+		startActivity(cropPhotoIntent);
+		finish();
+	}
+	
+	private String getRealPathFromUri(Uri uri) {
+		Cursor cursor = null;
+		try { 
+			String[] proj = { MediaStore.Images.Media.DATA };
+		    cursor = this.getContentResolver().query(uri,  proj, null, null, null);
+		    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		    cursor.moveToFirst();
+		    return cursor.getString(column_index);
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+		    }
+		}
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent data){
+		if(requestCode == Data.OPEN_GALLERY && 
+				resultCode == RESULT_OK) {
+			Uri uri = data.getData();
+			if (uri != null){
+				Bitmap bitmap = BitmapFactory.decodeFile(getRealPathFromUri(uri));
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				bitmap.compress(CompressFormat.PNG, 100, stream);
+				byte [] byteArrayImage = stream.toByteArray();
+				Data.setRawImageData(byteArrayImage);
+				Intent cropPhotoIntent = new Intent(this, CropPhotoActivity.class);
+				startActivity(cropPhotoIntent);
+			}
+		}
+		finish();
+	}
+}

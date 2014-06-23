@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_addalphabet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/textview_alphabetname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/string_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Grey" />
+
+        <EditText
+            android:id="@+id/edittext_alphabetname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/textview_alphabetname"
+            android:ems="10"
+            android:hint="@string/string_hint_name"
+            android:inputType="text"
+            android:imeOptions="actionDone" >
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textview_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/string_language"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/Grey" />
+
+    <ListView
+        android:id="@+id/listview_add_alphabet"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" >
+
+    </ListView>
+
+    <ImageButton
+    	android:id="@+id/imagebutton_add_alphabet"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ok"
+        android:contentDescription="@string/string_description"
+        android:onClick="onClick"
+        android:visibility="gone"
+    />
+    
+ </LinearLayout>
+

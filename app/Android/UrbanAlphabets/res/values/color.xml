@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="LightGrey">#E6E6E6</color>
+    <color name="Black">#000000</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Grey">#787878</color>
+    <color name="FacebookBlue">#3B5999</color>
+    <color name="LightGreen">#C2F79E</color>
+    <color name="LightBlack">#1E1E1E</color>
+    <color name="TransparentGrey">#801E1E1E</color>
+    
+</resources>
