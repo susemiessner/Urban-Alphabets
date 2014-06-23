@@ -108,8 +108,8 @@ public class MainActivity extends ActionBarActivity {
 		actionBar.setTitle(Data.getSelectedAlphabetName());
 		new FillTableLayout().execute();
 		if(Data.updatePending()) {
-			new UpdateDatabase(this, Data.getLongitude(),
-				Data.getLatitude(),
+			new UpdateDatabase(this, getLongitude(),
+				getLatitude(),
 				username,
 				Data.getLetterName(),
 				"no", "no", BitmapFactory.decodeFile
@@ -149,8 +149,8 @@ public class MainActivity extends ActionBarActivity {
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
 	    		tableLayout.draw(canvas);
-	    		new UpdateDatabase(this, Data.getLongitude(),
-	    				Data.getLatitude(),
+	    		new UpdateDatabase(this, getLongitude(),
+	    				getLatitude(),
 	    				username,
 	    				"no", "no", "yes", bitmapAlphabet,
 	    				Data.getSelectedAlphabetLanguage(), "").execute();
@@ -159,6 +159,8 @@ public class MainActivity extends ActionBarActivity {
 	    	case R.id.item_write_postcard:{
 	    		Intent writePostcardIntent = new Intent(this, WritePostcardActivity.class);
 	    		writePostcardIntent.putExtra("username", getUsername());
+	    		writePostcardIntent.putExtra("longitude", getLongitude());
+	    		writePostcardIntent.putExtra("latitude", getLatitude());
 	    		startActivity(writePostcardIntent);
 	    		return true;
 	    	}
@@ -194,6 +196,24 @@ public class MainActivity extends ActionBarActivity {
 		e.commit();
 	}
 	
+	private void setLocation(String longitude, String latitude) {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		Editor e = mSharedPreferences.edit();
+		e.putString("longitude",longitude);
+		e.putString("latitude", latitude);
+		e.commit();
+	}
+	
+	private String getLongitude() {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		return mSharedPreferences.getString("longitude", "0");
+	}
+	
+	private String getLatitude() {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		return mSharedPreferences.getString("latitude", "0");
+	}
+	
 	public void onClickMenu(View v) {
 		openOptionsMenu();
 	}
@@ -205,8 +225,9 @@ public class MainActivity extends ActionBarActivity {
 
 	public void onResume() {
 		super.onResume();
-		// LocationManager.NETWORK_PROVIDER
-		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 
+		mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000,
+				0, mlocListener);
+		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 
 					0, mlocListener);
 	}
 	
@@ -219,9 +240,9 @@ public class MainActivity extends ActionBarActivity {
     public class MyLocationListener implements LocationListener {
     	@Override
     	public void onLocationChanged(Location loc) {
-    		loc.getLatitude();
-    		loc.getLongitude();
-    		Data.setLocation(loc.getLatitude(), loc.getLongitude());
+    		Double latitude = loc.getLatitude();
+    		Double longitude = loc.getLongitude();
+    		setLocation(Double.toString(longitude), Double.toString(latitude));
     	}
     	
     	@Override

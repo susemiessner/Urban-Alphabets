@@ -1,6 +1,8 @@
 package org.susemiessner.android.urbanalphabets;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -52,7 +54,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 	private TableLayout tableLayout;
 	private char[] postcardText;
 	private KeyboardView keyboardView;
-	private String username;
+	
 	private static final int[] customKeyboard = {
 		R.xml.finnish_swedish,
 		R.xml.danish_norwegian,
@@ -67,7 +69,16 @@ public class WritePostcardActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_postcard);
 		Intent intent = getIntent();
-		username = intent.getStringExtra("username");
+		String username = intent.getStringExtra("username");
+		String longitude = intent.getStringExtra("longitude");
+		String latitude = intent.getStringExtra("latitude");
+		if(username != null && !username.isEmpty())
+			setUsername(username);
+		if(longitude != null && latitude != null 
+				&& !longitude.isEmpty() && !latitude.isEmpty())
+			setLocation(longitude, latitude);
+		
+		
 		index = 0;
 		postcardText = new char[42];
 		tableLayout = (TableLayout) findViewById
@@ -102,6 +113,36 @@ public class WritePostcardActivity extends ActionBarActivity {
 		});
 		keyboardView.setOnKeyboardActionListener(onKeyboardActionListener);
 		showCustomKeyboard();
+	}
+	
+	private void setLocation(String longitude, String latitude) {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		Editor e = mSharedPreferences.edit();
+		e.putString("longitude",longitude);
+		e.putString("latitude", latitude);
+		e.commit();
+	}
+	
+	private String getUsername() {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		return mSharedPreferences.getString("username", "");
+	}
+	
+	private void setUsername(String username) {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		Editor e = mSharedPreferences.edit();
+		e.putString("username", username);
+		e.commit();
+	}
+	
+	private String getLongitude() {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		return mSharedPreferences.getString("longitude", "0");
+	}
+	
+	private String getLatitude() {
+		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		return mSharedPreferences.getString("latitude", "0");
 	}
 	
 	private void hideCustomKeyboard() {
@@ -171,9 +212,9 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapPostcard);
 	    		tableLayout.draw(canvas);
-	    		new UpdateDatabase(this, Data.getLongitude(), Data.getLatitude(),
-	    				username,
-	    				"no", "yes", "no", bitmapPostcard, Data.getSelectedAlphabetLanguage(), 
+	    		new UpdateDatabase(this, getLongitude(), getLatitude(),
+	    				getUsername(), "no", "yes", "no", bitmapPostcard,
+	    				Data.getSelectedAlphabetLanguage(), 
 	    		new String(postcardText, 0, index)).execute();
 	    		return true;
 	    	}

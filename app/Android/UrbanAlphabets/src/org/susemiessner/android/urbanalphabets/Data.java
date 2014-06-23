@@ -292,9 +292,6 @@ public class Data {
 	private static List<Alphabet> listAlphabet = null;
 	private static int selected;
 	
-	
-	private static double longitude;
-	private static double latitude;
 	private static int recentlyAssigned;
 	private static byte[] rawImageData = null;
 	private static Bitmap croppedBitmap = null;
@@ -362,14 +359,6 @@ public class Data {
 		}
 	}
 
-	public static String getLongitude() {
-		return Double.toString(longitude);
-	}
-
-	public static String getLatitude() {
-		return Double.toString(latitude);
-	}
-
 	public static String getLetterName() {
 		return LETTERNAME[Arrays.asList(LANGUAGE).
 		                  indexOf(getSelectedAlphabetLanguage())][recentlyAssigned];
@@ -386,11 +375,6 @@ public class Data {
 		if(filename.exists())
 			return filename.getAbsolutePath();
 		return null;
-	}
-
-	public static void setLocation(double lt, double lg) {
-		latitude = lt;
-		longitude = lg;
 	}
 
 	public static int getRawResourceId(int index) {
