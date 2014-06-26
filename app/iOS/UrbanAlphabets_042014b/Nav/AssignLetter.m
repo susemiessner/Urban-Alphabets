@@ -66,6 +66,15 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
+    //white background
+    UIView *background=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    [background setBackgroundColor:UA_WHITE_COLOR];
+    
+    background.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+    background.layer.borderWidth=1.0f;
+    background.userInteractionEnabled=NO;
+    [self.view addSubview:background];
+
     //bottomNavbar WITH 3 ICONS
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:croppedImage withFrame:CGRectMake(0, 0, 32.788, 40.022) centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
@@ -82,7 +91,7 @@
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;
     if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
-        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].height) {
+      //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;

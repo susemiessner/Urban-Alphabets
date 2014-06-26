@@ -39,7 +39,7 @@
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;
     if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
-        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+    //    if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
@@ -172,7 +172,6 @@
     }
 }
 -(void)addLetterToPostcard{
-    NSLog(@"new character: %@", newCharacter);
     //letters
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
         if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {
