@@ -172,6 +172,8 @@
     }
 }
 -(void)addLetterToPostcard{
+    NSLog(@"new character: %@", newCharacter);
+    //letters
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
         if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {
             UIImageView *image=[self.currentAlphabet objectAtIndex: 0];
@@ -403,7 +405,111 @@
             [self.postcardArray addObject: image];
         }
     }
-    if ([newCharacter isEqual: @"0"]){
+    if ([self.currentLanguage isEqualToString:@"Latvian"]) {
+        if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 0];
+            [self.postcardArray addObject: image];
+        } else if ([newCharacter isEqual: @"ā"]||[newCharacter isEqual: @"Ā"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 1];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"b"]||[newCharacter isEqual: @"B"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 2];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"c"]||[newCharacter isEqual: @"C"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 3];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"č"]||[newCharacter isEqual: @"Č"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 4];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"d"]||[newCharacter isEqual: @"D"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 5];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"e"]||[newCharacter isEqual: @"E"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 6];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ē"]||[newCharacter isEqual: @"Ē"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 7];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"f"]||[newCharacter isEqual: @"F"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 8];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"g"]||[newCharacter isEqual: @"G"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 9];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ģ"]||[newCharacter isEqual: @"Ģ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 10];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"h"]||[newCharacter isEqual: @"H"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 11];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"i"]||[newCharacter isEqual: @"I"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 12];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ī"]||[newCharacter isEqual: @"Ī"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 13];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"j"]||[newCharacter isEqual: @"j"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 14];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"k"]||[newCharacter isEqual: @"k"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 15];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ķ"]||[newCharacter isEqual: @"Ķ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 16];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"l"]||[newCharacter isEqual: @"L"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 17];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ļ"]||[newCharacter isEqual: @"Ļ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 18];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"m"]||[newCharacter isEqual: @"M"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 19];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"n"]||[newCharacter isEqual: @"N"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 20];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ņ"]||[newCharacter isEqual: @"Ņ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 21];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"o"]||[newCharacter isEqual: @"O"]||[newCharacter isEqual: @"0"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 22];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"p"]||[newCharacter isEqual: @"P"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 23];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"r"]||[newCharacter isEqual: @"R"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 24];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"s"]||[newCharacter isEqual: @"S"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 25];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"š"]||[newCharacter isEqual: @"Š"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 26];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"t"]||[newCharacter isEqual: @"T"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 27];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"u"]||[newCharacter isEqual: @"U"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 28];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ū"]||[newCharacter isEqual: @"Ū"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 29];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"v"]||[newCharacter isEqual: @"V"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 30];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"z"]||[newCharacter isEqual: @"Z"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 31];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ž"]||[newCharacter isEqual: @"Ž"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 32];
+            [self.postcardArray addObject: image];
+        }
+    }
+
+    //numbers
+    if ([newCharacter isEqual: @"0"] &&(![self.currentLanguage isEqualToString: @"Latvian"])){
         UIImageView *image=[self.currentAlphabet objectAtIndex: 32];
         [self.postcardArray addObject: image];
     }else if ([newCharacter isEqual: @"1"]){
