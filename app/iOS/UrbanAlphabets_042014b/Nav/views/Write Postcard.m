@@ -99,7 +99,7 @@
     
     UIBarButtonItem *rightButton =[[UIBarButtonItem alloc] initWithCustomView:closeButton];
     self.navigationItem.rightBarButtonItem=rightButton;
-    self.maxPostcardLength=24;
+    self.maxPostcardLength=42;
     //initiate postcard arrays
     self.postcardArray=[[NSMutableArray alloc]init];
     self.greyRectArray=[[NSMutableArray alloc]init];
@@ -117,28 +117,29 @@
     [self.view addSubview:textViewTest];
     
     [self setupKeyboardBar];
+    
+    [textViewTest setInputAccessoryView:countingLabel];
+
 }
 
 //------------------------------------------------------------------------
-//bar with character count + done button on top of the keyboard
+//bar with character count
 //------------------------------------------------------------------------
 -(void)setupKeyboardBar{
     int barHeight=30;
-    keyboardBarBackground=[[UIView alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-216-barHeight, [[UIScreen mainScreen] bounds].size.width, barHeight)];
-    [keyboardBarBackground setBackgroundColor:UA_NAV_BAR_COLOR];
-    [self.view addSubview: keyboardBarBackground];
-    
-    
-    NSString *text=[NSString stringWithFormat:@"0/%i", self.maxPostcardLength];
-    countingLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, keyboardBarBackground.frame.origin.y+5, 50, 15) ];
+   
+    NSString *text=[NSString stringWithFormat:@"   0/%i", self.maxPostcardLength];
+    countingLabel=[[UILabel alloc]initWithFrame:CGRectMake(100, [[UIScreen mainScreen] bounds].size.height-216-barHeight+5, 50, barHeight) ];
     [countingLabel setText:text];
     [countingLabel setFont:UA_NORMAL_FONT];
     [countingLabel setTextColor:UA_TYPE_COLOR];
-    [self.view addSubview:countingLabel];
+    [countingLabel setBackgroundColor:UA_NAV_BAR_COLOR];
+
+    
 }
 -(void)updateCharacterNumber{
-    countingLabel.text=[NSString stringWithFormat:@"%lu/%i", (unsigned long)[self.postcardArray count], self.maxPostcardLength];
-    [countingLabel sizeToFit];
+    countingLabel.text=[NSString stringWithFormat:@"   %lu/%i", (unsigned long)[self.postcardArray count], self.maxPostcardLength];
+    //[countingLabel sizeToFit];
 }
 
 //------------------------------------------------------------------------
