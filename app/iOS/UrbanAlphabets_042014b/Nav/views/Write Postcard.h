@@ -7,7 +7,7 @@
 //
 
 
-@interface Write_Postcard : UIViewController<UITextViewDelegate>
+@interface Write_Postcard : UIViewController<UITextViewDelegate, UIScrollViewDelegate>
 @property (readwrite, strong) NSMutableArray *postcardArray, *greyRectArray, *currentAlphabet, *postcardViewArray;
 @property (readwrite)     NSString *entireText;
 @property (readwrite) NSString *postcardText;

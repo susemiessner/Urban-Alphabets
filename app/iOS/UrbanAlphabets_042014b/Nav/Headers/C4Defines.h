@@ -50,6 +50,7 @@ C4_EXTERN BOOL VERBOSELOAD;
 //UA Variables (start)
 //---------------------------------------------------------------------
 #define UA_IPHONE_5_HEIGHT 568.0f
+#define UA_IPHONE_4_HEIGHT 480.0f
 
 #define UA_LETTER_IMG_HEIGHT_5 65.1f
 #define UA_LETTER_IMG_WIDTH_5 53.53f
