@@ -29,6 +29,11 @@
     float imageWidth;
     float imageHeight;
     float alphabetFromLeft;
+    
+    //enter username
+    UIImageView *enterUsername;
+    UITextView *userNameField;
+    float yPosUsername;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite) NSMutableArray  *postcardArray, *greyRectArray;
@@ -217,8 +222,28 @@
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
 -(void)savePostcard{
-    //crop the screenshot
-    [self exportHighResImage];
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    workspace=(C4WorkSpace*)obj;
+
+    if ([workspace.userName isEqualToString:@"defaultUsername" ]) {
+        //ask for new username
+        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
+        enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        [self.view addSubview:enterUsername];
+        //add text field
+        CGRect textViewFrame = CGRectMake(60, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
+        userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
+        userNameField.returnKeyType = UIReturnKeyDone;
+        userNameField.layer.borderWidth=1.0f;
+        userNameField.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
+        userNameField.backgroundColor=UA_NAV_CTRL_COLOR;
+        [userNameField becomeFirstResponder];
+        userNameField.delegate = self;
+        [self.view addSubview:userNameField];
+    } else{
+        [self exportHighResImage];
+        
+    }
 }
 -(void)saveCurrentPostcardAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
@@ -326,6 +351,72 @@
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     currentLocation = newLocation;
+}
+//------------------------------------------------------------------------
+//STUFF TO HANDLE THE KEYBOARD INPUT
+//------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITextViewDelegate Methods
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    /*--
+     * This method is called when the textView becomes active, or is the First Responder
+     --*/
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    [self saveUserName];
+}
+-(void)saveUserName{
+    if ([userNameField.text isEqualToString: @""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
+                                                        message:@"Your username cannot be empty."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else{
+        workspace.userName=userNameField.text;
+        [workspace saveUsernameToUserDefaults];
+        //and remove the username stuff
+        [userNameField removeFromSuperview];
+        [enterUsername removeFromSuperview];
+        [self exportHighResImage];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
+    NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
+    NSUInteger location = replacementTextRange.location;
+    
+    if (textView.text.length + text.length > 40){//140 characters are in the textView
+        if (location != NSNotFound){ //Did not find any newline characters
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    else if (location != NSNotFound){ //Did not find any newline characters
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    //This method is called when the user makes a change to the text in the textview
+    NSString *lastChar= [NSString stringWithFormat:@"%c",[textView.text characterAtIndex: [textView.text length]-1]];
+    if ([lastChar isEqualToString:@"ä"]||[lastChar isEqualToString:@"Ä"]||[lastChar isEqualToString:@"ö"]||[lastChar isEqualToString:@"Ö"]||[lastChar isEqualToString:@"ü"]||[lastChar isEqualToString:@"Ü"]||[lastChar isEqualToString:@"å"]||[lastChar isEqualToString:@"Å"]||[lastChar isEqualToString:@"!"]||[lastChar isEqualToString:@"?"]||[lastChar isEqualToString:@"ß"]||[lastChar isEqualToString:@"Ñ"]||[lastChar isEqualToString:@"ñ"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
+                                                        message:@"Your username cannot include any of the following characters: Ä, Ö, Å, Ü, Ñ, !, ?, ß."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        textView.text=[textView.text substringToIndex:[textView.text length] - 1];
+    }
+    
 }
 
 @end

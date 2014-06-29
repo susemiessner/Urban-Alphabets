@@ -22,7 +22,6 @@
     language=@"none";
     postcardText=@"none";
     theImage=UIImageJPEGRepresentation(croppedImage,0.0);
-    NSLog(@"theImage: %@", theImage);
     NSData *imageData=UIImagePNGRepresentation(croppedImage);
     [self connect:imageData];
 }
@@ -38,8 +37,6 @@
     language=theLanguage;
     postcardText=@"none";
     theImage=[NSData dataWithData:imageData];
-    NSLog(@"theImage: %@", theImage);
-    NSLog(@"imageData: %@", imageData);
     [self connect:imageData];
 }
 
@@ -55,9 +52,6 @@
     language=theLanguage;
     postcardText=thePostcardText;
     theImage=[NSData dataWithData:imageData];
-    NSLog(@"theImage: %@", theImage);
-    NSLog(@"imageData: %@", imageData);
-
     [self connect:imageData];
 }
 -(void)connect:(NSData*)imageData{

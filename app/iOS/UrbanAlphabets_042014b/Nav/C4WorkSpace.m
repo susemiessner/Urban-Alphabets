@@ -36,7 +36,6 @@
     //for intro
     NSMutableArray *introPics;
     NSMutableArray *introPicsViews;
-    UITextView *userNameField;
     int currentNoInIntro;
     UIImage *nextButton;
     UIImageView *nextButtonView;
@@ -58,6 +57,11 @@
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
     
+    //enter username
+    UIImageView *enterUsername;
+    UITextView *userNameField;
+    float yPosUsername;
+    
 }
 
 -(void)setup {
@@ -68,6 +72,9 @@
     self.alphabetName=@"Untitled";
     self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
     self.defaultLanguage=@"Finnish/Swedish";
+    self.userName=@"defaultUsername";
+    [self writeAlphabetsUserDefaults];
+
     
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -84,18 +91,22 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     self.title=self.alphabetName;
-    self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    NSString *username=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    if (username) {
+        self.userName=username;
+    }
     //when app is opened first time
-    if (self.userName==nil) {
+    NSString *openedBefore=[[NSUserDefaults standardUserDefaults]objectForKey:@"openedBefore"];
+    if (!(openedBefore)) {
         self.title=@"Intro";
         
         //check which device
         if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
             yPosIntro=-88;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"],[UIImage imageNamed:@"intro_iphone53"],[UIImage imageNamed:@"intro_iphone54"], nil];
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"]/*,[UIImage imageNamed:@"intro_iphone53"]*/,[UIImage imageNamed:@"intro_iphone54"], nil];
         } else{
             yPosIntro=0;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"],[UIImage imageNamed:@"intro_iphone53"],[UIImage imageNamed:@"intro_iphone54"], nil];
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"]/*,[UIImage imageNamed:@"intro_iphone53"]*/,[UIImage imageNamed:@"intro_iphone54"], nil];
         }
         introPicsViews=[[NSMutableArray alloc]init];
         for (int i=0; i<[introPics count]; i++) {
@@ -113,7 +124,6 @@
         nextButtonView.image=nextButton;
         [self.view addSubview:nextButtonView];
         nextButtonView.userInteractionEnabled=YES;
-        //[self listenFor:@"touchesBegan" fromObject:nextButtonView andRunMethod:@"nextIntroPic"];
         UITapGestureRecognizer *nextButtonTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextIntroPic)];
         nextButtonTap.numberOfTapsRequired = 1;
         [nextButtonView addGestureRecognizer:nextButtonTap];
@@ -135,11 +145,8 @@
     currentNoInIntro++;
     if (currentNoInIntro<[introPics count]) {
         //add next
-        
         [self.view addSubview:[introPicsViews objectAtIndex:currentNoInIntro]];
-        
         if (currentNoInIntro==1) {
-            
             /*CGRect labelFrame = CGRectMake( 25, [[UIScreen mainScreen] bounds].size.height-150, 300, 30 );
             
             webadress=[[UILabel alloc] initWithFrame:labelFrame];
@@ -148,18 +155,6 @@
             // webadress.origin=CGPointMake(25, [[UIScreen mainScreen] bounds].size.height-150);
             [self.view addSubview:webadress];*/
             
-        }
-        if (currentNoInIntro==2) {
-            //add text field
-            CGRect textViewFrame = CGRectMake(60, 180+yPosIntro, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
-            userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
-            userNameField.returnKeyType = UIReturnKeyDone;
-            userNameField.layer.borderWidth=1.0f;
-            userNameField.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
-            userNameField.backgroundColor=UA_NAV_CTRL_COLOR;
-            [userNameField becomeFirstResponder];
-            userNameField.delegate = self;
-            [self.view addSubview:userNameField];
         }
         [self.view addSubview:nextButtonView];
         //[self listenFor:@"touchesBegan" fromObject:nextButtonView andRunMethod:@"nextIntroPic"];
@@ -175,6 +170,10 @@
         {
         }];
         [self alphabetSetup];
+        
+        NSUserDefaults *openedBefore=[NSUserDefaults standardUserDefaults];
+        [openedBefore setValue:@"yes" forKey:@"openedBefore"];
+        
     }
     
 }
@@ -420,7 +419,25 @@
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 -(void)saveAlphabet{
-    [self exportHighResImage];
+    if ([self.userName isEqualToString:@"defaultUsername" ]) {
+        //ask for new username
+        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
+        enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        [self.view addSubview:enterUsername];
+        //add text field
+        CGRect textViewFrame = CGRectMake(60, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
+        userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
+        userNameField.returnKeyType = UIReturnKeyDone;
+        userNameField.layer.borderWidth=1.0f;
+        userNameField.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
+        userNameField.backgroundColor=UA_NAV_CTRL_COLOR;
+        [userNameField becomeFirstResponder];
+        userNameField.delegate = self;
+        [self.view addSubview:userNameField];
+    } else{
+        [self exportHighResImage];
+
+    }
 }
 -(void)saveCurrentAlphabetAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
@@ -510,26 +527,7 @@
                                }];
 
 }
-//-----------------------------------------------------------
--(void)saveUserName{
-    if ([userNameField.text isEqualToString: @""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
-                                                        message:@"Your username cannot be empty."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else{
-        self.userName=userNameField.text;
-        [self saveUsernameToUserDefaults];
-        //and remove the username stuff
-        [userNameField removeFromSuperview];
-        [self nextIntroPic];
-        
-    }
-    
-    
-}
+
 -(void)saveUsernameToUserDefaults{
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     [defaults setValue:self.userName forKey:@"userName"];
@@ -844,6 +842,24 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     [self saveUserName];
+}
+//-----------------------------------------------------------
+-(void)saveUserName{
+    if ([userNameField.text isEqualToString: @""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
+                                                        message:@"Your username cannot be empty."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else{
+        workspace.userName=userNameField.text;
+        [workspace saveUsernameToUserDefaults];
+        //and remove the username stuff
+        [userNameField removeFromSuperview];
+        [enterUsername removeFromSuperview];
+        [self exportHighResImage];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
