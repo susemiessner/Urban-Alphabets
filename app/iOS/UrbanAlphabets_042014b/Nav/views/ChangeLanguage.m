@@ -46,7 +46,6 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", @"Latvian",nil];
     shapesForBackground=[[NSMutableArray alloc]init];
     languageLabels=[[NSMutableArray alloc]init];
     
@@ -58,6 +57,14 @@
     UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeLanguage)];
     okButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
+    
+    
+}
+-(void)grabLanguagesViaNavigationController{
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    workspace=(C4WorkSpace*)obj;
+    languages=workspace.languages;
+    
     //content
     int selectedLanguage=20;
     int heightLabel=46;

@@ -36,19 +36,19 @@
 
 @implementation Write_Postcard
 -(void)viewWillAppear:(BOOL)animated{
-    
-    
-    
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
-    NSLog(@"image height %f", imageHeight);
     alphabetFromLeft=0;
-    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
     //    if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
     }
+    
+    //scroll up in the scrollview
+    CGPoint bottomOffset = CGPointMake(0, 0);
+    [scrollViewSuse setContentOffset:bottomOffset animated:YES];
     
     [textViewTest becomeFirstResponder];
     //draw the current postcard text
@@ -94,16 +94,7 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    //close button
-    frame = CGRectMake(0, 0, 22.5, 22.5);
-    UIButton *closeButton = [[UIButton alloc] initWithFrame:frame];
-    [closeButton setBackgroundImage:UA_ICON_CLOSE_UI forState:UIControlStateNormal];
-    [closeButton addTarget:self action:@selector(closeView)
-          forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setShowsTouchWhenHighlighted:YES];
-    
-    UIBarButtonItem *rightButton =[[UIBarButtonItem alloc] initWithCustomView:closeButton];
-    self.navigationItem.rightBarButtonItem=rightButton;
+
     self.maxPostcardLength=42;
     
     //initiate postcard arrays
@@ -121,7 +112,6 @@
     scrollViewSuse.delegate=self;
     [self.view addSubview: scrollViewSuse];
     scrollViewSuse.contentSize=CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-111);
-   //NSLog(@"content size: %f, %f",scrollViewSuse.contentSize.width, scrollViewSuse.contentSize.height);
     
     
     //add text field
@@ -192,6 +182,7 @@
         NSInteger lastLetter=[self.postcardArray count]-1;
         float xMultiplier=(lastLetter)%6;
         float yMultiplier= (lastLetter)/6;
+        //scroll to right location
         if ([[UIScreen mainScreen] bounds].size.height==UA_IPHONE_5_HEIGHT) {
             if(yMultiplier==4 && xMultiplier==0){
                 CGPoint bottomOffset = CGPointMake(0, -64+imageHeight);
@@ -206,7 +197,7 @@
                 [scrollViewSuse setContentOffset:bottomOffset animated:YES];
             }
 
-        } else{
+        } else if([[UIScreen mainScreen] bounds].size.height==UA_IPHONE_4_HEIGHT){
             if(yMultiplier==3 && xMultiplier==0){
                 CGPoint bottomOffset = CGPointMake(0, -64+imageHeight);
                 [scrollViewSuse setContentOffset:bottomOffset animated:YES];
@@ -246,20 +237,9 @@
     }
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"offset: %f, %f",scrollViewSuse.contentOffset.x, scrollViewSuse.contentOffset.y);
+   // NSLog(@"offset: %f, %f",scrollViewSuse.contentOffset.x, scrollViewSuse.contentOffset.y);
 }
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"end decelerate");
-}
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    NSLog(@"end scroll animation");
-}
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
-    NSLog(@"scroll to top");
-}
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    NSLog(@"end dragging");
-}
+
 -(void)addLetterToPostcard{
     //letters
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
@@ -638,9 +618,7 @@
 -(void)goBack{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
--(void)closeView{
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
+
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT
 //------------------------------------------------------------------------

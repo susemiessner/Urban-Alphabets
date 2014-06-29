@@ -49,7 +49,7 @@
     letterWidth=[[UIScreen mainScreen] bounds].size.width;
     letterHeight=letterWidth/0.82;
     letterFromLeft=0;
-    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
       //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         letterHeight=[[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
         letterWidth=letterWidth*0.82;

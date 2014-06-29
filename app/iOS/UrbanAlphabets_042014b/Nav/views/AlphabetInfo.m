@@ -48,7 +48,6 @@
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
     [self.view addSubview:self.bottomNavBar];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"goToAlphabetView"];
     UITapGestureRecognizer *alphabetButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetView)];
     alphabetButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:alphabetButtonRecognizer];
@@ -222,6 +221,7 @@
     changeLanguageView=[[ChangeLanguage alloc]initWithNibName:@"ChangeLanguage" bundle:[NSBundle mainBundle]];
     [changeLanguageView setupWithLanguage:self.currentLanguage Name: currentAlphabetName];
     [self.navigationController pushViewController:changeLanguageView animated:NO];
+    [changeLanguageView grabLanguagesViaNavigationController];
 }
 -(void)goToAlphabetView{
     [self.navigationController popToRootViewControllerAnimated:YES];

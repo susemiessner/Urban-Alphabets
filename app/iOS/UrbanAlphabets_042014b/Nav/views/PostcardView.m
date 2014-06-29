@@ -47,15 +47,6 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    //close button
-    frame = CGRectMake(0, 0, 22.5, 22.5);
-    UIButton *closeButton = [[UIButton alloc] initWithFrame:frame];
-    [closeButton setBackgroundImage:UA_ICON_CLOSE_UI forState:UIControlStateNormal];
-    [closeButton addTarget:self action:@selector(closeView)
-          forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *rightButton =[[UIBarButtonItem alloc] initWithCustomView:closeButton];
-    self.navigationItem.rightBarButtonItem=rightButton;
     
     self.postcardArray=[[NSMutableArray alloc]init];
     self.postcardArray=[postcardPassed mutableCopy];
@@ -68,15 +59,12 @@
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45) rightIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
     [self.view addSubview:self.bottomNavBar];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     UITapGestureRecognizer *photoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToTakePhoto)];
     photoButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.leftImageView addGestureRecognizer:photoButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
     UITapGestureRecognizer *menuButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMenu)];
     menuButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"closeView"];
     UITapGestureRecognizer *alphabetButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
     alphabetButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.rightImageView addGestureRecognizer:alphabetButtonRecognizer];
@@ -91,28 +79,24 @@
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
     }
     
-    
     //display the postcard
     for (int i=0; i<[self.postcardArray count]; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
+        //image
         UIImageView *image=[self.postcardArray objectAtIndex:i ];
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         imageView.image=image.image;
         [self.view addSubview:imageView];
-    }
-    for (int i=0; i<[self.greyRectArray count]; i++) {
-        UIView *greyRect=[self.greyRectArray objectAtIndex:i];
+        //grey grid
+        UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
-        greyRect.layer.borderWidth=1.0f;
         greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        greyRect.layer.borderWidth=1.0f;
         [self.view addSubview:greyRect];
-        
     }
-    
-    
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
@@ -239,7 +223,7 @@
 -(void)saveCurrentPostcardAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, [[UIScreen mainScreen] bounds].size.width * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
-    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     }

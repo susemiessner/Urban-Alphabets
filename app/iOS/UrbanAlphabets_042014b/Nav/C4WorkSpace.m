@@ -16,6 +16,7 @@
 #import "MyAlphabets.h"
 #import "AlphabetInfo.h"
 #import "TakePhotoViewController.h"
+#import "Settings.h"
 
 @implementation C4WorkSpace {
     AlphabetInfo *alphabetInfo;
@@ -26,6 +27,7 @@
     ShareAlphabet *shareAlphabet;
     MyAlphabets *myAlphabetsView;
     TakePhotoViewController *takePhoto;
+    Settings *settingsView;
 
     //saving image
     CGContextRef graphicsContext;
@@ -65,6 +67,7 @@
     self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
     self.alphabetName=@"Untitled";
     self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
+    self.defaultLanguage=@"Finnish/Swedish";
     
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -89,10 +92,10 @@
         //check which device
         if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
             yPosIntro=-88;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro__1_iphone4"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro__4_iphone4"],[UIImage imageNamed:@"intro_5"], nil];
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"],[UIImage imageNamed:@"intro_iphone53"],[UIImage imageNamed:@"intro_iphone54"], nil];
         } else{
             yPosIntro=0;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"],[UIImage imageNamed:@"intro_iphone53"],[UIImage imageNamed:@"intro_iphone54"], nil];
         }
         introPicsViews=[[NSMutableArray alloc]init];
         for (int i=0; i<[introPics count]; i++) {
@@ -137,22 +140,23 @@
         
         if (currentNoInIntro==1) {
             
-            CGRect labelFrame = CGRectMake( 25, [[UIScreen mainScreen] bounds].size.height-150, 300, 30 );
+            /*CGRect labelFrame = CGRectMake( 25, [[UIScreen mainScreen] bounds].size.height-150, 300, 30 );
             
             webadress=[[UILabel alloc] initWithFrame:labelFrame];
             [webadress setText:@"www.ualphabets.com"];
             [webadress setTextColor:UA_GREY_TYPE_COLOR];
             // webadress.origin=CGPointMake(25, [[UIScreen mainScreen] bounds].size.height-150);
-            [self.view addSubview:webadress];
+            [self.view addSubview:webadress];*/
             
         }
         if (currentNoInIntro==2) {
             //add text field
-            CGRect textViewFrame = CGRectMake(20, 200+yPosIntro, [[UIScreen mainScreen] bounds].size.width-2*20, 25.0f);
+            CGRect textViewFrame = CGRectMake(60, 180+yPosIntro, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
             userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
             userNameField.returnKeyType = UIReturnKeyDone;
             userNameField.layer.borderWidth=1.0f;
             userNameField.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
+            userNameField.backgroundColor=UA_NAV_CTRL_COLOR;
             [userNameField becomeFirstResponder];
             userNameField.delegate = self;
             [self.view addSubview:userNameField];
@@ -290,7 +294,6 @@
     shareAlphabetIconRecognizer.numberOfTapsRequired = 1;
     [self.menu.shareAlphabetIcon addGestureRecognizer:shareAlphabetIconRecognizer];
     
-    
     //my alphabets
     UITapGestureRecognizer *myAlphabetsShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
     myAlphabetsShapeRecognizer.numberOfTapsRequired = 1;
@@ -301,6 +304,17 @@
     UITapGestureRecognizer *myAlphabetsIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
     myAlphabetsIconRecognizer.numberOfTapsRequired = 1;
     [self.menu.myAlphabetsIcon addGestureRecognizer:myAlphabetsIconRecognizer];
+    
+    //settings
+    UITapGestureRecognizer *settingsShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSettings)];
+    settingsShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.settingsShape addGestureRecognizer:settingsShapeRecognizer];
+    UITapGestureRecognizer *settingsLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSettings)];
+    settingsLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.settingsLabel addGestureRecognizer:settingsLabelRecognizer];
+    UITapGestureRecognizer *settingsIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSettings)];
+    settingsIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.settingsIcon addGestureRecognizer:myAlphabetsIconRecognizer];
     
     //saveAlphabet
     UITapGestureRecognizer *saveAlphabetShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSaveAlphabet)];
@@ -394,6 +408,13 @@
     [self.navigationController pushViewController:myAlphabetsView animated:NO];
     [myAlphabetsView grabCurrentLanguageViaNavigationController];
 }
+-(void)goToSettings{
+    [self closeMenu];
+    settingsView=[[Settings alloc]initWithNibName:@"Settings" bundle:[NSBundle mainBundle]];
+    [settingsView setup];
+    [self.navigationController pushViewController:settingsView animated:NO];
+    [settingsView grabCurrentUsernameViaNavigationController];
+}
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
@@ -423,7 +444,6 @@
     
     return image;
 }
-
 -(void)exportHighResImage {
     NSString *fileName = [NSString stringWithFormat:@"exportedAlphabet%@.jpg", [NSDate date]];
     [self saveImage:fileName];
@@ -500,10 +520,8 @@
                                               otherButtonTitles:nil];
         [alert show];
     } else{
-        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
         self.userName=userNameField.text;
-        [defaults setValue:self.userName forKey:@"userName"];
-        [defaults synchronize];
+        [self saveUsernameToUserDefaults];
         //and remove the username stuff
         [userNameField removeFromSuperview];
         [self nextIntroPic];
@@ -511,6 +529,11 @@
     }
     
     
+}
+-(void)saveUsernameToUserDefaults{
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    [defaults setValue:self.userName forKey:@"userName"];
+    [defaults synchronize];
 }
 //--------------------------------------------------
 //load default alphabet
@@ -723,6 +746,7 @@
     [alphabetName setValue:self.currentLanguage forKey:@"language"];
     [alphabetName setValue:self.myAlphabets forKey:@"myAlphabets"];
     [alphabetName setValue:self.myAlphabetsLanguages forKey:@"myAlphabetsLanguages"];
+    [alphabetName setValue:self.defaultLanguage forKeyPath:@"defaultLanguage"];
     [alphabetName synchronize];
 }
 -(void)appWillBecomeActive:(NSNotification*)note{
@@ -730,8 +754,6 @@
     loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
     if (!loadedName) {
         self.alphabetName=@"Untitled";
-        //[self.myAlphabets addObject:self.alphabetName];
-        //[self.myAlphabetsLanguages addObject:self.currentLanguage];
         //set default alphabet name as first user default
         NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
         [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
@@ -756,6 +778,11 @@
     }else{
         [self.myAlphabetsLanguages addObject:self.currentLanguage];
     }
+    NSString *loadedDefaultLanguage=[[NSUserDefaults standardUserDefaults]objectForKey:@"defaultLanguage"];
+    if (loadedDefaultLanguage) {
+        self.defaultLanguage=loadedDefaultLanguage;
+    }
+    
     [self loadCorrectAlphabet];
 }
 -(void)loadCorrectAlphabet{

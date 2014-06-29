@@ -34,6 +34,7 @@
     int letterToChange;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
+@property (readwrite) NSString *defaultLanguage;
 @end
 
 @implementation AddAlphabet
@@ -56,13 +57,14 @@
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45) ];
     [self.view addSubview:self.bottomNavBar];
-    self.bottomNavBar.centerImageView.hidden=YES;
+    //self.bottomNavBar.centerImageView.hidden=YES;
     
     shapesForBackground = [[NSMutableArray alloc] init];
 }
 -(void)grabCurrentLanguageViaNavigationController {
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     workspace=(C4WorkSpace*)obj;
+    self.defaultLanguage=workspace.defaultLanguage;
     
     //name label
     UILabel *nameLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 100, 100, 20) ];
@@ -122,11 +124,18 @@
         UITapGestureRecognizer *labelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(languageChanged:)];
         labelRecognizer.numberOfTapsRequired = 1;
         [label addGestureRecognizer:labelRecognizer];
+        if ([self.defaultLanguage isEqualToString:[workspace.languages objectAtIndex:i]]) {
+            //√icon only 1x
+            checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, -50, 30, 30)];
+            checkedIcon.image=UA_ICON_CHECKED;
+            [self.view addSubview:checkedIcon];
+            [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(i-1)*height+firstShapeY-22, 30,30)];
+            //hightlight the shape
+            [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
+
+        }
     }
-    //√icon only 1x
-    checkedIcon=[[UIImageView alloc]initWithFrame:CGRectMake(5, -50, 30, 30)];
-    checkedIcon.image=UA_ICON_CHECKED;
-    [self.view addSubview:checkedIcon];
+    
 }
 -(void)languageChanged:(UIGestureRecognizer *)notification{
     UIView *clickedObject = (UIView *)notification.view;
@@ -144,7 +153,6 @@
             [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         }
     }
-    //checkedIcon.center=CGPointMake(checkedIcon.width/2+5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber+1)*clickedObject.height-clickedObject.height/2);
     [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber-1)*height+firstShapeY-22, 30,30)];
     
     if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<1) {
@@ -155,7 +163,6 @@
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         [self.view addSubview:shape];
         
-        //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"addAlphabet"];
         UITapGestureRecognizer *okButtonRecognizerRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAlphabet)];
         okButtonRecognizerRecognizer.numberOfTapsRequired = 1;
         [shape addGestureRecognizer:okButtonRecognizerRecognizer];
