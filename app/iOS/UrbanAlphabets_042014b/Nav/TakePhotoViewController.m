@@ -135,7 +135,7 @@
         
         
         CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
-        self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 45, 22.5) centerIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 70, 35)];
+        self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 60, 30) centerIcon:UA_ICON_TAKE_PHOTO_BIG withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 70, 35)];
         [self.view addSubview:self.bottomNavBar];
         
         UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
@@ -190,7 +190,7 @@
     if (self.isPhotoBeingTaken)
     {
         [self snapshot];
-        [self.bottomNavBar changeCenterImage:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
+        [self.bottomNavBar changeCenterImage:UA_ICON_OK withFrame:CGRectMake(0, 0, 80, 40)];
         self.bottomNavBar.rightImageView.hidden = NO;
         
         //retakes the photo

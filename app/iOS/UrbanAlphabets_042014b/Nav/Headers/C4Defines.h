@@ -52,8 +52,8 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_IPHONE_5_HEIGHT 568.0f
 #define UA_IPHONE_4_HEIGHT 480.0f
 
-#define UA_LETTER_IMG_HEIGHT_5 65.1f
-#define UA_LETTER_IMG_WIDTH_5 53.53f
+#define UA_LETTER_IMG_HEIGHT_5 65.0f
+#define UA_LETTER_IMG_WIDTH_5 54.0f
 
 #define UA_LETTER_IMG_HEIGHT_4 52.55f
 #define UA_LETTER_IMG_WIDTH_4 43.019f
@@ -81,6 +81,7 @@ C4_EXTERN BOOL VERBOSELOAD;
 
 //Icons
 #define UA_ICON_TAKE_PHOTO       [UIImage imageNamed:@"icon_TakePhoto"]
+#define UA_ICON_TAKE_PHOTO_BIG       [UIImage imageNamed:@"icon_TakePhotoBig"]
 #define UA_ICON_CLOSE           [UIImage imageNamed:@"icon_Close"]
 #define UA_ICON_BACK            [UIImage imageNamed:@"icon_back1"]
 #define UA_ICON_OK              [UIImage imageNamed:@"icon_OK"]
@@ -90,15 +91,12 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_ICON_SHARE_POSTCARD  [UIImage imageNamed:@"icon_SharePostcard"]
 #define UA_ICON_SAVE            [UIImage imageNamed:@"icon_Save"]
 #define UA_ICON_POSTCARD        [UIImage imageNamed:@"icon_Postcard"]
-#define UA_ICON_MY_POSTCARDS    [UIImage imageNamed:@"icon_Postcards"]
 #define UA_ICON_MY_ALPHABETS    [UIImage imageNamed:@"icon_Alphabets"]
 #define UA_ICON_MENU            [UIImage imageNamed:@"icon_Menu"]
-#define UA_ICON_ARROW_FORWARD   [UIImage imageNamed:@"icon_ArrowForward"]
-#define UA_ICON_ARROW_BACKWARD  [UIImage imageNamed:@"icon_ArrowBack"]
 #define UA_ICON_ALPHABET        [UIImage imageNamed:@"icon_Alphabet"]
+#define UA_ICON_ALPHABET_BIG        [UIImage imageNamed:@"icon_AlphabetBig"]
 #define UA_ICON_CHECKED         [UIImage imageNamed:@"icon_checked"]
 #define UA_ICON_PHOTOLIBRARY    [UIImage imageNamed:@"icon_PhotoLibrary"]
-#define UA_ICON_CLOSE_UI         [UIImage imageNamed:@"icon_Close.png"]
 #define UA_ICON_TWITTER           [UIImage imageNamed:@"twitter"]
 #define UA_Icon_FB                  [UIImage imageNamed:@"fb"]
 #define UA_ICON_MAIL              [UIImage imageNamed:@"mail"]

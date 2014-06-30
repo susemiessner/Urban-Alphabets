@@ -80,14 +80,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
-    //white background
-    UIView *background=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    [background setBackgroundColor:UA_WHITE_COLOR];
     
-    background.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
-    background.layer.borderWidth=1.0f;
-    background.userInteractionEnabled=NO;
-    [self.view addSubview:background];
 }
 -(void)viewDidAppear:(BOOL)animated{
     self.title=self.alphabetName;
@@ -157,7 +150,6 @@
             
         }
         [self.view addSubview:nextButtonView];
-        //[self listenFor:@"touchesBegan" fromObject:nextButtonView andRunMethod:@"nextIntroPic"];
     } else{
         self.title=self.alphabetName;
         NSString *folderName=@"Urban Alphabets";
@@ -178,6 +170,20 @@
     
 }
 -(void)alphabetSetup{
+    //remove everything displayed first
+    NSArray *viewsToRemove = [self.view subviews];
+    for (UIView *v in viewsToRemove) {
+        [v removeFromSuperview];
+    }
+    //white background
+    UIView *background=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    [background setBackgroundColor:UA_WHITE_COLOR];
+    
+    background.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+    background.layer.borderWidth=1.0f;
+    background.userInteractionEnabled=NO;
+    [self.view addSubview:background];
+    
     //bottomNavbar WITH 2 ICONS
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45)];
@@ -187,16 +193,11 @@
     UITapGestureRecognizer *photoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToTakePhoto)];
     photoButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.leftImageView addGestureRecognizer:photoButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     
     //make it touchable
     UITapGestureRecognizer *menuButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMenu)];
     menuButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
-
-    
-
     
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
@@ -243,7 +244,6 @@
         UITapGestureRecognizer *letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedLetter:)];
         letterTapRecognizer.numberOfTapsRequired = 1;
         [greyRect addGestureRecognizer:letterTapRecognizer];
-        //[self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"tappedLetter:"];
     }
 }
 //------------------------------------------------------------------------
