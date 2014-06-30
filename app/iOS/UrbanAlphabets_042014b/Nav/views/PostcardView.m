@@ -13,6 +13,7 @@
 #import "SharePostcard.h"
 #import "C4WorkSpace.h"
 #import "MyAlphabets.h"
+#import "TakePhotoViewController.h"
 
 @interface PostcardView (){
     SaveToDatabase *save;
@@ -20,6 +21,8 @@
     SharePostcard *sharePostcard;
     C4WorkSpace *workspace;
     MyAlphabets *myAlphabets;
+    TakePhotoViewController *takePhoto;
+    
     //saving image
     CGContextRef graphicsContext;
     //location when saving alphabet to server
@@ -107,7 +110,9 @@
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void)goToTakePhoto{
-    [self.navigationController popToRootViewControllerAnimated:NO];
+    takePhoto=[[TakePhotoViewController alloc]initWithNibName:@"TakePhotoViewController" bundle:[NSBundle mainBundle]];
+    [takePhoto setup];
+    [self.navigationController pushViewController:takePhoto animated:YES];
 }
 -(void)openMenu{
     [self saveCurrentPostcardAsImage];

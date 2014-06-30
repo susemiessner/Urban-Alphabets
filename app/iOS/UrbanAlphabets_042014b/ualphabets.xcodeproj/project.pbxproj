@@ -75,6 +75,7 @@
 		DA1D32701859BA1D002F3F75 /* AlphabetMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1D326F1859BA1D002F3F75 /* AlphabetMenu.m */; };
 		DA45DBA7196021D300AD6750 /* ChangeDefaultLanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = DA45DBA5196021D300AD6750 /* ChangeDefaultLanguage.m */; };
 		DA45DBA8196021D300AD6750 /* ChangeDefaultLanguage.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA45DBA6196021D300AD6750 /* ChangeDefaultLanguage.xib */; };
+		DA55528719613F4D002267F3 /* icon_Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = DA55528619613F4D002267F3 /* icon_Delete.png */; };
 		DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */; };
 		DA58620A18573E6B00C4D2A5 /* icon_Alphabet.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5861F818573E6B00C4D2A5 /* icon_Alphabet.png */; };
 		DA58620B18573E6B00C4D2A5 /* icon_Alphabets.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5861F918573E6B00C4D2A5 /* icon_Alphabets.png */; };
@@ -261,6 +262,7 @@
 		DA45DBA4196021D300AD6750 /* ChangeDefaultLanguage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeDefaultLanguage.h; path = views/ChangeDefaultLanguage.h; sourceTree = "<group>"; };
 		DA45DBA5196021D300AD6750 /* ChangeDefaultLanguage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeDefaultLanguage.m; path = views/ChangeDefaultLanguage.m; sourceTree = "<group>"; };
 		DA45DBA6196021D300AD6750 /* ChangeDefaultLanguage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChangeDefaultLanguage.xib; path = views/ChangeDefaultLanguage.xib; sourceTree = "<group>"; };
+		DA55528619613F4D002267F3 /* icon_Delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_Delete.png; sourceTree = "<group>"; };
 		DA5861F518573D0D00C4D2A5 /* BottomNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomNavBar.h; path = navBars/BottomNavBar.h; sourceTree = "<group>"; };
 		DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BottomNavBar.m; path = navBars/BottomNavBar.m; sourceTree = "<group>"; };
 		DA5861F818573E6B00C4D2A5 /* icon_Alphabet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_Alphabet.png; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 		DA58621C18573E7200C4D2A5 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				DA55528619613F4D002267F3 /* icon_Delete.png */,
 				DA78603618853FC600D6BD88 /* icon_Next.png */,
 				DAEC5CCF1861D97900B0CE62 /* backButton.png */,
 				DA5861F818573E6B00C4D2A5 /* icon_Alphabet.png */,
@@ -1099,6 +1102,7 @@
 				DA68A840188430CC00BE9545 /* letter_RusMjachkiSnak.png in Resources */,
 				DA68A8391883E4D900BE9545 /* letter_RusSche.png in Resources */,
 				DA68A83A1883E4D900BE9545 /* letter_RusSe.png in Resources */,
+				DA55528719613F4D002267F3 /* icon_Delete.png in Resources */,
 				DA0812C6187C255100CD4EE1 /* letter_1.png in Resources */,
 				DA0FB2CA185F274E00B14025 /* PostcardView.xib in Resources */,
 				DA68A82A1883E4D900BE9545 /* letter_RusB.png in Resources */,

@@ -105,6 +105,7 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_BACK_BUTTON          [UIImage imageNamed:@"backButton"]
 #define UA_LETTER_EMPTY         [UIImage imageNamed:@"letter_empty"]
 #define UA_ICON_NEXT            [UIImage imageNamed:@"icon_Next"]
+#define UA_ICON_DELETE          [UIImage imageNamed:@"icon_Delete"]
 
 
 //---------------------------------------------------------------------

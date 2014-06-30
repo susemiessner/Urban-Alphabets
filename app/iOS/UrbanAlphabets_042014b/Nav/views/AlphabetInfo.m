@@ -166,6 +166,41 @@
     [workspace.currentAlphabet removeAllObjects];
     [workspace loadDefaultAlphabet];
     [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    //-----------------------------------
+    //delete letter from documents directory so it doesn't reload when reopening the app
+    NSString *path= workspace.alphabetName;
+    for (int i =0; i<[workspace.currentAlphabet count]; i++) {
+        NSString *letterToAdd=@" ";
+        if ([workspace.currentLanguage isEqualToString:@"Finnish/Swedish"]) {
+            letterToAdd=[workspace.finnish objectAtIndex:i];
+        }else if([workspace.currentLanguage isEqualToString:@"German"]){
+            letterToAdd=[workspace.german objectAtIndex:i];
+        }else if([workspace.currentLanguage isEqualToString:@"English/Portugese"]){
+            letterToAdd=[workspace.english objectAtIndex:i];
+        }else if([workspace.currentLanguage isEqualToString:@"Danish/Norwegian"]){
+            letterToAdd=[workspace.danish objectAtIndex:i];
+        }else if([workspace.currentLanguage isEqualToString:@"Spanish"]){
+            letterToAdd=[workspace.spanish objectAtIndex:i];
+        }else if([workspace.currentLanguage isEqualToString:@"Russian"]){
+            letterToAdd=[workspace.russian objectAtIndex:i];
+        } else if([workspace.currentLanguage isEqualToString:@"Latvian"]){
+            letterToAdd=[workspace.latvian objectAtIndex:i];
+        }
+        NSString *filePath=[[path stringByAppendingPathComponent:letterToAdd] stringByAppendingString:@".jpg"];
+        [self removeImage:filePath];
+    }
+    
+}
+- (void)removeImage:(NSString *)fileName{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+    NSError *error;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+        [fileManager removeItemAtPath:filePath error:&error];
+    }
 }
 -(void)deleteAlphabet{
     //delete from the arrays
@@ -226,6 +261,7 @@
 -(void)goToAlphabetView{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT
 //------------------------------------------------------------------------
