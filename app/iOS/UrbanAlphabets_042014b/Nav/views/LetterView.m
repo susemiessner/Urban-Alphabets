@@ -97,7 +97,7 @@
     [currentImage removeFromSuperview];
     currentLetter--;
     if (currentLetter<=0) {
-        currentLetter=[self.currentAlphabet count]-1;
+        currentLetter=(int)[self.currentAlphabet count]-1;
     }
     [self displayLetter:(int)currentLetter];
 }

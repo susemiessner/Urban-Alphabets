@@ -80,8 +80,8 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_NORMAL_FONT          [UIFont fontWithName:@"HelveticaNeue" size:17]
 
 //Icons
-#define UA_ICON_TAKE_PHOTO       [UIImage imageNamed:@"icon_TakePhoto"]
-#define UA_ICON_TAKE_PHOTO_BIG       [UIImage imageNamed:@"icon_TakePhotoBig"]
+#define UA_ICON_TAKE_PHOTO      [UIImage imageNamed:@"icon_TakePhoto"]
+#define UA_ICON_TAKE_PHOTO_BIG  [UIImage imageNamed:@"icon_TakePhotoBig"]
 #define UA_ICON_CLOSE           [UIImage imageNamed:@"icon_Close"]
 #define UA_ICON_BACK            [UIImage imageNamed:@"icon_back1"]
 #define UA_ICON_OK              [UIImage imageNamed:@"icon_OK"]
@@ -94,16 +94,16 @@ C4_EXTERN BOOL VERBOSELOAD;
 #define UA_ICON_MY_ALPHABETS    [UIImage imageNamed:@"icon_Alphabets"]
 #define UA_ICON_MENU            [UIImage imageNamed:@"icon_Menu"]
 #define UA_ICON_ALPHABET        [UIImage imageNamed:@"icon_Alphabet"]
-#define UA_ICON_ALPHABET_BIG        [UIImage imageNamed:@"icon_AlphabetBig"]
+#define UA_ICON_ALPHABET_BIG    [UIImage imageNamed:@"icon_AlphabetBig"]
 #define UA_ICON_CHECKED         [UIImage imageNamed:@"icon_checked"]
 #define UA_ICON_PHOTOLIBRARY    [UIImage imageNamed:@"icon_PhotoLibrary"]
-#define UA_ICON_TWITTER           [UIImage imageNamed:@"twitter"]
-#define UA_Icon_FB                  [UIImage imageNamed:@"fb"]
-#define UA_ICON_MAIL              [UIImage imageNamed:@"mail"]
-#define UA_BACK_BUTTON          [UIImage imageNamed:@"backButton"]
+#define UA_ICON_TWITTER         [UIImage imageNamed:@"twitter"]
+#define UA_Icon_FB              [UIImage imageNamed:@"fb"]
+#define UA_ICON_MAIL            [UIImage imageNamed:@"mail"]
+#define UA_BACK_BUTTON          [UIImage imageNamed:@"icon_Back"]
 #define UA_LETTER_EMPTY         [UIImage imageNamed:@"letter_empty"]
 #define UA_ICON_NEXT            [UIImage imageNamed:@"icon_Next"]
-#define UA_ICON_DELETE          [UIImage imageNamed:@"icon_Delete"]
+#define UA_ICON_DELETE          [UIImage imageNamed:@"icon_delete"]
 
 
 //---------------------------------------------------------------------

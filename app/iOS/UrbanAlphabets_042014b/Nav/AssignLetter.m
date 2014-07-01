@@ -184,8 +184,14 @@
     workspace=(C4WorkSpace*)obj;
     if ([workspace.userName isEqualToString:@"defaultUsername" ]) {
         //ask for new username
-        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
-        enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
+        if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 4
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
+            yPosUsername=-75;
+        } else {
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        }
         [self.view addSubview:enterUsername];
         //add text field
         CGRect textViewFrame = CGRectMake(60, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);

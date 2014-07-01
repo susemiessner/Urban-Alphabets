@@ -95,15 +95,15 @@
         
         //check which device
         if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
-            yPosIntro=-88;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"]/*,[UIImage imageNamed:@"intro_iphone53"]*/,[UIImage imageNamed:@"intro_iphone54"], nil];
+            yPosIntro=50;
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone4"],[UIImage imageNamed:@"intro_iphone42"],[UIImage imageNamed:@"intro_iphone44"], nil];
         } else{
             yPosIntro=0;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"]/*,[UIImage imageNamed:@"intro_iphone53"]*/,[UIImage imageNamed:@"intro_iphone54"], nil];
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"],[UIImage imageNamed:@"intro_iphone54"], nil];
         }
         introPicsViews=[[NSMutableArray alloc]init];
         for (int i=0; i<[introPics count]; i++) {
-            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
+            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, ([[UIScreen mainScreen] bounds].size.height)-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
             introView.image=[introPics objectAtIndex:i];
             [introPicsViews addObject:introView];
         }
@@ -421,8 +421,14 @@
 -(void)saveAlphabet{
     if ([self.userName isEqualToString:@"defaultUsername" ]) {
         //ask for new username
-        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
-        enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
+        if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 4
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
+            yPosUsername=-75;
+        } else {
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        }
         [self.view addSubview:enterUsername];
         //add text field
         CGRect textViewFrame = CGRectMake(60, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
@@ -604,7 +610,7 @@
         }
         if ([self.currentLanguage isEqualToString:@"English/Portugese"]) {
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
-            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_dollar.png"] atIndex:27];
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
         }
         if ([self.currentLanguage isEqualToString:@"Spanish"]) {
@@ -729,7 +735,7 @@
     self.english=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"+", @"$", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.spanish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"spanishN", @"+", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.russian=[NSArray arrayWithObjects:@"A", @"RusB", @"B", @"RusG", @"RusD", @"E", @"RusJo", @"RusSche", @"RusSe", @"RusI", @"RusIkratkoje", @"K", @"RusL", @"M", @"RusN", @"O", @"RusP", @"P", @"C", @"T", @"Y", @"RusF", @"X", @"RusZ", @"RusTsche", @"RusScha", @"RusTschescha", @"RusMjachkiSnak", @"RusUi", @"RusE", @"RusJu", @"RusJa", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9",nil];
-    self.latvian=[NSArray arrayWithObjects:@"A",@"LatvA",@"B", @"C", @"LatvC",@"D", @"E", @"LatvE", @"F", @"G", @"LatvG",@"H", @"I", @"LatvI", @"J", @"K", @"LatvK", @"L", @"LatvL", @"M", @"N", @"LatvN", @"O", @"P", @"R", @"S", @"LatvS", @"T", @"U", @"LatvU", @"V", @"Z", @"LatvZ", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.latvian=[NSArray arrayWithObjects:@"A",@"LatvA",@"B", @"C", @"LatvC",@"D", @"E", @"LatvE", @"F", @"G", @"LatvG",@"H", @"I", @"LatvI", @"J", @"K", @"LatvK", @"L", @"LatvL", @"M", @"N", @"LatvN", @"O", @"P", @"R", @"S", @"LatvSs", @"T", @"U", @"LatvU", @"V", @"Z", @"LatvZ", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
 }
 //--------------------------------------------------
 //save alphabet when app becomes inactive
@@ -765,13 +771,13 @@
         self.currentLanguage=loadedLanguage;
     }
     NSMutableArray *alphabets=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabets"];
-    if (alphabets) {
+    if ([alphabets count]>0) {
         self.myAlphabets=[alphabets mutableCopy];
     }  else{
         [self.myAlphabets addObject:self.alphabetName];
     }
     NSMutableArray *AlphabetsLanguages=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabetsLanguages"];
-    if (AlphabetsLanguages) {
+    if ([AlphabetsLanguages count]>0) {
         self.myAlphabetsLanguages=[AlphabetsLanguages mutableCopy];
     }else{
         [self.myAlphabetsLanguages addObject:self.currentLanguage];

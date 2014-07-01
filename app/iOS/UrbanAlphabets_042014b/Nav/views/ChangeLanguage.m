@@ -175,18 +175,17 @@
         UIImage *img = [UIImage imageWithData:imageData];
         
         loadedImage=[[UIImageView alloc]initWithImage:img];
-    }
-    else{
+    }else{
         if ([letterToAdd isEqualToString:@"?"]) {
             letterToAdd=@"-";
         }else if([letterToAdd isEqualToString:@"."]){
             letterToAdd=@"";
+        }else if([letterToAdd isEqualToString:@"$"]){
+            letterToAdd=@"dollar";
         }
         NSString *filepath=@"letter_";
         filepath=[filepath stringByAppendingString:letterToAdd];
-        filepath=[filepath stringByAppendingString:@".png"];
         loadedImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:filepath]];
-        
     }
 }
 -(void)updateLanguage{
