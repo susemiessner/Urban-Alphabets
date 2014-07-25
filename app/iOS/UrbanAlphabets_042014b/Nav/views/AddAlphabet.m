@@ -186,8 +186,7 @@
     workspace.oldLanguage=@"Finnish/Swedish";
     //set it to the right language
     [workspace loadDefaultAlphabet];
-    //[self updateLanguage];
-    
+   
     
     [self.navigationController popToRootViewControllerAnimated:NO];
     
@@ -196,6 +195,8 @@
         [workspace.myAlphabets removeObjectAtIndex:0];
         [workspace.myAlphabetsLanguages removeObjectAtIndex:0];
     }
+    [workspace writeAlphabetsUserDefaults];
+
 }
 -(void)checkIfLetterExistsInDocumentsDirectory:(int)number{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

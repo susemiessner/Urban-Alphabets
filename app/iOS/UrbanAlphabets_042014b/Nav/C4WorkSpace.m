@@ -73,7 +73,6 @@
     self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
     self.defaultLanguage=@"Finnish/Swedish";
     self.userName=@"defaultUsername";
-    [self writeAlphabetsUserDefaults];
 
     
     //to see when app becomes active/inactive
@@ -651,7 +650,7 @@
                                      
                                      [UIImage imageNamed:@"letter_R.png"],
                                      [UIImage imageNamed:@"letter_S.png"],
-                                     [UIImage imageNamed:@"letter_LatvS.png"],
+                                     [UIImage imageNamed:@"letter_LatvSs.png"],
                                      [UIImage imageNamed:@"letter_T.png"],
                                      [UIImage imageNamed:@"letter_U.png"],
                                      [UIImage imageNamed:@"letter_LatvU.png"],
@@ -754,8 +753,7 @@
     [alphabetName synchronize];
 }
 -(void)appWillBecomeActive:(NSNotification*)note{
-    NSString *loadedName;
-    loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
+    NSString *loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
     if (!loadedName) {
         self.alphabetName=@"Untitled";
         //set default alphabet name as first user default
@@ -770,18 +768,21 @@
     if (loadedLanguage) {
         self.currentLanguage=loadedLanguage;
     }
+    
     NSMutableArray *alphabets=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabets"];
     if ([alphabets count]>0) {
         self.myAlphabets=[alphabets mutableCopy];
     }  else{
         [self.myAlphabets addObject:self.alphabetName];
     }
+    
     NSMutableArray *AlphabetsLanguages=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabetsLanguages"];
     if ([AlphabetsLanguages count]>0) {
         self.myAlphabetsLanguages=[AlphabetsLanguages mutableCopy];
     }else{
         [self.myAlphabetsLanguages addObject:self.currentLanguage];
     }
+    
     NSString *loadedDefaultLanguage=[[NSUserDefaults standardUserDefaults]objectForKey:@"defaultLanguage"];
     if (loadedDefaultLanguage) {
         self.defaultLanguage=loadedDefaultLanguage;
