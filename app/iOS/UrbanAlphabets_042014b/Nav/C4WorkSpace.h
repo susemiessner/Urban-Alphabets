@@ -24,6 +24,7 @@
 @property (readwrite) NSString *userName;
 @property (readwrite) NSMutableArray *myAlphabets;
 @property (readwrite) NSMutableArray *myAlphabetsLanguages;
+@property (readwrite) NSString *defaultLanguage;
 
 //languages
 @property (readwrite)NSArray *finnish;
@@ -38,6 +39,7 @@
 -(void)loadDefaultAlphabet;
 -(NSString *)documentsDirectory;
 -(void)writeAlphabetsUserDefaults;
+-(void)saveUsernameToUserDefaults;
 -(void)loadCorrectAlphabet;
 -(void)goToMyAlphabets;
 

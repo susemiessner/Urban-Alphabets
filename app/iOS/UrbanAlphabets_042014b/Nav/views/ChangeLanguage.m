@@ -46,18 +46,22 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    languages=[NSArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish", @"Latvian",nil];
     shapesForBackground=[[NSMutableArray alloc]init];
     languageLabels=[[NSMutableArray alloc]init];
     
     //bottomNavbar WITH 1 ICONS
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
-    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45)];
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 80, 40)];
     [self.view addSubview:self.bottomNavBar];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"changeLanguage"];
     UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeLanguage)];
     okButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
+}
+-(void)grabLanguagesViaNavigationController{
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    workspace=(C4WorkSpace*)obj;
+    languages=workspace.languages;
+    
     //content
     int selectedLanguage=20;
     int heightLabel=46;
@@ -171,18 +175,17 @@
         UIImage *img = [UIImage imageWithData:imageData];
         
         loadedImage=[[UIImageView alloc]initWithImage:img];
-    }
-    else{
+    }else{
         if ([letterToAdd isEqualToString:@"?"]) {
             letterToAdd=@"-";
         }else if([letterToAdd isEqualToString:@"."]){
             letterToAdd=@"";
+        }else if([letterToAdd isEqualToString:@"$"]){
+            letterToAdd=@"dollar";
         }
         NSString *filepath=@"letter_";
         filepath=[filepath stringByAppendingString:letterToAdd];
-        filepath=[filepath stringByAppendingString:@".png"];
         loadedImage=[[UIImageView alloc]initWithImage:[UIImage imageNamed:filepath]];
-        
     }
 }
 -(void)updateLanguage{

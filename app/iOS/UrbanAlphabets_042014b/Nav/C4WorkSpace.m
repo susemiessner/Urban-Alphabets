@@ -16,6 +16,7 @@
 #import "MyAlphabets.h"
 #import "AlphabetInfo.h"
 #import "TakePhotoViewController.h"
+#import "Settings.h"
 
 @implementation C4WorkSpace {
     AlphabetInfo *alphabetInfo;
@@ -26,6 +27,7 @@
     ShareAlphabet *shareAlphabet;
     MyAlphabets *myAlphabetsView;
     TakePhotoViewController *takePhoto;
+    Settings *settingsView;
 
     //saving image
     CGContextRef graphicsContext;
@@ -34,7 +36,6 @@
     //for intro
     NSMutableArray *introPics;
     NSMutableArray *introPicsViews;
-    UITextView *userNameField;
     int currentNoInIntro;
     UIImage *nextButton;
     UIImageView *nextButtonView;
@@ -56,6 +57,11 @@
     CLLocationManager *locationManager;
     CLLocation *currentLocation;
     
+    //enter username
+    UIImageView *enterUsername;
+    UITextView *userNameField;
+    float yPosUsername;
+    
 }
 
 -(void)setup {
@@ -65,29 +71,38 @@
     self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
     self.alphabetName=@"Untitled";
     self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
+    self.defaultLanguage=@"Finnish/Swedish";
+    self.userName=@"defaultUsername";
+
     
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    
 }
 -(void)viewDidAppear:(BOOL)animated{
     self.title=self.alphabetName;
-    self.userName=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    NSString *username=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    if (username) {
+        self.userName=username;
+    }
     //when app is opened first time
-    if (self.userName==nil) {
+    NSString *openedBefore=[[NSUserDefaults standardUserDefaults]objectForKey:@"openedBefore"];
+    if (!(openedBefore)) {
         self.title=@"Intro";
         
         //check which device
         if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
-            yPosIntro=-88;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro__1_iphone4"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro__4_iphone4"],[UIImage imageNamed:@"intro_5"], nil];
+            yPosIntro=50;
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone4"],[UIImage imageNamed:@"intro_iphone42"],[UIImage imageNamed:@"intro_iphone44"], nil];
         } else{
             yPosIntro=0;
-            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_1_1.png"],[UIImage imageNamed:@"intro_3"],[UIImage imageNamed:@"intro_4"],[UIImage imageNamed:@"intro_5"], nil];
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"],[UIImage imageNamed:@"intro_iphone54"], nil];
         }
         introPicsViews=[[NSMutableArray alloc]init];
         for (int i=0; i<[introPics count]; i++) {
-            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.width*1.57744)];
+            UIImageView *introView=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, ([[UIScreen mainScreen] bounds].size.height)-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
             introView.image=[introPics objectAtIndex:i];
             [introPicsViews addObject:introView];
         }
@@ -101,7 +116,6 @@
         nextButtonView.image=nextButton;
         [self.view addSubview:nextButtonView];
         nextButtonView.userInteractionEnabled=YES;
-        //[self listenFor:@"touchesBegan" fromObject:nextButtonView andRunMethod:@"nextIntroPic"];
         UITapGestureRecognizer *nextButtonTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextIntroPic)];
         nextButtonTap.numberOfTapsRequired = 1;
         [nextButtonView addGestureRecognizer:nextButtonTap];
@@ -123,33 +137,18 @@
     currentNoInIntro++;
     if (currentNoInIntro<[introPics count]) {
         //add next
-        
         [self.view addSubview:[introPicsViews objectAtIndex:currentNoInIntro]];
-        
         if (currentNoInIntro==1) {
-            
-            CGRect labelFrame = CGRectMake( 25, [[UIScreen mainScreen] bounds].size.height-150, 300, 30 );
+            /*CGRect labelFrame = CGRectMake( 25, [[UIScreen mainScreen] bounds].size.height-150, 300, 30 );
             
             webadress=[[UILabel alloc] initWithFrame:labelFrame];
             [webadress setText:@"www.ualphabets.com"];
             [webadress setTextColor:UA_GREY_TYPE_COLOR];
             // webadress.origin=CGPointMake(25, [[UIScreen mainScreen] bounds].size.height-150);
-            [self.view addSubview:webadress];
+            [self.view addSubview:webadress];*/
             
         }
-        if (currentNoInIntro==2) {
-            //add text field
-            CGRect textViewFrame = CGRectMake(20, 200+yPosIntro, [[UIScreen mainScreen] bounds].size.width-2*20, 25.0f);
-            userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
-            userNameField.returnKeyType = UIReturnKeyDone;
-            userNameField.layer.borderWidth=1.0f;
-            userNameField.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
-            [userNameField becomeFirstResponder];
-            userNameField.delegate = self;
-            [self.view addSubview:userNameField];
-        }
         [self.view addSubview:nextButtonView];
-        //[self listenFor:@"touchesBegan" fromObject:nextButtonView andRunMethod:@"nextIntroPic"];
     } else{
         self.title=self.alphabetName;
         NSString *folderName=@"Urban Alphabets";
@@ -162,10 +161,28 @@
         {
         }];
         [self alphabetSetup];
+        
+        NSUserDefaults *openedBefore=[NSUserDefaults standardUserDefaults];
+        [openedBefore setValue:@"yes" forKey:@"openedBefore"];
+        
     }
     
 }
 -(void)alphabetSetup{
+    //remove everything displayed first
+    NSArray *viewsToRemove = [self.view subviews];
+    for (UIView *v in viewsToRemove) {
+        [v removeFromSuperview];
+    }
+    //white background
+    UIView *background=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    [background setBackgroundColor:UA_WHITE_COLOR];
+    
+    background.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+    background.layer.borderWidth=1.0f;
+    background.userInteractionEnabled=NO;
+    [self.view addSubview:background];
+    
     //bottomNavbar WITH 2 ICONS
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45)];
@@ -175,14 +192,11 @@
     UITapGestureRecognizer *photoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToTakePhoto)];
     photoButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.leftImageView addGestureRecognizer:photoButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     
     //make it touchable
     UITapGestureRecognizer *menuButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMenu)];
     menuButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
-    
     
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
@@ -229,7 +243,6 @@
         UITapGestureRecognizer *letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedLetter:)];
         letterTapRecognizer.numberOfTapsRequired = 1;
         [greyRect addGestureRecognizer:letterTapRecognizer];
-        //[self listenFor:@"touchesBegan" fromObject:greyRect andRunMethod:@"tappedLetter:"];
     }
 }
 //------------------------------------------------------------------------
@@ -279,7 +292,6 @@
     shareAlphabetIconRecognizer.numberOfTapsRequired = 1;
     [self.menu.shareAlphabetIcon addGestureRecognizer:shareAlphabetIconRecognizer];
     
-    
     //my alphabets
     UITapGestureRecognizer *myAlphabetsShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
     myAlphabetsShapeRecognizer.numberOfTapsRequired = 1;
@@ -290,6 +302,17 @@
     UITapGestureRecognizer *myAlphabetsIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMyAlphabets)];
     myAlphabetsIconRecognizer.numberOfTapsRequired = 1;
     [self.menu.myAlphabetsIcon addGestureRecognizer:myAlphabetsIconRecognizer];
+    
+    //settings
+    UITapGestureRecognizer *settingsShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSettings)];
+    settingsShapeRecognizer.numberOfTapsRequired = 1;
+    [self.menu.settingsShape addGestureRecognizer:settingsShapeRecognizer];
+    UITapGestureRecognizer *settingsLabelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSettings)];
+    settingsLabelRecognizer.numberOfTapsRequired = 1;
+    [self.menu.settingsLabel addGestureRecognizer:settingsLabelRecognizer];
+    UITapGestureRecognizer *settingsIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSettings)];
+    settingsIconRecognizer.numberOfTapsRequired = 1;
+    [self.menu.settingsIcon addGestureRecognizer:myAlphabetsIconRecognizer];
     
     //saveAlphabet
     UITapGestureRecognizer *saveAlphabetShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSaveAlphabet)];
@@ -383,16 +406,51 @@
     [self.navigationController pushViewController:myAlphabetsView animated:NO];
     [myAlphabetsView grabCurrentLanguageViaNavigationController];
 }
+-(void)goToSettings{
+    [self closeMenu];
+    settingsView=[[Settings alloc]initWithNibName:@"Settings" bundle:[NSBundle mainBundle]];
+    [settingsView setup];
+    [self.navigationController pushViewController:settingsView animated:NO];
+    [settingsView grabCurrentUsernameViaNavigationController];
+}
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 -(void)saveAlphabet{
-    [self exportHighResImage];
+    if ([self.userName isEqualToString:@"defaultUsername" ]) {
+        //ask for new username
+        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
+        if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 4
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
+            yPosUsername=-75;
+        } else {
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        }
+        [self.view addSubview:enterUsername];
+        //add text field
+        CGRect textViewFrame = CGRectMake(60, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
+        userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
+        userNameField.returnKeyType = UIReturnKeyDone;
+        userNameField.layer.borderWidth=1.0f;
+        userNameField.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
+        userNameField.backgroundColor=UA_NAV_CTRL_COLOR;
+        [userNameField becomeFirstResponder];
+        userNameField.delegate = self;
+        [self.view addSubview:userNameField];
+    } else{
+        [self exportHighResImage];
+
+    }
 }
 -(void)saveCurrentAlphabetAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, [[UIScreen mainScreen] bounds].size.width * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+    }
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
 }
@@ -408,7 +466,6 @@
     
     return image;
 }
-
 -(void)exportHighResImage {
     NSString *fileName = [NSString stringWithFormat:@"exportedAlphabet%@.jpg", [NSDate date]];
     [self saveImage:fileName];
@@ -475,27 +532,11 @@
                                }];
 
 }
-//-----------------------------------------------------------
--(void)saveUserName{
-    if ([userNameField.text isEqualToString: @""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
-                                                        message:@"Your username cannot be empty."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else{
-        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-        self.userName=userNameField.text;
-        [defaults setValue:self.userName forKey:@"userName"];
-        [defaults synchronize];
-        //and remove the username stuff
-        [userNameField removeFromSuperview];
-        [self nextIntroPic];
-        
-    }
-    
-    
+
+-(void)saveUsernameToUserDefaults{
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    [defaults setValue:self.userName forKey:@"userName"];
+    [defaults synchronize];
 }
 //--------------------------------------------------
 //load default alphabet
@@ -568,7 +609,7 @@
         }
         if ([self.currentLanguage isEqualToString:@"English/Portugese"]) {
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_+.png"] atIndex:26];
-            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_$.png"] atIndex:27];
+            [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_dollar.png"] atIndex:27];
             [self.currentAlphabetUIImage insertObject:[UIImage imageNamed:@"letter_,.png"] atIndex:28];
         }
         if ([self.currentLanguage isEqualToString:@"Spanish"]) {
@@ -609,7 +650,7 @@
                                      
                                      [UIImage imageNamed:@"letter_R.png"],
                                      [UIImage imageNamed:@"letter_S.png"],
-                                     [UIImage imageNamed:@"letter_LatvS.png"],
+                                     [UIImage imageNamed:@"letter_LatvSs.png"],
                                      [UIImage imageNamed:@"letter_T.png"],
                                      [UIImage imageNamed:@"letter_U.png"],
                                      [UIImage imageNamed:@"letter_LatvU.png"],
@@ -693,7 +734,7 @@
     self.english=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"+", @"$", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.spanish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"spanishN", @"+", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.russian=[NSArray arrayWithObjects:@"A", @"RusB", @"B", @"RusG", @"RusD", @"E", @"RusJo", @"RusSche", @"RusSe", @"RusI", @"RusIkratkoje", @"K", @"RusL", @"M", @"RusN", @"O", @"RusP", @"P", @"C", @"T", @"Y", @"RusF", @"X", @"RusZ", @"RusTsche", @"RusScha", @"RusTschescha", @"RusMjachkiSnak", @"RusUi", @"RusE", @"RusJu", @"RusJa", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9",nil];
-    self.latvian=[NSArray arrayWithObjects:@"A",@"LatvA",@"B", @"C", @"LatvC",@"D", @"E", @"LatvE", @"F", @"G", @"LatvG",@"H", @"I", @"LatvI", @"J", @"K", @"LatvK", @"L", @"LatvL", @"M", @"N", @"LatvN", @"O", @"P", @"R", @"S", @"LatvS", @"T", @"U", @"LatvU", @"V", @"Z", @"LatvZ", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.latvian=[NSArray arrayWithObjects:@"A",@"LatvA",@"B", @"C", @"LatvC",@"D", @"E", @"LatvE", @"F", @"G", @"LatvG",@"H", @"I", @"LatvI", @"J", @"K", @"LatvK", @"L", @"LatvL", @"M", @"N", @"LatvN", @"O", @"P", @"R", @"S", @"LatvSs", @"T", @"U", @"LatvU", @"V", @"Z", @"LatvZ", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
 }
 //--------------------------------------------------
 //save alphabet when app becomes inactive
@@ -708,15 +749,13 @@
     [alphabetName setValue:self.currentLanguage forKey:@"language"];
     [alphabetName setValue:self.myAlphabets forKey:@"myAlphabets"];
     [alphabetName setValue:self.myAlphabetsLanguages forKey:@"myAlphabetsLanguages"];
+    [alphabetName setValue:self.defaultLanguage forKeyPath:@"defaultLanguage"];
     [alphabetName synchronize];
 }
 -(void)appWillBecomeActive:(NSNotification*)note{
-    NSString *loadedName;
-    loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
+    NSString *loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
     if (!loadedName) {
         self.alphabetName=@"Untitled";
-        //[self.myAlphabets addObject:self.alphabetName];
-        //[self.myAlphabetsLanguages addObject:self.currentLanguage];
         //set default alphabet name as first user default
         NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
         [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];
@@ -729,18 +768,26 @@
     if (loadedLanguage) {
         self.currentLanguage=loadedLanguage;
     }
+    
     NSMutableArray *alphabets=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabets"];
-    if (alphabets) {
+    if ([alphabets count]>0) {
         self.myAlphabets=[alphabets mutableCopy];
     }  else{
         [self.myAlphabets addObject:self.alphabetName];
     }
+    
     NSMutableArray *AlphabetsLanguages=[[NSUserDefaults standardUserDefaults]objectForKey:@"myAlphabetsLanguages"];
-    if (AlphabetsLanguages) {
+    if ([AlphabetsLanguages count]>0) {
         self.myAlphabetsLanguages=[AlphabetsLanguages mutableCopy];
     }else{
         [self.myAlphabetsLanguages addObject:self.currentLanguage];
     }
+    
+    NSString *loadedDefaultLanguage=[[NSUserDefaults standardUserDefaults]objectForKey:@"defaultLanguage"];
+    if (loadedDefaultLanguage) {
+        self.defaultLanguage=loadedDefaultLanguage;
+    }
+    
     [self loadCorrectAlphabet];
 }
 -(void)loadCorrectAlphabet{
@@ -802,6 +849,24 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     [self saveUserName];
+}
+//-----------------------------------------------------------
+-(void)saveUserName{
+    if ([userNameField.text isEqualToString: @""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
+                                                        message:@"Your username cannot be empty."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else{
+        workspace.userName=userNameField.text;
+        [workspace saveUsernameToUserDefaults];
+        //and remove the username stuff
+        [userNameField removeFromSuperview];
+        [enterUsername removeFromSuperview];
+        [self exportHighResImage];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

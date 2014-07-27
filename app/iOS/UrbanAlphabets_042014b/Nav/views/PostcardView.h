@@ -9,7 +9,7 @@
 #import "C4CanvasController.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface PostcardView : UIViewController<CLLocationManagerDelegate>
+@interface PostcardView : UIViewController<CLLocationManagerDelegate, UITextViewDelegate>
 @property (readwrite, strong) UIImage *currentPostcardImage;
 @property (readwrite, strong) UIImage *currentPostcardImageAsUIImage;
 @property (readwrite)NSString *previousView;

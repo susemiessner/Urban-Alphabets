@@ -27,7 +27,6 @@
     UIImage *loadedImage;
     float firstShapeY;
     float alphabetFrameSize;
-    
 }
 @end
 

@@ -28,6 +28,7 @@
     float imageHeight;
     float alphabetFromLeft;
     
+    UIScrollView *scrollViewSuse;
 }
 @property (readwrite) NSString *currentLanguage;
 @property (readwrite) int maxPostcardLength;
@@ -38,12 +39,16 @@
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;
-    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
-        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+    //    if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
     }
+    
+    //scroll up in the scrollview
+    CGPoint bottomOffset = CGPointMake(0, 0);
+    [scrollViewSuse setContentOffset:bottomOffset animated:YES];
     
     [textViewTest becomeFirstResponder];
     //draw the current postcard text
@@ -56,7 +61,7 @@
         UIImageView *image=[self.postcardArray objectAtIndex:i];
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         imageView.image=image.image;
-        [self.view addSubview:imageView];
+        [scrollViewSuse addSubview:imageView];
         [self.postcardViewArray addObject:imageView];
         
         UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
@@ -64,7 +69,7 @@
         greyRect.layer.borderWidth=1.0f;
         greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         [self.greyRectArray addObject:greyRect];
-        [self.view addSubview:greyRect];
+        [scrollViewSuse addSubview:greyRect];
     }
 }
 -(void)clearPostcard{
@@ -89,23 +94,25 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    //close button
-    frame = CGRectMake(0, 0, 22.5, 22.5);
-    UIButton *closeButton = [[UIButton alloc] initWithFrame:frame];
-    [closeButton setBackgroundImage:UA_ICON_CLOSE_UI forState:UIControlStateNormal];
-    [closeButton addTarget:self action:@selector(closeView)
-          forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setShowsTouchWhenHighlighted:YES];
+
+    self.maxPostcardLength=42;
     
-    UIBarButtonItem *rightButton =[[UIBarButtonItem alloc] initWithCustomView:closeButton];
-    self.navigationItem.rightBarButtonItem=rightButton;
-    self.maxPostcardLength=24;
     //initiate postcard arrays
     self.postcardArray=[[NSMutableArray alloc]init];
     self.greyRectArray=[[NSMutableArray alloc]init];
     self.postcardViewArray=[[NSMutableArray alloc]init];
     self.currentLanguage=[passedLanguage copy];
     self.currentAlphabet=[passedAlphabet copy];
+    
+    //make view scrollable
+    scrollViewSuse=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-216-30)];
+    scrollViewSuse.scrollsToTop = NO;
+    scrollViewSuse.bounces=NO;
+    scrollViewSuse.pagingEnabled = NO;
+    scrollViewSuse.delegate=self;
+    [self.view addSubview: scrollViewSuse];
+    scrollViewSuse.contentSize=CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-111);
+    
     
     //add text field
     CGRect textViewFrame = CGRectMake(20.0f, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+10, [[UIScreen mainScreen] bounds].size.width-40, 124.0f);
@@ -114,53 +121,108 @@
     [textViewTest becomeFirstResponder];
     textViewTest.delegate = self;
     textViewTest.hidden=true;
+    textViewTest.userInteractionEnabled=NO;
+    textViewTest.scrollEnabled=NO;
     [self.view addSubview:textViewTest];
     
     [self setupKeyboardBar];
+    
+    [textViewTest setInputAccessoryView:countingLabel];
+
 }
 
 //------------------------------------------------------------------------
-//bar with character count + done button on top of the keyboard
+//bar with character count
 //------------------------------------------------------------------------
 -(void)setupKeyboardBar{
     int barHeight=30;
-    keyboardBarBackground=[[UIView alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-216-barHeight, [[UIScreen mainScreen] bounds].size.width, barHeight)];
-    [keyboardBarBackground setBackgroundColor:UA_NAV_BAR_COLOR];
-    [self.view addSubview: keyboardBarBackground];
-    
-    
-    NSString *text=[NSString stringWithFormat:@"0/%i", self.maxPostcardLength];
-    countingLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, keyboardBarBackground.frame.origin.y+5, 50, 15) ];
+   
+    NSString *text=[NSString stringWithFormat:@"   0/%i", self.maxPostcardLength];
+    countingLabel=[[UILabel alloc]initWithFrame:CGRectMake(100, [[UIScreen mainScreen] bounds].size.height-216-barHeight+5, 50, barHeight) ];
     [countingLabel setText:text];
     [countingLabel setFont:UA_NORMAL_FONT];
     [countingLabel setTextColor:UA_TYPE_COLOR];
-    [self.view addSubview:countingLabel];
+    [countingLabel setBackgroundColor:UA_NAV_BAR_COLOR];
+
+    
 }
 -(void)updateCharacterNumber{
-    countingLabel.text=[NSString stringWithFormat:@"%lu/%i", (unsigned long)[self.postcardArray count], self.maxPostcardLength];
-    [countingLabel sizeToFit];
+    countingLabel.text=[NSString stringWithFormat:@"   %lu/%i", (unsigned long)[self.postcardArray count], self.maxPostcardLength];
 }
 
 //------------------------------------------------------------------------
-//DISPLAY POSTCARD
+#pragma mark DISPLAY POSTCARD
 //------------------------------------------------------------------------
 -(void)displayPostcard{
     if([self.postcardArray count]<self.maxPostcardLength){
         [self addLetterToPostcard];
     }
+    //delete letter
+    if([newCharacter isEqual: @""] && [self.postcardArray count]>1){//remove last letter if delete button is pressed
+        UIImageView *image=[self.postcardViewArray objectAtIndex:[self.postcardViewArray count]-1];
+        [image removeFromSuperview];
+        [self.postcardArray removeLastObject];
+        [self.postcardViewArray removeLastObject];
+        UIView *greyRectRemove=[self.greyRectArray objectAtIndex:[self.greyRectArray count]-1 ];
+        [greyRectRemove removeFromSuperview];
+        [self.greyRectArray removeObjectAtIndex:[self.greyRectArray count]-1];
+    }else if([newCharacter isEqual: @""] && [self.postcardArray count]==1){//remove last letter if delete button is pressed and only 1 character exists
+        UIImageView *image=[self.postcardViewArray objectAtIndex:0];
+        [image removeFromSuperview];
+        [self.postcardArray removeAllObjects];
+        [self.postcardViewArray removeAllObjects];
+        UIView *greyRectRemove=[self.greyRectArray objectAtIndex:[self.greyRectArray count]-1 ];
+        [greyRectRemove removeFromSuperview];
+        [self.greyRectArray removeObjectAtIndex:[self.greyRectArray count]-1];
+    }
+
     
     if (![newCharacter  isEqual:@""]) { //if something was added
         //draw only the last letter
         NSInteger lastLetter=[self.postcardArray count]-1;
         float xMultiplier=(lastLetter)%6;
         float yMultiplier= (lastLetter)/6;
+        //scroll to right location
+        if ([[UIScreen mainScreen] bounds].size.height==UA_IPHONE_5_HEIGHT) {
+            if(yMultiplier==4 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==5 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*2);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==6 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*3);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+
+        } else if([[UIScreen mainScreen] bounds].size.height==UA_IPHONE_4_HEIGHT){
+            if(yMultiplier==3 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==4 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*2);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==5 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*3);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==5 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*4);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+        }
+        
         float xPos=xMultiplier*imageWidth+alphabetFromLeft;
-        float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
+        float yPos=yMultiplier*imageHeight;
         
         UIImageView *image=[self.postcardArray objectAtIndex:lastLetter];
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         imageView.image=image.image;
-        [self.view addSubview:imageView];
+        [scrollViewSuse addSubview:imageView];
         [self.postcardViewArray addObject:imageView];
         
         UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
@@ -168,10 +230,18 @@
         greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         greyRect.layer.borderWidth=1.0f;
         [self.greyRectArray addObject:greyRect];
-        [self.view addSubview:greyRect];
+        [scrollViewSuse addSubview:greyRect];
+        
+        
+        
     }
 }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+   // NSLog(@"offset: %f, %f",scrollViewSuse.contentOffset.x, scrollViewSuse.contentOffset.y);
+}
+
 -(void)addLetterToPostcard{
+    //letters
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
         if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {
             UIImageView *image=[self.currentAlphabet objectAtIndex: 0];
@@ -403,7 +473,111 @@
             [self.postcardArray addObject: image];
         }
     }
-    if ([newCharacter isEqual: @"0"]){
+    if ([self.currentLanguage isEqualToString:@"Latvian"]) {
+        if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 0];
+            [self.postcardArray addObject: image];
+        } else if ([newCharacter isEqual: @"ā"]||[newCharacter isEqual: @"Ā"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 1];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"b"]||[newCharacter isEqual: @"B"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 2];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"c"]||[newCharacter isEqual: @"C"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 3];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"č"]||[newCharacter isEqual: @"Č"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 4];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"d"]||[newCharacter isEqual: @"D"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 5];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"e"]||[newCharacter isEqual: @"E"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 6];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ē"]||[newCharacter isEqual: @"Ē"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 7];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"f"]||[newCharacter isEqual: @"F"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 8];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"g"]||[newCharacter isEqual: @"G"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 9];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ģ"]||[newCharacter isEqual: @"Ģ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 10];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"h"]||[newCharacter isEqual: @"H"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 11];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"i"]||[newCharacter isEqual: @"I"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 12];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ī"]||[newCharacter isEqual: @"Ī"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 13];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"j"]||[newCharacter isEqual: @"j"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 14];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"k"]||[newCharacter isEqual: @"k"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 15];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ķ"]||[newCharacter isEqual: @"Ķ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 16];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"l"]||[newCharacter isEqual: @"L"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 17];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ļ"]||[newCharacter isEqual: @"Ļ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 18];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"m"]||[newCharacter isEqual: @"M"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 19];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"n"]||[newCharacter isEqual: @"N"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 20];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ņ"]||[newCharacter isEqual: @"Ņ"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 21];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"o"]||[newCharacter isEqual: @"O"]||[newCharacter isEqual: @"0"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 22];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"p"]||[newCharacter isEqual: @"P"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 23];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"r"]||[newCharacter isEqual: @"R"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 24];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"s"]||[newCharacter isEqual: @"S"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 25];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"š"]||[newCharacter isEqual: @"Š"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 26];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"t"]||[newCharacter isEqual: @"T"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 27];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"u"]||[newCharacter isEqual: @"U"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 28];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ū"]||[newCharacter isEqual: @"Ū"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 29];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"v"]||[newCharacter isEqual: @"V"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 30];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"z"]||[newCharacter isEqual: @"Z"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 31];
+            [self.postcardArray addObject: image];
+        }else if ([newCharacter isEqual: @"ž"]||[newCharacter isEqual: @"Ž"]){
+            UIImageView *image=[self.currentAlphabet objectAtIndex: 32];
+            [self.postcardArray addObject: image];
+        }
+    }
+
+    //numbers
+    if ([newCharacter isEqual: @"0"] &&(![self.currentLanguage isEqualToString: @"Latvian"])){
         UIImageView *image=[self.currentAlphabet objectAtIndex: 32];
         [self.postcardArray addObject: image];
     }else if ([newCharacter isEqual: @"1"]){
@@ -436,24 +610,7 @@
     }else if ([newCharacter isEqual: @" "]){ //space is displaying an empty letter
         UIImageView *image=[[UIImageView alloc]initWithImage:UA_LETTER_EMPTY];
         [self.postcardArray addObject: image];
-    } else if([newCharacter isEqual: @""] && [self.postcardArray count]>1){//remove last letter if delete button is pressed
-        UIImageView *image=[self.postcardViewArray objectAtIndex:[self.postcardViewArray count]-1];
-        [image removeFromSuperview];
-        [self.postcardArray removeLastObject];
-        [self.postcardViewArray removeLastObject];
-        UIView *greyRectRemove=[self.greyRectArray objectAtIndex:[self.greyRectArray count]-1 ];
-        [greyRectRemove removeFromSuperview];
-        [self.greyRectArray removeObjectAtIndex:[self.greyRectArray count]-1];
-    }else if([newCharacter isEqual: @""] && [self.postcardArray count]==1){//remove last letter if delete button is pressed and only 1 character exists
-        UIImageView *image=[self.postcardViewArray objectAtIndex:0];
-        [image removeFromSuperview];
-        [self.postcardArray removeAllObjects];
-        [self.postcardViewArray removeAllObjects];
-        UIView *greyRectRemove=[self.greyRectArray objectAtIndex:[self.greyRectArray count]-1 ];
-        [greyRectRemove removeFromSuperview];
-        [self.greyRectArray removeObjectAtIndex:[self.greyRectArray count]-1];
     }
-    
 }
 //--------------------------------------------------
 //NAVIGATION
@@ -461,9 +618,7 @@
 -(void)goBack{
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
--(void)closeView{
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
+
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT
 //------------------------------------------------------------------------
@@ -484,7 +639,7 @@
     NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
     NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
     NSUInteger location = replacementTextRange.location;
-    if (textView.text.length + text.length > self.maxPostcardLength){//140 characters are in the textView
+    if (textView.text.length + text.length > self.maxPostcardLength){//42 characters are in the textView
         if (location != NSNotFound){ //Did not find any newline characters
             [textView resignFirstResponder];
         }

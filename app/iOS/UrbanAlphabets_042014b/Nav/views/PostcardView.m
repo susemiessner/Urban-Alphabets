@@ -13,6 +13,7 @@
 #import "SharePostcard.h"
 #import "C4WorkSpace.h"
 #import "MyAlphabets.h"
+#import "TakePhotoViewController.h"
 
 @interface PostcardView (){
     SaveToDatabase *save;
@@ -20,6 +21,8 @@
     SharePostcard *sharePostcard;
     C4WorkSpace *workspace;
     MyAlphabets *myAlphabets;
+    TakePhotoViewController *takePhoto;
+    
     //saving image
     CGContextRef graphicsContext;
     //location when saving alphabet to server
@@ -29,6 +32,11 @@
     float imageWidth;
     float imageHeight;
     float alphabetFromLeft;
+    
+    //enter username
+    UIImageView *enterUsername;
+    UITextView *userNameField;
+    float yPosUsername;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite) NSMutableArray  *postcardArray, *greyRectArray;
@@ -47,15 +55,6 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    //close button
-    frame = CGRectMake(0, 0, 22.5, 22.5);
-    UIButton *closeButton = [[UIButton alloc] initWithFrame:frame];
-    [closeButton setBackgroundImage:UA_ICON_CLOSE_UI forState:UIControlStateNormal];
-    [closeButton addTarget:self action:@selector(closeView)
-          forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *rightButton =[[UIBarButtonItem alloc] initWithCustomView:closeButton];
-    self.navigationItem.rightBarButtonItem=rightButton;
     
     self.postcardArray=[[NSMutableArray alloc]init];
     self.postcardArray=[postcardPassed mutableCopy];
@@ -66,17 +65,14 @@
     
     //bottomNavbar WITH 3 ICONS
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
-    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45) rightIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 80, 40)];
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 60, 30)  centerIcon:UA_ICON_MENU withFrame:CGRectMake(0, 0, 45, 45) rightIcon:UA_ICON_ALPHABET withFrame:CGRectMake(0, 0, 70, 35)];
     [self.view addSubview:self.bottomNavBar];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.leftImage andRunMethod:@"goToTakePhoto"];
     UITapGestureRecognizer *photoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToTakePhoto)];
     photoButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.leftImageView addGestureRecognizer:photoButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.centerImage andRunMethod:@"openMenu"];
     UITapGestureRecognizer *menuButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMenu)];
     menuButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
-    //[self listenFor:@"touchesBegan" fromObject:self.bottomNavBar.rightImage andRunMethod:@"closeView"];
     UITapGestureRecognizer *alphabetButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
     alphabetButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.rightImageView addGestureRecognizer:alphabetButtonRecognizer];
@@ -91,34 +87,32 @@
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
     }
     
-    
     //display the postcard
     for (int i=0; i<[self.postcardArray count]; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth+alphabetFromLeft;
         float yPos=UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
+        //image
         UIImageView *image=[self.postcardArray objectAtIndex:i ];
         UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         imageView.image=image.image;
         [self.view addSubview:imageView];
-    }
-    for (int i=0; i<[self.greyRectArray count]; i++) {
-        UIView *greyRect=[self.greyRectArray objectAtIndex:i];
+        //grey grid
+        UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
-        greyRect.layer.borderWidth=1.0f;
         greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        greyRect.layer.borderWidth=1.0f;
         [self.view addSubview:greyRect];
-        
     }
-    
-    
 }
 //------------------------------------------------------------------------
 //NAVIGATION FUNCTIONS
 //------------------------------------------------------------------------
 -(void)goToTakePhoto{
-    [self.navigationController popToRootViewControllerAnimated:NO];
+    takePhoto=[[TakePhotoViewController alloc]initWithNibName:@"TakePhotoViewController" bundle:[NSBundle mainBundle]];
+    [takePhoto setup];
+    [self.navigationController pushViewController:takePhoto animated:YES];
 }
 -(void)openMenu{
     [self saveCurrentPostcardAsImage];
@@ -233,12 +227,41 @@
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
 -(void)savePostcard{
-    //crop the screenshot
-    [self exportHighResImage];
+    id obj = [self.navigationController.viewControllers objectAtIndex:0];
+    workspace=(C4WorkSpace*)obj;
+
+    if ([workspace.userName isEqualToString:@"defaultUsername" ]) {
+        //ask for new username
+        enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
+        if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 4
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
+            yPosUsername=-75;
+        } else {
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+        }
+        [self.view addSubview:enterUsername];
+        //add text field
+        CGRect textViewFrame = CGRectMake(60, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
+        userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
+        userNameField.returnKeyType = UIReturnKeyDone;
+        userNameField.layer.borderWidth=1.0f;
+        userNameField.layer.borderColor=[UA_OVERLAY_COLOR CGColor];
+        userNameField.backgroundColor=UA_NAV_CTRL_COLOR;
+        [userNameField becomeFirstResponder];
+        userNameField.delegate = self;
+        [self.view addSubview:userNameField];
+    } else{
+        [self exportHighResImage];
+    }
 }
 -(void)saveCurrentPostcardAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, [[UIScreen mainScreen] bounds].size.width * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+    }
     self.currentPostcardImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
 }
@@ -338,6 +361,72 @@
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     currentLocation = newLocation;
+}
+//------------------------------------------------------------------------
+//STUFF TO HANDLE THE KEYBOARD INPUT
+//------------------------------------------------------------------------
+#pragma mark -
+#pragma mark UITextViewDelegate Methods
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    /*--
+     * This method is called when the textView becomes active, or is the First Responder
+     --*/
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    [self saveUserName];
+}
+-(void)saveUserName{
+    if ([userNameField.text isEqualToString: @""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
+                                                        message:@"Your username cannot be empty."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else{
+        workspace.userName=userNameField.text;
+        [workspace saveUsernameToUserDefaults];
+        //and remove the username stuff
+        [userNameField removeFromSuperview];
+        [enterUsername removeFromSuperview];
+        [self exportHighResImage];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
+    NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
+    NSUInteger location = replacementTextRange.location;
+    
+    if (textView.text.length + text.length > 40){//140 characters are in the textView
+        if (location != NSNotFound){ //Did not find any newline characters
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    else if (location != NSNotFound){ //Did not find any newline characters
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    //This method is called when the user makes a change to the text in the textview
+    NSString *lastChar= [NSString stringWithFormat:@"%c",[textView.text characterAtIndex: [textView.text length]-1]];
+    if ([lastChar isEqualToString:@"ä"]||[lastChar isEqualToString:@"Ä"]||[lastChar isEqualToString:@"ö"]||[lastChar isEqualToString:@"Ö"]||[lastChar isEqualToString:@"ü"]||[lastChar isEqualToString:@"Ü"]||[lastChar isEqualToString:@"å"]||[lastChar isEqualToString:@"Å"]||[lastChar isEqualToString:@"!"]||[lastChar isEqualToString:@"?"]||[lastChar isEqualToString:@"ß"]||[lastChar isEqualToString:@"Ñ"]||[lastChar isEqualToString:@"ñ"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid user name"
+                                                        message:@"Your username cannot include any of the following characters: Ä, Ö, Å, Ü, Ñ, !, ?, ß."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        textView.text=[textView.text substringToIndex:[textView.text length] - 1];
+    }
+    
 }
 
 @end

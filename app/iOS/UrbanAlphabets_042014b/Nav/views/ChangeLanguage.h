@@ -14,4 +14,5 @@
 -(void) setupWithLanguage: (NSString*)passedLanguage Name:(NSString*)passedName;
 -(void)updateLanguage;
 -(void)changeLanguage;
+-(void)grabLanguagesViaNavigationController;
 @end

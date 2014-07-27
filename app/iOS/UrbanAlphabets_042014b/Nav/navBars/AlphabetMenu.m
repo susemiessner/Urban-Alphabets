@@ -19,6 +19,7 @@
         float smallMargin=1.0;
         float width=self.frame.size.width-2*sideMargin;
         float height=42.45;
+        int menuIconNo=1;
         
         //--------------------------------------------------
         //underlying rect
@@ -44,11 +45,41 @@
         
         self.cancelShape.userInteractionEnabled=YES;
         self.cancelLabel.userInteractionEnabled=YES;
+        
+        //--------------------------------------------------
+        //SETTINGS
+        //--------------------------------------------------
+        menuIconNo+=1;
+
+        //shape
+        self.settingsShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.self.frame.size.height-(sideMargin*2+height*menuIconNo), width, height)];
+        [self.settingsShape setBackgroundColor:UA_WHITE_COLOR];
+        [self addSubview:self.settingsShape];
+        
+        //label
+        self.settingsLabel=[[UILabel alloc]initWithFrame:CGRectMake(self.settingsShape.frame.origin.x+100, self.settingsShape.frame.origin.y, self.settingsShape.frame.size.width, self.settingsShape.frame.size.height)];
+        [self.settingsLabel setText:@"Settings"];
+        [self.settingsLabel setFont:UA_NORMAL_FONT];
+        [self addSubview: self.settingsLabel];
+        
+        
+        //image
+        self.settingsIcon=[[UIImageView alloc]initWithFrame:CGRectMake(self.settingsShape.frame.origin.x+3+15, self.settingsShape.frame.origin.y+2, 40, 40)];
+        self.settingsIcon.image=UA_ICON_SETTINGS;
+        [self addSubview:self.settingsIcon];
+        
+        self.settingsShape.userInteractionEnabled=YES;
+        self.settingsLabel.userInteractionEnabled=YES;
+        self.settingsIcon.userInteractionEnabled=YES;
+        
+        
         //--------------------------------------------------
         //MY ALPHABETS
         //--------------------------------------------------
+        menuIconNo+=1;
+
         //shape
-        self.myAlphabetsShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.self.frame.size.height-(sideMargin*2+height*2), width, height)];
+        self.myAlphabetsShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.self.frame.size.height-(sideMargin*2+height*menuIconNo+smallMargin), width, height)];
         [self.myAlphabetsShape setBackgroundColor:UA_WHITE_COLOR];
         [self addSubview:self.myAlphabetsShape];
         
@@ -67,10 +98,13 @@
         self.myAlphabetsShape.userInteractionEnabled=YES;
         self.myAlphabetsLabel.userInteractionEnabled=YES;
         self.myAlphabetsIcon.userInteractionEnabled=YES;
+        
         //--------------------------------------------------
         //WRITE POSTCARD
         //--------------------------------------------------
-        self.writePostcardShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*3+smallMargin), width, height)];
+        menuIconNo+=1;
+
+        self.writePostcardShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*menuIconNo+smallMargin*(menuIconNo-2)), width, height)];
         [self.writePostcardShape setBackgroundColor:UA_WHITE_COLOR];
         [self addSubview:self.writePostcardShape];
         
@@ -90,7 +124,9 @@
         //--------------------------------------------------
         //SAVE ALPHABET
         //--------------------------------------------------
-        self.saveAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*4+smallMargin*2), width, height)];
+        menuIconNo+=1;
+
+        self.saveAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*menuIconNo+smallMargin*(menuIconNo-2)), width, height)];
         [self.saveAlphabetShape setBackgroundColor:UA_WHITE_COLOR];
         [self addSubview:self.saveAlphabetShape];
         
@@ -106,10 +142,13 @@
         self.saveAlphabetShape.userInteractionEnabled=YES;
         self.saveAlphabetLabel.userInteractionEnabled=YES;
         self.saveAlphabetIcon.userInteractionEnabled=YES;
+
         //--------------------------------------------------
         //SHARE ALPHABET
         //--------------------------------------------------
-        self.shareAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*5+smallMargin*3), width, height)];
+        menuIconNo+=1;
+
+        self.shareAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*menuIconNo+smallMargin*(menuIconNo-2)), width, height)];
         [self.shareAlphabetShape setBackgroundColor:UA_WHITE_COLOR];
         [self addSubview:self.shareAlphabetShape];
         
@@ -129,7 +168,9 @@
         //--------------------------------------------------
         //ALPHABET INFO
         //--------------------------------------------------
-        self.alphabetInfoShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*6+smallMargin*4    ), width, height)];
+        menuIconNo+=1;
+
+        self.alphabetInfoShape=[[UIView alloc] initWithFrame:CGRectMake(sideMargin, self.frame.size.height-(sideMargin*2+height*menuIconNo+smallMargin*(menuIconNo-2)), width, height)];
         [self.alphabetInfoShape setBackgroundColor:UA_WHITE_COLOR];
         [self addSubview:self.alphabetInfoShape];
         
