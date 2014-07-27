@@ -107,15 +107,15 @@ public class MainActivity extends ActionBarActivity {
 		Data.init(getApplicationContext());
 		actionBar.setTitle(Data.getSelectedAlphabetName());
 		new FillTableLayout().execute();
-		if(Data.updatePending()) {
-			new UpdateDatabase(this, getLongitude(),
-				getLatitude(),
-				username,
-				Data.getLetterName(),
-				"no", "no", BitmapFactory.decodeFile
-				(Data.getPathToRecentlyAssigned()),
-				Data.getSelectedAlphabetLanguage(), "").execute();
-		}
+		//if(Data.updatePending()) {
+		//	new UpdateDatabase(this, getLongitude(),
+		//		getLatitude(),
+		//		username,
+		//		Data.getLetterName(),
+		//		"no", "no", BitmapFactory.decodeFile
+		//		(Data.getPathToRecentlyAssigned()),
+		//		Data.getSelectedAlphabetLanguage(), "").execute();
+		//}
 	}
 		
 	@Override

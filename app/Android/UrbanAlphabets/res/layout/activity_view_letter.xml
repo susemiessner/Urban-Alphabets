@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/imageswitcher_viewimage"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="2dp">
-</ImageSwitcher>                  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/layout_view_letter"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<ImageSwitcher
+    	android:id="@+id/imageswitcher_viewimage"
+    	android:layout_width="match_parent"
+    	android:layout_height="0dp"
+    	android:layout_weight="1" >
+	</ImageSwitcher> 
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/White"
+		android:paddingTop="2dp"
+		android:paddingBottom="2dp" >
+
+		<ImageButton
+		    android:id="@+id/imagebutton_take_photo_2"
+		    android:layout_width="60dp"
+		    android:layout_height="30dp"
+		    android:layout_alignParentLeft="true"
+		    android:layout_centerVertical="true"
+		    android:background="@drawable/takephoto"
+		    android:contentDescription="@string/string_description"
+		    android:onClick="onClickTakePhoto" />
+
+		<ImageButton
+		    android:id="@+id/imagebutton_delete"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+		<ImageButton
+		    android:id="@+id/imageButton3"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+	</RelativeLayout>
+
+
+</LinearLayout>                 
