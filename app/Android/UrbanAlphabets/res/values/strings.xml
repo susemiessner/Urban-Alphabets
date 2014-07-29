@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <string name="app_name">UrbanAlphabets</string>
     <string name="string_name">Name:</string>
@@ -33,5 +33,9 @@
     <string name="string_anticlockwise">ACW</string>
     <string name="string_splash">Splash</string>
     <string name="string_copyright">\u00A9 Suse Miessner 2014</string>
-
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+	<string name="string_username">Username</string>
+	<string name="string_settings">Settings</string>
+	<string name="default_language">Default Language</string>
 </resources>

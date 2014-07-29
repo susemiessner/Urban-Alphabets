@@ -3,6 +3,7 @@ package org.susemiessner.android.urbanalphabets;
 import java.io.File;
 import java.util.Arrays;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -68,9 +69,23 @@ public class ViewLetterActivity extends ActionBarActivity {
 	}
 	
 	@Override
-	public boolean onTouchEvent(MotionEvent event){
+	public boolean onTouchEvent(MotionEvent event) {
 		this.swipeListener.onTouchEvent(event);
         return super.onTouchEvent(event);
+	}
+	
+	public void onClickTakePhoto(View v) {
+		Intent takePhotoIntent = new Intent(this, TakePhotoActivity.class);
+		startActivity(takePhotoIntent);
+		finish();
+	}
+	
+	public void onClickAbc(View v) {
+		finish();
+	}
+	
+	public void onClickDelete(View v) {
+		
 	}
 	
 	private class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {

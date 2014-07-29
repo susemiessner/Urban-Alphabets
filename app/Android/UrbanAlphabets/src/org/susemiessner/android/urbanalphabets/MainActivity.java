@@ -169,6 +169,11 @@ public class MainActivity extends ActionBarActivity {
 	    		startActivity(myAlphabetsIntent);
 	    		return true;
 	    	}
+	    	case R.id.item_settings: {
+	    		Intent settingsIntent = new Intent(this, SettingsActivity.class);
+	    		startActivity(settingsIntent);
+	    		return true;
+	    	}
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
