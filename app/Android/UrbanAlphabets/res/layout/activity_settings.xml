@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/layout_settings"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
+    android:id="@+id/layout_settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="onClickToggleButton"
+    android:orientation="vertical" >
 	
 	<RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
             android:layout_marginLeft="40dp"
             android:layout_toRightOf="@+id/textview_username_label"
             android:clickable="true"
-            android:onClick="onClickHint1"
+            android:onClick="onClickChangeUsername"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/Black" />
 
@@ -54,7 +55,7 @@
         android:layout_marginTop="5dp"
         android:clickable="true"
         android:gravity="center"
-        android:onClick="onClickHint1"
+        android:onClick="onClickChangeUsername"
         android:text="@string/string_change"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
@@ -123,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:text="" />
+            android:onClick="onClickToggleButton" />
  
 	</RelativeLayout>
 

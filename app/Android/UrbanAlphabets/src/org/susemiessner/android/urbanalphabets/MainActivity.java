@@ -21,6 +21,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
@@ -190,19 +191,19 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private String getUsername() {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		return mSharedPreferences.getString("username", "");
 	}
 	
 	private void setUsername(String username) {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		Editor e = mSharedPreferences.edit();
 		e.putString("username", username);
 		e.commit();
 	}
 	
 	private void setLocation(String longitude, String latitude) {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		Editor e = mSharedPreferences.edit();
 		e.putString("longitude",longitude);
 		e.putString("latitude", latitude);
@@ -210,12 +211,12 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private String getLongitude() {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		return mSharedPreferences.getString("longitude", "0");
 	}
 	
 	private String getLatitude() {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
+		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		return mSharedPreferences.getString("latitude", "0");
 	}
 	

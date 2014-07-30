@@ -21,8 +21,6 @@
         android:contentDescription="@string/string_description"
         android:onClick="onClick"
         android:visibility="gone"
-    />
-    
-    
+    /> 
  </LinearLayout>
 
