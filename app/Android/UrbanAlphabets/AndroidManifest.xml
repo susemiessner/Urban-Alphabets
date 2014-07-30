@@ -44,7 +44,6 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.TakePhotoActivity"
-            android:icon="@drawable/icon_takephoto"
             android:label="@string/string_take_photo"
             android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
             android:screenOrientation="portrait" >
@@ -54,7 +53,6 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.WritePostcardActivity"
-            android:icon="@drawable/icon_postcard"
             android:label="@string/string_write_postcard"
             android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
             android:screenOrientation="portrait" >
@@ -77,7 +75,6 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AlphabetInfoActivity"
-            android:icon="@drawable/icon_information"
             android:label="@string/string_alphabet_info"
             android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
             android:screenOrientation="portrait" >
@@ -87,7 +84,6 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.MyAlphabetsActivity"
-            android:icon="@drawable/icon_alphabet"
             android:label="@string/string_my_alphabets"
             android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
             android:screenOrientation="portrait" >
@@ -97,7 +93,6 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AddAlphabetActivity"
-            android:icon="@drawable/icon_add"
             android:label="@string/string_add_alphabet"
             android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
             android:screenOrientation="portrait" >
@@ -107,7 +102,6 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.CropPhotoActivity"
-            android:icon="@drawable/icon_cropphoto"
             android:label="@string/string_crop_photo"
             android:parentActivityName="org.susemiessner.android.urbanalphabets.TakePhotoActivity"
             android:screenOrientation="portrait" >
@@ -117,7 +111,6 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AssignLetterActivity"
-            android:icon="@drawable/icon_add"
             android:label="@string/string_assign_letter"
             android:screenOrientation="portrait" >
         </activity>

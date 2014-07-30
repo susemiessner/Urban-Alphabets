@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.susemiessner.urbanalphabets.MainActivity" >
     
-    <item 
+    <item
         android:id="@+id/item_alphabet_info"
         android:title="@string/string_alphabet_info" />
 

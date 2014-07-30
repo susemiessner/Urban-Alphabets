@@ -100,5 +100,50 @@
         android:text="@string/string_change"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
+	
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"  >
+
+        <TextView
+            android:id="@+id/textview_geolocation_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/geolocation"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/Grey" />
+
+        <ToggleButton
+            android:id="@+id/togglebutton_geolocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:text="" />
+ 
+	</RelativeLayout>
+
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"  >
+        
+		<ImageButton
+		    android:id="@+id/imagebutton_settings"
+		    android:layout_width="50dp"
+		    android:layout_height="35dp"
+		    android:layout_alignParentBottom="true"
+		    android:layout_centerHorizontal="true"
+		    android:layout_gravity="center"
+		    android:background="@drawable/ok"
+		    android:contentDescription="@string/string_description"
+		    android:onClick="onClick" />
+		
+	</RelativeLayout>
           
  </LinearLayout>
