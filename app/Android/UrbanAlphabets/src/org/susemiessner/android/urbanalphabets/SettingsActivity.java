@@ -27,7 +27,7 @@ public class SettingsActivity extends ActionBarActivity {
 		textViewDefaultLang = (TextView)findViewById(R.id.textview_default_language);
 		toggleButtonGeoLocation = (ToggleButton)findViewById(R.id.togglebutton_geolocation);
 		editTextUsername = (EditText)findViewById(R.id.edittext_username);
-		mSharedPreferences  = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());;
+		mSharedPreferences  = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
 		textViewUsername.setText(mSharedPreferences.getString("username", "username"));
 		textViewDefaultLang.setText(mSharedPreferences.getString("defaultLang", "Finnish/Swedish"));

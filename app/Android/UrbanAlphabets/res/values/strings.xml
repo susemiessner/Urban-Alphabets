@@ -27,16 +27,17 @@
     <string name="string_welcome">Welcome</string>
     <string name="string_save_letter">Save Letter</string>
     <string name="string_share_letter">Share Letter</string>
-    <string name="string_welcome_1">Urban Alphabets lets you capture photos of letters in your environment and reuse them to write your own messages. Urban Alphabets will also use the device’s internet connection to send your photo letters to the Urban Alphabets website. You can see all images at: www.ualphabets.com \nPlease enter a user name.</string>
-    <string name="string_welcome_2">It will be used when saving your photos online. Please report problems to mail@susemiessner.org</string>
+    <string name="welcome_message">Urban Alphabets lets you capture photos of letters in your environment and reuse them to write your own messages. Urban Alphabets will also use the device’s internet connection to send your photo letters to the Urban Alphabets website. You can see all images at: www.ualphabets.com It will be used when saving your photos online. Please report problems to mail@susemiessner.org</string>
     <string name="string_clockwise">CW</string>
     <string name="string_anticlockwise">ACW</string>
     <string name="string_splash">Splash</string>
     <string name="string_copyright">\u00A9 Suse Miessner 2014</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-	<string name="string_username">Username:</string>
-	<string name="string_settings">Settings</string>
-	<string name="default_language">Default\nLanguage:</string>
-	<string name="geolocation">Geolocation:</string>
+    <string name="string_username">Username:</string>
+    <string name="string_settings">Settings</string>
+    <string name="default_language">Default\nLanguage:</string>
+    <string name="geolocation">Geolocation:</string>
+    <string name="title_activity_change_default_language">ChangeDefaultLanguageActivity</string>
+
 </resources>

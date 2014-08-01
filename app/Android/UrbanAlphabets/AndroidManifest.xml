@@ -126,8 +126,12 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.SettingsActivity"
-            android:label="@string/string_settings" 
+            android:label="@string/string_settings"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.ChangeDefaultLanguageActivity"
+            android:label="@string/title_activity_change_default_language" >
         </activity>
     </application>
 
