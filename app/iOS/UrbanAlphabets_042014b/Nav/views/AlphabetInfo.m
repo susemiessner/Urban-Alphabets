@@ -272,6 +272,30 @@
 - (void)textViewDidEndEditing:(UITextView *)textView{
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     workspace=(C4WorkSpace*)obj;
+    
+    //rename folder
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:workspace.alphabetName];
+    
+    NSString *aPath=filePath;
+    NSString *bPath =[documentsPath stringByAppendingString:@"/"];
+    bPath=[bPath stringByAppendingPathComponent:textView.text];
+    NSError *error = nil;
+
+    NSLog (@"Copying download file from %@ to %@", aPath, bPath);
+    if ([[NSFileManager defaultManager] fileExistsAtPath: bPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath: bPath
+                                                   error: &error];
+    }
+    
+    if (![[NSFileManager defaultManager] copyItemAtPath: aPath
+                                                 toPath: bPath
+                                                  error: &error]){}
+    if ([[NSFileManager defaultManager] removeItemAtPath: aPath
+                                                   error: &error]) {}
+    
+    //save the new alphabet name
     workspace.alphabetName=textView.text;
     workspace.title=textView.text;
     for (int i=0; i<[workspace.myAlphabets count]; i++) {
