@@ -85,7 +85,8 @@ public class ViewLetterActivity extends ActionBarActivity {
 	}
 	
 	public void onClickDelete(View v) {
-		
+		Data.deleteLetter(currentIndex);
+		finish();
 	}
 	
 	private class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {

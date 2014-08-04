@@ -16,5 +16,9 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-
+	
+    <style name="dialog_light" parent="@android:style/Theme.Dialog">
+    	<item name="@android:background">@color/Grey</item>
+    	<item name="@android:textColor">@color/Black</item>    
+	</style>
 </resources>

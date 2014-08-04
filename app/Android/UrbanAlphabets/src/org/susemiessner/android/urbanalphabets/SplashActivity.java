@@ -6,21 +6,22 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 public class SplashActivity extends Activity {
-	private static SharedPreferences  mSharedPreferences;
-	
+	private SharedPreferences  mSharedPreferences;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		mSharedPreferences = getPreferences(MODE_PRIVATE);
+		mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());;
 		Data.createStorageDir();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
             	if(mSharedPreferences.getBoolean("isFirstRun", true)) {
-            		setIsFirstRun(false);
+            		setIsFirstRun();
         			Intent welcomeIntent = new Intent(SplashActivity.this,
         					WelcomeActivity.class);
         			startActivity(welcomeIntent);
@@ -28,7 +29,6 @@ public class SplashActivity extends Activity {
             	else {
             		Intent mainIntent = new Intent(SplashActivity.this,
             				MainActivity.class);
-            		mainIntent.putExtra("Username", "None");
             		startActivity(mainIntent);
             	}
                 finish();
@@ -36,9 +36,9 @@ public class SplashActivity extends Activity {
         }, 2 * 1000); // Two seconds 
 	}
 	
-	private void setIsFirstRun(boolean state) {
+	private void setIsFirstRun() {
 		Editor e = mSharedPreferences.edit();
-		e.putBoolean("isFirstRun", state);
+		e.putBoolean("isFirstRun", false);
 		e.commit();
 	}
 }

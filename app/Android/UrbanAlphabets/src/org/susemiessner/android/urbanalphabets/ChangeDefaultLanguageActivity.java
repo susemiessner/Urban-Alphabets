@@ -1,7 +1,5 @@
 package org.susemiessner.android.urbanalphabets;
 
-import org.susemiessner.android.urbanalphabets.ChangeLanguageActivity.CustomArrayAdapter;
-
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
@@ -66,8 +65,8 @@ public class ChangeDefaultLanguageActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_default_language);
-		imageButton = (ImageButton) findViewById(R.id.imagebutton_change_language);
-		ListView listView = (ListView) findViewById(R.id.listview_change_language);
+		imageButton = (ImageButton) findViewById(R.id.imagebutton_change_default_language);
+		ListView listView = (ListView) findViewById(R.id.listview_change_default_language);
 		adapter = new CustomArrayAdapter(this, Data.getLanguage(), 
 				getDefaultSelectedLanguageIndex());
 		
@@ -94,7 +93,11 @@ public class ChangeDefaultLanguageActivity extends ActionBarActivity {
 	}
 
 	public void onClick(View v) {
-		// Set Default Language Index 
+		SharedPreferences mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext()); 
+		Editor e = mSharedPreferences.edit();
+		e.putInt("defaultLang", adapter.getSelected());
+		e.commit();
 		finish();
 	}
 }

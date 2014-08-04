@@ -399,13 +399,14 @@ public class Data {
 		File filename = new File(Environment.getExternalStoragePublicDirectory
 								(Environment.DIRECTORY_DCIM), TOPLEVELDIR);
 		if(!filename.exists())
-			filename.mkdirs();	
+			filename.mkdirs();
 	}
 	
 	private static void createStorageDir(String alphabetName) {
 		File filename = new File(Environment.getExternalStoragePublicDirectory
 								(Environment.DIRECTORY_DCIM), TOPLEVELDIR +
 								File.separator + alphabetName);
+		
 		if(!filename.exists())
 			filename.mkdirs();
 	}
@@ -548,6 +549,17 @@ public class Data {
 		recentlyAssigned = option;
 		updatePending = true;
 	}
+	
+	public static void deleteLetter(int currentIndex) {
+		File filename = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), TOPLEVELDIR + File.separator + getSelectedAlphabetName()
+				+ File.separator + RESOURCERAWNAME[Arrays.asList(LANGUAGE).
+				indexOf(getSelectedAlphabetLanguage())][currentIndex]
+				+ ".png");
+		
+		if(filename.exists())
+			filename.delete();
+	}
 
 	public static int getSize() {
 		return listAlphabet.size();
@@ -642,5 +654,9 @@ public class Data {
 
 	public static boolean updatePending() {
 		return updatePending;
+	}
+	
+	public static String getLanguage(int index) {
+		return LANGUAGE[index];
 	}
 }	

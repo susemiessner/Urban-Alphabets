@@ -13,8 +13,7 @@
 
     <!-- write permission -->
     <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -132,6 +131,12 @@
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ChangeDefaultLanguageActivity"
             android:label="@string/title_activity_change_default_language" >
+        </activity>
+        <activity
+            android:name="org.susemiessner.android.urbanalphabets.SetUsernameActivity"
+            android:label="@string/enter_username"
+            android:theme="@style/dialog_light"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

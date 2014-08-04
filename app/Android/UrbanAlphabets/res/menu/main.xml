@@ -5,26 +5,26 @@
     
     <item
         android:id="@+id/item_alphabet_info"
-        android:title="@string/string_alphabet_info" />
+        android:title="@string/alphabet_info" />
 
     <item
         android:id="@+id/item_share_alphabet"
-        android:title="@string/string_share_alphabet" />
+        android:title="@string/share_alphabet" />
 
     <item 
         android:id="@+id/item_save_alphabet"
-        android:title="@string/string_save_alphabet" />
+        android:title="@string/save_alphabet" />
    
     <item 
         android:id="@+id/item_write_postcard"
-        android:title="@string/string_write_postcard" />
+        android:title="@string/write_postcard" />
     
     <item
         android:id="@+id/item_my_alphabets"
-        android:title="@string/string_my_alphabets" />
+        android:title="@string/my_alphabets" />
     
     <item 
         android:id="@+id/item_settings"
-        android:title="@string/string_settings" />
+        android:title="@string/settings" />
         
 </menu>

@@ -60,20 +60,15 @@ public class MainActivity extends ActionBarActivity {
 	private TableLayout tableLayout;
 	private LocationManager mlocManager;
 	private LocationListener mlocListener;
-	private String username;
+	private SharedPreferences mSharedPreferences;
 	
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Intent intent = getIntent();
-		username = intent.getStringExtra("Username");
-		if(username.equals("None")) {
-			username = getUsername();
-		} else {
-			setUsername(username);
-		}
+		mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());
 		Data.init(getApplicationContext());
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(Data.getSelectedAlphabetName());
@@ -146,6 +141,13 @@ public class MainActivity extends ActionBarActivity {
 	    		return true;
 	    	}
 	    	case R.id.item_save_alphabet: {
+	    		String username = mSharedPreferences.getString("username", "none");
+	    		if (username == "none") {
+	    			Intent setUsernameIntent = new Intent(this, SetUsernameActivity.class);
+		    		startActivity(setUsernameIntent);
+		    		username = mSharedPreferences.getString("username", "none");
+	    		}
+	    		/*
 	    		Bitmap bitmapAlphabet = Bitmap.createBitmap(tableLayout.getWidth(), 
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
@@ -155,11 +157,12 @@ public class MainActivity extends ActionBarActivity {
 	    				username,
 	    				"no", "no", "yes", bitmapAlphabet,
 	    				Data.getSelectedAlphabetLanguage(), "").execute();
+	    		*/
 	    		return true;
 	    	}
 	    	case R.id.item_write_postcard:{
 	    		Intent writePostcardIntent = new Intent(this, WritePostcardActivity.class);
-	    		writePostcardIntent.putExtra("username", getUsername());
+	    		//writePostcardIntent.putExtra("username", getUsername());
 	    		writePostcardIntent.putExtra("longitude", getLongitude());
 	    		writePostcardIntent.putExtra("latitude", getLatitude());
 	    		startActivity(writePostcardIntent);
@@ -188,18 +191,6 @@ public class MainActivity extends ActionBarActivity {
 				Data.getSelectedAlphabetLanguage());
 		viewLetterIntent.putExtra("currentIndex", imageViewIdList.indexOf(v.getId()));
 		startActivity(viewLetterIntent);
-	}
-	
-	private String getUsername() {
-		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		return mSharedPreferences.getString("username", "");
-	}
-	
-	private void setUsername(String username) {
-		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		Editor e = mSharedPreferences.edit();
-		e.putString("username", username);
-		e.commit();
 	}
 	
 	private void setLocation(String longitude, String latitude) {
@@ -241,7 +232,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onPause();
 		mlocManager.removeUpdates(mlocListener);
 	}
-	
+		
 	/* Class My Location Listener */
     public class MyLocationListener implements LocationListener {
     	@Override
