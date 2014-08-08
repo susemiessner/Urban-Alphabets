@@ -75,7 +75,8 @@ public class UpdateDatabase extends AsyncTask<Void, Void, Void> {
 			nvps.add(new BasicNameValuePair("postcardText", postcardText));
 			httpPost.setEntity(new UrlEncodedFormEntity(nvps,"US-ASCII"));
 			HttpResponse httpResponse = httpClient.execute(httpPost);
-			int code = httpResponse.getStatusLine().getStatusCode();
+			// Check returned code 
+			httpResponse.getStatusLine().getStatusCode();
 		} catch (Exception e){
 			
 		}

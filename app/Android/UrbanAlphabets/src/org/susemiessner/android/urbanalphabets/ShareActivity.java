@@ -96,7 +96,6 @@ public class ShareActivity extends ActionBarActivity {
 	protected void onStart() {
 		super.onStart();
 		actionBar.setTitle("Share " + sharingWhat);
-		actionBar.setIcon(getResources().getDrawable(map.get(sharingWhat)));
 	}
 	
 	@Override

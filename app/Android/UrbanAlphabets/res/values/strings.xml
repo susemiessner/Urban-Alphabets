@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <string name="app_name">UrbanAlphabets</string>
+    <string name="app_name">Urban\nAlphabets</string>
     <string name="string_name">Name:</string>
     <string name="string_hint_name">(name)</string>
     <string name="string_language">Language:</string>

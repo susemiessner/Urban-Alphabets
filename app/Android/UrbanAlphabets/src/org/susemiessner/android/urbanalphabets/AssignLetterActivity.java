@@ -1,9 +1,14 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +16,7 @@ import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -48,6 +54,8 @@ public class AssignLetterActivity extends ActionBarActivity {
 	private LinearLayout linearLayout;
 	private boolean[] havePhoto;
 	private int height;
+	private SharedPreferences mSharedPreferences;
+	private View saved;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +65,11 @@ public class AssignLetterActivity extends ActionBarActivity {
 		imageViewIdList = new ArrayList<>();
 		for(int i = 0; i < 42; i++)
 			imageViewIdList.add(imageViewId[i]);
+		saved = null;
 		ImageView imageView = (ImageView) findViewById (R.id.imageview_assign_letter);
-		imageView.setImageBitmap(Data.getCroppedBitmap());
+		imageView.setImageBitmap(BitmapFactory.decodeFile(getFilesDir()+File.separator+"photo.png"));
+		mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());
 		selected = -1;
 		linearLayout = (LinearLayout) findViewById
 				(R.id.layout_assign_letter);
@@ -96,8 +107,50 @@ public class AssignLetterActivity extends ActionBarActivity {
 	}
 	
 	public void onClickAssign(View v) {
-		Data.assignPhotoToSelectedLetter(selected);
+		boolean save = mSharedPreferences.getBoolean("save", true);
+		if (save)
+			Data.assignPhotoToSelectedLetter(selected, getFilesDir()+File.separator+"photo.png");
+		String username = mSharedPreferences.getString("username", "");
+		if (username.isEmpty()) {
+			saved = v;
+			Intent setUsernameIntent = new Intent(this, SetUsernameActivity.class);
+    		startActivity(setUsernameIntent);
+    		return;
+		}
+		update();
+		
+	}
+	
+	private void update() {
+		String username = mSharedPreferences.getString("username", "");
+		String longitude = mSharedPreferences.getString("longitude", "0");
+		String latitude = mSharedPreferences.getString("latitude", "0");
+		UpdateDatabase update = new UpdateDatabase(this, longitude,
+				latitude,
+				username,
+				Data.getLetterName(selected),
+				"no", "no", BitmapFactory.decodeFile
+				(getFilesDir()+File.separator+"photo.png"),
+				Data.getSelectedAlphabetLanguage(), "");
+		update.execute();
+		try {
+		update.get();
+		} catch (CancellationException e) {
+			
+		} catch (ExecutionException e) {
+			
+		} catch (InterruptedException e) {
+			
+		}
 		finish();
+	}
+	
+	public void onResume() {
+		super.onResume();
+		if(saved != null) {
+			update();
+			saved = null;
+		}
 	}
 
     public class FillTableLayout extends AsyncTask<Void, Void, Void> {

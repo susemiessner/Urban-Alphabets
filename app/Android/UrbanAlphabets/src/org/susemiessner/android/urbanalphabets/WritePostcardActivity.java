@@ -2,7 +2,6 @@ package org.susemiessner.android.urbanalphabets;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,6 +11,7 @@ import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,6 +54,8 @@ public class WritePostcardActivity extends ActionBarActivity {
 	private TableLayout tableLayout;
 	private char[] postcardText;
 	private KeyboardView keyboardView;
+	private MenuItem saved;
+	private SharedPreferences mSharedPreferences;
 	
 	private static final int[] customKeyboard = {
 		R.xml.finnish_swedish,
@@ -68,17 +70,9 @@ public class WritePostcardActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_postcard);
-		Intent intent = getIntent();
-		String username = intent.getStringExtra("username");
-		String longitude = intent.getStringExtra("longitude");
-		String latitude = intent.getStringExtra("latitude");
-		if(username != null && !username.isEmpty())
-			setUsername(username);
-		if(longitude != null && latitude != null 
-				&& !longitude.isEmpty() && !latitude.isEmpty())
-			setLocation(longitude, latitude);
-		
-		
+		mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());
+		saved = null;
 		index = 0;
 		postcardText = new char[42];
 		tableLayout = (TableLayout) findViewById
@@ -114,37 +108,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 		keyboardView.setOnKeyboardActionListener(onKeyboardActionListener);
 		showCustomKeyboard();
 	}
-	
-	private void setLocation(String longitude, String latitude) {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
-		Editor e = mSharedPreferences.edit();
-		e.putString("longitude",longitude);
-		e.putString("latitude", latitude);
-		e.commit();
-	}
-	
-	private String getUsername() {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
-		return mSharedPreferences.getString("username", "");
-	}
-	
-	private void setUsername(String username) {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
-		Editor e = mSharedPreferences.edit();
-		e.putString("username", username);
-		e.commit();
-	}
-	
-	private String getLongitude() {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
-		return mSharedPreferences.getString("longitude", "0");
-	}
-	
-	private String getLatitude() {
-		SharedPreferences mSharedPreferences = getPreferences(MODE_PRIVATE);
-		return mSharedPreferences.getString("latitude", "0");
-	}
-	
+		
 	private void hideCustomKeyboard() {
 	    keyboardView.setVisibility(View.GONE);
 	    keyboardView.setEnabled(false);
@@ -179,10 +143,16 @@ public class WritePostcardActivity extends ActionBarActivity {
 			return;
 		else if (bkspace)
 			index--;
-		Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		//Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), Data.getBlank());
+		Matrix matrix = new Matrix();
+		float scale =  (float)height/bitmap.getHeight();
+		matrix.setScale(scale, scale);
+		Bitmap resized = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight(), matrix, false);
 		ImageView imageView = (ImageView) findViewById
 					(imageViewId[index]);
-			imageView.setImageBitmap(bitmap);
+			imageView.setImageBitmap(resized);
 		if(!bkspace) index++;
 	}
 	
@@ -208,12 +178,24 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    		return true;
 	    	}
 	    	case R.id.item_wp_save_postcard: {
+	    		String username = mSharedPreferences.
+	    				getString("username", "");
+	    		if(username.isEmpty()) {
+	    			saved = item;
+	    			Intent setUsernameIntent = new Intent(this, SetUsernameActivity.class);
+		    		startActivity(setUsernameIntent);
+	    			return true;
+	    		}
+	    		String longitude = mSharedPreferences.
+	    				getString("longitude", "0");
+	    		String latitude = mSharedPreferences.
+	    				getString("latitude", "0");
 	    		Bitmap bitmapPostcard = Bitmap.createBitmap(tableLayout.getWidth(), 
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapPostcard);
 	    		tableLayout.draw(canvas);
-	    		new UpdateDatabase(this, getLongitude(), getLatitude(),
-	    				getUsername(), "no", "yes", "no", bitmapPostcard,
+	    		new UpdateDatabase(this, longitude, latitude,
+	    				username, "no", "yes", "no", bitmapPostcard,
 	    				Data.getSelectedAlphabetLanguage(), 
 	    		new String(postcardText, 0, index)).execute();
 	    		return true;
@@ -230,6 +212,14 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    	default:
 	            return super.onContextItemSelected(item);
 	    }
+	}
+	
+	public void onResume() {
+		super.onResume();
+		if (saved != null) {
+			onOptionsItemSelected(saved);
+			saved = null;
+		}
 	}
 	
 	private void resetPostcard() {
@@ -253,6 +243,10 @@ public class WritePostcardActivity extends ActionBarActivity {
 	public void onClickTakePhoto(View v) {
 		Intent takePhotoIntent = new Intent(this, TakePhotoActivity.class);
 		startActivity(takePhotoIntent);
+	}
+	
+	public void onClickAbc(View v) {
+		finish();
 	}
 	
 	@Override 

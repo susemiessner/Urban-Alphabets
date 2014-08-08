@@ -61,6 +61,7 @@ public class MainActivity extends ActionBarActivity {
 	private LocationManager mlocManager;
 	private LocationListener mlocListener;
 	private SharedPreferences mSharedPreferences;
+	private MenuItem saved;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -70,6 +71,7 @@ public class MainActivity extends ActionBarActivity {
 		mSharedPreferences = PreferenceManager.
 				getDefaultSharedPreferences(getApplicationContext());
 		Data.init(getApplicationContext());
+		saved = null;
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(Data.getSelectedAlphabetName());
 		imageViewIdList = new ArrayList<>();
@@ -103,15 +105,6 @@ public class MainActivity extends ActionBarActivity {
 		Data.init(getApplicationContext());
 		actionBar.setTitle(Data.getSelectedAlphabetName());
 		new FillTableLayout().execute();
-		//if(Data.updatePending()) {
-		//	new UpdateDatabase(this, getLongitude(),
-		//		getLatitude(),
-		//		username,
-		//		Data.getLetterName(),
-		//		"no", "no", BitmapFactory.decodeFile
-		//		(Data.getPathToRecentlyAssigned()),
-		//		Data.getSelectedAlphabetLanguage(), "").execute();
-		//}
 	}
 		
 	@Override
@@ -141,13 +134,13 @@ public class MainActivity extends ActionBarActivity {
 	    		return true;
 	    	}
 	    	case R.id.item_save_alphabet: {
-	    		String username = mSharedPreferences.getString("username", "none");
-	    		if (username == "none") {
+	    		String username = mSharedPreferences.getString("username", "");
+	    		if (username.isEmpty()) {
+	    			saved = item;
 	    			Intent setUsernameIntent = new Intent(this, SetUsernameActivity.class);
 		    		startActivity(setUsernameIntent);
-		    		username = mSharedPreferences.getString("username", "none");
+		    		return true;
 	    		}
-	    		/*
 	    		Bitmap bitmapAlphabet = Bitmap.createBitmap(tableLayout.getWidth(), 
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
@@ -157,14 +150,10 @@ public class MainActivity extends ActionBarActivity {
 	    				username,
 	    				"no", "no", "yes", bitmapAlphabet,
 	    				Data.getSelectedAlphabetLanguage(), "").execute();
-	    		*/
 	    		return true;
 	    	}
 	    	case R.id.item_write_postcard:{
 	    		Intent writePostcardIntent = new Intent(this, WritePostcardActivity.class);
-	    		//writePostcardIntent.putExtra("username", getUsername());
-	    		writePostcardIntent.putExtra("longitude", getLongitude());
-	    		writePostcardIntent.putExtra("latitude", getLatitude());
 	    		startActivity(writePostcardIntent);
 	    		return true;
 	    	}
@@ -226,6 +215,10 @@ public class MainActivity extends ActionBarActivity {
 				0, mlocListener);
 		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 
 					0, mlocListener);
+		if(saved != null) {
+			onOptionsItemSelected(saved);
+			saved = null;
+		}
 	}
 	
 	public void onPause() {
