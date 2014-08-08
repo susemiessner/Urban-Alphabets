@@ -23,9 +23,10 @@
     
 }
 -(void)viewDidAppear:(BOOL)animated{
-    imageTimeLength=3; //in secs
+    //NSLog(@"screen size: %f, %f", [[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.height);
+    imageTimeLength=5; //in secs
 
-    images=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"image1.jpg"],[UIImage imageNamed:@"image2.jpg"],[UIImage imageNamed:@"image3.jpg"],nil ];
+    images=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"image.jpg"],[UIImage imageNamed:@"image2.jpg"],[UIImage imageNamed:@"image3.jpg"],[UIImage imageNamed:@"image4.jpg"],[UIImage imageNamed:@"image5.jpg"],[UIImage imageNamed:@"image6.jpg"],[UIImage imageNamed:@"image7.jpg"],[UIImage imageNamed:@"image8.jpg"],[UIImage imageNamed:@"image9.jpg"],[UIImage imageNamed:@"image10.jpg"],[UIImage imageNamed:@"image11.jpg"],[UIImage imageNamed:@"image12.jpg"],[UIImage imageNamed:@"image13.jpg"],[UIImage imageNamed:@"image14.jpg"],[UIImage imageNamed:@"image15.jpg"],[UIImage imageNamed:@"image16.jpg"],[UIImage imageNamed:@"image17.jpg"],nil ];
     
     
     currentImage=0;
@@ -57,9 +58,6 @@
     }
 }
 -(void)countdownTimer{
-    
-    //secondsLeft = 0;
-    
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(updateCounter:) userInfo:nil repeats:YES];
 }
 -(void) goForward{
@@ -67,6 +65,7 @@
     if (currentImage>=[images count]) {
         currentImage=0;
     }
+    //NSLog(@"currentImage: %i", currentImage);
     //imageView.image=[images objectAtIndex:currentImage];
     [UIView transitionWithView:imageView
                       duration:0.5f
@@ -78,9 +77,10 @@
 }
 -(void) goBackward{
     currentImage--;
-    if (currentImage<=0) {
+    if (currentImage<0) {
         currentImage=(int)[images count]-1;
     }
+    //NSLog(@"currentImage: %i", currentImage);
     [UIView transitionWithView:imageView
                       duration:0.5f
                        options:UIViewAnimationOptionTransitionCrossDissolve
