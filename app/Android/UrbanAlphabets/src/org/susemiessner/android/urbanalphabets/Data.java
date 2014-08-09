@@ -1,8 +1,6 @@
 package org.susemiessner.android.urbanalphabets;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +11,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap.CompressFormat;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
@@ -314,7 +309,6 @@ public class Data {
 		if(isTableEmpty()) {
 			SharedPreferences mSharedPreferences = PreferenceManager.
 					getDefaultSharedPreferences(mContext);
-			//addAlphabet("Untitled", Arrays.asList(LANGUAGE).indexOf("Finnish/Swedish"));
 			addAlphabet("Untitled", mSharedPreferences.getInt("defaultLang", 0));
 		} else {
 			openDatabase();
@@ -342,25 +336,6 @@ public class Data {
 		return listAlphabet.get(selected).getLang();
 	}
 	
-	public static void saveBitmapAsPNG(Bitmap bitmap) {
-		File filename = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), TOPLEVELDIR +
-				File.separator + "share.png");
-		
-		if(filename.exists())
-			filename.delete();
-	
-		try {
-			FileOutputStream fos = new FileOutputStream(filename);
-			BufferedOutputStream bos = new BufferedOutputStream(fos);
-	        bitmap.compress(CompressFormat.PNG, 100, bos);
-	        bos.flush();
-			fos.close();
-		} catch(Exception e) {
-			
-		}
-	}
-
 	public static String getLetterName(int sel) {
 		return LETTERNAME[Arrays.asList(LANGUAGE).
 		                  indexOf(getSelectedAlphabetLanguage())][sel];
@@ -503,35 +478,6 @@ public class Data {
 		return Arrays.asList(LANGUAGE).indexOf(getSelectedAlphabetLanguage());
 	}
 
-	public static void assignPhotoToSelectedLetter(int option, String path) {
-		File filename = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), TOPLEVELDIR +
-				File.separator + getSelectedAlphabetName()
-				+ File.separator + RESOURCERAWNAME[Arrays.asList(LANGUAGE).
-				indexOf(getSelectedAlphabetLanguage())][option]
-				+ ".png"); 
-		try {
-			FileOutputStream fos = new FileOutputStream(filename);
-			BufferedOutputStream bos = new BufferedOutputStream(fos);
-			BitmapFactory.decodeFile(path).compress(CompressFormat.PNG, 100, bos);
-	        bos.flush();
-			fos.close();
-		} catch(Exception e) {
-			
-		}
-	}
-	
-	public static void deleteLetter(int currentIndex) {
-		File filename = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), TOPLEVELDIR + File.separator + getSelectedAlphabetName()
-				+ File.separator + RESOURCERAWNAME[Arrays.asList(LANGUAGE).
-				indexOf(getSelectedAlphabetLanguage())][currentIndex]
-				+ ".png");
-		
-		if(filename.exists())
-			filename.delete();
-	}
-
 	public static int getSize() {
 		return listAlphabet.size();
 	}
@@ -552,16 +498,6 @@ public class Data {
 		selected = option;
 	}
 
-	public static String getSharePath() {
-		File filename = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), TOPLEVELDIR +
-				File.separator + "share.png");
-		if(filename.exists()) {
-			return filename.getAbsolutePath();
-		}
-		return null;
-	}
-	
 	public static int getBlank() {
 		return R.raw.letter_empty;
 	}

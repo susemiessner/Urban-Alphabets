@@ -1,8 +1,6 @@
 package org.susemiessner.android.urbanalphabets;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -46,7 +44,6 @@ public class TakePhotoActivity extends ActionBarActivity {
 				    break;
 				}
 				parameters.setPictureSize(mSize.width, mSize.height);
-				
 				parameters.setRotation(90);
 				mCamera.setDisplayOrientation(90);
 				mCamera.setParameters(parameters);

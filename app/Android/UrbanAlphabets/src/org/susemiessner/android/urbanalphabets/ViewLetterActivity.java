@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.support.v4.view.GestureDetectorCompat;
@@ -85,7 +87,20 @@ public class ViewLetterActivity extends ActionBarActivity {
 	}
 	
 	public void onClickDelete(View v) {
-		Data.deleteLetter(currentIndex);
+		//Data.deleteLetter(currentIndex);
+		File file = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" + 
+				File.separator + Data.getSelectedAlphabetName() +
+				File.separator + Data.RESOURCERAWNAME[Arrays.asList
+				(Data.LANGUAGE).indexOf(Data.getSelectedAlphabetLanguage())]
+				[currentIndex] + ".png");
+		
+		getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+				Images.Media.DATA + " LIKE ?", new String[]{file.getAbsolutePath()});
+		
+		if(file.exists())
+			file.delete();
+		
 		finish();
 	}
 	

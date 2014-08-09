@@ -19,6 +19,7 @@
 	
     <style name="dialog_light" parent="@android:style/Theme.Dialog">
     	<item name="@android:background">@color/Grey</item>
-    	<item name="@android:textColor">@color/Black</item>    
+    	<item name="@android:textColor">@color/Black</item>  
+    	<item name="android:windowNoTitle">true</item>  
 	</style>
 </resources>

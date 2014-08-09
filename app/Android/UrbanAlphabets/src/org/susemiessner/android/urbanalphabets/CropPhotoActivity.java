@@ -54,7 +54,8 @@ public class CropPhotoActivity extends ActionBarActivity {
 		cropView.setImageBitmap(original);
 		mPosX = 0f;
 		mPosY = 0f;
-		mScaleFactor = 0.2f;
+		// Magic Here
+		mScaleFactor = 0.4f;
 		cropView.setOnTouchListener( new OnTouchListener() {	
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {

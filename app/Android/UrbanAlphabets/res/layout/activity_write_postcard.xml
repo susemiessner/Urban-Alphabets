@@ -512,12 +512,12 @@
 
 		<ImageButton
 		    android:id="@+id/imagebutton_abc2"
-		    android:layout_width="32dp"
-		    android:layout_height="32dp"
+		    android:layout_width="45dp"
+		    android:layout_height="45dp"
 		    android:layout_alignParentRight="true"
 		    android:layout_centerVertical="true"
 		    android:contentDescription="@string/string_description"
-		    android:src="@drawable/abc"
+		    android:background="@drawable/abc"
 		    android:onClick="onClickAbc"  />
 
 	</RelativeLayout>

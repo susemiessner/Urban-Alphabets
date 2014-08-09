@@ -1,5 +1,9 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +19,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Bitmap.CompressFormat;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -127,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
 	    		tableLayout.draw(canvas);
-	    		Data.saveBitmapAsPNG(bitmapAlphabet);
+	    		saveBitmap(bitmapAlphabet);
 	    		Intent shareIntent = new Intent(this, ShareActivity.class);
 	    		shareIntent.putExtra("sharingWhat", "Alphabet");
 	    		startActivity(shareIntent);
@@ -170,6 +176,20 @@ public class MainActivity extends ActionBarActivity {
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
+	}
+	
+	private void saveBitmap(Bitmap bitmap) {
+		File filename = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+				File.separator + "share.png");
+		try {
+			FileOutputStream fos = new FileOutputStream(filename);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			bitmap.compress(CompressFormat.PNG, 100, bos);
+			bos.flush();
+			fos.close();
+		} catch (IOException e) {
+		}	
 	}
 	
 	public void onClick(View v) {

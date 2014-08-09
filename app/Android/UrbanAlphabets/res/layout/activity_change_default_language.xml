@@ -14,10 +14,10 @@
 
     <ImageButton
     	android:id="@+id/imagebutton_change_default_language"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
-        android:background="@drawable/ok"
+        android:background="@drawable/ok_big"
         android:contentDescription="@string/string_description"
         android:onClick="onClick"
         android:visibility="gone"

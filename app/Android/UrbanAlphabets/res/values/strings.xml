@@ -39,18 +39,20 @@
     <string name="default_language">Default\nLanguage:</string>
     <string name="location">Enable location</string>
     <string name="username">Username:</string>
+    <string name="username_message">Please enter a username:</string>
     <string name="cancel">Cancel</string>
     <string name="enter_username">Enter username</string>
     <string name="ok">OK</string>
     <string name="change">(change)</string>
     <string name="alphabet_info">Alphabet info</string>
     <string name="share_alphabet">Share alphabet</string>
-    <string name="save_alphabet">Save alphabet</string>
+    <string name="share_postcard">Share postcard</string>
+    <string name="save_postcard">Save postcard</string>
     <string name="write_postcard">Write postcard</string>
+    <string name="save_alphabet">Save alphabet</string>
+    <string name="share_postcard">Share postcard</string>
     <string name="my_alphabets">My alphabets</string>
     <string name="settings">Settings</string>
     <string name="save_on_device">Save on this device</string>
-    <string name="title_activity_change_default_language">ChangeDefaultLanguageActivity</string>
-    <string name="title_activity_set_username">SetUsernameActivity</string>
-
+    <string name="change_default_language">Change Default Language</string>
 </resources>

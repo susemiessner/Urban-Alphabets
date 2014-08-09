@@ -1,8 +1,13 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -11,6 +16,7 @@ import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -171,7 +177,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapPostcard);
 	    		tableLayout.draw(canvas);
-	    		Data.saveBitmapAsPNG(bitmapPostcard);
+	    		saveBitmap(bitmapPostcard);
 	    		Intent intent = new Intent(this, ShareActivity.class);
 	    		intent.putExtra("sharingWhat", "Postcard");
 	    		startActivity(intent);
@@ -212,6 +218,21 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    	default:
 	            return super.onContextItemSelected(item);
 	    }
+	}
+	
+	private void saveBitmap(Bitmap bitmap) {
+		File filename = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+				File.separator + "share.png");
+		try {
+			FileOutputStream fos = new FileOutputStream(filename);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			bitmap.compress(CompressFormat.PNG, 100, bos);
+			bos.flush();
+			fos.close();
+		} catch (IOException e) {
+		}
+		
 	}
 	
 	public void onResume() {
