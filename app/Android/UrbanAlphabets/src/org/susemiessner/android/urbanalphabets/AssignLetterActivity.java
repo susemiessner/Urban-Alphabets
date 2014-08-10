@@ -122,7 +122,6 @@ public class AssignLetterActivity extends ActionBarActivity {
     		return;
 		}
 		update();
-		
 	}
 	
 	private void assignPhoto() {
@@ -168,6 +167,7 @@ public class AssignLetterActivity extends ActionBarActivity {
 		} catch (InterruptedException e) {
 			
 		}
+		setResult(2);
 		finish();
 	}
 	

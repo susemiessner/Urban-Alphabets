@@ -15,6 +15,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ViewSwitcher.ViewFactory;
 import android.view.GestureDetector;
 
@@ -36,8 +37,13 @@ public class ViewLetterActivity extends ActionBarActivity {
 		imageSwitcher.setFactory(new ViewFactory() {
 			@Override
 			public View makeView() {
-				ImageView imageView = new ImageView(getApplicationContext() );
-				imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+				ImageView imageView = new ImageView(getApplicationContext());
+				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		        // No idea, need to check
+				LayoutParams params = new ImageSwitcher.LayoutParams(
+		               LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+
+		        imageView.setLayoutParams(params);
 				return imageView;
 			}
 		});
@@ -87,7 +93,6 @@ public class ViewLetterActivity extends ActionBarActivity {
 	}
 	
 	public void onClickDelete(View v) {
-		//Data.deleteLetter(currentIndex);
 		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" + 
 				File.separator + Data.getSelectedAlphabetName() +

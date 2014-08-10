@@ -47,15 +47,18 @@ public class CropPhotoActivity extends ActionBarActivity {
 		mScaleDetector = new ScaleGestureDetector(getBaseContext(), 
 				new ScaleListener());
 		original = BitmapFactory.decodeFile(getFilesDir()+File.separator+"photo.png"); 
-		Matrix matrix = new Matrix();
-		matrix.setRotate(-90);
-		original = Bitmap.createBitmap(original, 0, 0, original.getWidth(),
+		
+		if(original.getHeight() < original.getWidth()) {
+			Matrix matrix = new Matrix();
+			matrix.setRotate(-90);
+			original = Bitmap.createBitmap(original, 0, 0, original.getWidth(),
 						original.getHeight(), matrix, false);
+		}
 		cropView.setImageBitmap(original);
 		mPosX = 0f;
 		mPosY = 0f;
-		// Magic Here
-		mScaleFactor = 0.4f;
+	
+		mScaleFactor = 1.0f;
 		cropView.setOnTouchListener( new OnTouchListener() {	
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
@@ -83,6 +86,15 @@ public class CropPhotoActivity extends ActionBarActivity {
 	}
 	
 	private void showImage() {
+		
+		float xScaleFactor = (float)cropView.getWidth() / (float)original.getWidth();
+		float yScaleFactor = (float)cropView.getHeight() / (float)original.getHeight();
+		// Magic Here
+		
+		mScaleFactor = (xScaleFactor < yScaleFactor)?xScaleFactor:yScaleFactor; 
+		
+		mScaleFactor = Math.max(0.2f,Math.min(4.0f,mScaleFactor));
+		
 		Matrix matrix = new Matrix();
 		matrix.setScale(mScaleFactor, mScaleFactor);
 		mPosX = cropView.getWidth()/2 - original.getWidth() * mScaleFactor * 0.5f;
@@ -266,8 +278,15 @@ public class CropPhotoActivity extends ActionBarActivity {
 		}
 		
 		Intent assignLetterIntent = new Intent(this, AssignLetterActivity.class);
-		startActivity(assignLetterIntent);
-		finish();
+		startActivityForResult(assignLetterIntent, 0);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent data){
+		if(requestCode == 0 && 
+				resultCode == 2) {
+			finish();
+		}
 	}
 	
 	private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
