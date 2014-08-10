@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:onClick="onClick" >
 
     <TextView
         android:id="@+id/textview_username_label"
@@ -120,5 +122,16 @@
         android:text="@string/location"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_settings_ok"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ok_big"
+        android:contentDescription="@string/string_description"
+        android:onClick="onClickOk" />
 
 </RelativeLayout>

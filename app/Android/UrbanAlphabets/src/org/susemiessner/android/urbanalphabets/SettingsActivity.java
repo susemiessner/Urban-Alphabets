@@ -88,4 +88,8 @@ public class SettingsActivity extends ActionBarActivity {
 		e.putBoolean("save", value);
 		e.commit();
 	}
+	
+	public void onClickOk(View v) {
+		finish();
+	}
 }
