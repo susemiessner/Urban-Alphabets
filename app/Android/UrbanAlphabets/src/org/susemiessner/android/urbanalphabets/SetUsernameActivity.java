@@ -14,11 +14,7 @@ public class SetUsernameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_set_username);
-		editTextUsername = (EditText)findViewById(R.id.edittext_dialog_username);
-	}
-
-	public void onClickCancel(View v) {
-		finish();
+		editTextUsername = (EditText)findViewById(R.id.edittext_set_username);
 	}
 	
 	public void onClickOk(View v) {

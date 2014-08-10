@@ -1,10 +1,17 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Bitmap.CompressFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
@@ -39,8 +46,7 @@ public class CropPhotoActivity extends ActionBarActivity {
 		cropView = (CropView) findViewById(R.id.imageview_crop_photo);	
 		mScaleDetector = new ScaleGestureDetector(getBaseContext(), 
 				new ScaleListener());
-		byte[] rawImageData = Data.getRawImageData();
-		original = BitmapFactory.decodeByteArray(rawImageData, 0, rawImageData.length);
+		original = BitmapFactory.decodeFile(getFilesDir()+File.separator+"photo.png"); 
 		Matrix matrix = new Matrix();
 		matrix.setRotate(-90);
 		original = Bitmap.createBitmap(original, 0, 0, original.getWidth(),
@@ -48,7 +54,8 @@ public class CropPhotoActivity extends ActionBarActivity {
 		cropView.setImageBitmap(original);
 		mPosX = 0f;
 		mPosY = 0f;
-		mScaleFactor = 0.2f;
+		// Magic Here
+		mScaleFactor = 0.4f;
 		cropView.setOnTouchListener( new OnTouchListener() {	
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
@@ -247,7 +254,17 @@ public class CropPhotoActivity extends ActionBarActivity {
 					(mPosY - cropView.getTopRect()) : 0;
 			c.drawBitmap(resized, leftEnd * r, topEnd * r, null);
 		}
-		Data.setCroppedBitmap(b);
+		
+		deleteFile ("photo.png");
+		try {
+			FileOutputStream fos = openFileOutput("photo.png", Context.MODE_PRIVATE);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			b.compress(CompressFormat.PNG, 100, bos);
+			bos.flush();
+			fos.close();
+		} catch (IOException e) {
+		}
+		
 		Intent assignLetterIntent = new Intent(this, AssignLetterActivity.class);
 		startActivity(assignLetterIntent);
 		finish();

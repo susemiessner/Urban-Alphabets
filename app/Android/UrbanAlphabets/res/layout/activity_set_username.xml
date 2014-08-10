@@ -1,52 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content" >
-	
-	<TextView
-	    android:id="@+id/textview_dialog_username_label"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginLeft="10dp"
-	    android:layout_marginTop="10dp"
-	    android:text="@string/username"
-	    android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	<EditText
-	    android:id="@+id/edittext_dialog_username"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignBaseline="@id/textview_dialog_username_label"
-	    android:layout_marginLeft="10dp"
-	    android:layout_marginRight="10dp"
-	    android:layout_marginTop="10dp"
-	    android:layout_toRightOf="@id/textview_dialog_username_label"
-	    android:ems="10"
-	    android:inputType="text" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="5dp" >
 
-		<requestFocus />
-	</EditText>
+    <TextView
+        android:id="@+id/textview_username_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/username_message"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-	<Button
-	    android:id="@+id/button_cancel"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_marginLeft="10dp"
-	    android:layout_below="@id/edittext_dialog_username"
-	    android:onClick="onClickCancel"
-	    android:text="@string/cancel" />
-	
-	<Button
-	    android:id="@+id/button_ok"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignBottom="@id/button_cancel"
-	    android:layout_alignParentRight="true"
-	    android:layout_marginRight="10dp"
-	    android:onClick="onClickOk"
-	    android:text="@string/ok" />
+    <EditText
+        android:id="@+id/edittext_set_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview_username_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:inputType="text" >
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/imagebutton_set_username"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/edittext_set_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ok_big"
+        android:contentDescription="@string/string_description"
+        android:onClick="onClickOk" />
 	
 </RelativeLayout>

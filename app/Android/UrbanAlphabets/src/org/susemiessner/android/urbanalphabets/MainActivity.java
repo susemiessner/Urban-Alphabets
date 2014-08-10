@@ -1,5 +1,9 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +19,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Bitmap.CompressFormat;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -61,6 +67,7 @@ public class MainActivity extends ActionBarActivity {
 	private LocationManager mlocManager;
 	private LocationListener mlocListener;
 	private SharedPreferences mSharedPreferences;
+	private MenuItem saved;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -70,6 +77,7 @@ public class MainActivity extends ActionBarActivity {
 		mSharedPreferences = PreferenceManager.
 				getDefaultSharedPreferences(getApplicationContext());
 		Data.init(getApplicationContext());
+		saved = null;
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(Data.getSelectedAlphabetName());
 		imageViewIdList = new ArrayList<>();
@@ -103,15 +111,6 @@ public class MainActivity extends ActionBarActivity {
 		Data.init(getApplicationContext());
 		actionBar.setTitle(Data.getSelectedAlphabetName());
 		new FillTableLayout().execute();
-		//if(Data.updatePending()) {
-		//	new UpdateDatabase(this, getLongitude(),
-		//		getLatitude(),
-		//		username,
-		//		Data.getLetterName(),
-		//		"no", "no", BitmapFactory.decodeFile
-		//		(Data.getPathToRecentlyAssigned()),
-		//		Data.getSelectedAlphabetLanguage(), "").execute();
-		//}
 	}
 		
 	@Override
@@ -134,20 +133,20 @@ public class MainActivity extends ActionBarActivity {
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
 	    		tableLayout.draw(canvas);
-	    		Data.saveBitmapAsPNG(bitmapAlphabet);
+	    		saveBitmap(bitmapAlphabet);
 	    		Intent shareIntent = new Intent(this, ShareActivity.class);
 	    		shareIntent.putExtra("sharingWhat", "Alphabet");
 	    		startActivity(shareIntent);
 	    		return true;
 	    	}
 	    	case R.id.item_save_alphabet: {
-	    		String username = mSharedPreferences.getString("username", "none");
-	    		if (username == "none") {
+	    		String username = mSharedPreferences.getString("username", "");
+	    		if (username.isEmpty()) {
+	    			saved = item;
 	    			Intent setUsernameIntent = new Intent(this, SetUsernameActivity.class);
 		    		startActivity(setUsernameIntent);
-		    		username = mSharedPreferences.getString("username", "none");
+		    		return true;
 	    		}
-	    		/*
 	    		Bitmap bitmapAlphabet = Bitmap.createBitmap(tableLayout.getWidth(), 
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
@@ -157,14 +156,10 @@ public class MainActivity extends ActionBarActivity {
 	    				username,
 	    				"no", "no", "yes", bitmapAlphabet,
 	    				Data.getSelectedAlphabetLanguage(), "").execute();
-	    		*/
 	    		return true;
 	    	}
 	    	case R.id.item_write_postcard:{
 	    		Intent writePostcardIntent = new Intent(this, WritePostcardActivity.class);
-	    		//writePostcardIntent.putExtra("username", getUsername());
-	    		writePostcardIntent.putExtra("longitude", getLongitude());
-	    		writePostcardIntent.putExtra("latitude", getLatitude());
 	    		startActivity(writePostcardIntent);
 	    		return true;
 	    	}
@@ -181,6 +176,20 @@ public class MainActivity extends ActionBarActivity {
 	        default:
 	            return super.onContextItemSelected(item);
 	    }
+	}
+	
+	private void saveBitmap(Bitmap bitmap) {
+		File filename = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+				File.separator + "share.png");
+		try {
+			FileOutputStream fos = new FileOutputStream(filename);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			bitmap.compress(CompressFormat.PNG, 100, bos);
+			bos.flush();
+			fos.close();
+		} catch (IOException e) {
+		}	
 	}
 	
 	public void onClick(View v) {
@@ -226,6 +235,10 @@ public class MainActivity extends ActionBarActivity {
 				0, mlocListener);
 		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 
 					0, mlocListener);
+		if(saved != null) {
+			onOptionsItemSelected(saved);
+			saved = null;
+		}
 	}
 	
 	public void onPause() {

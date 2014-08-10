@@ -1,8 +1,11 @@
 package org.susemiessner.android.urbanalphabets;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -35,13 +38,12 @@ public class TakePhotoActivity extends ActionBarActivity {
 				Camera.Parameters parameters = mCamera.getParameters();
 				List<Size> sizes = parameters.getSupportedPictureSizes();
 				Size mSize = null;
-				// TODO: Best size
+				// Best size
 				for (Size size : sizes) {
 					mSize = size;
 				    break;
 				}
-				//parameters.setPictureSize(mSize.width, mSize.height);
-				
+				parameters.setPictureSize(mSize.width, mSize.height);
 				parameters.setRotation(90);
 				mCamera.setDisplayOrientation(90);
 				mCamera.setParameters(parameters);
@@ -64,7 +66,15 @@ public class TakePhotoActivity extends ActionBarActivity {
 	private PictureCallback mPicture = new PictureCallback() {
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
-			Data.setRawImageData(data);
+			try {
+				FileOutputStream fos = openFileOutput("photo.png", Context.MODE_PRIVATE);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				BitmapFactory.decodeByteArray(data, 0, data.length).
+					compress(CompressFormat.PNG, 100, bos);
+				bos.flush();
+				fos.close();
+			} catch (IOException e) {
+			}	
 			cropPhoto();
 		}
 	};
@@ -97,10 +107,15 @@ public class TakePhotoActivity extends ActionBarActivity {
 			Uri uri = data.getData();
 			if (uri != null){
 				Bitmap bitmap = BitmapFactory.decodeFile(getRealPathFromUri(uri));
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				bitmap.compress(CompressFormat.PNG, 100, stream);
-				byte [] byteArrayImage = stream.toByteArray();
-				Data.setRawImageData(byteArrayImage);
+				try {
+
+					FileOutputStream fos = openFileOutput("photo.png", Context.MODE_PRIVATE);
+					BufferedOutputStream bos = new BufferedOutputStream(fos);
+					bitmap.compress(CompressFormat.PNG, 100, bos);
+					bos.flush();
+					fos.close();
+				} catch (IOException  e) {
+				}
 				Intent cropPhotoIntent = new Intent(this, CropPhotoActivity.class);
 				startActivity(cropPhotoIntent);
 			}

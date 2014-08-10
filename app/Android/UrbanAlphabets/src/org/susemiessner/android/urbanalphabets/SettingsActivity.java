@@ -35,7 +35,7 @@ public class SettingsActivity extends ActionBarActivity {
 		textViewUsername.setText(mSharedPreferences.getString("username", "defaultUser"));
 		textViewDefaultLang.setText(Data.getLanguage
 				(mSharedPreferences.getInt("defaultLang", 0)));
-		checkBoxLocation.setChecked(mSharedPreferences.getBoolean("enableLocation", false));
+		checkBoxLocation.setChecked(mSharedPreferences.getBoolean("enableLocation", true));
 		checkBoxSave.setChecked(mSharedPreferences.getBoolean("save", true));
 		editTextUsername.setOnKeyListener(new View.OnKeyListener() {
 			@Override

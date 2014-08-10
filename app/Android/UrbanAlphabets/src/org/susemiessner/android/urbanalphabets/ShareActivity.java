@@ -1,12 +1,11 @@
 package org.susemiessner.android.urbanalphabets;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.io.File;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -50,16 +49,12 @@ public class ShareActivity extends ActionBarActivity {
 	}
 	
 	private EditText editText;
-	private Map<String, Integer> map;
 	private String sharingWhat;
 	private ActionBar actionBar;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_share);
-		map = new HashMap<String, Integer>();
-		map.put("Postcard", R.drawable.icon_sharepostcard);
-		map.put("Alphabet", R.drawable.icon_sharealphabet);
 		actionBar = getSupportActionBar();
 		sharingWhat = getIntent().getStringExtra("sharingWhat");	
 		
@@ -73,7 +68,7 @@ public class ShareActivity extends ActionBarActivity {
 		editText = (EditText) findViewById(R.id.edittext_share_message);
 		
 		ImageView imageView = (ImageView) findViewById(R.id.imageview_share_image);
-		imageView.setImageURI(Uri.parse(Data.getSharePath()));
+		imageView.setImageURI(Uri.parse(getSharePath()));
 		
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -96,7 +91,6 @@ public class ShareActivity extends ActionBarActivity {
 	protected void onStart() {
 		super.onStart();
 		actionBar.setTitle("Share " + sharingWhat);
-		actionBar.setIcon(getResources().getDrawable(map.get(sharingWhat)));
 	}
 	
 	@Override
@@ -111,7 +105,15 @@ public class ShareActivity extends ActionBarActivity {
 				"Sharing UrbanAlphabets");
 		intent.putExtra(android.content.Intent.EXTRA_TEXT, 
 				editText.getText().toString());
-		intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Data.getSharePath()));
+		intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + getSharePath()));
 		startActivity(Intent.createChooser(intent, with));
+	}
+	
+	private String getSharePath() {
+		File file = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+				File.separator + "share.png");
+		
+		return file.getAbsolutePath();
 	}
 }
