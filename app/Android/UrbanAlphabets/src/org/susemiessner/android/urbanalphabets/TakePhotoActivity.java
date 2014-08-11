@@ -68,10 +68,11 @@ public class TakePhotoActivity extends ActionBarActivity {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			try {
 				FileOutputStream fos = openFileOutput("photo.png", Context.MODE_PRIVATE);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				BitmapFactory.decodeByteArray(data, 0, data.length).
-					compress(CompressFormat.PNG, 100, bos);
-				bos.flush();
+				//BufferedOutputStream bos = new BufferedOutputStream(fos);
+				//((BitmapFactory.decodeByteArray(data, 0, data.length).
+				//	compress(CompressFormat.PNG, 100, bos);
+				//bos.flush();
+				fos.write(data);
 				fos.close();
 			} catch (IOException e) {
 			}	

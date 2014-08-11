@@ -79,6 +79,10 @@ public class SettingsActivity extends ActionBarActivity {
 		boolean value = checkBoxLocation.isChecked();
 		Editor e = mSharedPreferences.edit();
 		e.putBoolean("enableLocation", value);
+		if(!value) {
+			e.putString("longitude", "0");
+    		e.putString("latitude", "0");
+		}
 		e.commit();
 	}
 	

@@ -147,12 +147,14 @@ public class MainActivity extends ActionBarActivity {
 		    		startActivity(setUsernameIntent);
 		    		return true;
 	    		}
+	    		String longitude = mSharedPreferences.getString("longitude", "0");
+	    		String latitude =  mSharedPreferences.getString("latitude", "0");
 	    		Bitmap bitmapAlphabet = Bitmap.createBitmap(tableLayout.getWidth(), 
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
 	    		tableLayout.draw(canvas);
-	    		new UpdateDatabase(this, getLongitude(),
-	    				getLatitude(),
+	    		new UpdateDatabase(this, longitude,
+	    				latitude,
 	    				username,
 	    				"no", "no", "yes", bitmapAlphabet,
 	    				Data.getSelectedAlphabetLanguage(), "").execute();
@@ -201,25 +203,7 @@ public class MainActivity extends ActionBarActivity {
 		viewLetterIntent.putExtra("currentIndex", imageViewIdList.indexOf(v.getId()));
 		startActivity(viewLetterIntent);
 	}
-	
-	private void setLocation(String longitude, String latitude) {
-		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		Editor e = mSharedPreferences.edit();
-		e.putString("longitude",longitude);
-		e.putString("latitude", latitude);
-		e.commit();
-	}
-	
-	private String getLongitude() {
-		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		return mSharedPreferences.getString("longitude", "0");
-	}
-	
-	private String getLatitude() {
-		SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		return mSharedPreferences.getString("latitude", "0");
-	}
-	
+		
 	public void onClickMenu(View v) {
 		openOptionsMenu();
 	}
@@ -231,10 +215,13 @@ public class MainActivity extends ActionBarActivity {
 
 	public void onResume() {
 		super.onResume();
-		mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000,
-				0, mlocListener);
-		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 
-					0, mlocListener);
+		if(mSharedPreferences.getBoolean("enableLocation", true)) {
+			mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+					1000, 0, mlocListener);
+			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+					1000, 0, mlocListener);
+			// 1 -> 1000
+		}
 		if(saved != null) {
 			onOptionsItemSelected(saved);
 			saved = null;
@@ -243,7 +230,8 @@ public class MainActivity extends ActionBarActivity {
 	
 	public void onPause() {
 		super.onPause();
-		mlocManager.removeUpdates(mlocListener);
+		if(mSharedPreferences.getBoolean("enableLocation", true))
+			mlocManager.removeUpdates(mlocListener);
 	}
 		
 	/* Class My Location Listener */
@@ -252,7 +240,10 @@ public class MainActivity extends ActionBarActivity {
     	public void onLocationChanged(Location loc) {
     		Double latitude = loc.getLatitude();
     		Double longitude = loc.getLongitude();
-    		setLocation(Double.toString(longitude), Double.toString(latitude));
+    		Editor e = mSharedPreferences.edit();
+    		e.putString("longitude", Double.toString(longitude));
+    		e.putString("latitude", Double.toString(latitude));
+    		e.commit();	
     	}
     	
     	@Override
@@ -261,29 +252,20 @@ public class MainActivity extends ActionBarActivity {
     			@Override
     			public void run() {
     				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-    				builder.setPositiveButton("Share location", 
+    				builder.setPositiveButton("Ok", 
     						new DialogInterface.OnClickListener() {
     					public void onClick(DialogInterface dialog, int id) {
-    						// User clicked OK button
-    						MainActivity.this.startActivity(new Intent
-    								(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     						dialog.dismiss();
     					}
     				});
-    				builder.setNegativeButton("Decline",
-    						new DialogInterface.OnClickListener() {
-    					public void onClick(DialogInterface dialog, int id) {
-    						dialog.cancel();
-    						// User cancelled the dialog
-    					}
-    				});
     				AlertDialog dialog = builder.create();
-    				dialog.setMessage("UrbanAlphabets wants to know your location.");
+    				dialog.setMessage("You want to share location. Enable devices from phone settings to share location.");
     				Window window = dialog.getWindow();
     			    window.setGravity(Gravity.BOTTOM);
     				dialog.show();
     			}
     		});
+    		
     	}
 
     	@Override
