@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/string_name"
+            android:text="@string/name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Grey" />
 
@@ -40,7 +40,7 @@
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/textview_alphabet_info_name_title"
             android:ems="6"
-            android:hint="@string/string_hint_name"
+            android:hint="@string/hint_name"
             android:inputType="text"
             android:maxEms="10"
             android:visibility="gone" />
@@ -55,7 +55,7 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClickHint1"
-        android:text="@string/string_change"
+        android:text="@string/change"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
 
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/string_language"
+            android:text="@string/language"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Grey" />
 
@@ -97,7 +97,7 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClickHint2"
-        android:text="@string/string_change"
+        android:text="@string/change"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
 
@@ -109,7 +109,7 @@
         android:layout_marginTop="50dp"
         android:clickable="true"
         android:onClick="onClickReset"
-        android:text="@string/string_reset_alphabet"
+        android:text="@string/reset_alphabet"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
 
@@ -121,7 +121,7 @@
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:onClick="onClickDelete"
-        android:text="@string/string_delete_alphabet"
+        android:text="@string/delete_alphabet"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
     

@@ -28,7 +28,6 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="org.susemiessner.android.urbanalphabets.MainActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -37,100 +36,72 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.TakePhotoActivity"
-            android:label="@string/string_take_photo"
-            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:label="@string/take_photo"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.susemiessner.urbanalphabets.MainActivity" />
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.WritePostcardActivity"
-            android:label="@string/string_write_postcard"
-            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:label="@string/write_postcard"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.susemiessner.urbanalphabets.MainActivity" />
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ShareActivity"
-            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.susemiessner.urbanalphabets.MainActivity" />
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ViewLetterActivity"
-            android:label="@string/string_view_letter"
+            android:label="@string/view_letter"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AlphabetInfoActivity"
-            android:label="@string/string_alphabet_info"
-            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:label="@string/alphabet_info"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.susemiessner.urbanalphabets.MainActivity" />
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.MyAlphabetsActivity"
-            android:label="@string/string_my_alphabets"
-            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:label="@string/my_alphabets"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.susemiessner.urbanalphabets.MainActivity" />
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AddAlphabetActivity"
-            android:label="@string/string_add_alphabet"
-            android:parentActivityName="org.susemiessner.android.urbanalphabets.MainActivity"
+            android:label="@string/add_alphabet"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.susemiessner.urbanalphabets.MainActivity" />
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.CropPhotoActivity"
-            android:label="@string/string_crop_photo"
-            android:parentActivityName="org.susemiessner.android.urbanalphabets.TakePhotoActivity"
+            android:label="@string/crop_photo"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.susemiessner.urbanalphabets.TakePhotoActivity" />
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AssignLetterActivity"
-            android:label="@string/string_assign_letter"
+            android:label="@string/assign_letter"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ChangeLanguageActivity"
-            android:label="@string/string_change_language"
+            android:label="@string/change_language"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.WelcomeActivity"
-            android:label="@string/string_welcome"
+            android:label="@string/welcome"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.SettingsActivity"
-            android:label="@string/string_settings"
+            android:label="@string/settings"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ChangeDefaultLanguageActivity"
-            android:label="@string/change_default_language" >
+            android:label="@string/change_default_language"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.SetUsernameActivity"

@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:background="@drawable/anticlockwise"
-            android:contentDescription="@string/string_description"
+            android:contentDescription="@string/description"
             android:onClick="onClickACW" />
 
         <ImageButton
@@ -37,7 +37,7 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:background="@drawable/ok_big"
-            android:contentDescription="@string/string_description"
+            android:contentDescription="@string/description"
             android:onClick="onClickCrop" />
 
         <ImageButton
@@ -48,7 +48,7 @@
             android:layout_centerVertical="true"
              android:layout_marginRight="5dp"
             android:background="@drawable/clockwise"
-            android:contentDescription="@string/string_description"
+            android:contentDescription="@string/description"
             android:onClick="onClickCW" />
 
     </RelativeLayout>

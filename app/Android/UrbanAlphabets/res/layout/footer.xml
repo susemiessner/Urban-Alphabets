@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/string_description"
+        android:contentDescription="@string/description"
         android:scaleType="center"
         android:src="@drawable/icon_plus" />
 
@@ -22,7 +22,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imageviewFooter"
         android:paddingLeft="5dp"
-        android:text="@string/string_add_new_alphabet"
+        android:text="@string/add_new_alphabet"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/LightBlack" />
 

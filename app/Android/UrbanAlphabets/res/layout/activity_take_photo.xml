@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/photolibrary"
             android:clickable="true"
-            android:contentDescription="@string/string_description"
+            android:contentDescription="@string/description"
             android:onClick="onClickOpenGallery" />
         
         <ImageButton
@@ -39,7 +39,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/takephoto_big"
             android:clickable="true"
-            android:contentDescription="@string/string_description"
+            android:contentDescription="@string/description"
             android:onClick="onClickTakePhoto" />
             
  	</RelativeLayout>        

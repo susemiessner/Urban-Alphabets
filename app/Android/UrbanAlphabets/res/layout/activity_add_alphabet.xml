@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/string_name"
+            android:text="@string/name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/Grey" />
 
@@ -30,7 +30,7 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/textview_alphabetname"
             android:ems="10"
-            android:hint="@string/string_hint_name"
+            android:hint="@string/hint_name"
             android:inputType="text"
             android:imeOptions="actionDone" >
             <requestFocus />
@@ -46,7 +46,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="5dp"
-        android:text="@string/string_language"
+        android:text="@string/language"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
 
@@ -65,7 +65,7 @@
         android:layout_height="35dp"
         android:layout_gravity="center"
         android:background="@drawable/ok"
-        android:contentDescription="@string/string_description"
+        android:contentDescription="@string/description"
         android:onClick="onClick"
         android:visibility="gone"
     />

@@ -14,7 +14,8 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentLeft="true" 
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/description" />
 
         <EditText
             android:id="@+id/edittext_share_message"

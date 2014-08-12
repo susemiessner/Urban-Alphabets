@@ -10,7 +10,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:contentDescription="@string/string_description" />
+        android:contentDescription="@string/description" />
 
     <TextView
         android:id="@+id/textviewRow"

@@ -33,7 +33,7 @@
 		    	android:layout_weight="1"
 		    	android:background="@color/White"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -44,7 +44,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
         	<ImageView
@@ -55,7 +55,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
             
 			<ImageView
@@ -66,7 +66,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
         	<ImageView
@@ -77,7 +77,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
                        
 			<ImageView
@@ -88,7 +88,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 		</TableRow>
@@ -110,7 +110,7 @@
             	android:layout_weight="1"
             	android:background="@color/White"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
         
         	<ImageView
@@ -121,7 +121,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
         
         	<ImageView
@@ -132,7 +132,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
         
         	<ImageView
@@ -143,7 +143,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
         
         	<ImageView
@@ -154,7 +154,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
         
         	<ImageView
@@ -165,7 +165,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
         
 		</TableRow>
@@ -187,7 +187,7 @@
 		    	android:background="@color/White"
 		    	android:layout_weight="1"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -198,7 +198,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -209,7 +209,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -220,7 +220,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -231,7 +231,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -242,7 +242,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
 
 		</TableRow>
@@ -264,7 +264,7 @@
             	android:layout_weight="1"
             	android:background="@color/White"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
             
 			<ImageView
@@ -275,7 +275,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -286,7 +286,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -297,7 +297,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -308,7 +308,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             	
 			<ImageView
@@ -319,7 +319,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
 
 		</TableRow>
@@ -341,7 +341,7 @@
 		    	android:layout_weight="1"
 		    	android:background="@color/White"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -352,7 +352,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -363,7 +363,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -374,7 +374,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -385,7 +385,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -396,7 +396,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 		</TableRow>
@@ -418,7 +418,7 @@
 		    	android:layout_weight="1"
 		    	android:background="@color/White"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -429,7 +429,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -440,7 +440,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             	
 			<ImageView
@@ -451,7 +451,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -462,7 +462,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		   		android:onClick="onClick" />
             
 			<ImageView
@@ -473,7 +473,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 		</TableRow>
@@ -496,7 +496,7 @@
             	android:layout_weight="1"
             	android:background="@color/White"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
             
 			<ImageView
@@ -507,7 +507,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -518,7 +518,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 			<ImageView
@@ -529,7 +529,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
         
         	<ImageView
@@ -540,7 +540,7 @@
             	android:background="@color/White"
             	android:layout_marginLeft="1dp"
             	android:clickable="true"
-            	android:contentDescription="@string/string_description"
+            	android:contentDescription="@string/description"
             	android:onClick="onClick" />
             
 			<ImageView
@@ -551,7 +551,7 @@
 		    	android:background="@color/White"
 		    	android:layout_marginLeft="1dp"
 		    	android:clickable="true"
-		    	android:contentDescription="@string/string_description"
+		    	android:contentDescription="@string/description"
 		    	android:onClick="onClick" />
             
 		</TableRow>
@@ -572,7 +572,7 @@
 		    android:layout_marginLeft="5dp"
 		    android:layout_alignParentLeft="true"
 		    android:layout_centerVertical="true"
-		    android:contentDescription="@string/string_description" />
+		    android:contentDescription="@string/description" />
 		
 		<ImageButton
 		    android:id="@+id/imagebutton_assign_letter"
@@ -581,7 +581,7 @@
 		    android:layout_centerInParent="true"
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/ok_big"
-		    android:contentDescription="@string/string_description"
+		    android:contentDescription="@string/description"
 		    android:onClick="onClickAssign"
 		    android:visibility="gone" />
 		
