@@ -1,30 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/textview_welcome_1"
+    
+    <ImageView
+        android:id="@+id/imageview_welcome"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4"
-        android:autoLink="web|email"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="@string/welcome_message"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_height="match_parent"
+		android:contentDescription="@string/string_description"
+        android:src="@drawable/welcome" />
 
-    <Button
-        android:id="@+id/button_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="2dp"
-        android:onClick="onClick"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/string_start" />
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ok_big"
+        android:contentDescription="@string/string_description"
+        android:onClick="onClick" />
 
-</LinearLayout>
+</RelativeLayout>

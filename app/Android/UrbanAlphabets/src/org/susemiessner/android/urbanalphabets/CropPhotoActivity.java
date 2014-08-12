@@ -93,7 +93,7 @@ public class CropPhotoActivity extends ActionBarActivity {
 		
 		mScaleFactor = (xScaleFactor < yScaleFactor)?xScaleFactor:yScaleFactor; 
 		
-		mScaleFactor = Math.max(0.2f,Math.min(4.0f,mScaleFactor));
+		mScaleFactor = Math.max(0.2f,Math.min(10.0f, mScaleFactor));
 		
 		Matrix matrix = new Matrix();
 		matrix.setScale(mScaleFactor, mScaleFactor);
@@ -294,7 +294,7 @@ public class CropPhotoActivity extends ActionBarActivity {
 		public boolean onScale(ScaleGestureDetector detector) {
 			mScaleFactor *= detector.getScaleFactor();
 	        // Don't let the object get too small or too large.
-	        mScaleFactor = Math.max(0.2f, Math.min(mScaleFactor, 4.0f));
+	        mScaleFactor = Math.max(0.2f, Math.min(mScaleFactor, 10.0f));
 	        // Magnify image
 	        Matrix matrix = new Matrix();
 	        matrix.setScale(mScaleFactor, mScaleFactor);

@@ -22,4 +22,5 @@
     	<item name="@android:textColor">@color/Black</item>  
     	<item name="android:windowNoTitle">true</item>  
 	</style>
+	    
 </resources>

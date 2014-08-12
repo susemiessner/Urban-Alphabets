@@ -1,25 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/imageview_splash"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:contentDescription="@string/string_description"
+	android:src="@drawable/loading_screen" />
 
-    <ImageView
-        android:id="@+id/imageview_splash"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/string_description"
-        android:scaleType="center"
-        android:src="@drawable/loading_screen" />
-
-    <TextView
-        android:id="@+id/textview_copyright"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/string_copyright"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+  
     
-</LinearLayout>
