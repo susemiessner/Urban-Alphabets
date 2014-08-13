@@ -75,7 +75,8 @@ public:
     vector<string> allEntries;//the entries received from database
     vector<Postcard> allPostcards; //all postcards
     vector<Letter> allLetters; //all recent letters
-    int lengthPostcardsAndLetters;
+    int lengthPostcards;
+    int lengthLetters;
     int counterPostcardsAndLetters;
     int counterNumberPostcards;
     vector<AlphabetEntry> allAlphabet; //the entire alphabet

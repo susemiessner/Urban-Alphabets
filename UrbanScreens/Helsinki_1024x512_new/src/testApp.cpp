@@ -38,7 +38,8 @@ void testApp::setup(){
     alphabetTitle.loadImage("intro/intro_currentAlphabet.png");
     
     //setup for postcards and letters screen
-    lengthPostcardsAndLetters=10;//in secs
+    lengthPostcards=6;//in secs
+    lengthLetters=10;//in secs
     counterPostcardsAndLetters=0;
     counterNumberPostcards=0;
     lettersTitle.loadImage("intro/intro_titleLetters.png");
@@ -111,7 +112,7 @@ void testApp::update(){
             updateAlphabet();
         } else if(currentURL==info){
             about.update();
-            if (about.counter==10){
+            if (about.counter==20){
                 goToNextScreen();
             }
             if (about.over) {
@@ -123,25 +124,10 @@ void testApp::update(){
         }
     }
 }
-//--------------------------------------------------------------
-void testApp::sendRequest(){
-    if (URLsToLoad[currentURLNo]!="Info") {
-        int id = ofLoadURLAsync(URLsToLoad[currentURLNo], "async_req");
-        printf("sendng request %s\n", URLsToLoad[currentURLNo].c_str());
-    }else{
-        loadingResponseDone=true;
-        printf("%s", URLsToLoad[currentURLNo].c_str());
-    }
-}
+
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    if(loading){
-        printf("loading true\n");
-    } else {
-        //printf("URL: %s >>>>>>>>>>> ", currentURL.c_str());
-        //printf("!!!loading false ");
-    }
     ofSetColor(0);
     //start drawing
     if (loadingResponseDone) {
@@ -153,12 +139,10 @@ void testApp::draw(){
     if(loading==false){
         if(currentURL==recentPostcards){
             drawPostcards();
-            //printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>drawing potscards\n");
         }else if (currentURL==recentLetters){
             drawLetters();
         } else if(currentURL==currentAlphabet){
             drawAlphabet();
-            //printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>drawing alphabet\n");
         } else if(currentURL==info){
             about.draw();
         }
@@ -178,7 +162,7 @@ void testApp::keyPressed(int key){
 //--------------------------------------------------------------
 
 void testApp::urlResponse(ofHttpResponse & response){
-    printf("received response\n");
+    printf("  received response");
     loadingResponseDone=true;
     theResponse=ofToString(response.data);
     ofStringReplace(theResponse, "[{", "");
@@ -186,7 +170,7 @@ void testApp::urlResponse(ofHttpResponse & response){
     //printf("%s", theResponse.c_str());
     
     allEntries=ofSplitString(theResponse, "},{");
-    printf("all Entries size %lu", allEntries.size());
+    printf("all Entries size %lu \n", allEntries.size());
     if (URLsToLoad[currentURLNo]==recentPostcards){
         loadURL_recentPostcards(response);
     } else if (URLsToLoad[currentURLNo]==recentLetters){
@@ -211,7 +195,6 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
         ofStringReplace(cutEntries[2], "\"", "");
         ofStringReplace(cutEntries[3], "\"", "");
         ofStringReplace(cutEntries[4], "\"", "");
-        //printf("%i ", i);
         Postcard entry(cutEntries[0], cutEntries[1], cutEntries[2],cutEntries[3],cutEntries[4], i);
         allPostcards.push_back(entry);
         
@@ -249,13 +232,9 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
         ofStringReplace(cutEntries[1], "\"", "");
         ofStringReplace(cutEntries[2], "\"", "");
         
-        //printf("%i ", i);
         Letter entry(cutEntries[0], cutEntries[1], cutEntries[2], i);
         allLetters.push_back(entry);
-        
     }
-    //printf("allLetters length: %lu", allLetters.size());
-    
     if (response.status==200 && response.request.name=="async_req") {
         //load all lette images
         for (int i=0; i<allLetters.size(); i++) {
@@ -267,9 +246,6 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
         currLetterImgNo3=allLetters.size()-3;
         currLetterImgNo4=allLetters.size()-4;
         currLetterImgNo5=allLetters.size()-5;
-    } else{
-        //printf("not loaded \n");
-        
     }
 }
 void testApp::loadURL_alphabet(ofHttpResponse &response){
@@ -283,9 +259,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
         ofStringReplace(cutEntries[0], "\"ID\":\"","");
         ofStringReplace(cutEntries[0], "\"", "");
         ofStringReplace(cutEntries[1], "\"", "");
-        //printf("%i ", i);
         string letter=cutEntries[1];
-        //printf("%s letter:%s\n",cutEntries[0].c_str(), letter.c_str());
         if (i>1) {
 
             if (allLetters[numberOfLettersAdded-1]._letter!=letter) {
@@ -304,22 +278,17 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
     for (int j=0; j<42; j++) {
         //go through all letters we have
         for (int i=0; i<allLetters.size(); i++){
-            // printf("letter:alphabet %s:%s\n",allLetters[i]._letter.c_str(), spanishAlphabet[j].c_str() );
             if (allLetters[i]._letter==alphabet[j]) {
                 AlphabetEntry entry(ofToString(allLetters[i]._id), allLetters[i]._letter, j);
                 allAlphabet.push_back(entry);
-                //printf("letter added(right): %s, position: %i\n", spanishAlphabet[j].c_str(), j);
                 break;
             } else if (i==allLetters.size()-1){
                 AlphabetEntry entry("0000", alphabet[j], j);
                 allAlphabet.push_back(entry);
-                //printf("letter added (fake): %s, position: %i\n", spanishAlphabet[j].c_str(), j);
-                
                 break;
             }
         }
     }
-    //printf("number of Letters in alphabet array: %lu \n", allAlphabet.size());
     if (response.status==200 && response.request.name=="async_req") {
         for (int i=0; i<allAlphabet.size(); i++) {
             if (allAlphabet[i]._id!=0) {
@@ -334,9 +303,6 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
         currImgNo3=2;
         currImgNo4=3;
         currImgNo5=4;
-    } else{
-        printf("not loaded \n");
-        
     }
     
     
@@ -352,49 +318,65 @@ void testApp::goToNextScreen(){
     sendRequest();
 }
 //--------------------------------------------------------------
+void testApp::sendRequest(){
+    if (URLsToLoad[currentURLNo]!="Info") {
+        int id = ofLoadURLAsync(URLsToLoad[currentURLNo], "async_req");
+        printf("sending request \n");
+    }else{
+        loadingResponseDone=true;
+        printf("%s", URLsToLoad[currentURLNo].c_str());
+    }
+}
+//--------------------------------------------------------------
 //updating
 //--------------------------------------------------------------
 void testApp::updatePostcards(){
     int noOfPostcards=(int)allPostcards.size();
     counterPostcardsAndLetters++;
     counterNumberPostcards++;
-    currImgNo1=0;
-    if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcardsAndLetters*FRAME_RATE*4 && noOfPostcards>3) {
+    if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcards*FRAME_RATE*4 && noOfPostcards>3) {
         currImgNo=4;
-        if (counterNumberPostcards==lengthPostcardsAndLetters*FRAME_RATE) {
+        if (counterNumberPostcards==lengthPostcards*FRAME_RATE*5) {
             counterPostcardsAndLetters=0;
+            blendInfo=0;
         }
-    }else if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcardsAndLetters*FRAME_RATE*3 && noOfPostcards>3) {
+    }else if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcards*FRAME_RATE*3 && noOfPostcards>3) {
         currImgNo=3;
-        if (counterNumberPostcards==lengthPostcardsAndLetters*FRAME_RATE) {
+        if (counterNumberPostcards==lengthPostcards*FRAME_RATE*4) {
             counterPostcardsAndLetters=0;
-        }    }else if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcardsAndLetters*FRAME_RATE*2 && noOfPostcards>2) {
-        currImgNo=2;
-        if (counterNumberPostcards==lengthPostcardsAndLetters*FRAME_RATE) {
-            counterPostcardsAndLetters=0;
+            blendInfo=0;
         }
-    }else if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcardsAndLetters*FRAME_RATE && noOfPostcards>1) {
-        currImgNo=1;
-        if (counterNumberPostcards==lengthPostcardsAndLetters*FRAME_RATE) {
+    }else if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcards*FRAME_RATE*2 && noOfPostcards>2) {
+        currImgNo=2;
+        if (counterNumberPostcards==lengthPostcards*FRAME_RATE*3) {
             counterPostcardsAndLetters=0;
+            blendInfo=0;
+        }
+    }else if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcards*FRAME_RATE && noOfPostcards>1) {
+        currImgNo=1;
+        if (counterNumberPostcards==lengthPostcards*FRAME_RATE*2) {
+            counterPostcardsAndLetters=0;
+            blendInfo=0;
         }
     } else{
         currImgNo=0;
-        if (counterNumberPostcards==lengthPostcardsAndLetters*FRAME_RATE) {
+        if (counterNumberPostcards==lengthPostcards*FRAME_RATE) {
             counterPostcardsAndLetters=0;
+            blendInfo=0;
         }
     }
     
     //send request for next thing
-    if (counterNumberPostcards==lengthPostcardsAndLetters*FRAME_RATE*(noOfPostcards-1)) {
+    int changeToNextNumber=lengthPostcards*FRAME_RATE*(noOfPostcards-0.8);
+    if (counterNumberPostcards==changeToNextNumber) {
         goToNextScreen();
     }
     //determining when this is over
-    if (currentURL==recentPostcards && currImgNo==noOfPostcards-1 && counterNumberPostcards>lengthPostcardsAndLetters*FRAME_RATE*(noOfPostcards)) {
-        printf("currImgNo: %i; noOfPostcards: %i; counterNumberPostcards: %i; frameNum:%i \n", currImgNo1, noOfPostcards-1, counterNumberPostcards, lengthPostcardsAndLetters*FRAME_RATE*(noOfPostcards));
+    if (currentURL==recentPostcards && currImgNo==noOfPostcards-1 && counterNumberPostcards>lengthPostcards*FRAME_RATE*(noOfPostcards)) {
         counterPostcardsAndLetters=0;
         counterNumberPostcards=0;
         currImgNo=0;
+        blendInfo=0;
         //loading=true;
         
         //now go to that screen
@@ -427,8 +409,9 @@ void testApp::updateLetters(){
         goToNextScreen();
     }
     //determining when it is over
-    if (currentURL==recentLetters && counterPostcardsAndLetters>lengthPostcardsAndLetters*FRAME_RATE) {
+    if (currentURL==recentLetters && counterPostcardsAndLetters>lengthLetters*FRAME_RATE) {
         counterPostcardsAndLetters=0;
+        blendInfo=0;
         
         //now go to that screen
         currentURL=URLsToLoad[currentURLNo];
@@ -446,51 +429,36 @@ void testApp::updateAlphabet(){
                 if(currImgNo1>allAlphabet.size()-1){
                     currImgNo1=currImgNo1-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
-                
-                //printf("currImg1  after = %i\n", currImg1);
             }
             if (allAlphabet[currImgNo2].nextImage()) {
                 currImgNo2+=5;
                 if(currImgNo2>allAlphabet.size()-1){
                     currImgNo2=currImgNo2-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
-                // printf("currImg2  after = %i\n", currImg2);
             }
             if (allAlphabet[currImgNo3].nextImage()) {
                 currImgNo3+=5;
                 if(currImgNo3>allAlphabet.size()-1){
                     currImgNo3=currImgNo3-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
-                
-                // printf("currImg3  after = %i\n", currImg3);
             }
             if (allAlphabet[currImgNo4].nextImage()) {
                 currImgNo4+=5;
                 if(currImgNo4>allAlphabet.size()-1){
                     currImgNo4=currImgNo4-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
-                
-                // printf("currImg4  after = %i\n", currImg4);
             }
             if (allAlphabet[currImgNo5].nextImage()) {
                 currImgNo5+=5;
                 if(currImgNo5>allAlphabet.size()-1){
                     currImgNo5=currImgNo5-allAlphabet.size();
                 }
-                printf("current imageNo: %i, %i, %i, %i, %i\n", currImgNo1, currImgNo2,currImgNo3,currImgNo4,currImgNo5);
-                
-                // printf("currImg5  after = %i\n", currImg5);
             }
             allAlphabet[currImgNo1].update();
             allAlphabet[currImgNo2].update();
             allAlphabet[currImgNo3].update();
             allAlphabet[currImgNo4].update();
             allAlphabet[currImgNo5].update();
-
         }
     }
     //send request to next screen already
@@ -500,6 +468,7 @@ void testApp::updateAlphabet(){
     //determining when it's over
     if (currentURL==currentAlphabet && currImgNo2>39 && allAlphabet[currImgNo2]._xPos<-200) {
         counterDrawAlphabet=0;
+        blendInfo=0;
         //now go to that screen
         currentURL=URLsToLoad[currentURLNo];
         printf("next screen :%s\n", currentURL.c_str());
@@ -517,7 +486,7 @@ void testApp::drawPostcards(){
         ofSetColor(255, 255, 255, blendInfo);
     }
     //blend out
-    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthPostcardsAndLetters-1) && counterPostcardsAndLetters<FRAME_RATE*lengthPostcardsAndLetters){
+    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthPostcards-1) && counterPostcardsAndLetters<FRAME_RATE*lengthPostcards){
         blendInfo-=8;
         ofSetColor(255, 255, 255, blendInfo);
     } else{
@@ -540,15 +509,13 @@ void testApp::drawLetters(){
         ofSetColor(255, 255, 255, blendInfo);
     }
     //blend out
-    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthPostcardsAndLetters-1)){
+    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthLetters-1)){
         blendInfo-=8;
         ofSetColor(255, 255, 255, blendInfo);
     } else{
         ofSetColor(255);
     }
-    //draw title
-    lettersTitle.draw(ofGetWidth()-lettersTitle.width, 0);
-    //draw letters
+        //draw letters
     if(noOfLetters>0){
         allLetters[currLetterImgNo1].draw();
     }
@@ -564,6 +531,10 @@ void testApp::drawLetters(){
     if(noOfLetters>4){
         allLetters[currLetterImgNo5].draw();
     }
+    //draw title
+    ofSetColor(255);
+    lettersTitle.draw(ofGetWidth()-lettersTitle.width, 0);
+
     ofDisableAlphaBlending();
 }
 void testApp::drawAlphabet(){
@@ -580,13 +551,9 @@ void testApp::drawAlphabet(){
     } else{
         ofSetColor(255);
     }
-    alphabetTitle.draw(ofGetWidth()-alphabetTitle.width, 0);
-   // printf("allAlphabet %lu",allAlphabet.size());
-    
     //draw entire alphabet
     for (int i=0; i<allAlphabet.size(); i++) {
         allAlphabet[i].drawWhole();
-        
     }
     if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
         allAlphabet[currImgNo1].draw();
@@ -594,24 +561,10 @@ void testApp::drawAlphabet(){
         allAlphabet[currImgNo3].draw();
         allAlphabet[currImgNo4].draw();
         allAlphabet[currImgNo5].draw();
-        //blend in
-        if(counterDrawAlphabet<FRAME_RATE*(alphabetLength)){
-            blendInfo+=8;
-            ofSetColor(255, 255, 255, blendInfo);
-        }
-        //blend out
-        else if(currentURL==currentAlphabet && currImgNo2>39 && allAlphabet[currImgNo2]._xPos<-370){
-            blendInfo-=8;
-            ofSetColor(255, 255, 255, blendInfo);
-        } else{
-            ofSetColor(255);
-        }
-        alphabetTitle.draw(ofGetWidth()-alphabetTitle.width, 0);
-
     }
-
+    ofSetColor(255);
+    alphabetTitle.draw(ofGetWidth()-alphabetTitle.width, 0);
     ofDisableAlphaBlending();
-
 }
 
 //-------------------------------------------------
