@@ -7,16 +7,16 @@
         android:id="@+id/imageview_welcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-		android:contentDescription="@string/description"
-        android:src="@drawable/welcome" />
+		android:contentDescription="@string/description" />
 
     <ImageButton
         android:id="@+id/imageButton1"
         android:layout_width="70dp"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/ok_big"
         android:contentDescription="@string/description"
         android:onClick="onClick" />
