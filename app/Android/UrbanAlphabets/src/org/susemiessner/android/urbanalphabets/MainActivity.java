@@ -5,16 +5,21 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -28,6 +33,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
@@ -68,6 +75,8 @@ public class MainActivity extends ActionBarActivity {
 	private LocationListener mlocListener;
 	private SharedPreferences mSharedPreferences;
 	private MenuItem saved;
+	private String currentAlphabet;
+	private String currentLanguage;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -76,10 +85,13 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 		mSharedPreferences = PreferenceManager.
 				getDefaultSharedPreferences(getApplicationContext());
-		Data.init(getApplicationContext());
+		currentAlphabet = mSharedPreferences.getString("currentAlphabet", "");
+		currentLanguage = mSharedPreferences.getString("currentLanguage", "");
+		if(currentAlphabet.isEmpty() || currentLanguage.isEmpty())
+			init();
 		saved = null;
 		actionBar = getSupportActionBar();
-		actionBar.setTitle(Data.getSelectedAlphabetName());
+		actionBar.setTitle(currentAlphabet);
 		imageViewIdList = new ArrayList<>();
 		for(int i = 0; i < 42; i++)
 			imageViewIdList.add(imageViewId[i]);
@@ -108,11 +120,77 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		Data.init(getApplicationContext());
-		actionBar.setTitle(Data.getSelectedAlphabetName());
+		currentAlphabet = mSharedPreferences.getString("currentAlphabet", "");
+		currentLanguage = mSharedPreferences.getString("currentLanguage", "");
+		if(currentAlphabet.isEmpty() || currentLanguage.isEmpty())
+			init();
+		actionBar.setTitle(currentAlphabet);
 		new FillTableLayout().execute();
-	}
+	} 
+	
+	
+	private void init() {
+		SQLiteDatabase mDatabase = null;
+		boolean tableEmpty = false;
+		// Create */databases/ directory
+		File file = new File(getApplicationContext().getFilesDir().getPath() + File.separator
+								+ "databases");
+		if(!file.exists())
+			file.mkdirs();
 		
+		file = new File(getApplicationContext().getFilesDir().getPath() + File.separator
+								+ "databases" + File.separator + "db.sqlite");
+		// Create or open database
+		try{
+			mDatabase = SQLiteDatabase.openDatabase(file.getAbsolutePath(),
+						null, SQLiteDatabase.CREATE_IF_NECESSARY);
+		} catch (SQLiteException ex) {
+		}
+		try {
+			mDatabase.execSQL("CREATE TABLE IF NOT EXISTS alphabets(alphabet TEXT,"
+					+ " language TEXT, selected INTEGER)");
+		} catch (SQLiteException ex) {	
+		}
+		// Check if table is empty
+		Cursor cursor = mDatabase.rawQuery("SELECT count(*) FROM alphabets", null);
+		if(cursor != null) {
+			cursor.moveToFirst();
+			if(cursor.getInt(0) == 0)
+				tableEmpty = true;
+		}
+		cursor = null;
+		// If table is empty,add "Untitled" alphabet with default language
+		if(tableEmpty) {
+			currentAlphabet = "Untitled";
+			currentLanguage = Data.LANGUAGE[mSharedPreferences.getInt("defaultLang", 0)];
+			ContentValues alphabet = new ContentValues();
+			alphabet.put("alphabet", currentAlphabet);
+			alphabet.put("language", currentLanguage);
+			alphabet.put("selected", 1);
+			try {
+				mDatabase.insert("alphabets", null, alphabet);	
+			} catch (SQLiteException ex) {
+			}	
+		} else {
+			cursor = mDatabase.query("alphabets", new String[]{"alphabet","language"},
+					"selected=1", null, null, null, null);
+			if(cursor != null) {
+				cursor.moveToFirst();
+				currentAlphabet = cursor.getString(cursor
+                        .getColumnIndex("alphabet"));
+				currentLanguage = cursor.getString(cursor
+                        .getColumnIndex("language"));
+			}
+			
+		}
+		mDatabase.close();
+		// Save as preferences
+		Editor e = mSharedPreferences.edit();
+		e.putString("currentAlphabet", currentAlphabet);
+		e.putString("currentLanguage", currentLanguage);
+		e.commit();
+	}
+			
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -157,7 +235,8 @@ public class MainActivity extends ActionBarActivity {
 	    				latitude,
 	    				username,
 	    				"no", "no", "yes", bitmapAlphabet,
-	    				Data.getSelectedAlphabetLanguage(), "").execute();
+	    				currentAlphabet, "").execute();
+	    				
 	    		return true;
 	    	}
 	    	case R.id.item_write_postcard:{
@@ -181,25 +260,36 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private void saveBitmap(Bitmap bitmap) {
-		File filename = new File(Environment.getExternalStoragePublicDirectory
+		String filename = (String) android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", new java.util.Date());
+		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + "share.png");
+				File.separator + filename + ".png");
 		try {
-			FileOutputStream fos = new FileOutputStream(filename);
+			FileOutputStream fos = new FileOutputStream(file);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			bitmap.compress(CompressFormat.PNG, 100, bos);
 			bos.flush();
 			fos.close();
 		} catch (IOException e) {
 		}	
+		
+		Editor e = mSharedPreferences.edit();
+		e.putString("lastShare", filename);
+		e.commit();
+		
+		// Adding to gallery
+		ContentValues image = new ContentValues();
+		image.put(Images.Media.DATA, file.getAbsolutePath());
+		getContentResolver().
+			insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, image);
 	}
 	
 	public void onClick(View v) {
 		Intent viewLetterIntent = new Intent(this, ViewLetterActivity.class);
 		viewLetterIntent.putExtra("currentAlphabet", 
-				Data.getSelectedAlphabetName());
+				currentAlphabet);
 		viewLetterIntent.putExtra("currentLanguage", 
-				Data.getSelectedAlphabetLanguage());
+				currentLanguage);
 		viewLetterIntent.putExtra("currentIndex", imageViewIdList.indexOf(v.getId()));
 		startActivity(viewLetterIntent);
 	}
@@ -297,14 +387,24 @@ public class MainActivity extends ActionBarActivity {
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					for (int index = 0; index < Data.MAX; index++) {
+					for (int index = 0; index < 42; index++) {
 						ImageView imageView = (ImageView) findViewById
 								(imageViewId[index]);
 						Bitmap bitmap;
-						String path = Data.getLetterPath(index);
+						String path;
+						File file = new File(Environment.getExternalStoragePublicDirectory
+								(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+								File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+								indexOf(currentLanguage)][index]
+								+ ".png");
+						if(file.exists())
+							path = file.getAbsolutePath();
+						else
+							path = null;
 						if (path == null) {
-							bitmap = BitmapFactory.decodeResource(getResources(),
-									Data.getRawResourceId(index));
+							bitmap = BitmapFactory.decodeResource
+									(getResources(), Data.RESOURCERAWINDEX[Arrays.asList(Data.LANGUAGE).
+												       indexOf(currentLanguage)][index]);
 						}
 						else {
 							bitmap = BitmapFactory.decodeFile(path);

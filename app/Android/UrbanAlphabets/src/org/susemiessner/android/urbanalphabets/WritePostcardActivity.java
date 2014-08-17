@@ -4,8 +4,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -18,6 +22,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +68,8 @@ public class WritePostcardActivity extends ActionBarActivity {
 	private KeyboardView keyboardView;
 	private MenuItem saved;
 	private SharedPreferences mSharedPreferences;
+	private String currentAlphabet;
+	private String currentLanguage;
 	
 	private static final int[] customKeyboard = {
 		R.xml.finnish_swedish,
@@ -78,6 +86,8 @@ public class WritePostcardActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_write_postcard);
 		mSharedPreferences = PreferenceManager.
 				getDefaultSharedPreferences(getApplicationContext());
+		currentAlphabet = mSharedPreferences.getString("currentAlphabet", "");
+		currentLanguage = mSharedPreferences.getString("currentLanguage", "");
 		saved = null;
 		index = 0;
 		postcardText = new char[42];
@@ -85,7 +95,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 				(R.id.tableview_write_postcard);
 		// Create the Keyboard
 	    Keyboard keyboard= new Keyboard(WritePostcardActivity.this, 
-	    		customKeyboard[Data.getCurrentLanguageIndex()]);
+	    		customKeyboard[Arrays.asList(Data.LANGUAGE).indexOf(currentLanguage)]);
 
 	    // Lookup the KeyboardView
 	    keyboardView= (KeyboardView)findViewById(R.id.keyboardview);
@@ -128,10 +138,20 @@ public class WritePostcardActivity extends ActionBarActivity {
 	private void showLetter(int key) {
 		ImageView imageView = (ImageView) findViewById(imageViewId[index]);
 		Bitmap bitmap;
-		String path = Data.getLetterPath(key);
+		String path;
+		File file = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+				              indexOf(currentLanguage)][key]
+				+ ".png");
+		if(file.exists())
+			path = file.getAbsolutePath();
+		else
+			path = null;
 		if (path == null)
 			bitmap = BitmapFactory.decodeResource(getResources(),
-					Data.getRawResourceId(key));
+					Data.RESOURCERAWINDEX[Arrays.asList(Data.LANGUAGE).
+							              indexOf(currentLanguage)][key]);
 		else
 			bitmap = BitmapFactory.decodeFile(path);
 		 	
@@ -202,7 +222,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    		tableLayout.draw(canvas);
 	    		new UpdateDatabase(this, longitude, latitude,
 	    				username, "no", "yes", "no", bitmapPostcard,
-	    				Data.getSelectedAlphabetLanguage(), 
+	    				currentLanguage, 
 	    		new String(postcardText, 0, index)).execute();
 	    		return true;
 	    	}
@@ -221,17 +241,29 @@ public class WritePostcardActivity extends ActionBarActivity {
 	}
 	
 	private void saveBitmap(Bitmap bitmap) {
-		File filename = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + "share.png");
+		
+		String filename = (String) android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", new java.util.Date());
+		File file = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" + 
+				File.separator + filename + ".png");
 		try {
-			FileOutputStream fos = new FileOutputStream(filename);
+			FileOutputStream fos = new FileOutputStream(file);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			bitmap.compress(CompressFormat.PNG, 100, bos);
 			bos.flush();
 			fos.close();
 		} catch (IOException e) {
 		}
+		
+		Editor e = mSharedPreferences.edit();
+		e.putString("lastShare", filename);
+		e.commit();
+		
+		// Adding to gallery
+		ContentValues image = new ContentValues();
+		image.put(Images.Media.DATA, file.getAbsolutePath());
+		getContentResolver().
+			insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, image);
 		
 	}
 	
@@ -298,10 +330,12 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    		hideCustomKeyboard();
 	    	else if(primaryCode == 315) {
 	    		showLetter(18); // LatvL
-	    		postcardText[index] = Data.LETTER[Data. getSelectedLanguageIndex()][18];
+	    		postcardText[index] = Data.LETTER[Arrays.
+	    		                      asList(Data.LANGUAGE).indexOf(currentLanguage)][18];
 	    	}
 	    	else {
-	    		postcardText[index] = Data.LETTER[Data. getSelectedLanguageIndex()][primaryCode];
+	    		postcardText[index] = Data.LETTER[Arrays.
+	    		                      asList(Data.LANGUAGE).indexOf(currentLanguage)][primaryCode];
 	    		showLetter(primaryCode);
 	    	}
 	    }

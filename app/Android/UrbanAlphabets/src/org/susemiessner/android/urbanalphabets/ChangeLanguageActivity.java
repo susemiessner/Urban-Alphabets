@@ -1,7 +1,16 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.File;
+import java.util.Arrays;
+
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,15 +66,22 @@ public class ChangeLanguageActivity extends ActionBarActivity {
 	
 	private CustomArrayAdapter adapter;
 	private ImageButton imageButton;
+	private String currentAlphabet;
+	private String currentLanguage;
+	private SharedPreferences mSharedPreferences;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_language);
+		mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());
+		currentAlphabet = mSharedPreferences.getString("currentAlphabet", "");
+		currentLanguage = mSharedPreferences.getString("currentLanguage", "");
 		imageButton = (ImageButton) findViewById(R.id.imagebutton_change_language);
 		ListView listView = (ListView) findViewById(R.id.listview_change_language);
-		adapter = new CustomArrayAdapter(this, Data.getLanguage(), 
-				Data.getSelectedLanguageIndex());
+		adapter = new CustomArrayAdapter(this, Data.LANGUAGE, 
+				Arrays.asList(Data.LANGUAGE).indexOf(currentLanguage));
 		
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,8 +99,31 @@ public class ChangeLanguageActivity extends ActionBarActivity {
 	}
 	
 	public void onClick(View v) {
-		Data.changeAlphabetLanguage(adapter.getSelected());
+		changeAlphabetLanguage(adapter.getSelected());
 		finish();
+	}
+	
+	private void changeAlphabetLanguage(int lang) {
+		SQLiteDatabase mDatabase = null;
+		File file = new File(getApplicationContext().getFilesDir().getPath() + File.separator
+								+ "databases" + File.separator + "db.sqlite");
+		// Create or open database
+		try{
+			mDatabase = SQLiteDatabase.openDatabase(file.getAbsolutePath(),
+						null, SQLiteDatabase.CREATE_IF_NECESSARY);
+		} catch (SQLiteException ex) {
+		}
+		ContentValues replaced = new ContentValues();
+		replaced.put("language", Data.LANGUAGE[lang]);
+		try {
+			mDatabase.update("alphabets", replaced, "alphabet=?", 
+					new String[]{currentAlphabet});	
+		} catch (SQLiteException ex) {
+		}
+		mDatabase.close();
+		Editor e = mSharedPreferences.edit();
+		e.putString("currentLanguage", Data.LANGUAGE[lang]);
+		e.commit();
 	}
 }
 

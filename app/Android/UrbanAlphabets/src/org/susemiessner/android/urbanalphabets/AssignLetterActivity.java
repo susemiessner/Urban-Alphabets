@@ -63,6 +63,8 @@ public class AssignLetterActivity extends ActionBarActivity {
 	private int height;
 	private SharedPreferences mSharedPreferences;
 	private View saved;
+	private String currentAlphabet;
+	private String currentLanguage;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,8 @@ public class AssignLetterActivity extends ActionBarActivity {
 		imageView.setImageBitmap(BitmapFactory.decodeFile(getFilesDir()+File.separator+"photo.png"));
 		mSharedPreferences = PreferenceManager.
 				getDefaultSharedPreferences(getApplicationContext());
+		currentAlphabet = mSharedPreferences.getString("currentAlphabet", "");
+		currentLanguage = mSharedPreferences.getString("currentLanguage", "");
 		selected = -1;
 		linearLayout = (LinearLayout) findViewById
 				(R.id.layout_assign_letter);
@@ -127,9 +131,8 @@ public class AssignLetterActivity extends ActionBarActivity {
 	private void assignPhoto() {
 		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + Data.getSelectedAlphabetName() +
-				File.separator +  Data.RESOURCERAWNAME[Arrays.asList
-				(Data.LANGUAGE).indexOf(Data.getSelectedAlphabetLanguage())]
+				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList
+				(Data.LANGUAGE).indexOf(currentLanguage)]
 				[selected] + ".png");
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
@@ -153,10 +156,10 @@ public class AssignLetterActivity extends ActionBarActivity {
 		UpdateDatabase update = new UpdateDatabase(this, longitude,
 				latitude,
 				username,
-				Data.getLetterName(selected),
+				String.valueOf(Data.LETTER[Arrays.asList(Data.LANGUAGE).indexOf(currentLanguage)][selected]),
 				"no", "no", BitmapFactory.decodeFile
 				(getFilesDir()+File.separator+"photo.png"),
-				Data.getSelectedAlphabetLanguage(), "");
+				currentLanguage, "");
 		update.execute();
 		try {
 		update.get();
@@ -202,10 +205,20 @@ public class AssignLetterActivity extends ActionBarActivity {
 						ImageView imageView = (ImageView) findViewById
 								(imageViewId[index]);
 						Bitmap bitmap;
-						String path = Data.getLetterPath(index);
+						String path;
+						File file = new File(Environment.getExternalStoragePublicDirectory
+								(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+								File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+								              indexOf(currentLanguage)][index]
+								+ ".png");
+						if(file.exists())
+							path = file.getAbsolutePath();
+						else
+							path = null;
 						if (path == null) {
 							bitmap = BitmapFactory.decodeResource(getResources(),
-									Data.getRawResourceId(index));
+									Data.RESOURCERAWINDEX[Arrays.asList(Data.LANGUAGE).
+											              indexOf(currentLanguage)][index]);
 						}
 						else {
 							bitmap = BitmapFactory.decodeFile(path);

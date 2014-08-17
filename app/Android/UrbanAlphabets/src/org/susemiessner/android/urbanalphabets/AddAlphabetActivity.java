@@ -1,7 +1,15 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.File;
+
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -60,12 +68,15 @@ public class AddAlphabetActivity extends ActionBarActivity {
 	private CustomArrayAdapter adapter;
 	private ImageButton imageButton;
 	private EditText editText;
+	private SharedPreferences mSharedPreferences;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_alphabet);
+		mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());
 		ListView listView = (ListView) findViewById(R.id.listview_add_alphabet);
 		imageButton = (ImageButton) findViewById(R.id.imagebutton_add_alphabet);
 		editText = (EditText) findViewById(R.id.edittext_alphabetname); 
@@ -90,7 +101,42 @@ public class AddAlphabetActivity extends ActionBarActivity {
 	public void onClick(View v) {
 		if (TextUtils.isEmpty(editText.getText().toString()))
 			return;
-		Data.addAlphabet(editText.getText().toString(), adapter.getSelected());
+		addAlphabet(editText.getText().toString(), adapter.getSelected());
 		finish();
+	}
+	
+	private void addAlphabet(String alphabetName, int lang) {
+		SQLiteDatabase mDatabase = null;
+		
+		File file = new File(getApplicationContext().getFilesDir().getPath() + File.separator
+								+ "databases" + File.separator + "db.sqlite");
+		// Create or open database
+		try{
+			mDatabase = SQLiteDatabase.openDatabase(file.getAbsolutePath(),
+						null, SQLiteDatabase.CREATE_IF_NECESSARY);
+		} catch (SQLiteException ex) {
+		}
+		// Clear previous selection if present else do nothing 
+		ContentValues replaced = new ContentValues();
+		replaced.put("selected", 0);
+		try {
+			mDatabase.update("alphabets", replaced, "selected=1", null);	
+		} catch (SQLiteException ex) {
+		}
+		// Add new alphabet with selection
+		ContentValues alphabet = new ContentValues();
+		alphabet.put("alphabet", alphabetName);
+		alphabet.put("language", Data.LANGUAGE[lang]);
+		alphabet.put("selected", 1);
+		try {
+			mDatabase.insert("alphabets", null, alphabet);	
+		} catch (SQLiteException ex) {
+					
+		}
+		mDatabase.close();
+		Editor e = mSharedPreferences.edit();
+		e.putString("currentAlphabet", alphabetName);
+		e.putString("currentLanguage", Data.LANGUAGE[lang]);
+		e.commit();
 	}
 }

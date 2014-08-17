@@ -1,110 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/layout_alphabet_info"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
-	
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp" >
+	android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/textview_alphabet_info_name_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/name"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Grey" />
+	<TextView
+	    android:id="@+id/textview_alphabet_label"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+	    android:text="@string/name"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="@color/Grey" />
 
-        <TextView
-            android:id="@+id/textview_alphabet_info_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:layout_toRightOf="@+id/textview_alphabet_info_name_title"
-            android:clickable="true"
-            android:onClick="onClickHint1"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/Black" />
+	<TextView
+	    android:id="@+id/textview_alphabet"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@id/textview_alphabet_label"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="40dp"
+	    android:layout_toRightOf="@id/textview_alphabet_label"
+	    android:clickable="true"
+	    android:onClick="onClickChangeAlphabet"
+	    android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:textColor="@color/Black" />
 
-        <EditText
-            android:id="@+id/edittext_alphabet_info_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@+id/textview_alphabet_info_name_title"
-            android:ems="6"
-            android:hint="@string/hint_name"
-            android:inputType="text"
-            android:maxEms="10"
-            android:visibility="gone" />
-
-    </RelativeLayout>
+	<EditText
+	    android:id="@+id/edittext_alphabet"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@id/textview_alphabet_label"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="40dp"
+	    android:layout_toRightOf="@id/textview_alphabet_label"
+	    android:ems="10"
+        android:inputType="text"
+        android:textColor="@color/Black"
+        android:visibility="gone" />
 
     <TextView
-        android:id="@+id/textview_hint1"
-        android:layout_width="match_parent"
+        android:id="@+id/textview_change_alphabet"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_below="@id/textview_alphabet_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:clickable="true"
-        android:gravity="center"
-        android:onClick="onClickHint1"
+        android:onClick="onClickChangeAlphabet"
         android:text="@string/change"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+	<TextView
+	    android:id="@+id/textview_language_label"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/textview_change_alphabet"
+	    android:text="@string/language"
+	    android:layout_alignParentLeft="true"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"  >
+        android:layout_marginLeft="20dp"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="@color/Grey" />
 
-        <TextView
-            android:id="@+id/textview_alphabet_info_language_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/language"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/Grey" />
-
-        <TextView
-            android:id="@+id/textview_alphabet_info_language"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/textview_alphabet_info_language_title"
-            android:clickable="true"
-            android:onClick="onClickHint2"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/Black" />
+	<TextView
+	    android:id="@+id/textview_language"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@id/textview_language_label"
+	    android:layout_marginLeft="20dp"
+	    android:layout_toRightOf="@id/textview_language_label"
+	    android:clickable="true"
+	    android:onClick="onClickChangeLanguage"
+	    android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:textColor="@color/Black" />
         
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textview_hint2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:clickable="true"
-        android:gravity="center"
-        android:onClick="onClickHint2"
-        android:text="@string/change"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/Grey" />
+	<TextView
+	    android:id="@+id/textview_change_language"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/textview_language_label"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="10dp"
+	    android:clickable="true"
+	    android:onClick="onClickChangeLanguage"
+	    android:text="@string/change"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="@color/Grey" />
 
     <TextView
         android:id="@+id/textview_reset_alphabet"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/textview_change_language"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         android:clickable="true"
@@ -117,6 +111,8 @@
         android:id="@+id/textview_delete_alphabet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/textview_reset_alphabet"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:clickable="true"
@@ -125,5 +121,5 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
     
- </LinearLayout>
+</RelativeLayout>
 

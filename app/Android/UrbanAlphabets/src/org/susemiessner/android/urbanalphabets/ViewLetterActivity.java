@@ -53,10 +53,8 @@ public class ViewLetterActivity extends ActionBarActivity {
 	
 	private String getResourcePath() {
 		File filename = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), Data.TOPLEVELDIR +
-				File.separator + currentAlphabet
-				+ File.separator + 
-				Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
+				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
 				              indexOf(currentLanguage)][currentIndex]
 				+ ".png");
 		if(filename.exists())
@@ -95,16 +93,16 @@ public class ViewLetterActivity extends ActionBarActivity {
 	public void onClickDelete(View v) {
 		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" + 
-				File.separator + Data.getSelectedAlphabetName() +
-				File.separator + Data.RESOURCERAWNAME[Arrays.asList
-				(Data.LANGUAGE).indexOf(Data.getSelectedAlphabetLanguage())]
+				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList
+				(Data.LANGUAGE).indexOf(currentLanguage)]
 				[currentIndex] + ".png");
 		
-		getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-				Images.Media.DATA + " LIKE ?", new String[]{file.getAbsolutePath()});
 		
 		if(file.exists())
 			file.delete();
+		
+		getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+				Images.Media.DATA + " LIKE ?", new String[]{file.getAbsolutePath()});
 		
 		finish();
 	}

@@ -1,11 +1,14 @@
 package org.susemiessner.android.urbanalphabets;
 
 import java.io.File;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -110,9 +113,12 @@ public class ShareActivity extends ActionBarActivity {
 	}
 	
 	private String getSharePath() {
+		SharedPreferences mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());
+		String filename = mSharedPreferences.getString("lastShare", "");
 		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + "share.png");
+				File.separator + filename + ".png");
 		
 		return file.getAbsolutePath();
 	}

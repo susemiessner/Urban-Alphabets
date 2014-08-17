@@ -176,7 +176,7 @@ public class CropPhotoActivity extends ActionBarActivity {
 	}
 	
 	public void onClickCW(View v) {
-		rotation += 90;
+		rotation -= 90;
 		Matrix matrix = new Matrix();
 		matrix.setRotate(rotation);
 		Bitmap rotated = Bitmap.createBitmap(original, 0, 0, original.getWidth(),
@@ -185,7 +185,7 @@ public class CropPhotoActivity extends ActionBarActivity {
 	}
 	
 	public void onClickACW(View v) {
-		rotation -= 90;
+		rotation += 90;
 		Matrix matrix = new Matrix();
 		matrix.setRotate(rotation);
 		Bitmap rotated = Bitmap.createBitmap(original, 0, 0, original.getWidth(),

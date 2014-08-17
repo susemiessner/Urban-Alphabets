@@ -32,9 +32,8 @@ public class SettingsActivity extends ActionBarActivity {
 		checkBoxLocation = (CheckBox)findViewById(R.id.checkbox_location);
 		mSharedPreferences  = PreferenceManager.
 				getDefaultSharedPreferences(getApplicationContext());
-		textViewUsername.setText(mSharedPreferences.getString("username", "defaultUser"));
-		textViewDefaultLang.setText(Data.getLanguage
-				(mSharedPreferences.getInt("defaultLang", 0)));
+		textViewUsername.setText(mSharedPreferences.getString("username", "none"));
+		textViewDefaultLang.setText(Data.LANGUAGE[mSharedPreferences.getInt("defaultLang", 0)]);
 		checkBoxLocation.setChecked(mSharedPreferences.getBoolean("enableLocation", true));
 		checkBoxSave.setChecked(mSharedPreferences.getBoolean("save", true));
 		editTextUsername.setOnKeyListener(new View.OnKeyListener() {

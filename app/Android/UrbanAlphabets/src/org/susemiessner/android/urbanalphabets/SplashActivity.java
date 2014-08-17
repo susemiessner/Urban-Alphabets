@@ -1,10 +1,13 @@
 package org.susemiessner.android.urbanalphabets;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
@@ -15,8 +18,12 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		mSharedPreferences = PreferenceManager.
-				getDefaultSharedPreferences(getApplicationContext());;
-		Data.createStorageDir();
+				getDefaultSharedPreferences(getApplicationContext());
+		// Create UrbanAlphabets directory in external storage
+		File file = new File(Environment.getExternalStoragePublicDirectory
+						(Environment.DIRECTORY_DCIM), "UrbanAlphabets");
+		if(!file.exists())
+			file.mkdirs();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
