@@ -231,6 +231,8 @@ public class MainActivity extends ActionBarActivity {
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapAlphabet);
 	    		tableLayout.draw(canvas);
+	    		if(mSharedPreferences.getBoolean("save", true))
+	    			saveBitmap(bitmapAlphabet);
 	    		new UpdateDatabase(this, longitude,
 	    				latitude,
 	    				username,

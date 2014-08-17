@@ -25,7 +25,7 @@ public class WelcomeActivity extends Activity {
 			return;
 		}
 		else if(click == 2) {
-			imageView.setImageResource(R.drawable.intro_3);
+			imageView.setImageResource(R.drawable.intro_4);
 			return;
 		}
 		Intent mainIntent = new Intent(this, MainActivity.class);

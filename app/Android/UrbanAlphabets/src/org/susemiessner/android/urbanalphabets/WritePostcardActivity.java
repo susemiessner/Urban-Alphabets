@@ -220,6 +220,8 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    				tableLayout.getHeight(), Bitmap.Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(bitmapPostcard);
 	    		tableLayout.draw(canvas);
+	    		if(mSharedPreferences.getBoolean("save", true))
+	    			saveBitmap(bitmapPostcard);
 	    		new UpdateDatabase(this, longitude, latitude,
 	    				username, "no", "yes", "no", bitmapPostcard,
 	    				currentLanguage, 
