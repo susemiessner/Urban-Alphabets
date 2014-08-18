@@ -253,11 +253,13 @@
     CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];
     [self.view addSubview:self.menu];
+    
     //start location updating
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
+    
     //all gesture recognizers
     //alphabet info
     UITapGestureRecognizer *alphabetInfoIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
@@ -835,6 +837,9 @@
         }
     }
     
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    currentLocation = newLocation;
 }
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT

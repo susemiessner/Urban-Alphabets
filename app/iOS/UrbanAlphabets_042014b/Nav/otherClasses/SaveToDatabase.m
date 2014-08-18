@@ -93,8 +93,16 @@
     } else if ([theLanguage isEqual:@"Latvian"]) {
         letter=[self.latvian objectAtIndex:chosenImageNumberInArray];
     }
-
-}
+    
+    if ([letter isEqual:@"Ä"]) {
+        letter=@"AA";
+    } else if ([letter isEqual: @"Å"]){
+        letter=@"AAA";
+    } else if ([letter isEqual:@"Ö"]){
+        letter=@"OO";
+    } else if ([letter isEqual:@"Ü"]){
+        letter=@"UU";
+    }}
 
 
 @end
