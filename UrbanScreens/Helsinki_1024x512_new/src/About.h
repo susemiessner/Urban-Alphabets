@@ -1,3 +1,4 @@
+
 //
 //  About.h
 //  Riga01
@@ -12,7 +13,7 @@
 #define FRAME_RATE 70
 
 class About{
-public:    
+public:
     int counter=0;
     bool over;
     int lengthEachScreen=5; //length of each of the images in secs

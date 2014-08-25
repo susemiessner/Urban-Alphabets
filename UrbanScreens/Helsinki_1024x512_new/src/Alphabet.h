@@ -76,7 +76,7 @@ public:
         int column=_constNo % noOfColumns;
         int myXPos=12+column*(width+spacing);
         
-        int myYPos=40+(_constNo-column)/noOfColumns*(height+spacing);
+        int myYPos=55+(_constNo-column)/noOfColumns*(height+spacing);
         //ofSetColor(255);
         _image.draw(myXPos,myYPos,width ,height);
     }

@@ -28,7 +28,7 @@ public:
         _lati=ofToFloat(LA);
         _text=TEXT;
         _owner=OWNER;
-
+        
     }
     void print(){
         printf("id     %i ",_id);

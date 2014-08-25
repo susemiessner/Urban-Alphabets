@@ -198,13 +198,13 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
         Postcard entry(cutEntries[0], cutEntries[1], cutEntries[2],cutEntries[3],cutEntries[4], i);
         allPostcards.push_back(entry);
         
-
+        
     }
     //just for testing
     //printf("allPostcards size %lu \n", allPostcards.size());
     /*for (int i=0; i<allPostcards.size(); i++) {
-        allPostcards[i].print();
-    }*/
+     allPostcards[i].print();
+     }*/
     
     if (response.status==200 && response.request.name=="async_req") {
         //load all postcard images
@@ -261,7 +261,7 @@ void testApp::loadURL_alphabet(ofHttpResponse &response){
         ofStringReplace(cutEntries[1], "\"", "");
         string letter=cutEntries[1];
         if (i>1) {
-
+            
             if (allLetters[numberOfLettersAdded-1]._letter!=letter) {
                 AlphabetEntry entry(cutEntries[0], cutEntries[1], numberOfLettersAdded);
                 allLetters.push_back(entry);
@@ -382,7 +382,7 @@ void testApp::updatePostcards(){
         //now go to that screen
         currentURL=URLsToLoad[currentURLNo];
         printf("next screen :%s\n", currentURL.c_str());
-
+        
     }
 }
 void testApp::updateLetters(){
@@ -515,7 +515,7 @@ void testApp::drawLetters(){
     } else{
         ofSetColor(255);
     }
-        //draw letters
+    //draw letters
     if(noOfLetters>0){
         allLetters[currLetterImgNo1].draw();
     }
@@ -534,7 +534,7 @@ void testApp::drawLetters(){
     //draw title
     ofSetColor(255);
     lettersTitle.draw(ofGetWidth()-lettersTitle.width, 0);
-
+    
     ofDisableAlphaBlending();
 }
 void testApp::drawAlphabet(){

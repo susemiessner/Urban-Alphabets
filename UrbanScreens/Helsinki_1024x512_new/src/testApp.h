@@ -32,16 +32,16 @@ public:
     void urlResponse(ofHttpResponse &response);
     void sendRequest();
     void goToNextScreen();
-        
+    
     void loadURL_recentPostcards(ofHttpResponse &response);
     void loadURL_recentLetters(ofHttpResponse &response);
     void loadURL_alphabet(ofHttpResponse &response);
-
+    
     //update the screens
     void updatePostcards();
     void updateLetters();
     void updateAlphabet();
-
+    
     //draw screens
     void drawPostcards();
     void drawLetters();
@@ -63,7 +63,7 @@ public:
     
     //the alphabet
     string alphabet[42];
-
+    
     //images before the actual screens
     ofImage imagesIntro[NO_OF_INTRO_IMAGES];
     int counterDrawInfo; //how long the start screen is drawn
@@ -82,13 +82,13 @@ public:
     vector<AlphabetEntry> allAlphabet; //the entire alphabet
     int counterDrawAlphabet; //counting how long the entire alphabet is drawn
     int alphabetLength; //how long the entire alphabet should be drawn (in secs)
-
+    
     About about;//the info text with credits and stuff
     
     int currImgNo1, currImgNo2, currImgNo3, currImgNo4, currImgNo5;//the numbers of the alphabets
     int currLetterImgNo1, currLetterImgNo2, currLetterImgNo3, currLetterImgNo4, currLetterImgNo5;//the numbers of the letters currently displayed
     int currImgNo;//the numbers of the postcard currently displayed
-
-
+    
+    
     ofImage alphabetTitle, lettersTitle, postcardsTitle;
 };
