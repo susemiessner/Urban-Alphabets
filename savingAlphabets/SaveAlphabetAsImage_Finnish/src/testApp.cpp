@@ -56,8 +56,10 @@ void testApp::setup(){
     loadingResponseDone=false;
 
 
-    currentURL="http://www.ualphabets.com/requests/requestHelsinkiOF.php";
-    currentURL="http://www.ualphabets.com/requests/requestRigaOF.php";
+    currentURL="http://www.ualphabets.com/requests/Helsinki/requestHelsinkiOF.php";
+    //currentURL="http://www.ualphabets.com/requests/Helsinki/PuistolaOF.php";
+//    currentURL="http://www.ualphabets.com/requests/Helsinki/KallioOF.php";
+    //currentURL="http://www.ualphabets.com/requests/Helsinki/MunkkiniemiOF.php";
     int id = ofLoadURLAsync(currentURL, "async_req");
 }
 
@@ -87,7 +89,7 @@ void testApp::draw(){
 void testApp::urlResponse(ofHttpResponse & response){
     printf("response ");
     fullResponse=ofToString(response.data);
-    //printf("urlResponse %s \n",fullResponse.c_str());
+    printf("urlResponse %s \n",fullResponse.c_str());
     ofStringReplace(fullResponse, "[{", "");
     ofStringReplace(fullResponse, "}]", "");
     individualEntries=ofSplitString(fullResponse, "},{");
@@ -114,7 +116,7 @@ void testApp::urlResponse(ofHttpResponse & response){
         string letter=cutEntries[1];
         string date=cutEntries[2];
         ofStringReplace(date, " ", "\n");
-        //printf("%s letter:%s date:'%s'\n",cutEntries[0].c_str(), letter.c_str(), date.c_str());
+        printf("%s letter:%s date:'%s'\n",cutEntries[0].c_str(), letter.c_str(), date.c_str());
         if (i>1) {
                 SingleEntry entry(cutEntries[0], cutEntries[1], numberOfLettersAdded);
                 allLetters.push_back(entry);
@@ -126,11 +128,12 @@ void testApp::urlResponse(ofHttpResponse & response){
         }
         
     }
- 
+    printf("allLetters size: %lu \n", allLetters.size());
         //go through all letters we have
     for (int j=0; j<42; j++) {
         //go through all letters we have
         for (int i=0; i<allLetters.size(); i++){
+            printf("i: %i, letter searched for: %s, letter found: %s\n ", i, alphabet[j].c_str(), allLetters[i]._letter.c_str());
             if (allLetters[i]._letter==alphabet[j]) {
                 SingleEntry entry(ofToString(allLetters[i]._id), allLetters[i]._letter, j);
                 allEntriesAlphabet.push_back(entry);
@@ -146,7 +149,7 @@ void testApp::urlResponse(ofHttpResponse & response){
     
     for (int i=0; i<allEntriesAlphabet.size()-1; i++) {
      //printf("%i", i);
-     //allEntriesAlphabet[i].print();
+     allEntriesAlphabet[i].print();
      }
     if (response.status==200 && response.request.name=="async_req") {
         for (int i=0; i<allEntriesAlphabet.size(); i++) {

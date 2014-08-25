@@ -59,6 +59,11 @@ class SingleEntry{
     }
     void loadImageDirectory(){
         string path="letters/letter_";
+        if(_letter== "."){
+            _letter="";
+        } else if(_letter=="?"){
+            _letter="-";
+        }
         path+=ofToString(_letter);
         path+=".png";
        // printf("path: %s \n", path.c_str());
