@@ -242,7 +242,7 @@ void testApp::urlResponse(ofHttpResponse & response){
     theResponse=ofToString(response.data);
     ofStringReplace(theResponse, "[{", "");
     ofStringReplace(theResponse, "}]", "");
-    printf("%s", theResponse.c_str());
+    //printf("%s", theResponse.c_str());
     
     allEntries=ofSplitString(theResponse, "},{");
     //printf("\nURLs to load: %s\n", URLsToLoad[currentURLNo].c_str());
@@ -259,11 +259,6 @@ void testApp::urlResponse(ofHttpResponse & response){
 }
 void testApp::loadURL_recentPostcards(ofHttpResponse &response){
     printf("loadURL_recentPostcards\n");
-    if (recentPostcards==recentPostcardsBerlin) {
-       // allPostcardsBerlin.clear();
-    } else{
-        //allPostcardsRiga.clear();
-    }
     if (allEntries.size()>1) {
         for(int i=0; i<allEntries.size(); i++){
             vector<string> cutEntries =ofSplitString(allEntries[i], ",");
@@ -300,10 +295,10 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
                     allPostcardsBerlin[allPostcardsBerlin.size()-1].loadImage();
                 } else{
                     for (int i=0; i<allPostcardsBerlin.size(); i++) {
-                        printf("allPostcardsBerlinsize-1: %i", (int)allPostcardsBerlin.size()-1);
+                        /*printf("allPostcardsBerlinsize-1: %i", (int)allPostcardsBerlin.size()-1);
                         printf("i: %i", i);
                         printf("entry id: %i  ", entry._id);
-                        printf("postcard id: %i\n", allPostcardsBerlin[i]._id);
+                        printf("postcard id: %i\n", allPostcardsBerlin[i]._id);*/
                         if (entry._id==allPostcardsBerlin[i]._id) {
                             break;
                         }
@@ -321,10 +316,10 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
                     allPostcardsRiga[allPostcardsRiga.size()-1].loadImage();
                 } else{
                     for (int i=0; i<allPostcardsRiga.size(); i++) {
-                        printf("allPostcardsRigasize-1: %i", (int)allPostcardsRiga.size()-1);
+                        /*printf("allPostcardsRigasize-1: %i", (int)allPostcardsRiga.size()-1);
                         printf("i: %i", i);
                         printf("entry id: %i  ", entry._id);
-                        printf("postcard id: %i\n", allPostcardsRiga[i]._id);
+                        printf("postcard id: %i\n", allPostcardsRiga[i]._id);*/
                         if (entry._id==allPostcardsRiga[i]._id) {
                             break;
                         }
@@ -342,22 +337,10 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
     
     //just for testing
     //printf("allPostcards size %lu \n", allPostcards.size());
-    for (int i=0; i<allPostcardsBerlin.size(); i++) {
+    /*for (int i=0; i<allPostcardsBerlin.size(); i++) {
      allPostcardsBerlin[i].print();
-     }
+     }*/
     if (response.status==200 && response.request.name=="async_req") {
-        //load all postcard images
-        if (recentPostcards==recentPostcardsBerlin) {
-           /* for (int i=0; i<allPostcardsBerlin.size(); i++) {
-                allPostcardsBerlin[i].loadImage();
-            }*/
-        } else{
-            /*for (int i=0; i<allPostcardsRiga.size(); i++) {
-                allPostcardsRiga[i].loadImage();
-            }*/
-        }
-        
-        
         //setup which ones are shown first
         if(allPostcardsBerlin.size()>allPostcardsRiga.size()){
             currImgNo=allPostcardsBerlin.size()-1;
@@ -402,23 +385,46 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
         }
         Letter entry(cutEntries[0], cutEntries[1], cutEntries[2], i, rigaBerlin);
         if (recentLetters==recentLettersBerlin) {
-            allLettersBerlin.push_back(entry);
+            if(allLettersBerlin.size()<3){
+                allLettersBerlin.push_back(entry);
+                allLettersBerlin[allLettersBerlin.size()-1].loadImage();
+            } else{
+                for (int i=0; i<allLettersBerlin.size(); i++) {
+                    /*printf("allPostcardsBerlinsize-1: %i", (int)allPostcardsBerlin.size()-1);
+                     printf("i: %i", i);
+                     printf("entry id: %i  ", entry._id);
+                     printf("postcard id: %i\n", allPostcardsBerlin[i]._id);*/
+                    if (entry._id==allLettersBerlin[i]._id) {
+                        break;
+                    }
+                    if (i==allLettersBerlin.size()-1) {
+                        allLettersBerlin.insert(allLettersBerlin.begin(),entry);
+                        allLettersBerlin[0].loadImage();
+                        allLettersBerlin.pop_back();
+                        break;
+                    }
+                }
+            }
         } else{
-            allLettersRiga.push_back(entry);
+            if(allLettersRiga.size()<3){
+                allLettersRiga.push_back(entry);
+                allLettersRiga[allLettersRiga.size()-1].loadImage();
+            } else{
+                for (int i=0; i<allLettersRiga.size(); i++) {
+                    if (entry._id==allLettersRiga[i]._id) {
+                        break;
+                    }
+                    if (i==allLettersRiga.size()-1) {
+                        allLettersRiga.insert(allLettersBerlin.begin(),entry);
+                        allLettersRiga[0].loadImage();
+                        allLettersRiga.pop_back();
+                        break;
+                    }
+                }
+            }
         }
     }
     if (response.status==200 && response.request.name=="async_req") {
-        //load all lette images
-        if (recentLetters==recentLettersBerlin) {
-            for (int i=0; i<allLettersBerlin.size(); i++) {
-                allLettersBerlin[i].loadImage();
-            }
-        } else{
-            for (int i=0; i<allLettersRiga.size(); i++) {
-                allLettersRiga[i].loadImage();
-            }
-        }
-
         //setup which ones are shown first
         currLetterImgNo1=allLettersBerlin.size()-1;
         currLetterImgNo2=allLettersBerlin.size()-2;
@@ -437,7 +443,7 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
     }
 }
 void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
-    allAlphabetBerlin.clear();
+    newAlphabet.clear();
     int numberOfLettersAdded=0;
     vector<AlphabetEntry> allLetters;
     for (int i=0; i<allEntries.size(); i++) {
@@ -449,7 +455,6 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
         ofStringReplace(cutEntries[1], "\"", "");
         string letter=cutEntries[1];
         if (i>1) {
-            
             if (allLetters[numberOfLettersAdded-1]._letter!=letter) {
                 AlphabetEntry entry(cutEntries[0], cutEntries[1], numberOfLettersAdded);
                 allLetters.push_back(entry);
@@ -468,24 +473,48 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
         for (int i=0; i<allLetters.size(); i++){
             if (allLetters[i]._letter==alphabetGerman[j]) {
                 AlphabetEntry entry(ofToString(allLetters[i]._id), allLetters[i]._letter, j);
-                allAlphabetBerlin.push_back(entry);
+                newAlphabet.push_back(entry);
+                printf(" entry____ ");
+                entry.print();
                 break;
             } else if (i==allLetters.size()-1){
                 AlphabetEntry entry("0000", alphabetGerman[j], j);
-                allAlphabetBerlin.push_back(entry);
+                newAlphabet.push_back(entry);
                 break;
             }
         }
     }
-    if (response.status==200 && response.request.name=="async_req") {
-        for (int i=0; i<allAlphabetBerlin.size(); i++) {
-            if (allAlphabetBerlin[i]._id!=0) {
-                allAlphabetBerlin[i].loadImage();
+    //if first time load > put the letters directly into the alphabet
+    if (allAlphabetBerlin.size()<1) {
+        for (int j=0; j<newAlphabet.size(); j++) {
+            allAlphabetBerlin.push_back(newAlphabet[j]);
+            if (allAlphabetBerlin[j]._id!=0) {
+                allAlphabetBerlin[j].loadImage();
             }else{
                 //load letter from image directory
-                allAlphabetBerlin[i].loadImageDirectory();
+                allAlphabetBerlin[j].loadImageDirectory();
+            }
+
+        }
+    }else{//if there is already something in the alphabet
+        for (int j=0; j<42; j++) {
+            printf("letter: %s all alphabet: %i, new alphabet: %i\n", allAlphabetBerlin[j]._letter.c_str() ,allAlphabetBerlin[j]._id, newAlphabet[j]._id);
+            if (allAlphabetBerlin[j]._id!=newAlphabet[j]._id) {
+                allAlphabetBerlin[j]=newAlphabet[j];
+                allAlphabetBerlin.push_back(newAlphabet[j]);
+                if (allAlphabetBerlin[j]._id!=0) {
+                    allAlphabetBerlin[j].loadImage();
+                }else{
+                    //load letter from image directory
+                    allAlphabetBerlin[j].loadImageDirectory();
+                }
+
+            }else{
+                allAlphabetBerlin[j].reset();
             }
         }
+    }
+    if (response.status==200 && response.request.name=="async_req") {
         currImgNo1=0;
         currImgNo2=1;
         currImgNo3=2;
@@ -504,7 +533,7 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
 }
 void testApp::loadURL_alphabetLatvian(ofHttpResponse &response){
     printf("loading Latvian\n");
-    allAlphabetRiga.clear();
+    newAlphabet.clear();
     int numberOfLettersAdded=0;
     vector<AlphabetEntry> allLetters;
     for (int i=0; i<allEntries.size(); i++) {
@@ -516,7 +545,6 @@ void testApp::loadURL_alphabetLatvian(ofHttpResponse &response){
         ofStringReplace(cutEntries[1], "\"", "");
         string letter=cutEntries[1];
         if (i>1) {
-            
             if (allLetters[numberOfLettersAdded-1]._letter!=letter) {
                 AlphabetEntry entry(cutEntries[0], cutEntries[1], numberOfLettersAdded);
                 allLetters.push_back(entry);
@@ -527,6 +555,7 @@ void testApp::loadURL_alphabetLatvian(ofHttpResponse &response){
             allLetters.push_back(entry);
             numberOfLettersAdded++;
         }
+
     }
     printf("number of Letters received: %i\n", numberOfLettersAdded);
     
@@ -535,22 +564,42 @@ void testApp::loadURL_alphabetLatvian(ofHttpResponse &response){
         for (int i=0; i<allLetters.size(); i++){
             if (allLetters[i]._letter==alphabetLatvian[j]) {
                 AlphabetEntry entry(ofToString(allLetters[i]._id), allLetters[i]._letter, j);
-                allAlphabetRiga.push_back(entry);
+                newAlphabet.push_back(entry);
                 break;
             } else if (i==allLetters.size()-1){
                 AlphabetEntry entry("0000", alphabetLatvian[j], j);
-                allAlphabetRiga.push_back(entry);
+                newAlphabet.push_back(entry);
                 break;
             }
         }
     }
-    if (response.status==200 && response.request.name=="async_req") {
-        for (int i=0; i<allAlphabetRiga.size(); i++) {
-            if (allAlphabetRiga[i]._id!=0) {
-                allAlphabetRiga[i].loadImage();
+    
+    //if first time load > put the letters directly into the alphabet
+    if (allAlphabetRiga.size()<1) {
+        for (int j=0; j<newAlphabet.size(); j++) {
+            allAlphabetRiga.push_back(newAlphabet[j]);
+            if (allAlphabetRiga[j]._id!=0) {
+                allAlphabetRiga[j].loadImage();
             }else{
                 //load letter from image directory
-                allAlphabetRiga[i].loadImageDirectory();
+                allAlphabetRiga[j].loadImageDirectory();
+            }
+
+        }
+    }else{//if there is already something in the alphabet
+        for (int j=0; j<42; j++) {
+            printf("letter: %s all alphabet: %i, new alphabet: %i\n", allAlphabetRiga[j]._letter.c_str() ,allAlphabetRiga[j]._id, newAlphabet[j]._id);
+            if (allAlphabetRiga[j]._id!=newAlphabet[j]._id) {
+                allAlphabetRiga[j]=newAlphabet[j];
+                if (allAlphabetRiga[j]._id!=0) {
+                    allAlphabetRiga[j].loadImage();
+                }else{
+                    //load letter from image directory
+                    allAlphabetBerlin[j].loadImageDirectory();
+                }
+
+            }else{
+                allAlphabetRiga[j].reset();
             }
         }
     }
@@ -570,27 +619,7 @@ void testApp::goToNextScreen(){
 //--------------------------------------------------------------
 void testApp::sendRequest(){
     if (URLsToLoad[currentURLNo]!="Info") {
-        string requestURL="";
-        if (URLsToLoad[currentURLNo]==recentPostcardsBerlin) {
-            requestURL=URLsToLoad[currentURLNo]+"?time="+timeRequestPostcard;
-            int monthNumber=ofGetMonth();
-            string month=ofToString(monthNumber);
-            if (monthNumber<10) {
-                month="0"+month;
-            }
-            int dateNumber=ofGetDay();
-            string date=ofToString(dateNumber);
-            if (dateNumber<10) {
-                date="0"+date;
-            }
-            int hourNumber=ofGetHours()-3; //difference to server time
-            string hour=ofToString(hourNumber);
-            
-            timeRequestPostcard=ofToString(ofGetYear())+"-"+month+"-"+ date +" "+hour+":"+ofToString(ofGetMinutes())+":"+ofToString(ofGetSeconds());//format: "2014-07-24 20:00:00"
-            printf("request time= %s\n", timeRequestPostcard.c_str());
-        } else{
-            requestURL=URLsToLoad[currentURLNo];
-        }
+        string requestURL=URLsToLoad[currentURLNo];
         int id = ofLoadURLAsync(requestURL, "async_req");
         printf("sending request to %s\n", requestURL.c_str());
     }else{
@@ -733,7 +762,7 @@ void testApp::updateAlphabet(){
         goToNextScreen();
     }
     //determining when it's over
-    if (currentURL==currentAlphabet && currImgNo2>39 && allAlphabetBerlin[currImgNo2]._xPos<-200) {
+    if (currentURL==currentAlphabet && currImgNo2>2/*39*/ && allAlphabetBerlin[currImgNo2]._xPos<-200) {
         counterDrawAlphabet=0;
         blendInfo=0;
         //now go to that screen

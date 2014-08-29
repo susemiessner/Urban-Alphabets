@@ -26,9 +26,15 @@ public:
         _id=ofToInt(THEID);
         _letter=LETTER;
         _constNo=constructorNumber;
-        if(constructorNumber<5){
-            //  printf("now");
-            _xPos=_xPos+(constructorNumber)*_offset;
+        if(_constNo<5){
+            _xPos=_xPos+(_constNo)*_offset;
+        }
+    }
+    void reset(){
+        _xPos=(ofGetWidth()-20)/2;
+        _yPos=150;
+        if(_constNo<5){
+            _xPos=_xPos+(_constNo)*_offset;
         }
     }
     void print(){

@@ -93,11 +93,14 @@ public:
     vector<Postcard> allPostcardsRiga; //all postcards from Riga
     vector<Letter> allLettersBerlin; //all recent letters from Berlin
     vector<Letter> allLettersRiga; //all recent letters from Riga
+    
     int lengthPostcards;
     int lengthLetters;
     int counterPostcardsAndLetters;
     int counterNumberPostcards;
+    
     vector<AlphabetEntry> allAlphabetBerlin; //the entire alphabet from Berlin
+    vector<AlphabetEntry> newAlphabet;
     vector<AlphabetEntry> allAlphabetRiga; //the entire alphabet from Riga
     int counterDrawAlphabet; //counting how long the entire alphabet is drawn
     int alphabetLength; //how long the entire alphabet should be drawn (in secs)
