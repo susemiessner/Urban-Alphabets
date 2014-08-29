@@ -17,12 +17,13 @@ public:
     float _lati;
     string _text;
     string _owner;
+    string _date;
     
     int _xPos=85;
     int _yPos=130;
     int _offset=342+32;
     
-    Postcard(string THEID, string LONGI, string LA, string TEXT, string OWNER, string RigaBerlin){
+    Postcard(string THEID, string LONGI, string LA, string TEXT, string OWNER, string RigaBerlin, string DATE){
         _id=ofToInt(THEID);
         _longi=ofToFloat( LONGI);
         _lati=ofToFloat(LA);
@@ -31,13 +32,15 @@ public:
         if (RigaBerlin=="Riga") {
             _xPos=_xPos+ofGetWidth()/2;
         }
+        _date=DATE;
     }
     void print(){
         printf("id     %i ",_id);
         printf("longi  %f ",_longi);
         printf("lati   %f ",_lati);
         printf("letter %s ",_text.c_str());
-        printf("owner %s \n",_owner.c_str());
+        printf("owner %s",_owner.c_str());
+        printf("date %s \n",_date.c_str() );
     }
     void loadImage(){
         string identifier=ofToString(_id);
@@ -48,6 +51,7 @@ public:
         string URL="http://www.ualphabets.com/images/original/"+folderName+"/"+ofToString(_id)+".png";
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
+        printf("loaded Image: %i \n", _id);
     }
     
     void draw(){

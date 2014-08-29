@@ -145,6 +145,9 @@ void testApp::setup(){
     alphabetLatvian[40]="8";
     alphabetLatvian[41]="9";
     
+    //setting up first request time
+    timeRequestPostcard="2014-07-24 20:00:00";
+    
     //send the first request
     if (currentURL!="Info") {
         printf("now \n");
@@ -234,12 +237,12 @@ void testApp::keyPressed(int key){
 //--------------------------------------------------------------
 
 void testApp::urlResponse(ofHttpResponse & response){
-    printf("  received response");
+    printf("  received response\n");
     loadingResponseDone=true;
     theResponse=ofToString(response.data);
     ofStringReplace(theResponse, "[{", "");
     ofStringReplace(theResponse, "}]", "");
-    //printf("%s", theResponse.c_str());
+    printf("%s", theResponse.c_str());
     
     allEntries=ofSplitString(theResponse, "},{");
     //printf("\nURLs to load: %s\n", URLsToLoad[currentURLNo].c_str());
@@ -257,54 +260,101 @@ void testApp::urlResponse(ofHttpResponse & response){
 void testApp::loadURL_recentPostcards(ofHttpResponse &response){
     printf("loadURL_recentPostcards\n");
     if (recentPostcards==recentPostcardsBerlin) {
-        allPostcardsBerlin.clear();
+       // allPostcardsBerlin.clear();
     } else{
-        allPostcardsRiga.clear();
+        //allPostcardsRiga.clear();
     }
-    for(int i=0; i<allEntries.size(); i++){
-        vector<string> cutEntries =ofSplitString(allEntries[i], ",");
-        //delete the first parts in all of them
-        ofStringReplace(cutEntries[0], "\"ID\":\"", "");
-        ofStringReplace(cutEntries[1], "\"longitude\":\"", "");
-        ofStringReplace(cutEntries[2], "\"latitude\":\"", "");
-        ofStringReplace(cutEntries[3], "\"postcardText\":\"", "");
-        ofStringReplace(cutEntries[4], "\"owner\":\"", "");
-        //delete the last " in all of them
-        ofStringReplace(cutEntries[0], "\"", "");
-        ofStringReplace(cutEntries[1], "\"", "");
-        ofStringReplace(cutEntries[2], "\"", "");
-        ofStringReplace(cutEntries[3], "\"", "");
-        ofStringReplace(cutEntries[4], "\"", "");
-        string rigaBerlin="";
-        if (recentPostcards==recentPostcardsBerlin) {
-            rigaBerlin="Berlin";
-        }else {
-            rigaBerlin="Riga";
+    if (allEntries.size()>1) {
+        for(int i=0; i<allEntries.size(); i++){
+            vector<string> cutEntries =ofSplitString(allEntries[i], ",");
+            /*for (int i=0; i<cutEntries.size(); i++) {
+                printf("%s\n", cutEntries[i].c_str());
+            }*/
+            //delete the first parts in all of them
+            ofStringReplace(cutEntries[0], "\"ID\":\"", "");
+            ofStringReplace(cutEntries[1], "\"longitude\":\"", "");
+            ofStringReplace(cutEntries[2], "\"latitude\":\"", "");
+            ofStringReplace(cutEntries[3], "\"postcardText\":\"", "");
+            ofStringReplace(cutEntries[4], "\"owner\":\"", "");
+            ofStringReplace(cutEntries[5], "\"date\":\"", "");
+            //delete the last " in all of them
+            ofStringReplace(cutEntries[0], "\"", "");
+            ofStringReplace(cutEntries[1], "\"", "");
+            ofStringReplace(cutEntries[2], "\"", "");
+            ofStringReplace(cutEntries[3], "\"", "");
+            ofStringReplace(cutEntries[4], "\"", "");
+            ofStringReplace(cutEntries[5], "\"", "");
+            //printf("cutEntries0=%s", cutEntries[0].c_str());
+            string rigaBerlin="";
+            if (recentPostcards==recentPostcardsBerlin) {
+                rigaBerlin="Berlin";
+            }else {
+                rigaBerlin="Riga";
+            }
+            Postcard entry(cutEntries[0], cutEntries[1], cutEntries[2],cutEntries[3],cutEntries[4], rigaBerlin, cutEntries[5]);
+            printf(" entry____ ");
+            entry.print();
+            if (recentPostcards==recentPostcardsBerlin) {
+                if(allPostcardsBerlin.size()<5){
+                    allPostcardsBerlin.push_back(entry);
+                    allPostcardsBerlin[allPostcardsBerlin.size()-1].loadImage();
+                } else{
+                    for (int i=0; i<allPostcardsBerlin.size(); i++) {
+                        printf("allPostcardsBerlinsize-1: %i", (int)allPostcardsBerlin.size()-1);
+                        printf("i: %i", i);
+                        printf("entry id: %i  ", entry._id);
+                        printf("postcard id: %i\n", allPostcardsBerlin[i]._id);
+                        if (entry._id==allPostcardsBerlin[i]._id) {
+                            break;
+                        }
+                        if (i==allPostcardsBerlin.size()-1) {
+                            allPostcardsBerlin.insert(allPostcardsBerlin.begin(),entry);
+                            allPostcardsBerlin[0].loadImage();
+                            allPostcardsBerlin.pop_back();
+                            break;
+                        }
+                    }
+                }
+            } else{
+                if(allPostcardsRiga.size()<5){
+                    allPostcardsRiga.push_back(entry);
+                    allPostcardsRiga[allPostcardsRiga.size()-1].loadImage();
+                } else{
+                    for (int i=0; i<allPostcardsRiga.size(); i++) {
+                        printf("allPostcardsRigasize-1: %i", (int)allPostcardsRiga.size()-1);
+                        printf("i: %i", i);
+                        printf("entry id: %i  ", entry._id);
+                        printf("postcard id: %i\n", allPostcardsRiga[i]._id);
+                        if (entry._id==allPostcardsRiga[i]._id) {
+                            break;
+                        }
+                        if (i==allPostcardsRiga.size()-1) {
+                            allPostcardsRiga.insert(allPostcardsRiga.begin(),entry);
+                            allPostcardsRiga[0].loadImage();
+                            allPostcardsRiga.pop_back();
+                            break;
+                        }
+                    }
+                }
+            }
         }
-        Postcard entry(cutEntries[0], cutEntries[1], cutEntries[2],cutEntries[3],cutEntries[4], rigaBerlin);
-        if (recentPostcards==recentPostcardsBerlin) {
-            allPostcardsBerlin.push_back(entry);
-        } else{
-            allPostcardsRiga.push_back(entry);
-        }
-        
-        
     }
+    
     //just for testing
     //printf("allPostcards size %lu \n", allPostcards.size());
-    /*for (int i=0; i<allPostcards.size(); i++) {
-     allPostcards[i].print();
-     }*/
+    for (int i=0; i<allPostcardsBerlin.size(); i++) {
+     allPostcardsBerlin[i].print();
+     }
     if (response.status==200 && response.request.name=="async_req") {
         //load all postcard images
         if (recentPostcards==recentPostcardsBerlin) {
-            for (int i=0; i<allPostcardsBerlin.size(); i++) {
+           /* for (int i=0; i<allPostcardsBerlin.size(); i++) {
                 allPostcardsBerlin[i].loadImage();
-            }
+            }*/
         } else{
-            for (int i=0; i<allPostcardsRiga.size(); i++) {
+            /*for (int i=0; i<allPostcardsRiga.size(); i++) {
                 allPostcardsRiga[i].loadImage();
-            }
+            }*/
         }
         
         
@@ -520,8 +570,29 @@ void testApp::goToNextScreen(){
 //--------------------------------------------------------------
 void testApp::sendRequest(){
     if (URLsToLoad[currentURLNo]!="Info") {
-        int id = ofLoadURLAsync(URLsToLoad[currentURLNo], "async_req");
-        printf("sending request to %s: %s\n", URLsToLoad[currentURLNo].c_str(), recentPostcards.c_str());
+        string requestURL="";
+        if (URLsToLoad[currentURLNo]==recentPostcardsBerlin) {
+            requestURL=URLsToLoad[currentURLNo]+"?time="+timeRequestPostcard;
+            int monthNumber=ofGetMonth();
+            string month=ofToString(monthNumber);
+            if (monthNumber<10) {
+                month="0"+month;
+            }
+            int dateNumber=ofGetDay();
+            string date=ofToString(dateNumber);
+            if (dateNumber<10) {
+                date="0"+date;
+            }
+            int hourNumber=ofGetHours()-3; //difference to server time
+            string hour=ofToString(hourNumber);
+            
+            timeRequestPostcard=ofToString(ofGetYear())+"-"+month+"-"+ date +" "+hour+":"+ofToString(ofGetMinutes())+":"+ofToString(ofGetSeconds());//format: "2014-07-24 20:00:00"
+            printf("request time= %s\n", timeRequestPostcard.c_str());
+        } else{
+            requestURL=URLsToLoad[currentURLNo];
+        }
+        int id = ofLoadURLAsync(requestURL, "async_req");
+        printf("sending request to %s\n", requestURL.c_str());
     }else{
         loadingResponseDone=true;
         printf("%s", URLsToLoad[currentURLNo].c_str());

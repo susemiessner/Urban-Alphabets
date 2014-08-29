@@ -69,6 +69,9 @@ public:
     string recentLettersRiga;
     string currentAlphabetRiga;
     
+    //storing time of last request
+    string timeRequestPostcard;
+    
     //Berlin and Riga images
     ofImage berlin;
     ofImage riga;
