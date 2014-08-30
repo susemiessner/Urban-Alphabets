@@ -17,6 +17,8 @@ void testApp::setup(){
     recentLettersRiga="http://www.ualphabets.com/requests/Riga/connected/letters.php";
     currentAlphabetRiga="http://www.ualphabets.com/requests/Riga/connected/alphabet.php";
     
+    currentQuestion="http://www.ualphabets.com/requests/Riga/connected/question.php";
+    
     recentPostcards=recentPostcardsBerlin;
     recentLetters=recentLettersBerlin;
     currentAlphabet=currentAlphabetBerlin;
@@ -24,11 +26,12 @@ void testApp::setup(){
     
     //setup of the URLS that need to be loaded
     URLsToLoad[0]=info;
-    URLsToLoad[1]=recentPostcards;
-    URLsToLoad[2]=recentLetters;
-    URLsToLoad[3]=recentPostcards;
-    URLsToLoad[4]=currentAlphabet;
-    URLsToLoad[5]=recentPostcards;
+    URLsToLoad[1]=currentQuestion;
+    URLsToLoad[2]=recentPostcards;
+    URLsToLoad[3]=recentLetters;
+    URLsToLoad[4]=recentPostcards;
+    URLsToLoad[5]=currentAlphabet;
+    URLsToLoad[6]=recentPostcards;
     
     currentURLNo=0; //first screen to be shown
     currentURL=URLsToLoad[currentURLNo];
@@ -41,7 +44,7 @@ void testApp::setup(){
     //setup for intro screens before actual
     loadingResponseDone=false;
     blendInfo=0;
-    introLength=1;//4;
+    introLength=4;
     
     //setup for alphabet screen
     counterDrawAlphabet=0;
@@ -50,12 +53,17 @@ void testApp::setup(){
     berlinAlphabetLoaded=false;
     
     //setup for postcards and letters screen
-    lengthPostcards=2;//6;//in secs
-    lengthLetters=3;//10;//in secs
+    lengthPostcards=8;//in secs
+    lengthLetters=10;//in secs
     counterPostcardsAndLetters=0;
     counterNumberPostcards=0;
     lettersTitle.loadImage("intro/intro_titleLetters.png");
-    postcardsTitle.loadImage("intro/intro_titlePostcards.png");
+    
+    //changing questions setup
+    questions[0].loadImage("questions/questions_english_ -01.png");
+    questions[1].loadImage("questions/questions_english_ -02.png");
+    currentQuestionNumber=0;
+
     
     //the German alphabet
     alphabetGerman[0]="A";
@@ -145,9 +153,6 @@ void testApp::setup(){
     alphabetLatvian[40]="8";
     alphabetLatvian[41]="9";
     
-    //setting up first request time
-    timeRequestPostcard="2014-07-24 20:00:00";
-    
     //send the first request
     if (currentURL!="Info") {
         printf("now \n");
@@ -202,13 +207,13 @@ void testApp::draw(){
             ofSetColor(50, 50, 50);
             //ofRect(ofGetWidth()/2-1, 0, 2, ofGetHeight());
             //background for Berlin
-            ofRect(AROUND, postcardsTitle.height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-postcardsTitle.height-AROUND*2);
+            ofRect(AROUND, questions[0].height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-questions[0].height-AROUND*2);
             //background for Riga
-            ofRect(AROUND*3+(ofGetWidth()-AROUND*4)/2, postcardsTitle.height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-postcardsTitle.height-AROUND*2);
+            ofRect(AROUND*3+(ofGetWidth()-AROUND*4)/2, questions[0].height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-questions[0].height-AROUND*2);
             ofSetColor(255);
             ofEnableAlphaBlending();
-            berlin.draw(AROUND, postcardsTitle.height+AROUND*2);
-            riga.draw(ofGetWidth()-riga.width-AROUND, postcardsTitle.height+AROUND*2);
+            berlin.draw(AROUND, questions[0].height+AROUND*2);
+            riga.draw(ofGetWidth()-riga.width-AROUND, questions[0].height+AROUND*2);
             ofDisableAlphaBlending();
         }
         //printf("currentURL: %s, recentPostcards: %s \n", currentURL.c_str(), recentPostcards.c_str());
@@ -255,7 +260,10 @@ void testApp::urlResponse(ofHttpResponse & response){
         loadURL_alphabetGerman(response);
     } else if(URLsToLoad[currentURLNo]==currentAlphabetBerlin && berlinAlphabetLoaded==true){
         loadURL_alphabetLatvian(response);
+    } else if (URLsToLoad[currentURLNo]==currentQuestion){
+        loadQuestion(response);
     }
+
 }
 void testApp::loadURL_recentPostcards(ofHttpResponse &response){
     printf("loadURL_recentPostcards\n");
@@ -498,7 +506,7 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
         }
     }else{//if there is already something in the alphabet
         for (int j=0; j<42; j++) {
-            printf("letter: %s all alphabet: %i, new alphabet: %i\n", allAlphabetBerlin[j]._letter.c_str() ,allAlphabetBerlin[j]._id, newAlphabet[j]._id);
+            //printf("letter: %s all alphabet: %i, new alphabet: %i\n", allAlphabetBerlin[j]._letter.c_str() ,allAlphabetBerlin[j]._id, newAlphabet[j]._id);
             if (allAlphabetBerlin[j]._id!=newAlphabet[j]._id) {
                 allAlphabetBerlin[j]=newAlphabet[j];
                 allAlphabetBerlin.push_back(newAlphabet[j]);
@@ -605,6 +613,22 @@ void testApp::loadURL_alphabetLatvian(ofHttpResponse &response){
     }
     berlinAlphabetLoaded=false;
     currentAlphabet=currentAlphabetBerlin;
+}
+
+void testApp::loadQuestion(ofHttpResponse &response){
+    
+        printf("allEntries:%s",allEntries[0].c_str());
+            //delete the first parts in all of them
+            ofStringReplace(allEntries[0], "\"ID\":\"", "");
+            //delete the last " in all of them
+            ofStringReplace(allEntries[0], "\"", "");
+    printf("allEntries (after cutting):%s",allEntries[0].c_str());
+
+    currentQuestionNumber=ofToInt(allEntries[0])-1;
+    printf("current Question No: %i", currentQuestionNumber);
+    
+    currentURLNo++;
+    sendRequest();
 }
 //--------------------------------------------------------------
 //next screen
@@ -762,7 +786,7 @@ void testApp::updateAlphabet(){
         goToNextScreen();
     }
     //determining when it's over
-    if (currentURL==currentAlphabet && currImgNo2>2/*39*/ && allAlphabetBerlin[currImgNo2]._xPos<-200) {
+    if (currentURL==currentAlphabet && currImgNo2>39 && allAlphabetBerlin[currImgNo2]._xPos<-200) {
         counterDrawAlphabet=0;
         blendInfo=0;
         //now go to that screen
@@ -803,7 +827,7 @@ void testApp::drawPostcards(){
     }
     //draw title
     ofSetColor(255);
-    postcardsTitle.draw((ofGetWidth()-postcardsTitle.width)/2,0);
+    questions[currentQuestionNumber].draw((ofGetWidth()-questions[currentQuestionNumber].width)/2,0);
     ofDisableAlphaBlending();
 }
 void testApp::drawLetters(){

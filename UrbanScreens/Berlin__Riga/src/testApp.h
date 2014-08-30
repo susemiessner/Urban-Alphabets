@@ -6,7 +6,7 @@
 #include "Alphabet.h"
 #include "About.h"
 
-#define LENGTH_OF_URL_ARRAY 6
+#define LENGTH_OF_URL_ARRAY 7
 #define FRAME_RATE 70
 #define NO_OF_INTRO_IMAGES 5
 #define AROUND 10
@@ -39,6 +39,8 @@ public:
     void loadURL_alphabetGerman(ofHttpResponse &response);
     void loadURL_alphabetLatvian(ofHttpResponse &response);
     
+    void loadQuestion(ofHttpResponse &response);
+    
     //update the screens
     void updatePostcards();
     void updateLetters();
@@ -68,9 +70,7 @@ public:
     string recentPostcardsRiga;
     string recentLettersRiga;
     string currentAlphabetRiga;
-    
-    //storing time of last request
-    string timeRequestPostcard;
+    string currentQuestion;
     
     //Berlin and Riga images
     ofImage berlin;
@@ -113,4 +113,8 @@ public:
     
     
     ofImage alphabetTitle, lettersTitle, postcardsTitle;
+    
+    //changing questions
+    ofImage questions[2]; //number of questions can be changed!
+    int currentQuestionNumber;
 };
