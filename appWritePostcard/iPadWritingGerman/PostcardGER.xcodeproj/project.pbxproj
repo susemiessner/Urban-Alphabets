@@ -14,7 +14,8 @@
 		DA1A637219B378C900EC926A /* icon_ClearPostcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A637019B378C900EC926A /* icon_ClearPostcard@2x.png */; };
 		DA1A637919B38CB400EC926A /* iPadWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A637719B38CB400EC926A /* iPadWriting.png */; };
 		DA1A637A19B38CB400EC926A /* iPadWriting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A637819B38CB400EC926A /* iPadWriting@2x.png */; };
-		DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */; };
+		DA4A189F19B4795300F83CC5 /* icon_ShowKeyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4A189D19B4795300F83CC5 /* icon_ShowKeyboard.png */; };
+		DA4A18A019B4795300F83CC5 /* icon_ShowKeyboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4A189E19B4795300F83CC5 /* icon_ShowKeyboard@2x.png */; };
 		DA58628E18574EEF00C4D2A5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA58628D18574EEF00C4D2A5 /* CoreLocation.framework */; };
 		DA5862901857501B00C4D2A5 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA58628F1857501B00C4D2A5 /* ImageIO.framework */; };
 		DA5862921857502F00C4D2A5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5862911857502F00C4D2A5 /* AssetsLibrary.framework */; };
@@ -228,8 +229,8 @@
 		DA1A637019B378C900EC926A /* icon_ClearPostcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ClearPostcard@2x.png"; sourceTree = "<group>"; };
 		DA1A637719B38CB400EC926A /* iPadWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadWriting.png; sourceTree = "<group>"; };
 		DA1A637819B38CB400EC926A /* iPadWriting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPadWriting@2x.png"; sourceTree = "<group>"; };
-		DA5861F518573D0D00C4D2A5 /* BottomNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomNavBar.h; path = navBars/BottomNavBar.h; sourceTree = "<group>"; };
-		DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BottomNavBar.m; path = navBars/BottomNavBar.m; sourceTree = "<group>"; };
+		DA4A189D19B4795300F83CC5 /* icon_ShowKeyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_ShowKeyboard.png; sourceTree = "<group>"; };
+		DA4A189E19B4795300F83CC5 /* icon_ShowKeyboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ShowKeyboard@2x.png"; sourceTree = "<group>"; };
 		DA58628D18574EEF00C4D2A5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DA58628F1857501B00C4D2A5 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		DA5862911857502F00C4D2A5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -695,15 +696,6 @@
 			name = retina;
 			sourceTree = "<group>";
 		};
-		DA5861E8185714A300C4D2A5 /* bottomNavBar */ = {
-			isa = PBXGroup;
-			children = (
-				DA5861F518573D0D00C4D2A5 /* BottomNavBar.h */,
-				DA5861F618573D0D00C4D2A5 /* BottomNavBar.m */,
-			);
-			name = bottomNavBar;
-			sourceTree = "<group>";
-		};
 		DA586286185745AD00C4D2A5 /* letter */ = {
 			isa = PBXGroup;
 			children = (
@@ -769,7 +761,6 @@
 			isa = PBXGroup;
 			children = (
 				DAC9D84C190681BA004967F2 /* SendingToDatabase */,
-				DA5861E8185714A300C4D2A5 /* bottomNavBar */,
 				EDFC42011851014F00CB3335 /* C4AppDelegate.h */,
 				EDFC422B1851014F00CB3335 /* C4AppDelegate.m */,
 				EDFC42371851015300CB3335 /* C4WorkSpace.h */,
@@ -798,6 +789,8 @@
 		EDFC41F91851014E00CB3335 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				DA4A189D19B4795300F83CC5 /* icon_ShowKeyboard.png */,
+				DA4A189E19B4795300F83CC5 /* icon_ShowKeyboard@2x.png */,
 				DA1A637719B38CB400EC926A /* iPadWriting.png */,
 				DA1A637819B38CB400EC926A /* iPadWriting@2x.png */,
 				DA1A636F19B378C900EC926A /* icon_ClearPostcard.png */,
@@ -1035,6 +1028,7 @@
 				DABD4A521962AA8A00878F45 /* letter_9@2x.png in Resources */,
 				DABD49D51962A92D00878F45 /* letter_RusF.png in Resources */,
 				DABD49D41962A92D00878F45 /* letter_RusE.png in Resources */,
+				DA4A189F19B4795300F83CC5 /* icon_ShowKeyboard.png in Resources */,
 				DABD4A7E1962AA8A00878F45 /* letter_RusJo@2x.png in Resources */,
 				DABD49E21962A92D00878F45 /* letter_RusSe.png in Resources */,
 				DABD49B41962A92D00878F45 /* letter_C.png in Resources */,
@@ -1093,6 +1087,7 @@
 				DABD4A8E1962AA8A00878F45 /* letter_U@2x.png in Resources */,
 				DABD49DD1962A92D00878F45 /* letter_RusMjachkiSnak.png in Resources */,
 				DABD49DC1962A92D00878F45 /* letter_RusL.png in Resources */,
+				DA4A18A019B4795300F83CC5 /* icon_ShowKeyboard@2x.png in Resources */,
 				DABD49D61962A92D00878F45 /* letter_RusG.png in Resources */,
 				DABD49ED1962A92D00878F45 /* letter_W.png in Resources */,
 				DABD4A601962AA8A00878F45 /* letter_I@2x.png in Resources */,
@@ -1162,7 +1157,6 @@
 				EDFC41F71851014E00CB3335 /* main.m in Sources */,
 				DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */,
 				EDFC42391851015300CB3335 /* C4WorkSpace.m in Sources */,
-				DA5861F718573D0D00C4D2A5 /* BottomNavBar.m in Sources */,
 				EDFC422C1851014F00CB3335 /* C4AppDelegate.m in Sources */,
 				DA1A635919B31DDD00EC926A /* Letter.m in Sources */,
 			);

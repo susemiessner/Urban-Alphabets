@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-               BuildableName = "PostcardLAT.app"
+               BuildableName = "PostcardFIN.app"
                BlueprintName = "PostcardFIN"
                ReferencedContainer = "container:PostcardFIN.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EDFC423D1851015300CB3335"
-               BuildableName = "PostcardLATTests.xctest"
+               BuildableName = "PostcardFINTests.xctest"
                BlueprintName = "PostcardFINTests"
                ReferencedContainer = "container:PostcardFIN.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "PostcardLAT.app"
+            BuildableName = "PostcardFIN.app"
             BlueprintName = "PostcardFIN"
             ReferencedContainer = "container:PostcardFIN.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "PostcardLAT.app"
+            BuildableName = "PostcardFIN.app"
             BlueprintName = "PostcardFIN"
             ReferencedContainer = "container:PostcardFIN.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDFC41D61851014E00CB3335"
-            BuildableName = "PostcardLAT.app"
+            BuildableName = "PostcardFIN.app"
             BlueprintName = "PostcardFIN"
             ReferencedContainer = "container:PostcardFIN.xcodeproj">
          </BuildableReference>

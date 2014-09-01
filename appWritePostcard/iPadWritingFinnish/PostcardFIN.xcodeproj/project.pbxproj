@@ -14,6 +14,8 @@
 		DA1A637219B378C900EC926A /* icon_ClearPostcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A637019B378C900EC926A /* icon_ClearPostcard@2x.png */; };
 		DA1A637919B38CB400EC926A /* iPadWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A637719B38CB400EC926A /* iPadWriting.png */; };
 		DA1A637A19B38CB400EC926A /* iPadWriting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA1A637819B38CB400EC926A /* iPadWriting@2x.png */; };
+		DA4A189B19B4772800F83CC5 /* icon_ShowKeyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4A189919B4772800F83CC5 /* icon_ShowKeyboard.png */; };
+		DA4A189C19B4772800F83CC5 /* icon_ShowKeyboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4A189A19B4772800F83CC5 /* icon_ShowKeyboard@2x.png */; };
 		DA58628E18574EEF00C4D2A5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA58628D18574EEF00C4D2A5 /* CoreLocation.framework */; };
 		DA5862901857501B00C4D2A5 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA58628F1857501B00C4D2A5 /* ImageIO.framework */; };
 		DA5862921857502F00C4D2A5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5862911857502F00C4D2A5 /* AssetsLibrary.framework */; };
@@ -227,6 +229,8 @@
 		DA1A637019B378C900EC926A /* icon_ClearPostcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ClearPostcard@2x.png"; sourceTree = "<group>"; };
 		DA1A637719B38CB400EC926A /* iPadWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadWriting.png; sourceTree = "<group>"; };
 		DA1A637819B38CB400EC926A /* iPadWriting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPadWriting@2x.png"; sourceTree = "<group>"; };
+		DA4A189919B4772800F83CC5 /* icon_ShowKeyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_ShowKeyboard.png; path = "../../../../../19_next_version/01_icons-screenshots/icons_exported/icon_ShowKeyboard.png"; sourceTree = "<group>"; };
+		DA4A189A19B4772800F83CC5 /* icon_ShowKeyboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_ShowKeyboard@2x.png"; path = "../../../../../19_next_version/01_icons-screenshots/icons_exported/icon_ShowKeyboard@2x.png"; sourceTree = "<group>"; };
 		DA58628D18574EEF00C4D2A5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DA58628F1857501B00C4D2A5 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		DA5862911857502F00C4D2A5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -785,6 +789,8 @@
 		EDFC41F91851014E00CB3335 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				DA4A189919B4772800F83CC5 /* icon_ShowKeyboard.png */,
+				DA4A189A19B4772800F83CC5 /* icon_ShowKeyboard@2x.png */,
 				DA1A637719B38CB400EC926A /* iPadWriting.png */,
 				DA1A637819B38CB400EC926A /* iPadWriting@2x.png */,
 				DA1A636F19B378C900EC926A /* icon_ClearPostcard.png */,
@@ -1022,6 +1028,7 @@
 				DABD4A521962AA8A00878F45 /* letter_9@2x.png in Resources */,
 				DABD49D51962A92D00878F45 /* letter_RusF.png in Resources */,
 				DABD49D41962A92D00878F45 /* letter_RusE.png in Resources */,
+				DA4A189B19B4772800F83CC5 /* icon_ShowKeyboard.png in Resources */,
 				DABD4A7E1962AA8A00878F45 /* letter_RusJo@2x.png in Resources */,
 				DABD49E21962A92D00878F45 /* letter_RusSe.png in Resources */,
 				DABD49B41962A92D00878F45 /* letter_C.png in Resources */,
@@ -1080,6 +1087,7 @@
 				DABD4A8E1962AA8A00878F45 /* letter_U@2x.png in Resources */,
 				DABD49DD1962A92D00878F45 /* letter_RusMjachkiSnak.png in Resources */,
 				DABD49DC1962A92D00878F45 /* letter_RusL.png in Resources */,
+				DA4A189C19B4772800F83CC5 /* icon_ShowKeyboard@2x.png in Resources */,
 				DABD49D61962A92D00878F45 /* letter_RusG.png in Resources */,
 				DABD49ED1962A92D00878F45 /* letter_W.png in Resources */,
 				DABD4A601962AA8A00878F45 /* letter_I@2x.png in Resources */,

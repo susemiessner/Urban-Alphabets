@@ -34,6 +34,7 @@
     //2 buttons
     UIImage *buttonRefresh;
     UIImage *buttonSend;
+    UIImage *buttonKeyboard;
     
 
     NSMutableData *_downloadedData;
@@ -60,7 +61,7 @@
     background=[UIImage imageNamed:@"iPadWriting.png"];
     buttonRefresh=[UIImage imageNamed:@"icon_ClearPostcard.png"];
     buttonSend=[UIImage imageNamed:@"icon_SendToScreen.png"];
-    
+    buttonKeyboard=[UIImage imageNamed:@"icon_ShowKeyboard.png"];
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -310,12 +311,22 @@
     sendButtonRecognizer.numberOfTapsRequired = 1;
     [self.buttonSendView addGestureRecognizer:sendButtonRecognizer];
 
-    
+    self.buttonKeyboardView=[[UIImageView alloc]initWithImage:buttonKeyboard];
+    self.buttonKeyboardView.frame=CGRectMake(([[UIScreen mainScreen] bounds].size.width-120)/2,[[UIScreen mainScreen] bounds].size.height-100, 120,67);
+    self.buttonKeyboardView.userInteractionEnabled=YES;
+    [self.view addSubview:self.buttonKeyboardView];
+    //touchable
+    UITapGestureRecognizer *showKeyboardRecognizer=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
+    showKeyboardRecognizer.numberOfTapsRequired = 1;
+    [self.buttonKeyboardView addGestureRecognizer:showKeyboardRecognizer];
     
     
     imageWidth=UA_IPAD_LETTER_IMG_WIDTH_5;
     imageHeight=UA_IPAD_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=UA_IPAD_LETTER_SIDE_MARGIN_ALPHABETS;
+}
+-(void)showKeyboard{
+    [textViewTest becomeFirstResponder];
 }
 -(void)drawCurrentAlphabet{
     if (receivedResponse) {

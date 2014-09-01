@@ -59,5 +59,5 @@
 //buttons
 @property (readwrite)UIImageView *buttonRefreshView;
 @property (readwrite)UIImageView *buttonSendView;
-
+@property (readwrite) UIImageView *buttonKeyboardView;
 @end
