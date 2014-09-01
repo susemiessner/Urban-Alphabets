@@ -58,6 +58,8 @@ public:
         string path="letters/letter_";
         if (ofToString(_letter)=="?") {
             path+="-";
+        }else if (ofToString(_letter)==".") {
+            path+="";
         }else{
             path+=ofToString(_letter);
         }
