@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Berlin__RigaDebug</string>
 	<key>CFBundleIconFile</key>
-	<string>icon_appIconAndroid_512x512</string>
+	<string>RigaBerlin</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.yourcompany.openFrameworks</string>
 	<key>CFBundleInfoDictionaryVersion</key>
