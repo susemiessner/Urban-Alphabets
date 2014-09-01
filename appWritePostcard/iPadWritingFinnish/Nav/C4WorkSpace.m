@@ -54,9 +54,8 @@
 
 -(void)setup {
     //load the defaults
-    self.currentLanguage= @"Finnish/Swedish";
-    self.userName=@"CCNBerlin";
-    self.currentLanguage=@"German";
+    self.userName=@"MediaLabHelsinki 20 Year Exhibition";
+    self.currentLanguage=@"Finnish/Swedish";
     
     background=[UIImage imageNamed:@"iPadWriting.png"];
     buttonRefresh=[UIImage imageNamed:@"icon_ClearPostcard.png"];
@@ -86,16 +85,12 @@
     newStr = [newStr stringByReplacingOccurrencesOfString:@"\"}]"                                          withString:@""];
     //newStr=[newStr substringToIndex:newStr.length-3];
     //newStr=[newStr substringWithRange:NSMakeRange(14, [newStr length]-3)];
-    NSLog(@"data: %@",newStr );
+    //NSLog(@"data: %@",newStr );
     self.title=newStr;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     self.title=@"Waiting for current question...";
-    NSString *username=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    if (username) {
-        self.userName=username;
-    }
     
     [self alphabetSetup];
 }
@@ -108,7 +103,7 @@
     self.theNewAlphabetArray=[[NSMutableArray alloc]init];
 
     //build up the request that is to be sent to the server
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL    URLWithString:@"http://www.ualphabets.com/requests/Berlin/alphabet.php"]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL    URLWithString:@"http://www.ualphabets.com/requests/Helsinki/alphabet.php"]];
     
     [request setHTTPMethod:@"GET"];
     [request addValue:@"getValues" forHTTPHeaderField:@"METHOD"]; //selects what task the server will perform
@@ -139,6 +134,7 @@
     textViewTest.userInteractionEnabled=NO;
     textViewTest.scrollEnabled=NO;
     [self.view addSubview:textViewTest];
+    
     
     //make view scrollable
     scrollViewSuse=[[UIScrollView alloc]initWithFrame:CGRectMake(126, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width-126*2, [[UIScreen mainScreen] bounds].size.height-216-30)];
@@ -202,11 +198,11 @@
     
     //[self.delegate requestReturnedData:receivedData];//send the data to the delegate
     //for all letters we need to have
-    for (int i=0; i<[self.german count]; i++) {
+    for (int i=0; i<[self.finnish count]; i++) {
         //add the latest letter to the new alphabet
         for (int j=0; j<[self.receivedLettersArray count]; j++) {
             Letter *letter=self.receivedLettersArray[j];
-            if ([self.german[i] isEqualToString: letter.letterName]) {
+            if ([self.finnish[i] isEqualToString: letter.letterName]) {
                 [self.theNewAlphabetArray addObject: letter];
                 //NSLog(@"added : %@", letter.letterName);
                 break;
@@ -214,12 +210,12 @@
             }
         }
     }
-   // NSLog(@"length german: %i, length new alphabet: %i", [self.german count], [self.theNewAlphabetArray count]);
-    for (int i=0; i<[self.german count]; i++) {
+    //NSLog(@"length latvian: %i, length new alphabet: %i", [self.finnish count], [self.theNewAlphabetArray count]);
+    for (int i=0; i<[self.finnish count]; i++) {
         for (int j=0; j<[self.theNewAlphabetArray count]; j++) {
             Letter *newLetter=self.theNewAlphabetArray[j];
-            //NSLog(@"i:%i, j: %i german letter: %@   new alphabetletter: %@,   finalAlphabetArrayLength: %i",i,j, self.german[i], newLetter.letterName, [self.finalAlphabetArray count]);
-            if ([self.german[i] isEqualToString: newLetter.letterName]) {
+            //NSLog(@"i:%i, j: %i latvian letter: %@   new alphabetletter: %@,   finalAlphabetArrayLength: %i",i,j, self.finnish[i], newLetter.letterName, [self.finalAlphabetArray count]);
+            if ([self.finnish[i] isEqualToString: newLetter.letterName]) {
                 //first time add all
                 if ([self.finalAlphabetArray count] <42) {
                     //load the image
@@ -243,17 +239,17 @@
 
                     break;
                 }
-                //if it's not in the array add the letter from the German array
+                //if it's not in the array add the letter from the Latvian array
             }else if (j==[self.theNewAlphabetArray count]-1 && [self.finalAlphabetArray count]<42){
                 Letter *letterToAdd=[[Letter alloc]init];
                /* newLetter.identifier = 0;
-                newLetter.letterName= self.german[i];
+                newLetter.letterName= self.finnish[i];
                 //[newLetter loadImageFromDirectory];
                 [self.finalAlphabetArray addObject:newLetter];
                 NSLog(@"added missing : %@", newLetter.letterName);*/
                 
                  letterToAdd.identifier = 0;
-                 letterToAdd.letterName= self.german[i];
+                 letterToAdd.letterName= self.finnish[i];
                  letterToAdd.image=[[UIImageView alloc]initWithImage: self.currentAlphabetUIImage[i]];
                  [self.finalAlphabetArray addObject:letterToAdd];
                  //NSLog(@"added missing : %@", letterToAdd.letterName);
@@ -320,8 +316,6 @@
     imageWidth=UA_IPAD_LETTER_IMG_WIDTH_5;
     imageHeight=UA_IPAD_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=UA_IPAD_LETTER_SIDE_MARGIN_ALPHABETS;
-    //[self drawCurrentAlphabet];
-    //[self initGreyGrid];
 }
 -(void)drawCurrentAlphabet{
     if (receivedResponse) {
@@ -364,6 +358,7 @@
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 -(void)savePostcard{
+    NSLog(@"saving");
     [self saveCurrentAlphabetAsImage];
     [self exportHighResImage];
     [self clearPostcard];
@@ -778,6 +773,7 @@
     }
 }
 -(void)addLetterToPostcard{
+    NSLog(@"new character: %@", newCharacter);
     //letters
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
         if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {
@@ -1156,6 +1152,7 @@
 #pragma mark UITextViewDelegate Methods
 - (void)textViewDidBeginEditing:(UITextView *)textView{}
 - (void)textViewDidEndEditing:(UITextView *)textView{
+    //[self savePostcard];
     /*//prepare next view and go there
     postcardView=[[PostcardView alloc]initWithNibName:@"PostcardView" bundle:[NSBundle mainBundle]];
     [postcardView setupWithPostcard:self.postcardArray Rect:self.greyRectArray withLanguage:self.currentLanguage withPostcardText:self.entireText];
