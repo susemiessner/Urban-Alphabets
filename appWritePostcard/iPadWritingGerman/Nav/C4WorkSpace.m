@@ -322,7 +322,6 @@
     alphabetFromLeft=UA_IPAD_LETTER_SIDE_MARGIN_ALPHABETS;
     //[self drawCurrentAlphabet];
     //[self initGreyGrid];
-    NSLog(@"screen size %f, %f", [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
 }
 -(void)drawCurrentAlphabet{
     if (receivedResponse) {
@@ -365,7 +364,6 @@
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 -(void)savePostcard{
-    NSLog(@"saving");
     [self saveCurrentAlphabetAsImage];
     [self exportHighResImage];
     [self clearPostcard];
@@ -763,26 +761,23 @@
         float yMultiplier= (lastLetter)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=yMultiplier*imageHeight;
-        
-        UIImageView *image=[self.postcardArray objectAtIndex:lastLetter];
-        UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        imageView.image=image.image;
-        [scrollViewSuse addSubview:imageView];
-        [self.postcardViewArray addObject:imageView];
-        
-        UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-        [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
-        greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
-        greyRect.layer.borderWidth=1.0f;
-        [self.greyRectArray addObject:greyRect];
-        [scrollViewSuse addSubview:greyRect];
-        
-        
-        
+        if (lastLetter>=0) {
+            UIImageView *image=[self.postcardArray objectAtIndex:lastLetter];
+            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+            imageView.image=image.image;
+            [scrollViewSuse addSubview:imageView];
+            [self.postcardViewArray addObject:imageView];
+            
+            UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+            [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
+            greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+            greyRect.layer.borderWidth=1.0f;
+            [self.greyRectArray addObject:greyRect];
+            [scrollViewSuse addSubview:greyRect];
+        }
     }
 }
 -(void)addLetterToPostcard{
-    NSLog(@"new character: %@", newCharacter);
     //letters
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
         if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {

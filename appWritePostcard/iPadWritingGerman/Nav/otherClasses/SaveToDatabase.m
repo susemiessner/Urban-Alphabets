@@ -12,8 +12,8 @@
 
 -(void)sendPostcardToDatabase:(NSData*)imageData withLanguage: (NSString*)theLanguage withText: (NSString*)thePostcardText  withUsername:(NSString*)userName{
     path=[NSString stringWithFormat:@"postcard_%@.png", [NSDate date]];
-    longitude= @"24.937";
-    latitude= @"60.17";
+    longitude= @"13.394791";
+    latitude= @"52.540505";
     owner=userName;
     letter=@"no";
     postcard=@"yes";
