@@ -58,10 +58,13 @@ void testApp::setup(){
     counterPostcardsAndLetters=0;
     counterNumberPostcards=0;
     lettersTitle.loadImage("intro/intro_titleLetters.png");
+    postcardsTitle.loadImage("intro/intro_titlePostcards.png");
     
     //changing questions setup
     questions[0].loadImage("questions/questions_english_ -01.png");
     questions[1].loadImage("questions/questions_english_ -02.png");
+    questions[2].loadImage("questions/questions_english_ -03.png");
+    questions[3].loadImage("questions/questions_english_ -04.png");
     currentQuestionNumber=0;
 
     
@@ -828,6 +831,7 @@ void testApp::drawPostcards(){
     //draw title
     ofSetColor(255);
     questions[currentQuestionNumber].draw((ofGetWidth()-questions[currentQuestionNumber].width)/2,0);
+    postcardsTitle.draw((ofGetWidth()-postcardsTitle.width-AROUND), 0);
     ofDisableAlphaBlending();
 }
 void testApp::drawLetters(){
@@ -872,7 +876,7 @@ void testApp::drawLetters(){
 
     //draw title
     ofSetColor(255);
-    lettersTitle.draw((ofGetWidth()-lettersTitle.width)/2, 0);
+    lettersTitle.draw((ofGetWidth()-lettersTitle.width-AROUND), 0);
     
     ofDisableAlphaBlending();
 }
@@ -916,7 +920,7 @@ void testApp::drawAlphabet(){
         ofPopMatrix();
     }
     ofSetColor(255);
-    alphabetTitle.draw((ofGetWidth()-alphabetTitle.width)/2, 0);
+    alphabetTitle.draw((ofGetWidth()-alphabetTitle.width-AROUND), 0);
     ofDisableAlphaBlending();
 }
 

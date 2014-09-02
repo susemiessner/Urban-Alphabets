@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
-		DAAC45BE19B4515D009A242C /* RigaBerlin.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAAC45BD19B4515D009A242C /* RigaBerlin.icns */; };
+		DAAC45C119B451AB009A242C /* RigaBerlin.icns in Resources */ = {isa = PBXBuildFile; fileRef = DAAC45C019B451AB009A242C /* RigaBerlin.icns */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -63,7 +63,7 @@
 /* Begin PBXFileReference section */
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		DA2F2520191BB14100ECC697 /* Postcard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Postcard.h; sourceTree = "<group>"; };
-		DAAC45BD19B4515D009A242C /* RigaBerlin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RigaBerlin.icns; sourceTree = "<group>"; };
+		DAAC45C019B451AB009A242C /* RigaBerlin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RigaBerlin.icns; sourceTree = "<group>"; };
 		DAD03E2C191CCEC9001E55D3 /* Letter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Letter.h; sourceTree = "<group>"; };
 		DAD03E2D191CF310001E55D3 /* Alphabet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Alphabet.h; sourceTree = "<group>"; };
 		DAFCC203191E0CF7002D79DD /* About.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
@@ -177,9 +177,9 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				DAAC45C019B451AB009A242C /* RigaBerlin.icns */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
-				DAAC45BD19B4515D009A242C /* RigaBerlin.icns */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
@@ -283,7 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAAC45BE19B4515D009A242C /* RigaBerlin.icns in Resources */,
+				DAAC45C119B451AB009A242C /* RigaBerlin.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
