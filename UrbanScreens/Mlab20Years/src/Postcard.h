@@ -19,8 +19,8 @@ public:
     string _owner;
     string _date;
     
-    int _xPos=764;
-    int _yPos=204;
+    int _xPos=870;
+    int _yPos=220;
     
     Postcard(string THEID, string LONGI, string LA, string TEXT, string OWNER){
         _id=ofToInt(THEID);
@@ -48,8 +48,8 @@ public:
     }
     
     void draw(){
-        ofRect(_xPos-1, _yPos-1, 1034, 1427);
-        _image.draw(_xPos,_yPos,1032, 1425);
+        ofRect(_xPos-1, _yPos-1, 822, 1002);
+        _image.draw(_xPos,_yPos,820, 1000);
 
     }
 };

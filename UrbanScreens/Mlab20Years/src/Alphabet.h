@@ -16,7 +16,7 @@ public:
     ofImage _image;
     
     int _xPos=2560;
-    int _yPos=350;
+    int _yPos=370;
     int _offset=558+65;
     int _constNo;
     
@@ -87,7 +87,7 @@ public:
         _image.draw(myXPos,myYPos,width ,height);
     }
     void update(){
-        _xPos--;
+        _xPos-=3;
     }
     bool nextImage(){
         //printf("___ %i::", _xPos);

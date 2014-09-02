@@ -50,6 +50,8 @@ void testApp::setup(){
     //changing questions setup
     questions[0].loadImage("questions/questions_english_ -01.png");
     questions[1].loadImage("questions/questions_english_ -02.png");
+    questions[2].loadImage("questions/questions_english_ -03.png");
+    questions[3].loadImage("questions/questions_english_ -04.png");
     currentQuestionNumber=0;
     postcardsTitle.loadImage("intro/intro_titlePostcards.png");
 

@@ -103,6 +103,6 @@ public:
     ofImage alphabetTitle, lettersTitle, postcardsTitle;
     
     //changing questions
-    ofImage questions[2]; //number of questions can be changed!
+    ofImage questions[4]; //number of questions can be changed!
     int currentQuestionNumber;
 };

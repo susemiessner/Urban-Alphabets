@@ -17,7 +17,7 @@ public:
     string _letter;
     
     int _xPos=52;
-    int _yPos=350;
+    int _yPos=370;
     int _offset=458+43;
     int _constNumber;
     
