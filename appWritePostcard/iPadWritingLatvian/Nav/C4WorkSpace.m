@@ -73,6 +73,10 @@
     
     
 }
+
+//---------------------------
+//question
+//---------------------------
 -(void)loadCurrentQuestion{
     
     NSString *urlString=@"http://www.ualphabets.com/requests/Riga/connected/question_iPad.php";
