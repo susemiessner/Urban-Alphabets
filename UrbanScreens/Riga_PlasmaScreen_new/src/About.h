@@ -16,15 +16,15 @@ class About{
 public:
     int counter=0;
     bool over;
-    int lengthEachScreen=2;//5; //length of each of the images in secs
+    int lengthEachScreen=5; //length of each of the images in secs
     int lengthBlend=1;
     int blendAbout=0;
-    ofImage  create, title;
+    ofImage  create, title, createLat;
     
     About(){
         title.loadImage("intro/intro_Title.png"); //title
         create.loadImage("intro/intro_createAlphabet.png"); //the short description with link
-        
+        createLat.loadImage("intro/intro_createAlphabetLat.png");//same thing in Latvian
         reset();
     }
     void update(){
@@ -56,8 +56,20 @@ public:
                 blendAbout-=10;
                 ofSetColor(255,255,255,blendAbout);
             }
+            createLat.draw(0,0);
+        }else if(counter<lengthEachScreen*FRAME_RATE*3){
+            //blend in
+            if(counter<lengthEachScreen*FRAME_RATE*2+lengthBlend*FRAME_RATE){
+                blendAbout+=10;
+                ofSetColor(255,255,255,blendAbout);
+            }
+            //blend out
+            if(counter>lengthEachScreen*FRAME_RATE*2+lengthEachScreen*FRAME_RATE-lengthBlend*FRAME_RATE){
+                blendAbout-=10;
+                ofSetColor(255,255,255,blendAbout);
+            }
             create.draw(0,0);
-        } else if (counter>lengthEachScreen*FRAME_RATE*2){
+        } else {
             over=true;
         };
         ofDisableAlphaBlending();

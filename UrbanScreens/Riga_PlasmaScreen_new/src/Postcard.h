@@ -20,7 +20,7 @@ public:
     string _date;
     
     int _xPos=632;
-    int _yPos=140;
+    int _yPos=190;
     
     Postcard(string THEID, string LONGI, string LA, string TEXT, string OWNER){
         _id=ofToInt(THEID);

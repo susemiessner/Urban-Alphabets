@@ -47,7 +47,7 @@ public:
         if (_id<1000) {
             folderName=ofToString(identifier.at(0));
         }
-        string URL="http://www.ualphabets.com/images/244x200/"+folderName+"/"+ofToString(_id)+".png";
+        string URL="http://www.ualphabets.com/images/original/"+folderName+"/"+ofToString(_id)+".png";
         //printf("%s \n", URL.c_str());
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
@@ -83,8 +83,7 @@ public:
         int column=_constNo % noOfColumns;
         
         int myXPos=30+column*(width+spacing);
-        int myYPos=120+(_constNo-column)/noOfColumns*(height+spacing);
-        //ofSetColor(255);
+        int myYPos=170+(_constNo-column)/noOfColumns*(height+spacing);
         _image.draw(myXPos,myYPos,width ,height);
     }
     void update(){
