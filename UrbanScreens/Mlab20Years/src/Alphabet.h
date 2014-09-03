@@ -31,7 +31,7 @@ public:
     }
     void reset(){
         _xPos=(ofGetWidth()-20)/2;
-        _yPos=150;
+        _yPos=370;
         if(_constNo<5){
             _xPos=_xPos+(_constNo)*_offset;
         }
