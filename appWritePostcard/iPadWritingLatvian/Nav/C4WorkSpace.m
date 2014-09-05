@@ -185,7 +185,7 @@
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     
-    NSLog(@"Request Complete,recieved %d bytes of data",receivedData.length);
+    NSLog(@"Request Complete,recieved %lu bytes of data",(unsigned long)receivedData.length);
     NSError *error = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:receivedData options:NSJSONReadingAllowFragments error:&error];
     //NSLog(@"received data: %@", jsonArray);
