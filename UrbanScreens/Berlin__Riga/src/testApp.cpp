@@ -830,7 +830,7 @@ void testApp::drawPostcards(){
     }
     //draw title
     ofSetColor(255);
-    questions[currentQuestionNumber].draw((ofGetWidth()-questions[currentQuestionNumber].width)/2,0);
+    questions[currentQuestionNumber].draw(0,0);
     postcardsTitle.draw((ofGetWidth()-postcardsTitle.width-AROUND), 0);
     ofDisableAlphaBlending();
 }

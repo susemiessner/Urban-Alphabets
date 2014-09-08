@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/testApp.cpp"
+            timestampString = "431894225.023165"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "443"
+            endingLineNumber = "443"
+            landmarkName = "testApp::loadURL_alphabetGerman(ofHttpResponse &amp;response)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/testApp.cpp"
+            timestampString = "431894225.023165"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
+            landmarkName = "testApp::loadURL_alphabetGerman(ofHttpResponse &amp;response)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/testApp.cpp"
+            timestampString = "431894225.023165"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
+            landmarkName = "testApp::loadURL_alphabetGerman(ofHttpResponse &amp;response)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.98847"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "1821">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.988667"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "1840">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.988786"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "1851">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.988901"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "2347">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989013"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "2358">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989125"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "2721">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989236"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "2794">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989348"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "3396">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989457"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "3469">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989572"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "3832">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989731"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "3935">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testApp::loadURL_alphabetGerman(ofHttpResponse&amp;)"
+                  moduleName = "Berlin_Brunnenstr-GerichtsstrDebug"
+                  urlString = "file:///Users/suse/Desktop/of_v0.8.3_osx_release/apps/UrbanScreens/Berlin_Brunnenstr-Gerichtsstr/src/testApp.cpp"
+                  timestampString = "431895141.989932"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "523"
+                  endingLineNumber = "523"
+                  offsetFromSymbolStart = "5623">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
