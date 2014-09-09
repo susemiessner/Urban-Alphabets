@@ -80,8 +80,8 @@ public class ChangeLanguageActivity extends ActionBarActivity {
 		currentLanguage = mSharedPreferences.getString("currentLanguage", "");
 		imageButton = (ImageButton) findViewById(R.id.imagebutton_change_language);
 		ListView listView = (ListView) findViewById(R.id.listview_change_language);
-		adapter = new CustomArrayAdapter(this, Data.LANGUAGE, 
-				Arrays.asList(Data.LANGUAGE).indexOf(currentLanguage));
+		adapter = new CustomArrayAdapter(this, MainActivity.LANGUAGE, 
+				Arrays.asList(MainActivity.LANGUAGE).indexOf(currentLanguage));
 		
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,7 +114,7 @@ public class ChangeLanguageActivity extends ActionBarActivity {
 		} catch (SQLiteException ex) {
 		}
 		ContentValues replaced = new ContentValues();
-		replaced.put("language", Data.LANGUAGE[lang]);
+		replaced.put("language", MainActivity.LANGUAGE[lang]);
 		try {
 			mDatabase.update("alphabets", replaced, "alphabet=?", 
 					new String[]{currentAlphabet});	
@@ -122,7 +122,7 @@ public class ChangeLanguageActivity extends ActionBarActivity {
 		}
 		mDatabase.close();
 		Editor e = mSharedPreferences.edit();
-		e.putString("currentLanguage", Data.LANGUAGE[lang]);
+		e.putString("currentLanguage", MainActivity.LANGUAGE[lang]);
 		e.commit();
 	}
 }

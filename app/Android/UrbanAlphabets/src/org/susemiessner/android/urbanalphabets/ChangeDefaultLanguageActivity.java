@@ -67,7 +67,7 @@ public class ChangeDefaultLanguageActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_change_default_language);
 		imageButton = (ImageButton) findViewById(R.id.imagebutton_change_default_language);
 		ListView listView = (ListView) findViewById(R.id.listview_change_default_language);
-		adapter = new CustomArrayAdapter(this, Data.LANGUAGE, 
+		adapter = new CustomArrayAdapter(this, MainActivity.LANGUAGE, 
 				getDefaultSelectedLanguageIndex());
 		
 		listView.setAdapter(adapter);

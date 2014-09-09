@@ -54,23 +54,23 @@ public class ViewLetterActivity extends ActionBarActivity {
 	private String getResourcePath() {
 		File filename = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+				File.separator + currentAlphabet + "_" + MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).
 				              indexOf(currentLanguage)][currentIndex]
 				+ ".png");
 		if(filename.exists())
 			return filename.getAbsolutePath();
 		return "android.resource://" + getPackageName() + "/raw/" + 
-				Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+				MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).
 				indexOf(currentLanguage)][currentIndex];
 	}
 	
 	private void onNext() {
-		currentIndex = (currentIndex + 1 == Data.MAX)?0:currentIndex+1;
+		currentIndex = (currentIndex + 1 == 42)?0:currentIndex+1;
 		imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
 	}
 	
 	private void onPrevious() {
-		currentIndex = (currentIndex == 0)?Data.MAX-1:currentIndex-1;
+		currentIndex = (currentIndex == 0)?42-1:currentIndex-1;
 		imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
 	}
 	
@@ -93,8 +93,8 @@ public class ViewLetterActivity extends ActionBarActivity {
 	public void onClickDelete(View v) {
 		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" + 
-				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList
-				(Data.LANGUAGE).indexOf(currentLanguage)]
+				File.separator + currentAlphabet + "_" + MainActivity.RESOURCERAWNAME[Arrays.asList
+				(MainActivity.LANGUAGE).indexOf(currentLanguage)]
 				[currentIndex] + ".png");
 		
 		

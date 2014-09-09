@@ -131,8 +131,8 @@ public class AssignLetterActivity extends ActionBarActivity {
 	private void assignPhoto() {
 		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList
-				(Data.LANGUAGE).indexOf(currentLanguage)]
+				File.separator + currentAlphabet + "_" + MainActivity.RESOURCERAWNAME[Arrays.asList
+				(MainActivity.LANGUAGE).indexOf(currentLanguage)]
 				[selected] + ".png");
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
@@ -156,7 +156,7 @@ public class AssignLetterActivity extends ActionBarActivity {
 		UpdateDatabase update = new UpdateDatabase(this, longitude,
 				latitude,
 				username,
-				String.valueOf(Data.LETTER[Arrays.asList(Data.LANGUAGE).indexOf(currentLanguage)][selected]),
+				String.valueOf(MainActivity.LETTERNAME[Arrays.asList(MainActivity.LANGUAGE).indexOf(currentLanguage)][selected]),
 				"no", "no", BitmapFactory.decodeFile
 				(getFilesDir()+File.separator+"photo.png"),
 				currentLanguage, "");
@@ -201,14 +201,14 @@ public class AssignLetterActivity extends ActionBarActivity {
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					for (int index = 0; index < Data.MAX; index++) {
+					for (int index = 0; index < 42; index++) {
 						ImageView imageView = (ImageView) findViewById
 								(imageViewId[index]);
 						Bitmap bitmap;
 						String path;
 						File file = new File(Environment.getExternalStoragePublicDirectory
 								(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-								File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+								File.separator + currentAlphabet + "_" + MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).
 								              indexOf(currentLanguage)][index]
 								+ ".png");
 						if(file.exists())
@@ -217,7 +217,7 @@ public class AssignLetterActivity extends ActionBarActivity {
 							path = null;
 						if (path == null) {
 							bitmap = BitmapFactory.decodeResource(getResources(),
-									Data.RESOURCERAWINDEX[Arrays.asList(Data.LANGUAGE).
+									MainActivity.RESOURCERAWINDEX[Arrays.asList(MainActivity.LANGUAGE).
 											              indexOf(currentLanguage)][index]);
 						}
 						else {

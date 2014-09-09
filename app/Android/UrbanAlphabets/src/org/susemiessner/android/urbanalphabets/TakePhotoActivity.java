@@ -60,7 +60,7 @@ public class TakePhotoActivity extends ActionBarActivity {
 	
 	public void onClickOpenGallery(View v) {
 		Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		startActivityForResult(openGalleryIntent, Data.OPEN_GALLERY);
+		startActivityForResult(openGalleryIntent, 0);
 	}
 	
 	private PictureCallback mPicture = new PictureCallback() {
@@ -103,7 +103,7 @@ public class TakePhotoActivity extends ActionBarActivity {
 	
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent data){
-		if(requestCode == Data.OPEN_GALLERY && 
+		if(requestCode == 0 && 
 				resultCode == RESULT_OK) {
 			Uri uri = data.getData();
 			if (uri != null){

@@ -95,7 +95,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 				(R.id.tableview_write_postcard);
 		// Create the Keyboard
 	    Keyboard keyboard= new Keyboard(WritePostcardActivity.this, 
-	    		customKeyboard[Arrays.asList(Data.LANGUAGE).indexOf(currentLanguage)]);
+	    		customKeyboard[Arrays.asList(MainActivity.LANGUAGE).indexOf(currentLanguage)]);
 
 	    // Lookup the KeyboardView
 	    keyboardView= (KeyboardView)findViewById(R.id.keyboardview);
@@ -141,7 +141,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 		String path;
 		File file = new File(Environment.getExternalStoragePublicDirectory
 				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + currentAlphabet + "_" + Data.RESOURCERAWNAME[Arrays.asList(Data.LANGUAGE).
+				File.separator + currentAlphabet + "_" + MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).
 				              indexOf(currentLanguage)][key]
 				+ ".png");
 		if(file.exists())
@@ -150,7 +150,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 			path = null;
 		if (path == null)
 			bitmap = BitmapFactory.decodeResource(getResources(),
-					Data.RESOURCERAWINDEX[Arrays.asList(Data.LANGUAGE).
+					MainActivity.RESOURCERAWINDEX[Arrays.asList(MainActivity.LANGUAGE).
 							              indexOf(currentLanguage)][key]);
 		else
 			bitmap = BitmapFactory.decodeFile(path);
@@ -170,7 +170,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 		else if (bkspace)
 			index--;
 		//Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), Data.getBlank());
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), getBlank());
 		Matrix matrix = new Matrix();
 		float scale =  (float)height/bitmap.getHeight();
 		matrix.setScale(scale, scale);
@@ -277,6 +277,11 @@ public class WritePostcardActivity extends ActionBarActivity {
 		}
 	}
 	
+	
+	private int getBlank() {
+		return R.raw.letter_empty;
+	}
+	
 	private void resetPostcard() {
 		index = 0;
 		setBlank();
@@ -285,7 +290,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 	
 	private void setBlank() {
 		Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-		for (int i = 0; i< Data.MAX; i++){
+		for (int i = 0; i< 42; i++){
 			ImageView imageView = (ImageView) findViewById(imageViewId[i]);
 			imageView.setImageBitmap(bitmap);
 		}
@@ -332,12 +337,12 @@ public class WritePostcardActivity extends ActionBarActivity {
 	    		hideCustomKeyboard();
 	    	else if(primaryCode == 315) {
 	    		showLetter(18); // LatvL
-	    		postcardText[index] = Data.LETTER[Arrays.
-	    		                      asList(Data.LANGUAGE).indexOf(currentLanguage)][18];
+	    		postcardText[index] = MainActivity.LETTER[Arrays.
+	    		                      asList(MainActivity.LANGUAGE).indexOf(currentLanguage)][18];
 	    	}
 	    	else {
-	    		postcardText[index] = Data.LETTER[Arrays.
-	    		                      asList(Data.LANGUAGE).indexOf(currentLanguage)][primaryCode];
+	    		postcardText[index] = MainActivity.LETTER[Arrays.
+	    		                      asList(MainActivity.LANGUAGE).indexOf(currentLanguage)][primaryCode];
 	    		showLetter(primaryCode);
 	    	}
 	    }

@@ -80,7 +80,7 @@ public class AddAlphabetActivity extends ActionBarActivity {
 		ListView listView = (ListView) findViewById(R.id.listview_add_alphabet);
 		imageButton = (ImageButton) findViewById(R.id.imagebutton_add_alphabet);
 		editText = (EditText) findViewById(R.id.edittext_alphabetname); 
-		adapter = new CustomArrayAdapter(this, Data.LANGUAGE, -1);
+		adapter = new CustomArrayAdapter(this, MainActivity.LANGUAGE, -1);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -126,7 +126,7 @@ public class AddAlphabetActivity extends ActionBarActivity {
 		// Add new alphabet with selection
 		ContentValues alphabet = new ContentValues();
 		alphabet.put("alphabet", alphabetName);
-		alphabet.put("language", Data.LANGUAGE[lang]);
+		alphabet.put("language", MainActivity.LANGUAGE[lang]);
 		alphabet.put("selected", 1);
 		try {
 			mDatabase.insert("alphabets", null, alphabet);	
@@ -136,7 +136,7 @@ public class AddAlphabetActivity extends ActionBarActivity {
 		mDatabase.close();
 		Editor e = mSharedPreferences.edit();
 		e.putString("currentAlphabet", alphabetName);
-		e.putString("currentLanguage", Data.LANGUAGE[lang]);
+		e.putString("currentLanguage", MainActivity.LANGUAGE[lang]);
 		e.commit();
 	}
 }
