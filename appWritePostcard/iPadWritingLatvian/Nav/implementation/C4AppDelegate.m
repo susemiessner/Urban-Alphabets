@@ -8,6 +8,7 @@
 
 #import "C4AppDelegate.h"
 #import "C4AssertionHandler.h"
+#import "TestFlight.h"
 
 @implementation C4AppDelegate {
     //added a navigation controller
@@ -25,6 +26,11 @@
     //[navController.navigationBar setFrame:CGRectMake(0, 0, 100, 100)];
     //set the window's root view controller to the nav controller
 	self.window.rootViewController = navController;
+    
+    //-------------------------------
+    // Testflight
+    //-------------------------------
+    [TestFlight takeOff:@"5915c677-4284-40c5-bc0c-25521b419d37"];
     return YES;
     
 }
@@ -55,6 +61,7 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 /*-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     launchOptions = launchOptions;
     

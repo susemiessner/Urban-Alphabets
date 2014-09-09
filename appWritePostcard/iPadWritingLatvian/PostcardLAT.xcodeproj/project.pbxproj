@@ -21,6 +21,10 @@
 		DA5862921857502F00C4D2A5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5862911857502F00C4D2A5 /* AssetsLibrary.framework */; };
 		DA5862951857506700C4D2A5 /* SaveToDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5862941857506700C4D2A5 /* SaveToDatabase.m */; };
 		DA8C28BC185F662C009B0DC1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8C28BB185F662C009B0DC1 /* Social.framework */; };
+		DAAF76B219B6EAB700E0BE90 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DAAF76AC19B6EAB700E0BE90 /* libTestFlight.a */; };
+		DAAF76B319B6EAB700E0BE90 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DAAF76AD19B6EAB700E0BE90 /* README.md */; };
+		DAAF76B419B6EAB700E0BE90 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = DAAF76AE19B6EAB700E0BE90 /* release_notes.md */; };
+		DAAF76B619B6EB0600E0BE90 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DAAF76B519B6EB0600E0BE90 /* libz.dylib */; };
 		DABD499F1962A92D00878F45 /* letter_-.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD494D1962A92D00878F45 /* letter_-.png */; };
 		DABD49A01962A92D00878F45 /* letter_,.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD494E1962A92D00878F45 /* letter_,.png */; };
 		DABD49A11962A92D00878F45 /* letter_!.png in Resources */ = {isa = PBXBuildFile; fileRef = DABD494F1962A92D00878F45 /* letter_!.png */; };
@@ -237,6 +241,13 @@
 		DA5862931857506700C4D2A5 /* SaveToDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveToDatabase.h; path = otherClasses/SaveToDatabase.h; sourceTree = "<group>"; };
 		DA5862941857506700C4D2A5 /* SaveToDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaveToDatabase.m; path = otherClasses/SaveToDatabase.m; sourceTree = "<group>"; };
 		DA8C28BB185F662C009B0DC1 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		DAAF76AC19B6EAB700E0BE90 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		DAAF76AD19B6EAB700E0BE90 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		DAAF76AE19B6EAB700E0BE90 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		DAAF76AF19B6EAB700E0BE90 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		DAAF76B019B6EAB700E0BE90 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		DAAF76B119B6EAB700E0BE90 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		DAAF76B519B6EB0600E0BE90 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		DABD494D1962A92D00878F45 /* letter_-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_-.png"; sourceTree = "<group>"; };
 		DABD494E1962A92D00878F45 /* letter_,.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_,.png"; sourceTree = "<group>"; };
 		DABD494F1962A92D00878F45 /* letter_!.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_!.png"; sourceTree = "<group>"; };
@@ -480,9 +491,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAAF76B619B6EB0600E0BE90 /* libz.dylib in Frameworks */,
 				DA8C28BC185F662C009B0DC1 /* Social.framework in Frameworks */,
 				DA5862921857502F00C4D2A5 /* AssetsLibrary.framework in Frameworks */,
 				DA5862901857501B00C4D2A5 /* ImageIO.framework in Frameworks */,
+				DAAF76B219B6EAB700E0BE90 /* libTestFlight.a in Frameworks */,
 				DA58628E18574EEF00C4D2A5 /* CoreLocation.framework in Frameworks */,
 				EDFC41ED1851014E00CB3335 /* QuartzCore.framework in Frameworks */,
 				EDFC41EF1851014E00CB3335 /* UIKit.framework in Frameworks */,
@@ -705,6 +718,19 @@
 			name = letter;
 			sourceTree = "<group>";
 		};
+		DAAF76AB19B6EAB700E0BE90 /* TestFlightSDK3.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				DAAF76AC19B6EAB700E0BE90 /* libTestFlight.a */,
+				DAAF76AD19B6EAB700E0BE90 /* README.md */,
+				DAAF76AE19B6EAB700E0BE90 /* release_notes.md */,
+				DAAF76AF19B6EAB700E0BE90 /* TestFlight+AsyncLogging.h */,
+				DAAF76B019B6EAB700E0BE90 /* TestFlight+ManualSessions.h */,
+				DAAF76B119B6EAB700E0BE90 /* TestFlight.h */,
+			);
+			path = TestFlightSDK3.0.2;
+			sourceTree = "<group>";
+		};
 		DAC9D84C190681BA004967F2 /* SendingToDatabase */ = {
 			isa = PBXGroup;
 			children = (
@@ -717,6 +743,7 @@
 		EDFC41CE1851014E00CB3335 = {
 			isa = PBXGroup;
 			children = (
+				DAAF76AB19B6EAB700E0BE90 /* TestFlightSDK3.0.2 */,
 				DA1A635619B30C6F00EC926A /* iPad */,
 				EDFC41F01851014E00CB3335 /* Nav */,
 				EDFC42451851015300CB3335 /* NavTests */,
@@ -737,6 +764,7 @@
 		EDFC41D91851014E00CB3335 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAAF76B519B6EB0600E0BE90 /* libz.dylib */,
 				DA8C28BB185F662C009B0DC1 /* Social.framework */,
 				DA5862911857502F00C4D2A5 /* AssetsLibrary.framework */,
 				DA58628F1857501B00C4D2A5 /* ImageIO.framework */,
@@ -984,6 +1012,7 @@
 				DABD4A431962AA8A00878F45 /* letter_-@2x.png in Resources */,
 				DABD49CE1962A92D00878F45 /* letter_Ö.png in Resources */,
 				DABD49B71962A92D00878F45 /* letter_E.png in Resources */,
+				DAAF76B319B6EAB700E0BE90 /* README.md in Resources */,
 				DABD4A641962AA8A00878F45 /* letter_LatvA@2x.png in Resources */,
 				DABD49C31962A92D00878F45 /* letter_LatvG.png in Resources */,
 				DABD49D71962A92D00878F45 /* letter_RusI.png in Resources */,
@@ -1025,6 +1054,7 @@
 				DABD4A681962AA8A00878F45 /* letter_LatvI@2x.png in Resources */,
 				DABD49BE1962A92D00878F45 /* letter_K.png in Resources */,
 				DABD49BF1962A92D00878F45 /* letter_L.png in Resources */,
+				DAAF76B419B6EAB700E0BE90 /* release_notes.md in Resources */,
 				DABD4A521962AA8A00878F45 /* letter_9@2x.png in Resources */,
 				DABD49D51962A92D00878F45 /* letter_RusF.png in Resources */,
 				DABD49D41962A92D00878F45 /* letter_RusE.png in Resources */,
@@ -1294,6 +1324,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/\"/**",
+					"$(PROJECT_DIR)/TestFlightSDK3.0.2",
 				);
 				PRODUCT_NAME = PostcardLAT;
 				PROVISIONING_PROFILE = "";
@@ -1316,6 +1347,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/\"/**",
+					"$(PROJECT_DIR)/TestFlightSDK3.0.2",
 				);
 				PRODUCT_NAME = PostcardLAT;
 				PROVISIONING_PROFILE = "";

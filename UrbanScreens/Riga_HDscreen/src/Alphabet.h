@@ -74,7 +74,6 @@ public:
         _xPos--;
     }
     bool nextImage(){
-        //printf("___ %i::", _xPos);
         if(_xPos<-415){
             _xPos=1920;
             _yPos=2000;

@@ -206,11 +206,8 @@ void testApp::urlResponse(ofHttpResponse & response){
     theResponse=ofToString(response.data);
     ofStringReplace(theResponse, "[{", "");
     ofStringReplace(theResponse, "}]", "");
-    //printf("%s", theResponse.c_str());
     
     allEntries=ofSplitString(theResponse, "},{");
-    //printf("\nURLs to load: %s\n", URLsToLoad[currentURLNo].c_str());
-    //printf(" all Entries size %lu \n", allEntries.size());
     if (URLsToLoad[currentURLNo]==recentPostcardsGerichtsstrasse){
         loadURL_recentPostcards(response);
     } else if (URLsToLoad[currentURLNo]==recentLettersGerichtsstrasse){
@@ -225,7 +222,6 @@ void testApp::urlResponse(ofHttpResponse & response){
 
 }
 void testApp::loadURL_recentPostcards(ofHttpResponse &response){
-    printf("loadURL_recentPostcards\n");
     if (allEntries.size()>1) {
         for(int i=0; i<allEntries.size(); i++){
             vector<string> cutEntries =ofSplitString(allEntries[i], ",");
@@ -246,7 +242,6 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
             ofStringReplace(cutEntries[3], "\"", "");
             ofStringReplace(cutEntries[4], "\"", "");
             ofStringReplace(cutEntries[5], "\"", "");
-            //printf("cutEntries0=%s", cutEntries[0].c_str());
             string rigaBerlin="";
             if (recentPostcards==recentPostcardsGerichtsstrasse) {
                 rigaBerlin="Berlin";
@@ -254,8 +249,6 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
                 rigaBerlin="Riga";
             }
             Postcard entry(cutEntries[0], cutEntries[1], cutEntries[2],cutEntries[3],cutEntries[4], rigaBerlin, cutEntries[5]);
-            printf(" entry____ ");
-            entry.print();
             if (recentPostcards==recentPostcardsGerichtsstrasse) {
                 if(allPostcardsGerichtsstrasse.size()<5){
                     allPostcardsGerichtsstrasse.push_back(entry);
@@ -318,12 +311,10 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
         //printf("not loaded \n");
         
     }
-    printf("loaded postcards \n");
     if (recentPostcards==recentPostcardsGerichtsstrasse) {
         recentPostcards=recentPostcardsBrunnenstrasse;
         //sending request to Riga
         int id = ofLoadURLAsync(recentPostcards, "async_req");
-        printf("sending request to %s\n",recentPostcards.c_str());
     } else{
         recentPostcards=recentPostcardsGerichtsstrasse;
     }
@@ -403,7 +394,6 @@ void testApp::loadURL_recentLetters(ofHttpResponse &response){
             recentLetters =recentLettersBrunnenstrasse;
             //sending request to Riga
             int id = ofLoadURLAsync(recentLetters, "async_req");
-            printf("sending request to %s\n",recentLetters.c_str());
         } else{
             recentLetters=recentLettersGerichtsstrasse;
         }
@@ -433,16 +423,12 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
             numberOfLettersAdded++;
         }
     }
-    //printf("number of Letters received: %i\n", numberOfLettersAdded);
-    
     for (int j=0; j<42; j++) {
         //go through all letters we have
         for (int i=0; i<allLetters.size(); i++){
             if (allLetters[i]._letter==alphabetGerman[j]) {
                 AlphabetEntry entry(ofToString(allLetters[i]._id), allLetters[i]._letter, j);
                 newAlphabet.push_back(entry);
-                printf(" entry____ ");
-                entry.print();
                 break;
             } else if (i==allLetters.size()-1){
                 AlphabetEntry entry("0000", alphabetGerman[j], j);
@@ -452,7 +438,6 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
         }
     }
     if (firstAlphabetLoaded==false) {
-        printf("received Gerichtsstrasse\n");
         //if first time load > put the letters directly into the alphabet
         if (allAlphabetGerichtsstrasse.size()<1) {
             for (int j=0; j<newAlphabet.size(); j++) {
@@ -494,14 +479,12 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
             currentAlphabet=currentAlphabetBrunnenstrasse;
             //sending request to Riga
             int id = ofLoadURLAsync(currentAlphabet, "async_req");
-            printf("sending request to %s\n",currentAlphabet.c_str());
         } else{
             currentAlphabet=currentAlphabetGerichtsstrasse;
         }
         firstAlphabetLoaded=true;
     }else{
         //Brunnenstrasse alphabet
-        printf("received Brunnenstrasse \n");
         //if first time load > put the letters directly into the alphabet
         if (allAlphabetBrunnenstrasse.size()<1) {
             for (int j=0; j<newAlphabet.size(); j++) {
@@ -538,16 +521,12 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
 }
 
 void testApp::loadQuestion(ofHttpResponse &response){
-    
-        printf("allEntries:%s",allEntries[0].c_str());
-            //delete the first parts in all of them
-            ofStringReplace(allEntries[0], "\"ID\":\"", "");
-            //delete the last " in all of them
-            ofStringReplace(allEntries[0], "\"", "");
-    printf("allEntries (after cutting):%s",allEntries[0].c_str());
+    //delete the first parts in all of them
+    ofStringReplace(allEntries[0], "\"ID\":\"", "");
+    //delete the last " in all of them
+    ofStringReplace(allEntries[0], "\"", "");
 
     currentQuestionNumber=ofToInt(allEntries[0])-1;
-    printf("current Question No: %i", currentQuestionNumber);
     
     currentURLNo++;
     sendRequest();
@@ -567,7 +546,6 @@ void testApp::sendRequest(){
     if (URLsToLoad[currentURLNo]!="Info") {
         string requestURL=URLsToLoad[currentURLNo];
         int id = ofLoadURLAsync(requestURL, "async_req");
-        printf("sending request to %s\n", requestURL.c_str());
     }else{
         loadingResponseDone=true;
         printf("%s", URLsToLoad[currentURLNo].c_str());
@@ -632,8 +610,6 @@ void testApp::updatePostcards(){
         
         //now go to that screen
         currentURL=URLsToLoad[currentURLNo];
-        printf("next screen after postcards :%s\n", currentURL.c_str());
-        
     }
 }
 void testApp::updateLetters(){
@@ -650,7 +626,6 @@ void testApp::updateLetters(){
         
         //now go to that screen
         currentURL=URLsToLoad[currentURLNo];
-        printf("next screen :%s\n", currentURL.c_str());
     }
 }
 void testApp::updateAlphabet(){
@@ -713,7 +688,6 @@ void testApp::updateAlphabet(){
         blendInfo=0;
         //now go to that screen
         currentURL=URLsToLoad[currentURLNo];
-        printf("next screen after alphabet :%s\n", currentURL.c_str());
     }
 }
 //--------------------------------------------------------------
@@ -749,7 +723,7 @@ void testApp::drawPostcards(){
     }
     //draw title
     ofSetColor(255);
-    questions[currentQuestionNumber].draw((ofGetWidth()-questions[currentQuestionNumber].width)/2,0);
+    questions[currentQuestionNumber].draw(0,0);
     postcardsTitle.draw((ofGetWidth()-postcardsTitle.width-AROUND), 0);
     ofDisableAlphaBlending();
 }
