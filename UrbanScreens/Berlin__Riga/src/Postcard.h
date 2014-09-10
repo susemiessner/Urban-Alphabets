@@ -51,7 +51,6 @@ public:
         string URL="http://www.ualphabets.com/images/original/"+folderName+"/"+ofToString(_id)+".png";
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
-        printf("loaded Image: %i \n", _id);
     }
     
     void draw(){
