@@ -83,8 +83,8 @@ public:
         over=false;
         videoIntroCounter++;
         if(videoIntroCounter==13){
-            videoIntroCounter=0;
-            video.setFrame(0);
+            //videoIntroCounter=0;
+            //video.setFrame(0);
         }
     }
 };

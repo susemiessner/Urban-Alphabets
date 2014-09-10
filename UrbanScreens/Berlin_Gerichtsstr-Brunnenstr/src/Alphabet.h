@@ -16,7 +16,7 @@ public:
     ofImage _image;
     
     int _xPos=(ofGetWidth()-20)/2;
-    int _yPos=250;
+    int _yPos=150;
     int _offset=200+14;
     int _constNo;
     int _around=10;
@@ -32,7 +32,7 @@ public:
     }
     void reset(){
         _xPos=(ofGetWidth()-20)/2;
-        _yPos=250;
+        _yPos=200;
         if(_constNo<5){
             _xPos=_xPos+(_constNo)*_offset;
         }
@@ -91,14 +91,14 @@ public:
         }
     }
     void drawWhole(){
-        int width=80;
-        int height=96;
-        int spacing=8;
+        int width=49;
+        int height=60;
+        int spacing=5;
         int noOfColumns=7;
         int column=_constNo % noOfColumns;
         
-        int myXPos=16+column*(width+spacing);
-        int myYPos=120+(_constNo-column)/noOfColumns*(height+spacing);
+        int myXPos=14+column*(width+spacing);
+        int myYPos=100+(_constNo-column)/noOfColumns*(height+spacing);
         //ofSetColor(255);
         _image.draw(myXPos,myYPos,width ,height);
     }
@@ -106,8 +106,7 @@ public:
         _xPos--;
     }
     bool nextImage(){
-        //printf("___ %i::", _xPos);
-        if(_xPos<-440){
+        if(_xPos<-680){
             _xPos=1000;
             _yPos=2000;
             return true;

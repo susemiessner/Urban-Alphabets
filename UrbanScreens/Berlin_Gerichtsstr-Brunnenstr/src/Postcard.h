@@ -19,9 +19,8 @@ public:
     string _owner;
     string _date;
     
-    int _xPos=85;
-    int _yPos=130;
-    int _offset=342+32;
+    int _xPos=35;
+    int _yPos=90;
     
     Postcard(string THEID, string LONGI, string LA, string TEXT, string OWNER, string RigaBerlin, string DATE){
         _id=ofToInt(THEID);
@@ -31,6 +30,8 @@ public:
         _owner=OWNER;
         if (RigaBerlin=="Riga") {
             _xPos=_xPos+ofGetWidth()/2;
+        } else{
+            _xPos=35;
         }
         _date=DATE;
     }
@@ -53,12 +54,10 @@ public:
         _image.loadImage(resp);
     }    
     void draw(){
-        //ofSetColor(255);
-        ofRect(_xPos-1, _yPos-1, 470, 572);
-        _image.draw(_xPos,_yPos,468, 570);
+        ofRect(_xPos-1, _yPos-1, 330, 402);
+        _image.draw(_xPos,_yPos,328, 400);
     }
     void update(){
-        //_xPos--;
     }
 };
 

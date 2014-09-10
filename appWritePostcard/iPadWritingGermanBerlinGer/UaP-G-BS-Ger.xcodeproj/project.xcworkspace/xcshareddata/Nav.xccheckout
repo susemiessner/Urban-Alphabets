@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6BA8D964-3832-4C2C-8226-04EFDCF6EE50</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Nav</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B26C571E-DE2A-42F3-8A8E-CB100BEC67F1</key>
+		<string>https://github.com/C4Code/Nav.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Nav.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B26C571E-DE2A-42F3-8A8E-CB100BEC67F1</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/C4Code/Nav.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B26C571E-DE2A-42F3-8A8E-CB100BEC67F1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B26C571E-DE2A-42F3-8A8E-CB100BEC67F1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Nav</string>
+		</dict>
+	</array>
+</dict>
+</plist>

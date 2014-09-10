@@ -16,9 +16,9 @@ public:
     string _owner;
     string _letter;
     
-    int _xPos=22;
-    int _yPos=250;
-    int _offset=192+10;
+    int _xPos=17;
+    int _yPos=150;
+    int _offset=115+10;
     int _constNumber;
     
     Letter(string THEID, string LETTER, string OWNER, int constructorNumber, string RigaBerlin){
@@ -52,8 +52,8 @@ public:
     
     void draw(){
         //ofSetColor(255);
-        ofRect(_xPos-1, _yPos-1, 194, 235);
-        _image.draw(_xPos,_yPos,192, 233);
+        ofRect(_xPos-1, _yPos-1, 117, 142);
+        _image.draw(_xPos,_yPos,115, 140);
     }
     void update(){
         //_xPos--;
