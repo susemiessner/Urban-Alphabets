@@ -220,7 +220,7 @@ void testApp::urlResponse(ofHttpResponse & response){
 
 }
 void testApp::loadURL_recentPostcards(ofHttpResponse &response){
-    if (allEntries.size()>1) {
+    if (allEntries.size()>0) {
         for(int i=0; i<allEntries.size(); i++){
             vector<string> cutEntries =ofSplitString(allEntries[i], ",");
             /*for (int i=0; i<cutEntries.size(); i++) {

@@ -16,7 +16,7 @@ public:
     ofImage _image;
     
     int _xPos=(ofGetWidth()-20)/2;
-    int _yPos=250;
+    int _yPos=150;
     int _offset=200+14;
     int _constNo;
     int _around=10;
