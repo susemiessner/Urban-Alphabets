@@ -191,10 +191,6 @@ void testApp::draw(){
         }
     }
     ofPopMatrix();
-    screen.grabScreen(0,0,ofGetWidth(),ofGetHeight());
-    screen.mirror(false, true);
-    screen.draw(0, 0);
-
 }
 
 

@@ -115,7 +115,4 @@ public:
     //changing questions
     ofImage questions[4]; //number of questions can be changed!
     int currentQuestionNumber;
-    
-    //for screen mirroring
-    ofImage screen;
 };

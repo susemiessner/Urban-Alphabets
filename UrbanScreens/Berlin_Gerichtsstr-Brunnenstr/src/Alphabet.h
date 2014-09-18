@@ -16,7 +16,7 @@ public:
     ofImage _image;
     
     int _xPos=(ofGetWidth()-20)/2;
-    int _yPos=150;
+    int _yPos=110;
     int _offset=200+14;
     int _constNo;
     int _around=10;
@@ -32,7 +32,7 @@ public:
     }
     void reset(){
         _xPos=(ofGetWidth()-20)/2;
-        _yPos=200;
+        _yPos=110;
         if(_constNo<5){
             _xPos=_xPos+(_constNo)*_offset;
         }

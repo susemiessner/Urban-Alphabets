@@ -53,7 +53,7 @@ void testApp::setup(){
     firstAlphabetLoaded=false;
     
     //setup for postcards and letters screen
-    lengthPostcards=8;//in secs
+    lengthPostcards=2;//8;//in secs
     lengthLetters=10;//in secs
     counterPostcardsAndLetters=0;
     counterNumberPostcards=0;
@@ -519,7 +519,6 @@ void testApp::loadURL_alphabetGerman(ofHttpResponse &response){
         currentAlphabet=currentAlphabetGerichtsstrasse;
         firstAlphabetLoaded=false;
     }
-    
 }
 
 void testApp::loadQuestion(ofHttpResponse &response){
@@ -685,7 +684,7 @@ void testApp::updateAlphabet(){
         goToNextScreen();
     }
     //determining when it's over
-    if (currentURL==currentAlphabet && currImgNo2>39 && allAlphabetGerichtsstrasse[currImgNo2]._xPos<-200) {
+    if (currentURL==currentAlphabet && currImgNo2>2/*39*/ && allAlphabetGerichtsstrasse[currImgNo2]._xPos<-200) {
         counterDrawAlphabet=0;
         blendInfo=0;
         //now go to that screen

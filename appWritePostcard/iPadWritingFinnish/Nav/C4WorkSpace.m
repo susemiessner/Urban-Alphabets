@@ -67,32 +67,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
-    //[self loadCurrentQuestion];
     //send request to server
     self.finalAlphabetArray=[[NSMutableArray alloc]init];
     [self loadAlphabetFromServer];
     
     
 }
--(void)loadCurrentQuestion{
-    
-    NSString *urlString=@"http://www.ualphabets.com/requests/Riga/connected/question_iPad.php";
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    //NSLog(@"URL: %@",urlString);
-    NSData *receivedQuestion = [NSData dataWithContentsOfURL:url];
-    NSString* newStr = [[NSString alloc] initWithData:receivedQuestion encoding:NSUTF8StringEncoding];
-    newStr = [newStr stringByReplacingOccurrencesOfString:@"[{\"question\":\""
-                                               withString:@""];
-    newStr = [newStr stringByReplacingOccurrencesOfString:@"\"}]"                                          withString:@""];
-    //newStr=[newStr substringToIndex:newStr.length-3];
-    //newStr=[newStr substringWithRange:NSMakeRange(14, [newStr length]-3)];
-    //NSLog(@"data: %@",newStr );
-    self.title=newStr;
-}
 
 -(void)viewDidAppear:(BOOL)animated{
-    self.title=@"Waiting for current question...";
+    self.title=@"Write Postcard";
     
     [self alphabetSetup];
 }
@@ -274,8 +257,6 @@
     //[self drawCurrentAlphabet];
     //[self initGreyGrid];
     [self writePostcard];
-    [self loadCurrentQuestion];
-    
 }
 
 
