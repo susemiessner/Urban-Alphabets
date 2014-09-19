@@ -50,7 +50,6 @@
     
     float imageWidth;
     float imageHeight;
-    float alphabetFromLeft;
     NSMutableArray *greyRectArray;
     
     //location when saving alphabet to server
@@ -69,7 +68,7 @@
     self.currentLanguage= @"Finnish/Swedish";
     self.myAlphabets=[[NSMutableArray alloc]init];
     self.myAlphabetsLanguages=[[NSMutableArray alloc]init];
-    self.alphabetName=@"Untitled";
+    self.alphabetName=@"My first alphabet";
     self.languages=[NSMutableArray arrayWithObjects:@"Danish/Norwegian", @"English/Portugese", @"Finnish/Swedish", @"German", @"Russian", @"Spanish",@"Latvian", nil];
     self.defaultLanguage=@"Finnish/Swedish";
     self.userName=@"defaultUsername";
@@ -79,10 +78,26 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
+    //try to make title tabable
+    self.titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 200, 40)];
+    self.titleLabel.text=self.alphabetName;
+    [self.titleLabel setTextAlignment:NSTextAlignmentCenter    ];
+    self.titleLabel.textColor=[UIColor blackColor];
+    self.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size: 16.0];
+    self.titleLabel.backgroundColor =[UIColor clearColor];
+    self.titleLabel.adjustsFontSizeToFitWidth=YES;
+    self.navigationItem.titleView=self.titleLabel;
+    
+    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToAlphabetInfo)];
+    titleTap.numberOfTapsRequired = 1;
+    
+    self.navigationItem.titleView.userInteractionEnabled=YES;
+    [self.navigationItem.titleView addGestureRecognizer:titleTap];
+    
     
 }
 -(void)viewDidAppear:(BOOL)animated{
-    self.title=self.alphabetName;
+    self.titleLabel.text=self.alphabetName;
     NSString *username=[[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     if (username) {
         self.userName=username;
@@ -90,7 +105,7 @@
     //when app is opened first time
     NSString *openedBefore=[[NSUserDefaults standardUserDefaults]objectForKey:@"openedBefore"];
     if (!(openedBefore)) {
-        self.title=@"Intro";
+        self.titleLabel.text=@"Intro";
         
         //check which device
         if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
@@ -150,7 +165,7 @@
         }
         [self.view addSubview:nextButtonView];
     } else{
-        self.title=self.alphabetName;
+        self.titleLabel.text=self.alphabetName;
         NSString *folderName=@"Urban Alphabets";
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library addAssetsGroupAlbumWithName:folderName
@@ -200,12 +215,12 @@
     
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
-    alphabetFromLeft=0;
+    self.alphabetFromLeft=0;
     if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
         //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
-        alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
+        self.alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
     }
     [self drawCurrentAlphabet];
     [self initGreyGrid];
@@ -214,7 +229,7 @@
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
+        float xPos=xMultiplier*imageWidth+self.alphabetFromLeft;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
@@ -228,7 +243,7 @@
     for (NSUInteger i=0; i<42; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
-        float xPos=xMultiplier*imageWidth+alphabetFromLeft;
+        float xPos=xMultiplier*imageWidth+self.alphabetFromLeft;
         float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
         UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
@@ -376,7 +391,7 @@
 -(void)tappedLetter:(UIGestureRecognizer *)notification {
     UIView *currentImage = (UIView *)notification.view;
     
-    float i=(currentImage.frame.origin.x-alphabetFromLeft)/imageWidth;
+    float i=(currentImage.frame.origin.x-self.alphabetFromLeft)/imageWidth;
     float j=currentImage.frame.origin.y/imageHeight;
     int j1=j+1;
     if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
@@ -451,7 +466,7 @@
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, [[UIScreen mainScreen] bounds].size.width * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
     //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     }
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
@@ -757,7 +772,7 @@
 -(void)appWillBecomeActive:(NSNotification*)note{
     NSString *loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
     if (!loadedName) {
-        self.alphabetName=@"Untitled";
+        self.alphabetName=@"My first alphabet";
         //set default alphabet name as first user default
         NSUserDefaults *alphabetName=[NSUserDefaults standardUserDefaults];
         [alphabetName setValue:self.alphabetName forKey:@"alphabetName"];

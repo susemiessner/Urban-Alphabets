@@ -48,4 +48,7 @@
 @property (readwrite) int letterTouched;
 @property (readwrite, strong) UIImage *currentAlphabetImage;
 @property (readwrite, strong) UIImage *currentAlphabetImageAsUIImage;
+@property (readwrite) float alphabetFromLeft;
+@property(readwrite) UILabel* titleLabel;
+
 @end

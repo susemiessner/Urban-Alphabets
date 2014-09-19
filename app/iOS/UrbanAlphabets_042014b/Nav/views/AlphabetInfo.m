@@ -297,7 +297,7 @@
     
     //save the new alphabet name
     workspace.alphabetName=textView.text;
-    workspace.title=textView.text;
+    workspace.titleLabel.text=textView.text;
     for (int i=0; i<[workspace.myAlphabets count]; i++) {
         if ([[workspace.myAlphabets objectAtIndex:i]isEqualToString:currentAlphabetName]) {
             [workspace.myAlphabets replaceObjectAtIndex:i withObject: textView.text];

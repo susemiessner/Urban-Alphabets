@@ -616,7 +616,7 @@
 //NAVIGATION
 //--------------------------------------------------
 -(void)goBack{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 //------------------------------------------------------------------------

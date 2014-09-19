@@ -15,7 +15,6 @@
     UITextView *usernameField;
     C4WorkSpace *workspace;
     ChangeDefaultLanguage *changeDefaultLanguage;
-
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 
@@ -152,6 +151,9 @@
     self.defaultLanguage=workspace.defaultLanguage;
 
     [language setText:self.defaultLanguage];
+}
+-(void)goBack{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 //------------------------------------------------------------------------

@@ -217,9 +217,9 @@
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
     [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage Language:self.currentLanguage Username:workspace.userName];
-    croppedImage=[self imageWithImage:croppedImage];
+    //croppedImage=[self imageWithImage:croppedImage];
     
-    //save image here (test)
+    //save image here
     [self exportHighResImage];
     //--------------------------------------------------
     //replace current  with new letter
@@ -327,37 +327,6 @@
     NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
     [imageData writeToFile:savePath atomically:YES];
     
-    //write to photo library
-    NSString *albumName=@"Urban Alphabets";
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    __block ALAssetsGroup* groupToAddTo;
-    [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
-                           usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                               if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
-                                   groupToAddTo = group;
-                               }
-                           }
-                         failureBlock:^(NSError* error) {
-                         }];
-    CGImageRef img = [croppedImage CGImage];
-    [library writeImageToSavedPhotosAlbum:img
-                                 metadata:nil
-                          completionBlock:^(NSURL* assetURL, NSError* error) {
-                              if (error.code == 0) {
-                                  
-                                  // try to get the asset
-                                  [library assetForURL:assetURL
-                                           resultBlock:^(ALAsset *asset) {
-                                               // assign the photo to the album
-                                               [groupToAddTo addAsset:asset];
-                                           }
-                                          failureBlock:^(NSError* error) {
-                                          }];
-                              }
-                              else {
-                              }
-                          }];
-
 }
 -(NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
