@@ -258,8 +258,11 @@
                            capturedImage = [[UIImage alloc] initWithData:data];
                            
                            capturedImage=[self rotate:capturedImage];
+                           if ( UA_IPHONE_4_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+                               // save the photo to photo library and app's image directory
+                               [self saveImageToLibrary];
+                           }
 
-                           [self saveImageToLibrary];
                        });
     };
     
@@ -267,7 +270,6 @@
                                                 completionHandler:handler];
     
 
-    
     //display the cropPhoto overlay
     [self displayOverlay];
     [self initGestureRecognizers];
@@ -362,15 +364,18 @@
     self.croppedPhoto = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     
+    
     //this goes to the next view
     assignLetter = [[AssignLetter alloc] initWithNibName:@"AssignLetter" bundle:[NSBundle mainBundle]];
     [assignLetter setup:self.croppedPhoto];
-    
+    if (self.preselectedLetterNum!= 50) {
+        assignLetter.chosenImageNumberInArray=self.preselectedLetterNum;
+        [assignLetter preselectLetter];
+    }
     [self.navigationController pushViewController:assignLetter animated:YES];
 }
 
-- (UIImage *)createScreenshot
-{
+- (UIImage *)createScreenshot{
     //    UIGraphicsBeginImageContext(pageSize);
     CGSize pageSize = [[UIScreen mainScreen] bounds].size;
     UIGraphicsBeginImageContextWithOptions(pageSize, YES, 0.0f);

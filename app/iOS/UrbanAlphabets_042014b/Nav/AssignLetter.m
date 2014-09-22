@@ -41,13 +41,10 @@
 @end
 
 @implementation AssignLetter
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated{
     [self redrawAlphabet];
-    self.bottomNavBar.centerImageView.hidden=YES;
 }
 -(void)redrawAlphabet{
-    
     for (NSUInteger i=0; i<[self.currentAlphabet count]; i++) {
         
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
@@ -55,7 +52,6 @@
     }
     [self grabCurrentAlphabetViaNavigationController];
 }
--(void)closeView{}
 -(void)setup:(UIImage*)croppedImagePassed  {
     self.title=@"Assign Letter";
     
@@ -103,13 +99,21 @@
         yPosUsername=-88;
     }
     
+    [self initGreyGrid];
+    self.bottomNavBar.centerImageView.hidden=YES;
+}
+-(void)preselectLetter{
+    currentImage = [greyGridArray objectAtIndex:self.chosenImageNumberInArray];
+    currentImage.backgroundColor= UA_HIGHLIGHT_COLOR;
+    
+    [self unhideOkButton];
+
 }
 -(void)grabCurrentAlphabetViaNavigationController {
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     workspace=(C4WorkSpace*)obj;
     self.currentLanguage=workspace.currentLanguage;
     [self drawCurrentAlphabet:[workspace.currentAlphabet mutableCopy]];
-    [self initGreyGrid];
 }
 
 -(void)initGreyGrid{
@@ -156,7 +160,7 @@
         
         if ((UIView *)notification.view == currentImage)
         {
-            selectedLetter = i;
+            self.chosenImageNumberInArray = i;
         }
     }
     currentImage = (UIView *)notification.view;
@@ -164,13 +168,17 @@
     
     //making sure that the "OK" button is only added ones not every time the person clicks on a new letter
     if (notificationCounter==0) {
-        self.bottomNavBar.centerImageView.hidden=NO;
-        //make them touchable
-        UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(checkUserNameExists)];
-        okButtonRecognizer.numberOfTapsRequired = 1;
-        [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
+        [self unhideOkButton];
 
     }
+    notificationCounter++;
+}
+-(void)unhideOkButton{
+    self.bottomNavBar.centerImageView.hidden=NO;
+    //make them touchable
+    UITapGestureRecognizer *okButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(checkUserNameExists)];
+    okButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizer];
     notificationCounter++;
 }
 //--------------------------------------------------
@@ -209,15 +217,17 @@
     
 }
 -(void) goToAlphabetsViewAddingImageToAlphabet{
-    
-    self.chosenImageNumberInArray=selectedLetter;
-
     //--------------------------------------------------
     //upload image to database
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
     [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage Language:self.currentLanguage Username:workspace.userName];
-    //croppedImage=[self imageWithImage:croppedImage];
+    
+    //only for iPhone 4 due to memory issues
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        croppedImage=[self imageWithImage:croppedImage];
+    }
+
     
     //save image here
     [self exportHighResImage];
@@ -327,6 +337,39 @@
     NSString *savePath = [dataPath stringByAppendingPathComponent:fileName];
     [imageData writeToFile:savePath atomically:YES];
     
+    //iphone 4, save it to the library here
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        //write to photo library
+        NSString *albumName=@"Urban Alphabets";
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        __block ALAssetsGroup* groupToAddTo;
+        [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                               usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                                   if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
+                                       groupToAddTo = group;
+                                   }
+                               }
+                             failureBlock:^(NSError* error) {
+                             }];
+        CGImageRef img = [croppedImage CGImage];
+        [library writeImageToSavedPhotosAlbum:img
+                                     metadata:nil
+                              completionBlock:^(NSURL* assetURL, NSError* error) {
+                                  if (error.code == 0) {
+                                      // try to get the asset
+                                      [library assetForURL:assetURL
+                                               resultBlock:^(ALAsset *asset) {
+                                                   // assign the photo to the album
+                                                   [groupToAddTo addAsset:asset];
+                                               }
+                                              failureBlock:^(NSError* error) {
+                                              }];
+                                  }
+                                  else {
+                                  }
+                              }];
+        
+    }    
 }
 -(NSString *)documentsDirectory {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
