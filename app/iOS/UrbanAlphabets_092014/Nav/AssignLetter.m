@@ -108,7 +108,7 @@
 -(void)preselectLetter{
     currentImage = [greyGridArray objectAtIndex:self.chosenImageNumberInArray];
     currentImage.backgroundColor= UA_HIGHLIGHT_COLOR;
-    selectedLetter=self.chosenImageNumberInArray;
+    selectedLetter=(int)self.chosenImageNumberInArray;
     [self unhideOkButton];
     
 }
@@ -238,7 +238,9 @@
     //--------------------------------------------------
     save=[[SaveToDatabase alloc]init];
     [save sendLetterToDatabase: currentLocation ImageNo:self.chosenImageNumberInArray Image:croppedImage Language:self.currentLanguage Username:workspace.userName];
-    croppedImage=[self imageWithImage:croppedImage];
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        croppedImage=[self imageWithImage:croppedImage];
+    }
     
     //save image here (test)
     [self exportHighResImage];

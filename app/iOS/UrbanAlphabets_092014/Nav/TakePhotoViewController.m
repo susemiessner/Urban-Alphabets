@@ -354,6 +354,7 @@
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(touchX1 * screenScale,touchY1 * screenScale,(touchX2 - touchX1) * screenScale, 266.472 * screenScale));
     self.croppedPhoto = [UIImage imageWithCGImage:imageRef];
+
     CGImageRelease(imageRef);
     
     //this goes to the next view
