@@ -105,11 +105,13 @@ class ofApp : public ofBaseApp{
     int currImgNo;//the numbers of the postcard currently displayed
     
     
-    ofImage alphabetTitleLeft, alphabetTitleRight, lettersTitle, postcardsTitleLeft, postcardsTitleRight;
+    ofImage alphabetTitle, lettersTitle, postcardsTitle;
     ofImage alphabetTitleLat, lettersTitleLat, postcardsTitleLat;
     float englishTitleScale; //how much the english title is scaled from the Latvian one
     int counterPostcardsTitle; //counter for intro to postcards
+    int counterPostcardsQuestion; //counter for the question
     int counterLettersTitle; //counter for intro to letters
+    int counterAlphabetsTitle; //counter for intro to alphabet
     //changing questions
     ofImage questions[4]; //number of questions can be changed!
     ofImage questionsLat[4]; //same for latvian

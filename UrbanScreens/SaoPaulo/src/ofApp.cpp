@@ -41,8 +41,8 @@ void ofApp::setup(){
     //setup for alphabet screen
     counterDrawAlphabet=0;
     alphabetLength=15;
-    alphabetTitleLeft.loadImage("intro/intro_currentAlphabet.png");
-    alphabetTitleRight.loadImage("intro/intro_currentAlphabetRight.png");
+    counterAlphabetsTitle=0;
+    alphabetTitle.loadImage("intro/intro_currentAlphabet.png");
     alphabetTitleLat.loadImage("intro/intro_currentAlphabetLat.png");
     
     //setup for postcards and letters screen
@@ -50,6 +50,7 @@ void ofApp::setup(){
     lengthLetters=10;//in secs
     counterPostcardsAndLetters=0;
     counterPostcardsTitle=0;
+    counterPostcardsQuestion=0;
     counterLettersTitle=0;
     counterNumberPostcards=0;
     lettersTitle.loadImage("intro/intro_titleLetters.png");
@@ -66,8 +67,7 @@ void ofApp::setup(){
     questionsLat[2].loadImage("questions/questions_latvian_ -03.png");
     questionsLat[3].loadImage("questions/questions_latvian_ -04.png");
     currentQuestionNumber=0;
-    postcardsTitleLeft.loadImage("intro/intro_titlePostcards.png");
-    postcardsTitleRight.loadImage("intro/intro_titlePostcardsRight.png");
+    postcardsTitle.loadImage("intro/intro_titlePostcards.png");
     postcardsTitleLat.loadImage("intro/intro_titlePostcardsLat.png");
     
     
@@ -180,8 +180,8 @@ void ofApp::draw(){
         ofVertex(251,426);
         ofVertex(251,259);
     ofEndShape();
-    ofRect(400, 50, 480, 288);
-    ofRect(250, 450, 768, 288);
+    ofRect(508, 77, 480, 288);
+    ofRect(220, 452, 768, 288);
     ofSetColor(0);
     //start drawing
     if (loadingResponseDone) {
@@ -413,14 +413,15 @@ void ofApp::sendRequest(){
 //--------------------------------------------------------------
 void ofApp::updatePostcards(){
     int noOfPostcards=(int)allPostcards.size();
-    if (counterPostcardsTitle>5*FRAME_RATE) {
+    if (counterPostcardsTitle>introLength*FRAME_RATE) {
         counterPostcardsAndLetters++;
         counterNumberPostcards++;
     }
-        counterPostcardsTitle++;
-    
+    if (counterPostcardsTitle>introLength*FRAME_RATE){
+        counterPostcardsQuestion++;
+    }
+    counterPostcardsTitle++;
     //blending for postcards
-    //blend in
     if (currentURL==recentPostcards && counterNumberPostcards>lengthPostcards*FRAME_RATE*4 && noOfPostcards>3) {
         currImgNo=4;
         if (counterNumberPostcards==lengthPostcards*FRAME_RATE*5) {
@@ -464,8 +465,8 @@ void ofApp::updatePostcards(){
         counterNumberPostcards=0;
         currImgNo=0;
         blendInfo=0;
-        //loading=true;
         counterPostcardsTitle=0;
+        counterPostcardsQuestion=0;
         //now go to that screen
         currentURL=URLsToLoad[currentURLNo];
     }
@@ -492,7 +493,10 @@ void ofApp::updateLetters(){
     }
 }
 void ofApp::updateAlphabet(){
-    counterDrawAlphabet++;
+    counterAlphabetsTitle++;
+    if (counterAlphabetsTitle>introLength*FRAME_RATE) {
+        counterDrawAlphabet++;
+    }
     //start updating for the individual letters only
     if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
         
@@ -533,7 +537,7 @@ void ofApp::drawPostcards(){
 
     ofEnableAlphaBlending();
     
-    if (counterPostcardsTitle<introLength*FRAME_RATE) {
+    if (counterPostcardsTitle<=introLength*FRAME_RATE) {
         //blending for question
         //blend in
         if(counterPostcardsTitle<FRAME_RATE){
@@ -547,15 +551,27 @@ void ofApp::drawPostcards(){
         } else{
             ofSetColor(255);
         }
-        //draw question
-        questions[currentQuestionNumber].draw(126,259, questions[currentQuestionNumber].width*englishTitleScale, questions[currentQuestionNumber].height*englishTitleScale);
-        
         //draw title
-        postcardsTitleLeft.draw(37, 426-postcardsTitleLeft
-                                .height*englishTitleScale, postcardsTitleLeft.width*englishTitleScale, postcardsTitleLeft.height*englishTitleScale);
-        postcardsTitleRight.draw(251-postcardsTitleRight.width*englishTitleScale, 426-postcardsTitleRight
-                                 .height*englishTitleScale, postcardsTitleRight.width*englishTitleScale, postcardsTitleRight.height*englishTitleScale);
-    }else {
+        postcardsTitle.draw(37, 259);
+    }else if (counterPostcardsQuestion<introLength*FRAME_RATE && counterPostcardsTitle>introLength*FRAME_RATE ) {
+        //blending for question
+        //blend in
+        if(counterPostcardsQuestion<FRAME_RATE){
+            blendInfo+=8;
+            ofSetColor(255, 255, 255, blendInfo);
+        }
+        //blend out
+        else if(counterPostcardsQuestion>FRAME_RATE*(introLength-1)){
+            blendInfo-=8;
+            ofSetColor(255, 255, 255, blendInfo);
+        } else{
+            ofSetColor(255);
+        }
+        //draw question
+        questions[currentQuestionNumber].draw(120,259, questions[currentQuestionNumber].width, questions[currentQuestionNumber].height);
+    } else if (counterPostcardsQuestion==introLength*FRAME_RATE){
+        blendInfo=0;
+    }else  {
         //blending for postcards
         //blend in
         if(counterPostcardsAndLetters<FRAME_RATE){
@@ -580,7 +596,6 @@ void ofApp::drawPostcards(){
     ofDisableAlphaBlending();
 }
 void ofApp::drawLetters(){
-    
     ofEnableAlphaBlending();
     //first 5 seconds draw letters title
     if (counterLettersTitle<introLength*FRAME_RATE) {
@@ -595,9 +610,9 @@ void ofApp::drawLetters(){
         } else{
             ofSetColor(255);
         }
-
+        
         //draw title
-        lettersTitle.draw(138,275, lettersTitleLat.height, lettersTitle.width, lettersTitle.height);
+        lettersTitle.draw(37, 259);
     } else {
         //blend in
         if(counterPostcardsAndLetters<FRAME_RATE){
@@ -636,7 +651,22 @@ void ofApp::drawLetters(){
 }
 void ofApp::drawAlphabet(){
     ofEnableAlphaBlending();
-    if (counterDrawAlphabet<FRAME_RATE*alphabetLength) {
+    if (counterAlphabetsTitle<FRAME_RATE*introLength) {
+        //blend in
+        if(counterAlphabetsTitle<FRAME_RATE){
+            blendInfo+=8;
+            ofSetColor(255, 255, 255, blendInfo);
+        }
+        //blend out
+        else if(counterAlphabetsTitle>FRAME_RATE*(introLength-1)){
+            blendInfo-=8;
+            ofSetColor(255, 255, 255, blendInfo);
+        } else{
+            ofSetColor(255);
+        }
+        //draw title
+        alphabetTitle.draw(37, 259);
+    } else if (counterDrawAlphabet<FRAME_RATE*alphabetLength) {
         //blend in
         if(counterDrawAlphabet<FRAME_RATE){
             blendInfo+=8;
@@ -653,11 +683,7 @@ void ofApp::drawAlphabet(){
         for (int i=0; i<allAlphabet.size(); i++) {
             allAlphabet[i].drawWhole(i);
         }
-        //draw title
-        alphabetTitleLeft.draw(37, 426-alphabetTitleLeft
-                                .height*englishTitleScale, alphabetTitleLeft.width*englishTitleScale, alphabetTitleLeft.height*englishTitleScale);
-        alphabetTitleRight.draw(251-alphabetTitleRight.width*englishTitleScale, 426-alphabetTitleRight
-                                 .height*englishTitleScale, alphabetTitleRight.width*englishTitleScale, alphabetTitleRight.height*englishTitleScale);
+        
     }else{
         for (int i=0; i<NO_OF_ALPHABETS_RUNNING_THROUGH; i++) {
             allAlphabet[currImgNoAlphabet[i]].draw();

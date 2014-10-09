@@ -19,12 +19,10 @@ public:
     int lengthEachScreen=5; //length of each of the images in secs
     int lengthBlend=1;
     int blendAbout=0;
-    ofImage  create, title, createLat;
+    ofImage  title;
     
     About(){
         title.loadImage("intro/intro_Title.png"); //title
-        create.loadImage("intro/intro_createAlphabet.png"); //the short description with link
-        createLat.loadImage("intro/intro_createAlphabetLat.png");//same thing in Latvian
         reset();
     }
     void update(){
@@ -45,30 +43,6 @@ public:
                 ofSetColor(255,255,255,blendAbout);
             }
             title.draw(37,259);
-        } else if(counter<lengthEachScreen*FRAME_RATE*2){
-            //blend in
-            if(counter<lengthEachScreen*FRAME_RATE+lengthBlend*FRAME_RATE){
-                blendAbout+=10;
-                ofSetColor(255,255,255,blendAbout);
-            }
-            //blend out
-            if(counter>lengthEachScreen*FRAME_RATE+lengthEachScreen*FRAME_RATE-lengthBlend*FRAME_RATE){
-                blendAbout-=10;
-                ofSetColor(255,255,255,blendAbout);
-            }
-            createLat.draw(37,259);
-        }else if(counter<lengthEachScreen*FRAME_RATE*3){
-            //blend in
-            if(counter<lengthEachScreen*FRAME_RATE*2+lengthBlend*FRAME_RATE){
-                blendAbout+=10;
-                ofSetColor(255,255,255,blendAbout);
-            }
-            //blend out
-            if(counter>lengthEachScreen*FRAME_RATE*2+lengthEachScreen*FRAME_RATE-lengthBlend*FRAME_RATE){
-                blendAbout-=10;
-                ofSetColor(255,255,255,blendAbout);
-            }
-            create.draw(37,259);
         } else {
             over=true;
         };
