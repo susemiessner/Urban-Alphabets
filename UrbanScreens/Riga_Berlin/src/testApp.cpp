@@ -69,11 +69,13 @@ void testApp::setup(){
     questions[1].loadImage("questions/questions_english_ -02.png");
     questions[2].loadImage("questions/questions_english_ -03.png");
     questions[3].loadImage("questions/questions_english_ -04.png");
+    questions[4].loadImage("questions/questions_english_ -05.png");
     //latvian questions
     questionsLat[0].loadImage("questions/questions_latvian_ -01.png");
     questionsLat[1].loadImage("questions/questions_latvian_ -02.png");
     questionsLat[2].loadImage("questions/questions_latvian_ -03.png");
     questionsLat[3].loadImage("questions/questions_latvian_ -04.png");
+    questionsLat[4].loadImage("questions/questions_latvian_ -05.png");
 
     currentQuestionNumber=0;
 

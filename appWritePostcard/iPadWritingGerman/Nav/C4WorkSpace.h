@@ -7,8 +7,12 @@
 
 #import "C4CanvasController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "BottomNavBar.h"
+#import "AlphabetMenu.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 @interface C4WorkSpace : UIViewController<UITextViewDelegate, UIScrollViewDelegate>
+
+@property (nonatomic) BottomNavBar *bottomNavBar;
 
 //defaults
 @property (readwrite) NSMutableArray *currentAlphabet; //UIImageViews
@@ -42,6 +46,7 @@
 @property (readwrite)NSMutableArray *theNewAlphabetArray;
 @property (readwrite)NSMutableArray *finalAlphabetArray;
 
+@property (nonatomic) AlphabetMenu *menu;
 @property (readwrite) int letterTouched;
 @property (readwrite, strong) UIImage *currentAlphabetImage;
 @property (readwrite, strong) UIImage *currentAlphabetImageAsUIImage;
@@ -60,5 +65,4 @@
 @property (readwrite)UIImageView *buttonRefreshView;
 @property (readwrite)UIImageView *buttonSendView;
 
-@property (readwrite)UIImageView *buttonKeyboardView;
 @end

@@ -48,7 +48,7 @@ void testApp::setup(){
     
     //setup for alphabet screen
     counterDrawAlphabet=0;
-    alphabetLength=5;//10;//put in at least 5!
+    alphabetLength=10;//put in at least 5!
     alphabetTitle.loadImage("intro/intro_currentAlphabet.png");
     firstAlphabetLoaded=false;
     
@@ -120,7 +120,6 @@ void testApp::setup(){
         printf("%s", currentURL.c_str());
         loadingResponseDone=true;
     }
-        
 }
 
 //--------------------------------------------------------------
@@ -152,6 +151,13 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    /*//just for testing
+    ofSetColor(255);
+    ofRect(0, 0, ofGetWidth(), 100);*/
+    
+    ofPushMatrix();
+    ofTranslate(0, 100);
+    
     ofSetColor(0);
     //start drawing
     if (loadingResponseDone) {
@@ -164,18 +170,16 @@ void testApp::draw(){
         //grey rectangle + city titles
         if(currentURL!=info){
             ofSetColor(50, 50, 50);
-            //ofRect(ofGetWidth()/2-1, 0, 2, ofGetHeight());
             //background for Berlin
-            ofRect(AROUND, questions[0].height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-questions[0].height-AROUND*2);
+            ofRect(AROUND, questions[0].height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-questions[0].height-AROUND-100);
             //background for Riga
-            ofRect(AROUND*3+(ofGetWidth()-AROUND*4)/2, questions[0].height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-questions[0].height-AROUND*2);
+            ofRect(AROUND*3+(ofGetWidth()-AROUND*4)/2, questions[0].height+AROUND, (ofGetWidth()-AROUND*4)/2, ofGetHeight()-questions[0].height-AROUND-100);
             ofSetColor(255);
             ofEnableAlphaBlending();
-            gerichsstrasse.draw(AROUND, questions[0].height+AROUND*2);
             brunnenstrasse.draw(ofGetWidth()-brunnenstrasse.width-AROUND, questions[0].height+AROUND*2);
+            gerichsstrasse.draw(AROUND, questions[0].height+AROUND*2);
             ofDisableAlphaBlending();
         }
-        //printf("currentURL: %s, recentPostcards: %s \n", currentURL.c_str(), recentPostcards.c_str());
         if(currentURL==recentPostcardsGerichtsstrasse){
             drawPostcards();
         }else if (currentURL==recentLettersGerichtsstrasse){
@@ -186,6 +190,7 @@ void testApp::draw(){
             about.draw();
         }
     }
+    ofPopMatrix();
 }
 
 
@@ -222,7 +227,7 @@ void testApp::urlResponse(ofHttpResponse & response){
 
 }
 void testApp::loadURL_recentPostcards(ofHttpResponse &response){
-    if (allEntries.size()>1) {
+    if (allEntries.size()>0) {
         for(int i=0; i<allEntries.size(); i++){
             vector<string> cutEntries =ofSplitString(allEntries[i], ",");
             /*for (int i=0; i<cutEntries.size(); i++) {
@@ -294,7 +299,6 @@ void testApp::loadURL_recentPostcards(ofHttpResponse &response){
             }
         }
     }
-    
     //just for testing
     //printf("allPostcards size %lu \n", allPostcards.size());
     /*for (int i=0; i<allPostcardsBerlin.size(); i++) {

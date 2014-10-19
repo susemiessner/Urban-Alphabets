@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9315924A-D986-4621-AF53-5F091F98D98F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ualphabets</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9DE95459BE316DCF866B1433442061A137B8C252</key>
+		<string>https://github.com/susemiessner/Urban-Alphabets.git</string>
+		<key>A65858E5-312E-4CC2-90C6-2B55B7ADEFFD</key>
+		<string>https://github.com/susemiessner/Urban-Alphabets.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>app/iOS/UrbanAlphabets_092014/ualphabets.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9DE95459BE316DCF866B1433442061A137B8C252</key>
+		<string>../../../../../..</string>
+		<key>A65858E5-312E-4CC2-90C6-2B55B7ADEFFD</key>
+		<string>../../../../../../00_GIT</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/susemiessner/Urban-Alphabets.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9DE95459BE316DCF866B1433442061A137B8C252</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9DE95459BE316DCF866B1433442061A137B8C252</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A65858E5-312E-4CC2-90C6-2B55B7ADEFFD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>00_GIT</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9DE95459BE316DCF866B1433442061A137B8C252</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Urban-Alphabets</string>
+		</dict>
+	</array>
+</dict>
+</plist>

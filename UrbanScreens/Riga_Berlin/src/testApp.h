@@ -117,7 +117,7 @@ public:
     float englishTitleScale; //how much the english title is scaled from the Latvian one
 
     //changing questions
-    ofImage questions[4]; //number of questions can be changed!
-    ofImage questionsLat[4]; //same for latvian
+    ofImage questions[5]; //number of questions can be changed!
+    ofImage questionsLat[5]; //same for latvian
     int currentQuestionNumber;
 };

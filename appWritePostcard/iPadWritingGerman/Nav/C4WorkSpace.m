@@ -34,7 +34,6 @@
     //2 buttons
     UIImage *buttonRefresh;
     UIImage *buttonSend;
-    UIImage *buttonKeyboard;
     
 
     NSMutableData *_downloadedData;
@@ -62,7 +61,6 @@
     background=[UIImage imageNamed:@"iPadWriting.png"];
     buttonRefresh=[UIImage imageNamed:@"icon_ClearPostcard.png"];
     buttonSend=[UIImage imageNamed:@"icon_SendToScreen.png"];
-    buttonKeyboard=[UIImage imageNamed:@"icon_ShowKeyboard.png"];
     
     //to see when app becomes active/inactive
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -316,14 +314,7 @@
     sendButtonRecognizer.numberOfTapsRequired = 1;
     [self.buttonSendView addGestureRecognizer:sendButtonRecognizer];
 
-    self.buttonKeyboardView=[[UIImageView alloc]initWithImage:buttonKeyboard];
-    self.buttonKeyboardView.frame=CGRectMake(([[UIScreen mainScreen] bounds].size.width-120)/2,[[UIScreen mainScreen] bounds].size.height-100, 120,67);
-    self.buttonKeyboardView.userInteractionEnabled=YES;
-    [self.view addSubview:self.buttonKeyboardView];
-    //touchable
-    UITapGestureRecognizer *showKeyboardRecognizer=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showKeyboard)];
-    showKeyboardRecognizer.numberOfTapsRequired = 1;
-    [self.buttonKeyboardView addGestureRecognizer:showKeyboardRecognizer];
+    
     
     
     imageWidth=UA_IPAD_LETTER_IMG_WIDTH_5;
@@ -331,9 +322,7 @@
     alphabetFromLeft=UA_IPAD_LETTER_SIDE_MARGIN_ALPHABETS;
     //[self drawCurrentAlphabet];
     //[self initGreyGrid];
-}
--(void)showKeyboard{
-    [textViewTest becomeFirstResponder];
+    NSLog(@"screen size %f, %f", [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
 }
 -(void)drawCurrentAlphabet{
     if (receivedResponse) {
@@ -376,6 +365,7 @@
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 -(void)savePostcard{
+    NSLog(@"saving");
     [self saveCurrentAlphabetAsImage];
     [self exportHighResImage];
     [self clearPostcard];
@@ -665,7 +655,7 @@
     }
     
     
-    self.finnish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"AA", @"OO", @"AAA", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+    self.finnish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"Ä", @"Ö", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.german=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"AA", @"OO", @"UU", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.danish=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"ae", @"danisho", @"Å", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
     self.english=[NSArray arrayWithObjects:@"A",@"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", @"+", @"$", @",", @".", @"!", @"?", @"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
@@ -773,23 +763,26 @@
         float yMultiplier= (lastLetter)/6;
         float xPos=xMultiplier*imageWidth;
         float yPos=yMultiplier*imageHeight;
-        if (lastLetter>=0) {
-            UIImageView *image=[self.postcardArray objectAtIndex:lastLetter];
-            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-            imageView.image=image.image;
-            [scrollViewSuse addSubview:imageView];
-            [self.postcardViewArray addObject:imageView];
-            
-            UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
-            [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
-            greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
-            greyRect.layer.borderWidth=1.0f;
-            [self.greyRectArray addObject:greyRect];
-            [scrollViewSuse addSubview:greyRect];
-        }
+        
+        UIImageView *image=[self.postcardArray objectAtIndex:lastLetter];
+        UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        imageView.image=image.image;
+        [scrollViewSuse addSubview:imageView];
+        [self.postcardViewArray addObject:imageView];
+        
+        UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
+        [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
+        greyRect.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
+        greyRect.layer.borderWidth=1.0f;
+        [self.greyRectArray addObject:greyRect];
+        [scrollViewSuse addSubview:greyRect];
+        
+        
+        
     }
 }
 -(void)addLetterToPostcard{
+    NSLog(@"new character: %@", newCharacter);
     //letters
     if ([self.currentLanguage isEqualToString:@"Finnish/Swedish"]||[self.currentLanguage isEqualToString:@"English/Portugese"]||[self.currentLanguage isEqualToString:@"Danish/Norwegian"]||[self.currentLanguage isEqualToString:@"German"]||[self.currentLanguage isEqualToString:@"Spanish"]) {
         if ([newCharacter isEqual: @"a"]||[newCharacter isEqual: @"A"]) {

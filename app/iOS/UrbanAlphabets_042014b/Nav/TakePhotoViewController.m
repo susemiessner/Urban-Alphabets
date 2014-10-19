@@ -12,7 +12,11 @@
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
 @interface TakePhotoViewController (){
+    C4WorkSpace *workspace;
     AssignLetter *assignLetter;
+    //camera setup
+    double proportion;
+    double imageTop;
     
     UIImage *capturedImage;
     //overlay rectangles
@@ -32,6 +36,10 @@
     float touchX2;
     float touchY1;
     float touchY2;
+    
+    CGContextRef graphicsContext;
+    float alphabetFromLeft;
+
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @end
@@ -117,12 +125,12 @@
         
         self.stillLayer.transform=transform;
         
-        double proportion = 640.0/480.0;
-        double imageTop = ([[UIScreen mainScreen] bounds].size.height / 2.0) - (320*proportion / 2.0);
+        proportion = 640.0/480.0;
+        imageTop = ([[UIScreen mainScreen] bounds].size.height / 2.0) - (320*proportion / 2.0);
         
         self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
         
-        [self adjustImageFramesForDeviceOrientation:nil];
+        //[self adjustImageFramesForDeviceOrientation:nil];
         
         //add the layer
         [self.previewLayerHostView.layer addSublayer:self.avPreviewLayer];
@@ -165,26 +173,21 @@
 }
 
 // to fix some orientation problems that I've found in AVFoundation classes
--(void)adjustImageFramesForDeviceOrientation:(NSNotification*)notification{
-    UIDeviceOrientation orientation=[[UIDevice currentDevice] orientation];
+-(UIImage*) rotate:(UIImage*) src
+{
+    UIGraphicsBeginImageContext(src.size);
     
-    if(orientation==UIInterfaceOrientationLandscapeRight)
-    {
-        CATransform3D transform = CATransform3DIdentity;
-        transform=CATransform3DRotate(transform, degreesToRadians(0), 0.0, 0.0, 1.0);
-        
-        self.avPreviewLayer.transform=transform;
-    }
-    else if(orientation==UIInterfaceOrientationLandscapeLeft)
-    {
-        CATransform3D transform = CATransform3DIdentity;
-        transform=CATransform3DRotate(transform, degreesToRadians(0), 0.0, 0.0, 1.0);
-        
-        self.avPreviewLayer.transform=transform;
-    }
+    CGContextRef context=(UIGraphicsGetCurrentContext());
+    
+    
+    CGContextRotateCTM (context, 90/180*M_PI) ;
+    
+    [src drawAtPoint:CGPointMake(0, 0)];
+    UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
     
 }
-
 // this prepares to takes the picture
 -(void)take{
     if (self.isPhotoBeingTaken)
@@ -201,7 +204,6 @@
         UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
         takePhotoButtonRecognizer.numberOfTapsRequired = 1;
         [self.bottomNavBar.rightImageView addGestureRecognizer:takePhotoButtonRecognizer];
-        
         
         self.isPhotoBeingTaken = NO;
     }
@@ -223,12 +225,8 @@
     takePhotoButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:takePhotoButtonRecognizer];
     
-    //remove the overlay
-    [leftRect removeFromSuperview];
-    [rightRect removeFromSuperview];
-    [upperRect removeFromSuperview];
-    [lowerRect removeFromSuperview];
-
+    
+    [self removeOverlay];
     //remove gesture recognizers
     [self.view removeGestureRecognizer:panRecognizer];
     [self.view removeGestureRecognizer:pinchRecognizer];
@@ -253,12 +251,18 @@
         
         dispatch_async(dispatch_get_main_queue(),^(void)
                        {
-                           [self adjustImageFramesForDeviceOrientation:nil];
                            
                            self.avPreviewLayer.opacity=0.0;
                            self.stillLayer.contents=(id)[[UIImage alloc] initWithData:data].CGImage;
                            capturedImage = nil;
                            capturedImage = [[UIImage alloc] initWithData:data];
+                           
+                           capturedImage=[self rotate:capturedImage];
+                           if ( UA_IPHONE_4_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+                               // save the photo to photo library and app's image directory
+                               [self saveImageToLibrary];
+                           }
+
                        });
     };
     
@@ -266,14 +270,12 @@
                                                 completionHandler:handler];
     
 
-    
-    
-    
     //display the cropPhoto overlay
     [self displayOverlay];
     [self initGestureRecognizers];
 
 }
+
 -(void)displayOverlay{
     touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
     touchX1=50.532;
@@ -299,6 +301,12 @@
     [rightRect setBackgroundColor:UA_OVERLAY_COLOR];
     [self.view addSubview:rightRect];
 }
+-(void)removeOverlay{
+    [leftRect removeFromSuperview];
+    [rightRect removeFromSuperview];
+    [upperRect removeFromSuperview];
+    [lowerRect removeFromSuperview];
+}
 -(void)initGestureRecognizers{
     panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
     [self.view addGestureRecognizer:panRecognizer];
@@ -316,6 +324,7 @@
     panRecognizer.delegate = self;
     pinchRecognizer.delegate = self;
     rotationRecognizer.delegate = self;}
+
 - (void)panDetected:(UIPanGestureRecognizer *)panRecognizerFound{
     CGPoint translation = [panRecognizerFound translationInView:self.view];
     CGPoint imageViewPosition = self.previewLayerHostView.center;
@@ -348,25 +357,25 @@
 // method used when pressing OK button
 -(void)imageSelected{
     [self.avSession stopRunning];
-    //[self goToCropPhoto];
+
     //crop image
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(touchX1 * screenScale,touchY1 * screenScale,(touchX2 - touchX1) * screenScale, 266.472 * screenScale));
     self.croppedPhoto = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     
-    // save the photo to photo library and app's image directory
-    //[self exportHighResImage];
     
     //this goes to the next view
     assignLetter = [[AssignLetter alloc] initWithNibName:@"AssignLetter" bundle:[NSBundle mainBundle]];
     [assignLetter setup:self.croppedPhoto];
-    
+    if (self.preselectedLetterNum!= 50) {
+        assignLetter.chosenImageNumberInArray=self.preselectedLetterNum;
+        [assignLetter preselectLetter];
+    }
     [self.navigationController pushViewController:assignLetter animated:YES];
 }
 
-- (UIImage *)createScreenshot
-{
+- (UIImage *)createScreenshot{
     //    UIGraphicsBeginImageContext(pageSize);
     CGSize pageSize = [[UIScreen mainScreen] bounds].size;
     UIGraphicsBeginImageContextWithOptions(pageSize, YES, 0.0f);
@@ -388,6 +397,45 @@
     [self presentViewController:pickerLibrary animated:YES completion:NULL];
 }
 //--------------------------------------------------
+//save Image to Library
+//--------------------------------------------------
+-(void)saveImageToLibrary {
+    CGImageRef imageRef = CGImageCreateWithImageInRect([capturedImage CGImage], CGRectMake(0, 0, capturedImage.size.width, capturedImage.size.height));
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    
+    
+    NSString *albumName=@"Urban Alphabets";
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    __block ALAssetsGroup* groupToAddTo;
+    [library enumerateGroupsWithTypes:ALAssetsGroupAlbum
+                           usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                               if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:albumName]) {
+                                   groupToAddTo = group;
+                               }
+                           }
+                         failureBlock:^(NSError* error) {
+                         }];
+    CGImageRef img = [image CGImage];
+    [library writeImageToSavedPhotosAlbum:img
+                                 metadata:nil
+                          completionBlock:^(NSURL* assetURL, NSError* error) {
+                              if (error.code == 0) {
+                                  // try to get the asset
+                                  [library assetForURL:assetURL
+                                           resultBlock:^(ALAsset *asset) {
+                                               // assign the photo to the album
+                                               [groupToAddTo addAsset:asset];
+                                           }
+                                          failureBlock:^(NSError* error) {
+                                          }];
+                              }
+                              else {
+                              }
+                          }];
+    
+}
+//--------------------------------------------------
 //load image from photo library
 //--------------------------------------------------
 - (void) imagePickerController:(UIImagePickerController *)pickerLibrary didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
@@ -396,8 +444,8 @@
     self.img = image;
     float scaleFactorImage=image.size.width/image.size.height;
     
-    double proportion = 640.0/480.0;
-    double imageTop = ([[UIScreen mainScreen] bounds].size.height / 2.0) - (320*proportion / 2.0);
+    proportion = 640.0/480.0;
+    imageTop = ([[UIScreen mainScreen] bounds].size.height / 2.0) - (320*proportion / 2.0);
     
     //self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
     UIImageView *imageView= [[UIImageView alloc] initWithFrame:CGRectMake(0, imageTop, [[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.width/scaleFactorImage)] ;
