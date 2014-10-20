@@ -15,9 +15,9 @@ void ofApp::setup(){
     screenHeight=288;
     
     //
-    recentPostcards="http://www.ualphabets.com/requests/Riga/postcards.php";
-    recentLetters="http://www.ualphabets.com/requests/Riga/letters.php";
-    currentAlphabet="http://www.ualphabets.com/requests/Riga/alphabet.php";
+    recentPostcards="http://www.ualphabets.com/requests/SaoPaulo/postcardsLED.php";
+    recentLetters="http://www.ualphabets.com/requests/SaoPaulo/letters.php";
+    currentAlphabet="http://www.ualphabets.com/requests/SaoPaulo/alphabet.php";
     currentQuestion="http://www.ualphabets.com/requests/Riga/connected/question.php";
     
     info="Info";
@@ -548,7 +548,7 @@ void ofApp::drawPostcards(){
         ofSetColor(255, 255, 255, blendInfo);
     }
     //blend out
-    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthPostcards-1) && counterPostcardsAndLetters<FRAME_RATE*lengthPostcards){
+    else if(counterPostcardsAndLetters>=FRAME_RATE*(lengthPostcards-1) && counterPostcardsAndLetters<FRAME_RATE*lengthPostcards){
         blendInfo-=8;
         ofSetColor(255, 255, 255, blendInfo);
     } else{
@@ -565,7 +565,7 @@ void ofApp::drawPostcards(){
         ofSetColor(255, 255, 255, blendInfo);
     }
     //blend out
-    else if(counterPostcardsAndLetters>FRAME_RATE*(lengthPostcards-1) && currImgNo<1){
+    else if(counterPostcardsAndLetters>=FRAME_RATE*(lengthPostcards-1) && currImgNo<1){
         blendInfo-=8;
         ofSetColor(255, 255, 255, blendInfo);
     } else{
