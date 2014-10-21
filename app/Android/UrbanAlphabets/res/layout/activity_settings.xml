@@ -42,7 +42,6 @@
         android:inputType="text"
         android:textColor="@color/Black"
         android:visibility="gone" >
-
     </EditText>
 
     <TextView
@@ -50,8 +49,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_username_label"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/textview_username_label"
+        android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="onClickChangeUsername"
         android:text="@string/change"
@@ -87,8 +88,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_default_language_label"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/textview_default_language_label"
+        android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="onClickChangeDefaultLanguage"
         android:text="@string/change"

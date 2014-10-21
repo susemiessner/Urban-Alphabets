@@ -41,12 +41,12 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.TakePhotoActivity"
-            android:label="@string/take_photo"
+            android:label="@string/take_photo_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.WritePostcardActivity"
-            android:label="@string/write_postcard"
+            android:label="@string/write_postcard_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -55,52 +55,52 @@
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ViewLetterActivity"
-            android:label="@string/view_letter"
+            android:label="@string/view_letter_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AlphabetInfoActivity"
-            android:label="@string/alphabet_info"
+            android:label="@string/alphabet_info_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.MyAlphabetsActivity"
-            android:label="@string/my_alphabets"
+            android:label="@string/my_alphabets_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AddAlphabetActivity"
-            android:label="@string/add_alphabet"
+            android:label="@string/add_alphabet_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.CropPhotoActivity"
-            android:label="@string/crop_photo"
+            android:label="@string/crop_photo_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.AssignLetterActivity"
-            android:label="@string/assign_letter"
+            android:label="@string/assign_letter_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ChangeLanguageActivity"
-            android:label="@string/change_language"
+            android:label="@string/change_language_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.WelcomeActivity"
-            android:label="@string/welcome"
+            android:label="@string/welcome_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.SettingsActivity"
-            android:label="@string/settings"
+            android:label="@string/settings_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="org.susemiessner.android.urbanalphabets.ChangeDefaultLanguageActivity"
-            android:label="@string/change_default_language"
+            android:label="@string/change_default_language_cap"
             android:screenOrientation="portrait" >
         </activity>
         <activity

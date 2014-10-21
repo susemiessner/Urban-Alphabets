@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -15,8 +15,20 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:actionBarStyle">@style/solidActionBar</item>
+    	<item name="android:itemBackground">@drawable/selection</item>   
+    	<item name="actionBarStyle">@style/solidActionBar</item> 	
     </style>
-	
+    
+	<style name="solidActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+	    <item name="android:background">@color/LightGrey</item>
+	    <item name="android:titleTextStyle">@style/titleTextStyle</item>
+    </style>
+    
+	<style name="titleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    	<item name="android:textStyle">bold</item>
+  	</style>
+    
     <style name="dialog_light" parent="@android:style/Theme.Dialog">
     	<item name="@android:background">@color/Grey</item>
     	<item name="@android:textColor">@color/Black</item>  

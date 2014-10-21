@@ -498,11 +498,11 @@ public class MainActivity extends ActionBarActivity {
 	    		tableLayout.draw(canvas);
 	    		if(mSharedPreferences.getBoolean("save", true))
 	    			saveBitmap(bitmapAlphabet);
-	    		new UpdateDatabase(this, longitude,
+	    		/*new UpdateDatabase(this, longitude,
 	    				latitude,
 	    				username,
 	    				"no", "no", "yes", bitmapAlphabet,
-	    				currentAlphabet, "").execute();
+	    				currentAlphabet, "").execute();*/
 	    				
 	    		return true;
 	    	}

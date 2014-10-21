@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent" >
+	android:layout_height="match_parent">
 
 	<TextView
 	    android:id="@+id/textview_alphabet_label"
@@ -48,8 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textview_alphabet_label"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/textview_alphabet_label"
+        android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="onClickChangeAlphabet"
         android:text="@string/change"
@@ -86,7 +88,10 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@id/textview_language_label"
 	    android:layout_centerHorizontal="true"
+	    android:layout_marginLeft="20dp"
 	    android:layout_marginTop="10dp"
+	    android:layout_toRightOf="@id/textview_language_label"
+	    android:background="@drawable/selection"
 	    android:clickable="true"
 	    android:onClick="onClickChangeLanguage"
 	    android:text="@string/change"
@@ -95,12 +100,15 @@
 
     <TextView
         android:id="@+id/textview_reset_alphabet"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/textview_change_language"
-        android:layout_marginLeft="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="onClickReset"
         android:text="@string/reset_alphabet"
@@ -113,8 +121,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/textview_reset_alphabet"
-        android:layout_marginLeft="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="onClickDelete"
         android:text="@string/delete_alphabet"

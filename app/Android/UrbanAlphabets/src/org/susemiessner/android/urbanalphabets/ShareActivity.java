@@ -110,6 +110,7 @@ public class ShareActivity extends ActionBarActivity {
 				editText.getText().toString());
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + getSharePath()));
 		startActivity(Intent.createChooser(intent, with));
+		finish();
 	}
 	
 	private String getSharePath() {

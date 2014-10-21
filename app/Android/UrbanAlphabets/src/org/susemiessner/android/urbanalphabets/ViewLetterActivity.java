@@ -4,9 +4,12 @@ import java.io.File;
 import java.util.Arrays;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.widget.ImageSwitcher;
@@ -25,12 +28,18 @@ public class ViewLetterActivity extends ActionBarActivity {
 	private int currentIndex;
 	private String currentAlphabet;
 	private String currentLanguage;
+	private SharedPreferences mSharedPreferences;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_letter);
 		currentIndex = getIntent().getIntExtra("currentIndex", 0);
+		mSharedPreferences = PreferenceManager.
+				getDefaultSharedPreferences(getApplicationContext());
+		Editor e = mSharedPreferences.edit();
+		e.putInt("assignLetter", currentIndex);
+		e.commit();
 		currentAlphabet = getIntent().getStringExtra("currentAlphabet");
 		currentLanguage = getIntent().getStringExtra("currentLanguage");
 		imageSwitcher = (ImageSwitcher) findViewById (R.id.imageswitcher_viewimage);

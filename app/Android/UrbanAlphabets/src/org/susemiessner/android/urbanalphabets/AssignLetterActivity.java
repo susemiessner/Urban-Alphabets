@@ -13,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -65,6 +66,7 @@ public class AssignLetterActivity extends ActionBarActivity {
 	private View saved;
 	private String currentAlphabet;
 	private String currentLanguage;
+	private ImageButton imageButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,13 @@ public class AssignLetterActivity extends ActionBarActivity {
 				getDefaultSharedPreferences(getApplicationContext());
 		currentAlphabet = mSharedPreferences.getString("currentAlphabet", "");
 		currentLanguage = mSharedPreferences.getString("currentLanguage", "");
-		selected = -1;
+		selected = mSharedPreferences.getInt("assignLetter", -1);
+		Editor e = mSharedPreferences.edit();
+		e.putInt("assignLetter", -1);
+		e.commit();
+		imageButton = (ImageButton) findViewById(R.id.imagebutton_assign_letter);
+		if(selected != -1)
+			imageButton.setVisibility(View.VISIBLE);
 		linearLayout = (LinearLayout) findViewById
 				(R.id.layout_assign_letter);
 		ViewTreeObserver vto = linearLayout.getViewTreeObserver();
@@ -101,7 +109,6 @@ public class AssignLetterActivity extends ActionBarActivity {
 	}
 	
 	public void onClick(View v) {
-		ImageButton imageButton = (ImageButton) findViewById(R.id.imagebutton_assign_letter);
 		if(imageButton.getVisibility() == View.GONE)
 			imageButton.setVisibility(View.VISIBLE);
 		if(selected != -1 ){
@@ -229,6 +236,9 @@ public class AssignLetterActivity extends ActionBarActivity {
 						Bitmap resized = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
 								bitmap.getHeight(), matrix, false);
 						imageView.setImageBitmap(resized);
+						if(index == selected)
+							imageView.setColorFilter(Color.argb(0x80, 0xC2, 0xF7, 0x9E));
+							
 					}
 				}
 			});

@@ -235,6 +235,7 @@ public class WritePostcardActivity extends ActionBarActivity {
 	     	case R.id.item_wp_my_alphabets: {
 	    		Intent myAlphabetsIntent = new Intent(this, MyAlphabetsActivity.class);
 	    		startActivity(myAlphabetsIntent);
+	    		finish();
 	    		return true;
 	     	}
 	    	default:
