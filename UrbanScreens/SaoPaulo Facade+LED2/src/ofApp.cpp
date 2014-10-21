@@ -15,16 +15,16 @@ void ofApp::setup(){
     screenHeight=288;
     
     //
-    recentPostcards="http://www.ualphabets.com/requests/Riga/postcards.php";
-    recentLetters="http://www.ualphabets.com/requests/Riga/letters.php";
-    currentAlphabet="http://www.ualphabets.com/requests/Riga/alphabet.php";
+    recentPostcards="http://www.ualphabets.com/requests/SaoPaulo/postcards.php";
+    recentLetters="http://www.ualphabets.com/requests/SaoPaulo/letters.php";
+    currentAlphabet="http://www.ualphabets.com/requests/SaoPaulo/alphabet.php";
     currentQuestion="http://www.ualphabets.com/requests/Riga/connected/question.php";
     
     info="Info";
     
     //setup of the URLS that need to be loaded
     URLsToLoad[0]=info;
-    URLsToLoad[1]=currentAlphabet;//currentQuestion;
+    URLsToLoad[1]=currentQuestion;
     URLsToLoad[2]=recentPostcards;
     URLsToLoad[3]=recentLetters;
     URLsToLoad[4]=recentPostcards;
@@ -35,7 +35,6 @@ void ofApp::setup(){
     currentURL=URLsToLoad[currentURLNo];
     loading= true; //send the first request on start alphabets/postcards/...
     
-    englishTitleScale=0.8;
     
     //setup for intro screens before actual
     loadingResponseDone=false;
@@ -52,7 +51,7 @@ void ofApp::setup(){
     
     //setup for postcards and letters screen
     lengthPostcards=12;//in secs
-    lengthLetters=10;//in secs
+    lengthLetters=8;//in secs
     counterPostcardsAndLetters=0;
     counterPostcardsTitle=0;
     counterPostcardsQuestion=0;
@@ -536,7 +535,7 @@ void ofApp::drawPostcards(){
 
     ofEnableAlphaBlending();
     
-    if (counterPostcardsTitle<=introLength*FRAME_RATE) {
+    //if (counterPostcardsTitle<=introLength*FRAME_RATE) {
         //blending for question
         //blend in
         if(counterPostcardsTitle<FRAME_RATE){
@@ -544,7 +543,7 @@ void ofApp::drawPostcards(){
             ofSetColor(255, 255, 255, blendInfoFacade);
         }
         //blend out
-        else if(counterPostcardsTitle>FRAME_RATE*(introLength-1)){
+        else if(counterPostcardsTitle>FRAME_RATE*(lengthPostcards-1)){
             blendInfoFacade-=8;
             ofSetColor(255, 255, 255, blendInfoFacade);
         } else{
@@ -566,7 +565,7 @@ void ofApp::drawPostcards(){
             allPostcards[currImgNo].draw();
         }
 
-    }
+   // }
     ofDisableAlphaBlending();
 }
 void ofApp::drawLetters(){
