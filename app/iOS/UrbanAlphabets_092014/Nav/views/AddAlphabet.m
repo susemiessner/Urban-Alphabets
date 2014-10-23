@@ -32,6 +32,9 @@
     UIImageView *loadedImage;
     
     int letterToChange;
+    
+    //to check if alphabet name already exists
+    bool newAlphabetName;
 }
 @property (nonatomic) BottomNavBar *bottomNavBar;
 @property (readwrite) NSString *defaultLanguage;
@@ -43,6 +46,7 @@
     self.title=@"Add New Alphabet";
     name=@" "; //default new alphabet name
     notificationCounter=0;
+    newAlphabetName=false;
     
     //back button
     CGRect frame = CGRectMake(0, 0, 60,20);
@@ -57,7 +61,10 @@
     CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
     self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame centerIcon:UA_ICON_OK withFrame:CGRectMake(0, 0, 90, 45) ];
     [self.view addSubview:self.bottomNavBar];
-    //self.bottomNavBar.centerImageView.hidden=YES;
+    
+    UITapGestureRecognizer *okButtonRecognizerRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAlphabet)];
+    okButtonRecognizerRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:okButtonRecognizerRecognizer];
     
     shapesForBackground = [[NSMutableArray alloc] init];
 }
@@ -155,48 +162,60 @@
     }
     [checkedIcon setFrame: CGRectMake(5, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+(elementNumber-1)*height+firstShapeY-22, 30,30)];
     
-    if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "] && notificationCounter<1) {
-        self.bottomNavBar.centerImageView.hidden=NO;
-        UIView *shape=[[UIView alloc] initWithFrame:CGRectMake(self.bottomNavBar.centerImageView.frame.origin.x-20, self.bottomNavBar.frame.origin.y-10, self.bottomNavBar.centerImage.size.width+40, self.bottomNavBar.centerImage.size.height+20)];
-        shape.layer.borderWidth=1.0f;
-        shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
-        [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
-        [self.view addSubview:shape];
-        
-        UITapGestureRecognizer *okButtonRecognizerRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAlphabet)];
-        okButtonRecognizerRecognizer.numberOfTapsRequired = 1;
-        [shape addGestureRecognizer:okButtonRecognizerRecognizer];
-        notificationCounter++;
     }
-}
 -(void)addAlphabet{
-    id obj = [self.navigationController.viewControllers objectAtIndex:0];
-    workspace=(C4WorkSpace*)obj;
+    name=textInput.text;
     
-    //add new alphabet to my alphabets
-    [workspace.myAlphabets addObject:name];
-    //add a new language to languages array (so u can reload correctly later)
-    [workspace.myAlphabetsLanguages addObject: [workspace.languages objectAtIndex:elementNoChosen]];
+    if (elementNoChosen<[workspace.languages count] && ![name isEqual:@" "]){
+        
+        id obj = [self.navigationController.viewControllers objectAtIndex:0];
+        workspace=(C4WorkSpace*)obj;
+        
+        //check if the name already exists
+        for (int i=0; i<[workspace.myAlphabets count]; i++) {
+            NSLog(@"i: %i workspace: '%@', name: '%@'", i, [workspace.myAlphabets objectAtIndex:i], name);
+            if ([[workspace.myAlphabets objectAtIndex:i] isEqualToString:name]) {
+                newAlphabetName=false;
+                break;
+            } else if(i==[workspace.myAlphabets count]-1){
+                newAlphabetName=true;
+            }
+        }
+        if (newAlphabetName==true) {
+            //add new alphabet to my alphabets
+            [workspace.myAlphabets addObject:name];
+            //add a new language to languages array (so u can reload correctly later)
+            [workspace.myAlphabetsLanguages addObject: [workspace.languages objectAtIndex:elementNoChosen]];
+            
+            //set alphabet name to new one
+            workspace.alphabetName=name;
+            //set current language to language chosen
+            workspace.currentLanguage=[workspace.languages objectAtIndex:elementNoChosen];
+            //set old language to Finnish/swedish > the default one
+            workspace.oldLanguage=@"Finnish/Swedish";
+            //set it to the right language
+            [workspace loadDefaultAlphabet];
+            
+            
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            
+            //delete oldest alphabet if more than a certain number are added (so we don't need a scroll view here)
+            if ([workspace.myAlphabets count]>8) {
+                [workspace.myAlphabets removeObjectAtIndex:0];
+                [workspace.myAlphabetsLanguages removeObjectAtIndex:0];
+            }
+            [workspace writeAlphabetsUserDefaults];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alphabet name already exists"
+                                                            message:@"Please enter a different alphabet name."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            [textInput becomeFirstResponder];
 
-    //set alphabet name to new one
-    workspace.alphabetName=name;
-    //set current language to language chosen
-    workspace.currentLanguage=[workspace.languages objectAtIndex:elementNoChosen];
-    //set old language to Finnish/swedish > the default one
-    workspace.oldLanguage=@"Finnish/Swedish";
-    //set it to the right language
-    [workspace loadDefaultAlphabet];
-   
-    
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    
-    //delete oldest alphabet if more than a certain number are added (so we don't need a scroll view here)
-    if ([workspace.myAlphabets count]>8) {
-        [workspace.myAlphabets removeObjectAtIndex:0];
-        [workspace.myAlphabetsLanguages removeObjectAtIndex:0];
+        }
     }
-    [workspace writeAlphabetsUserDefaults];
-
 }
 -(void)checkIfLetterExistsInDocumentsDirectory:(int)number{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

@@ -55,7 +55,6 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    
     [self cameraSetup];
 }
 -(void)goBack{
@@ -151,7 +150,7 @@
         
         
         self.bottomNavBar.rightImageView.hidden = YES;
-    }
+}
     else
     {
         [self cameraPrepareToRetake];
@@ -183,7 +182,6 @@
         
         self.avPreviewLayer.transform=transform;
     }
-    
 }
 
 // this prepares to takes the picture
@@ -281,6 +279,12 @@
     touchX1=50.532;
     touchY2= touchY1 + 266.472;
     touchX2= [[UIScreen mainScreen] bounds].size.width-50.3532;
+    if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
+        touchX1=50.532+27;
+        touchY2= touchY1 + 266.472;
+        touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+27);
+    }
     //upper rect
     upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
     [upperRect setBackgroundColor:UA_OVERLAY_COLOR];
@@ -325,9 +329,10 @@
     CGPoint imageViewPosition = self.previewLayerHostView.center;
     imageViewPosition.x += translation.x;
     imageViewPosition.y += translation.y;
-    
+
     self.previewLayerHostView.center = imageViewPosition;
     [panRecognizer setTranslation:CGPointZero inView:self.view];
+
 }
 - (void)pinchDetected:(UIPinchGestureRecognizer *)pinchRecognizerFound{
     CGFloat scale = pinchRecognizerFound.scale;
@@ -449,6 +454,7 @@
 {
     [pickerLibrary dismissModalViewControllerAnimated:TRUE];
     self.img = image;
+
     float scaleFactorImage=image.size.width/image.size.height;
     
     double proportion = 640.0/480.0;
@@ -456,7 +462,7 @@
     
     //self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
     UIImageView *imageView= [[UIImageView alloc] initWithFrame:CGRectMake(0, imageTop, [[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.width/scaleFactorImage)] ;
-    [imageView setImage:image];
+    [imageView setImage:self.img];
     
     [self.previewLayerHostView addSubview:imageView];
     

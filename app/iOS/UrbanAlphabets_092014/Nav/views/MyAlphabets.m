@@ -84,7 +84,6 @@
         label.userInteractionEnabled=YES;
         [labels addObject:label];
         
-        //[self listenFor:@"touchesBegan" fromObject:shape andRunMethod:@"alphabetChanged:"];
         UITapGestureRecognizer *shapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alphabetChanged:)];
         shapeRecognizer.numberOfTapsRequired = 1;
         [shape addGestureRecognizer:shapeRecognizer];

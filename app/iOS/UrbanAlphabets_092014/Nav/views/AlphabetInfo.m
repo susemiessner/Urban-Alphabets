@@ -27,6 +27,8 @@
     UITextView *textViewTest;
     NSString *newCharacter;
     NSString *currentAlphabetName;
+    
+    bool newAlphabetName;
 }
 
 @property (nonatomic) BottomNavBar *bottomNavBar;
@@ -35,6 +37,7 @@
 @implementation AlphabetInfo
 -(void)setup {
     self.title=@"Alphabet Info";
+    newAlphabetName=false;
     //back button
     CGRect frame = CGRectMake(0, 0, 60,20);
     UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
@@ -105,11 +108,8 @@
     [self.view addSubview:language];
     language.userInteractionEnabled=YES;
     
-    int xPosChange=secondColumX+language.frame.size.width+5;
-    if (xPosChange+changeLanguage.frame.size.width > [[UIScreen mainScreen] bounds].size.width) {
-        xPosChange=secondColumX;
-        yPos+=lineHeight-15;
-    }
+    int xPosChange=secondColumX;
+    yPos+=lineHeight-15;
     changeLanguage=[[UILabel alloc]initWithFrame:CGRectMake(xPosChange, yPos, 100, 20)];
     [changeLanguage setText:@"(change)"];
     [changeLanguage setFont:UA_NORMAL_FONT];
@@ -272,39 +272,58 @@
 - (void)textViewDidEndEditing:(UITextView *)textView{
     id obj = [self.navigationController.viewControllers objectAtIndex:0];
     workspace=(C4WorkSpace*)obj;
-    
-    //rename folder
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:workspace.alphabetName];
-    
-    NSString *aPath=filePath;
-    NSString *bPath =[documentsPath stringByAppendingString:@"/"];
-    bPath=[bPath stringByAppendingPathComponent:textView.text];
-    NSError *error = nil;
-
-    NSLog (@"Copying download file from %@ to %@", aPath, bPath);
-    if ([[NSFileManager defaultManager] fileExistsAtPath: bPath]) {
-        [[NSFileManager defaultManager] removeItemAtPath: bPath
-                                                   error: &error];
-    }
-    
-    if (![[NSFileManager defaultManager] copyItemAtPath: aPath
-                                                 toPath: bPath
-                                                  error: &error]){}
-    if ([[NSFileManager defaultManager] removeItemAtPath: aPath
-                                                   error: &error]) {}
-    
-    //save the new alphabet name
-    workspace.alphabetName=textView.text;
-    workspace.titleLabel.text=textView.text;
+    //check if the name already exists
     for (int i=0; i<[workspace.myAlphabets count]; i++) {
-        if ([[workspace.myAlphabets objectAtIndex:i]isEqualToString:currentAlphabetName]) {
-            [workspace.myAlphabets replaceObjectAtIndex:i withObject: textView.text];
+        NSLog(@"i: %i workspace: '%@', name: '%@'", i, [workspace.myAlphabets objectAtIndex:i], textView.text);
+        if ([[workspace.myAlphabets objectAtIndex:i] isEqualToString:textView.text]) {
+            newAlphabetName=false;
+            break;
+        } else if(i==[workspace.myAlphabets count]-1){
+            newAlphabetName=true;
         }
     }
-    currentAlphabetName=workspace.alphabetName;
-    [workspace writeAlphabetsUserDefaults];
+    if (newAlphabetName==true) {
+        //rename folder
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:workspace.alphabetName];
+        
+        NSString *aPath=filePath;
+        NSString *bPath =[documentsPath stringByAppendingString:@"/"];
+        bPath=[bPath stringByAppendingPathComponent:textView.text];
+        NSError *error = nil;
+        
+        NSLog (@"Copying download file from %@ to %@", aPath, bPath);
+        if ([[NSFileManager defaultManager] fileExistsAtPath: bPath]) {
+            [[NSFileManager defaultManager] removeItemAtPath: bPath
+                                                       error: &error];
+        }
+        
+        if (![[NSFileManager defaultManager] copyItemAtPath: aPath
+                                                     toPath: bPath
+                                                      error: &error]){}
+        if ([[NSFileManager defaultManager] removeItemAtPath: aPath
+                                                       error: &error]) {}
+        
+        //save the new alphabet name
+        workspace.alphabetName=textView.text;
+        workspace.titleLabel.text=textView.text;
+        for (int i=0; i<[workspace.myAlphabets count]; i++) {
+            if ([[workspace.myAlphabets objectAtIndex:i]isEqualToString:currentAlphabetName]) {
+                [workspace.myAlphabets replaceObjectAtIndex:i withObject: textView.text];
+            }
+        }
+        currentAlphabetName=workspace.alphabetName;
+        [workspace writeAlphabetsUserDefaults];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alphabet name already exists"
+                                                        message:@"Please enter a different alphabet name."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [textViewTest becomeFirstResponder];
+    }
 
 }
 

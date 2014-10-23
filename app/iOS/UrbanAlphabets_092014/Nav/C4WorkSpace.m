@@ -60,6 +60,7 @@
     UIImageView *enterUsername;
     UITextView *userNameField;
     float yPosUsername;
+    float xPosUsername;
     
 }
 
@@ -126,7 +127,6 @@
         [self.view addSubview:[introPicsViews objectAtIndex:0]];
         
         nextButton=UA_ICON_NEXT;
-        //nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake(self.canvas.width-nextButton.size.width-20, self.canvas.height-nextButton.size.height-20, 80, 34)];
         nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-100, [[UIScreen mainScreen] bounds].size.height-100+yPosIntro, 80, 34)];
         nextButtonView.image=nextButton;
         [self.view addSubview:nextButtonView];
@@ -212,16 +212,27 @@
     UITapGestureRecognizer *menuButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMenu)];
     menuButtonRecognizer.numberOfTapsRequired = 1;
     [self.bottomNavBar.centerImageView addGestureRecognizer:menuButtonRecognizer];
-    
+    //real
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
+    /*//resting iphone 6
+    imageHeight=UA_LETTER_IMG_HEIGHT_6;
+    imageWidth=UA_LETTER_IMG_WIDTH_6;*/
+    
     self.alphabetFromLeft=0;
-    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    self.alphabetFromTop=0;
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         self.alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
+    } else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_6;
+        imageWidth=UA_LETTER_IMG_WIDTH_6;
+        self.alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS;
     }
+    NSLog(@"imageWidth: %f", imageWidth);
+    NSLog(@"screenWidth: %f", [[UIScreen mainScreen]bounds].size.width);
     [self drawCurrentAlphabet];
     [self initGreyGrid];
 }
@@ -230,7 +241,7 @@
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth+self.alphabetFromLeft;
-        float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
+        float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight+self.alphabetFromTop;
         
         UIImageView *image=[self.currentAlphabet objectAtIndex:i ];
         image.frame=CGRectMake(xPos, yPos, imageWidth, imageHeight);
@@ -244,7 +255,7 @@
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
         float xPos=xMultiplier*imageWidth+self.alphabetFromLeft;
-        float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight;
+        float yPos=1+UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+yMultiplier*imageHeight+self.alphabetFromTop;
         UIView *greyRect=[[UIView alloc]initWithFrame:CGRectMake(xPos, yPos, imageWidth, imageHeight)];
         [greyRect setBackgroundColor:UA_NAV_CTRL_COLOR];
         
@@ -380,9 +391,6 @@
     
 }
 -(void)goToAlphabetInfo{
-    //--------------------------------------------------
-    //prepare alphabetInfo
-    //--------------------------------------------------
     alphabetInfo=[[AlphabetInfo alloc]initWithNibName:@"AlphabetInfo" bundle:[NSBundle mainBundle]];
     [alphabetInfo setup];
     [self.navigationController pushViewController:alphabetInfo animated:YES];
@@ -410,8 +418,9 @@
 -(void)goToShareAlphabet{
     //get the current alphabet as a photo
     [self closeMenu];
+    [self saveCurrentAlphabetAsImage];
     shareAlphabet=[[ShareAlphabet alloc]initWithNibName:@"ShareAlphabet" bundle:[NSBundle mainBundle]];
-    [shareAlphabet setup: self.currentAlphabetImageAsUIImage];
+    [shareAlphabet setup: self.currentAlphabetImage];
     [self.navigationController pushViewController:shareAlphabet animated:YES];
 }
 -(void)goBack{
@@ -439,16 +448,23 @@
     if ([self.userName isEqualToString:@"defaultUsername" ]) {
         //ask for new username
         enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
-        if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+        if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
             //iphone 4
             enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
             yPosUsername=-75;
+            xPosUsername=0;
+        } if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 4
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
+            yPosUsername=-50;
+            xPosUsername=10;
         } else {
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+            xPosUsername=0;
         }
         [self.view addSubview:enterUsername];
         //add text field
-        CGRect textViewFrame = CGRectMake(60, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20, 25.0f);
+        CGRect textViewFrame = CGRectMake(60+xPosUsername, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20-xPosUsername, 25.0f);
         userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
         userNameField.returnKeyType = UIReturnKeyDone;
         userNameField.layer.borderWidth=1.0f;
@@ -465,9 +481,11 @@
 -(void)saveCurrentAlphabetAsImage{
     double screenScale = [[UIScreen mainScreen] scale];
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(0, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, [[UIScreen mainScreen] bounds].size.width * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
-    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
     //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
+    }else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS))*screenScale));
     }
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
@@ -771,6 +789,9 @@
     [alphabetName synchronize];
 }
 -(void)appWillBecomeActive:(NSNotification*)note{
+    
+}
+-(void)initialize{
     NSString *loadedName=[[NSUserDefaults standardUserDefaults] objectForKey:@"alphabetName"];
     if (!loadedName) {
         self.alphabetName=@"My first alphabet";
@@ -852,7 +873,6 @@
             [self.currentAlphabet addObject:loadedImage];
         }
     }
-    
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     currentLocation = newLocation;

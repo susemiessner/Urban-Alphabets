@@ -44,6 +44,10 @@
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
+    } else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_6;
+        imageWidth=UA_LETTER_IMG_WIDTH_6;
+        //self.alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS;
     }
     
     //scroll up in the scrollview

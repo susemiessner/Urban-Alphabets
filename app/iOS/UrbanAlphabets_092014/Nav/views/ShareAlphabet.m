@@ -37,7 +37,7 @@
     imageToSend=[imageToShare copy];
     message=@" ";
     
-    alphabetImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+50, 46, 46) ];
+    alphabetImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+20, 100, 120) ];
     alphabetImage.image=imageToShare;
     [self.view addSubview:alphabetImage];
     
@@ -52,11 +52,13 @@
     [self.view addSubview:textInput];
     
     //share images and labels
-    int shareIconYPos=140;
-    twitterImage=[[UIImageView alloc]initWithFrame:CGRectMake(20,  UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    int shareIconYPos=alphabetImage.frame.size.height+alphabetImage.frame.origin.y+20;
+    NSLog(@"imageHeight: %i", shareIconYPos);
+    twitterImage=[[UIImageView alloc]initWithFrame:CGRectMake(20,  shareIconYPos, 40, 40)];
     twitterImage.image=UA_ICON_TWITTER;
     twitterImage.userInteractionEnabled=YES;
     [self.view addSubview:twitterImage];
+    NSLog(@"%f", twitterImage.frame.origin.y);
     
     int labelToLeft=60;
     int labelUp=10;
@@ -67,7 +69,7 @@
     [self.view addSubview:twitterLabel];
     
     shareIconYPos+=60;
-    facebookImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    facebookImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, shareIconYPos, 40, 40)];
     facebookImage.image=UA_Icon_FB;
     facebookImage.userInteractionEnabled=YES;
     [self.view addSubview:facebookImage];
@@ -79,7 +81,7 @@
     [self.view addSubview:facebookLabel];
     
     shareIconYPos+=60;
-    mailImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    mailImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, shareIconYPos, 40, 40)];
     mailImage.image=UA_ICON_MAIL;
     mailImage.userInteractionEnabled=YES;
     [self.view addSubview:mailImage];
@@ -91,7 +93,6 @@
     [self.view addSubview:mailLabel];
     
     //interactions
-    //[self listenFor:@"touchesBegan" fromObjects:@[facebookImage, facebookLabel] andRunMethod:@"shareToFacebook"];
     UITapGestureRecognizer *facebookImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToFacebook)];
     facebookImageTapRecognizer.numberOfTapsRequired = 1;
     [facebookImage addGestureRecognizer:facebookImageTapRecognizer];
@@ -99,7 +100,6 @@
     facebookLabelTapRecognizer.numberOfTapsRequired = 1;
     [facebookLabel addGestureRecognizer:facebookLabelTapRecognizer];
     
-    //[self listenFor:@"touchesBegan" fromObjects:@[twitterImage, twitterLabel] andRunMethod:@"shareToTwitter"];
     UITapGestureRecognizer *twitterImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToTwitter)];
     twitterImageTapRecognizer.numberOfTapsRequired = 1;
     [twitterImage addGestureRecognizer:twitterImageTapRecognizer];
@@ -107,7 +107,6 @@
     twitterLabelTapRecognizer.numberOfTapsRequired = 1;
     [twitterLabel addGestureRecognizer:twitterLabelTapRecognizer];
     
-    //[self listenFor:@"touchesBegan" fromObjects:@[mailImage, mailLabel] andRunMethod:@"shareToMail"];
     UITapGestureRecognizer *mailImageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareToMail)];
     mailImageTapRecognizer.numberOfTapsRequired = 1;
     [mailImage addGestureRecognizer:mailImageTapRecognizer];

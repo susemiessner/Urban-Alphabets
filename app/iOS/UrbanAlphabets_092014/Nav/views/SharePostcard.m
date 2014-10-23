@@ -36,7 +36,7 @@
     imageToSend=[imageToShare copy];
     message=@" ";
     
-    postcardImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+50, 46, 46) ];
+    postcardImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+20, 100, 120) ];
     postcardImage.image=imageToShare;
     [self.view addSubview:postcardImage];
     
@@ -53,8 +53,8 @@
     
     //share images and labels
     //share images and labels
-    int shareIconYPos=140;
-    twitterImage=[[UIImageView alloc]initWithFrame:CGRectMake(20,  UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    int shareIconYPos=postcardImage.frame.size.height+postcardImage.frame.origin.y+20;
+    twitterImage=[[UIImageView alloc]initWithFrame:CGRectMake(20,  shareIconYPos, 40, 40)];
     twitterImage.image=UA_ICON_TWITTER;
     twitterImage.userInteractionEnabled=YES;
     [self.view addSubview:twitterImage];
@@ -68,7 +68,7 @@
     [self.view addSubview:twitterLabel];
     
     shareIconYPos+=60;
-    facebookImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    facebookImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, shareIconYPos, 40, 40)];
     facebookImage.image=UA_Icon_FB;
     facebookImage.userInteractionEnabled=YES;
     [self.view addSubview:facebookImage];
@@ -80,7 +80,7 @@
     [self.view addSubview:facebookLabel];
     
     shareIconYPos+=60;
-    mailImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE+shareIconYPos, 40, 40)];
+    mailImage=[[UIImageView alloc]initWithFrame:CGRectMake(20, shareIconYPos, 40, 40)];
     mailImage.image=UA_ICON_MAIL;
     mailImage.userInteractionEnabled=YES;
     [self.view addSubview:mailImage];

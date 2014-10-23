@@ -95,11 +95,9 @@
     [self.view addSubview:language];
     language.userInteractionEnabled=YES;
     
-    int xPosChange=secondColumX+language.frame.size.width+5;
-    if (xPosChange+changeLanguage.frame.size.width > [[UIScreen mainScreen] bounds].size.width) {
-        xPosChange=secondColumX;
-        yPos+=lineHeight-15;
-    }
+    int xPosChange=secondColumX;
+    yPos+=lineHeight-15;
+    
     changeLanguage=[[UILabel alloc]initWithFrame:CGRectMake(xPosChange, yPos+21, 100, 20)];
     [changeLanguage setText:@"(change)"];
     [changeLanguage setFont:UA_NORMAL_FONT];
