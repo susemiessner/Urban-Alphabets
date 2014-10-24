@@ -97,15 +97,19 @@
     yPosUsername=0;
     alphabetFromLeft=0;
     if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
-    }else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+    } else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
         imageHeight=UA_LETTER_IMG_HEIGHT_6;
         imageWidth=UA_LETTER_IMG_WIDTH_6;
         alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS;
+    }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_6PLUS;
+        imageWidth=UA_LETTER_IMG_WIDTH_6PLUS;
+        alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS;
     }
+
 
     self.bottomNavBar.centerImageView.hidden=YES;
 
@@ -127,7 +131,7 @@
 
 -(void)initGreyGrid{
     greyGridArray=[[NSMutableArray alloc]init];
-    NSLog(@"chosen image %lu", self.chosenImageNumberInArray);
+    NSLog(@"chosen image %lu", (unsigned long)self.chosenImageNumberInArray);
     for (NSUInteger i=0; i<42; i++) {
         float xMultiplier=(i)%6;
         float yMultiplier= (i)/6;
@@ -211,17 +215,23 @@
     if ([workspace.userName isEqualToString:@"defaultUsername" ]) {
         //ask for new username
         enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
-        if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
             //iphone 4
             enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
             yPosUsername=-75;
             xPosUsername=0;
-        } if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-            //iphone 4
-            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
-            yPosUsername=-50;
-            xPosUsername=10;
+        } else if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 6
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+            yPosUsername=20;
+            xPosUsername=20;
+        } else if (UA_IPHONE_6PLUS_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 6plus
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+            yPosUsername=30;
+            xPosUsername=20;
         } else {
+            //iphone5
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
             xPosUsername=0;
         }

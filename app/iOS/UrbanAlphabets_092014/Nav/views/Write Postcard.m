@@ -47,7 +47,9 @@
     } else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
         imageHeight=UA_LETTER_IMG_HEIGHT_6;
         imageWidth=UA_LETTER_IMG_WIDTH_6;
-        //self.alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS;
+    }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_6PLUS;
+        imageWidth=UA_LETTER_IMG_WIDTH_6PLUS;
     }
     
     //scroll up in the scrollview
@@ -216,6 +218,28 @@
             }
             if(yMultiplier==5 && xMultiplier==0){
                 CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*4);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+        }else if ([[UIScreen mainScreen] bounds].size.height==UA_IPHONE_6PLUS_HEIGHT) {
+            if(yMultiplier==5 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==6 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*2);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+        }else if ([[UIScreen mainScreen] bounds].size.height==UA_IPHONE_6_HEIGHT) {
+            if(yMultiplier==4 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+20);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==5 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*2);
+                [scrollViewSuse setContentOffset:bottomOffset animated:YES];
+            }
+            if(yMultiplier==6 && xMultiplier==0){
+                CGPoint bottomOffset = CGPointMake(0, -64+imageHeight*3);
                 [scrollViewSuse setContentOffset:bottomOffset animated:YES];
             }
         }

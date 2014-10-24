@@ -56,6 +56,24 @@
     self.navigationItem.leftBarButtonItem=leftButton;
     
     [self cameraSetup];
+    //for testing
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 60, 30) centerIcon:UA_ICON_TAKE_PHOTO_BIG withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 70, 35)];
+    [self.view addSubview:self.bottomNavBar];
+    
+    UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
+    takePhotoButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:takePhotoButtonRecognizer];
+    
+    
+    UITapGestureRecognizer *photoLibraryButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToPhotoLibrary)];
+    photoLibraryButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.leftImageView addGestureRecognizer:photoLibraryButtonRecognizer];
+    
+    
+    
+    self.bottomNavBar.rightImageView.hidden = YES;
+
 }
 -(void)goBack{
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -284,6 +302,11 @@
         touchX1=50.532+27;
         touchY2= touchY1 + 266.472;
         touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+27);
+    } else if ( UA_IPHONE_6PLUS_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
+        touchX1=50.532+47;
+        touchY2= touchY1 + 266.472;
+        touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+47);
     }
     //upper rect
     upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
@@ -364,10 +387,11 @@
     
     //this goes to the next view
     assignLetter = [[AssignLetter alloc] initWithNibName:@"AssignLetter" bundle:[NSBundle mainBundle]];
+    [assignLetter setup:self.croppedPhoto];
     if (self.preselectedLetterNum!= 50) {
         assignLetter.chosenImageNumberInArray=self.preselectedLetterNum;
+        [assignLetter preselectLetter];
     }    
-    [assignLetter setup:self.croppedPhoto];
     [self.navigationController pushViewController:assignLetter animated:YES];
 }
 

@@ -109,7 +109,7 @@
         self.titleLabel.text=@"Intro";
         
         //check which device
-        if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+        if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
             yPosIntro=50;
             introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone4"],[UIImage imageNamed:@"intro_iphone42"],[UIImage imageNamed:@"intro_iphone44"], nil];
         } else{
@@ -153,28 +153,14 @@
     if (currentNoInIntro<[introPics count]) {
         //add next
         [self.view addSubview:[introPicsViews objectAtIndex:currentNoInIntro]];
-        if (currentNoInIntro==1) {
-            /*CGRect labelFrame = CGRectMake( 25, [[UIScreen mainScreen] bounds].size.height-150, 300, 30 );
-            
-            webadress=[[UILabel alloc] initWithFrame:labelFrame];
-            [webadress setText:@"www.ualphabets.com"];
-            [webadress setTextColor:UA_GREY_TYPE_COLOR];
-            // webadress.origin=CGPointMake(25, [[UIScreen mainScreen] bounds].size.height-150);
-            [self.view addSubview:webadress];*/
-            
-        }
         [self.view addSubview:nextButtonView];
     } else{
         self.titleLabel.text=self.alphabetName;
         NSString *folderName=@"Urban Alphabets";
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library addAssetsGroupAlbumWithName:folderName
-                                 resultBlock:^(ALAssetsGroup *group)
-        {
-        }
-                                failureBlock:^(NSError *error)
-        {
-        }];
+                                 resultBlock:^(ALAssetsGroup *group){}
+                                failureBlock:^(NSError *error){}];
         [self alphabetSetup];
         
         NSUserDefaults *openedBefore=[NSUserDefaults standardUserDefaults];
@@ -230,6 +216,10 @@
         imageHeight=UA_LETTER_IMG_HEIGHT_6;
         imageWidth=UA_LETTER_IMG_WIDTH_6;
         self.alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS;
+    }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_6PLUS;
+        imageWidth=UA_LETTER_IMG_WIDTH_6PLUS;
+        self.alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS;
     }
     NSLog(@"imageWidth: %f", imageWidth);
     NSLog(@"screenWidth: %f", [[UIScreen mainScreen]bounds].size.width);
@@ -275,7 +265,6 @@
 //MENU
 //------------------------------------------------------------------------
 -(void)openMenu{
-    //[self saveCurrentAlphabetAsImage];
     CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];
     [self.view addSubview:self.menu];
@@ -448,21 +437,28 @@
     if ([self.userName isEqualToString:@"defaultUsername" ]) {
         //ask for new username
         enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
-        if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
             //iphone 4
             enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
             yPosUsername=-75;
             xPosUsername=0;
-        } if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-            //iphone 4
-            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
-            yPosUsername=-50;
-            xPosUsername=10;
+        } else if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 6
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+            yPosUsername=20;
+            xPosUsername=20;
+        } else if (UA_IPHONE_6PLUS_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 6plus
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+            yPosUsername=30;
+            xPosUsername=20;
         } else {
+            //iphone5
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
             xPosUsername=0;
         }
         [self.view addSubview:enterUsername];
+        NSLog(@"xposusername :%f", xPosUsername);
         //add text field
         CGRect textViewFrame = CGRectMake(60+xPosUsername, 180+yPosUsername, [[UIScreen mainScreen] bounds].size.width-60-20-xPosUsername, 25.0f);
         userNameField = [[UITextView alloc] initWithFrame:textViewFrame];
@@ -486,6 +482,8 @@
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     }else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS))*screenScale));
+    }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS))*screenScale));
     }
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);

@@ -48,14 +48,7 @@
 
 -(void)setupWithPostcard: (NSMutableArray*)postcardPassed Rect: (NSMutableArray*)postcardRect withLanguage:(NSString*)language withPostcardText:(NSString*)postcardText{
     self.title=@"Postcard";
-    //back button
-    CGRect frame = CGRectMake(0, 0, 60,20);
-    UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
-    [backButton setBackgroundImage:UA_BACK_BUTTON forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem=leftButton;
+    self.navigationItem.hidesBackButton = YES;
     
     
     self.postcardArray=[[NSMutableArray alloc]init];
@@ -83,15 +76,19 @@
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
     alphabetFromLeft=0;
     if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-        ///if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
-    }else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+    } else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
         imageHeight=UA_LETTER_IMG_HEIGHT_6;
         imageWidth=UA_LETTER_IMG_WIDTH_6;
         alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS;
+    }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_6PLUS;
+        imageWidth=UA_LETTER_IMG_WIDTH_6PLUS;
+        alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS;
     }
+
     
     //display the postcard
     for (int i=0; i<[self.postcardArray count]; i++) {
@@ -228,9 +225,7 @@
     [sharePostcard setup:self.currentPostcardImage];
     [self.navigationController pushViewController:sharePostcard animated:NO];
 }
--(void)goBack{
-    [self.navigationController popViewControllerAnimated:NO];
-}
+
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
@@ -241,17 +236,23 @@
     if ([workspace.userName isEqualToString:@"defaultUsername" ]) {
         //ask for new username
         enterUsername=[[UIImageView alloc]initWithFrame:CGRectMake(0,UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-UA_TOP_BAR_HEIGHT-UA_TOP_WHITE)];
-        if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
             //iphone 4
             enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
             yPosUsername=-75;
             xPosUsername=0;
-        } if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-            //iphone 4
-            enterUsername.image=[UIImage imageNamed:@"intro_iphone43"];
-            yPosUsername=-50;
-            xPosUsername=10;
+        } else if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 6
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+            yPosUsername=20;
+            xPosUsername=20;
+        } else if (UA_IPHONE_6PLUS_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone 6plus
+            enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
+            yPosUsername=30;
+            xPosUsername=20;
         } else {
+            //iphone5
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
             xPosUsername=0;
         }
@@ -278,6 +279,8 @@
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     }else if (UA_IPHONE_6_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS))*screenScale));
+    }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS))*screenScale));
     }
     self.currentPostcardImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
