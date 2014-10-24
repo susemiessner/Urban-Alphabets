@@ -506,6 +506,13 @@
     NSString *fileName = [NSString stringWithFormat:@"exportedAlphabet%@.jpg", [NSDate date]];
     [self saveImage:fileName];
     [self saveImageToLibrary];
+    
+    UIAlertView *myal = [[UIAlertView alloc] initWithTitle:@"Successful" message:@"Your alphabet was successfully saved to your Photos and the online database!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [myal show];
+    [self performSelector:@selector(dismiss:) withObject:myal afterDelay:5];
+}
+-(void)dismiss:(UIAlertView*)x{
+    [x dismissWithClickedButtonIndex:-1 animated:YES];
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
     UIGraphicsBeginImageContextWithOptions(CGSizeMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT)), YES, 5.0f);

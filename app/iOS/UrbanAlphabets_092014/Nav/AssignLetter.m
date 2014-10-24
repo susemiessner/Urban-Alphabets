@@ -346,6 +346,7 @@
     }
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", letterToAdd ];
     [self saveImage:fileName];
+    
 }
 -(CGContextRef)createHighResImageContext { //setting up image context
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(croppedImage.size.width-1, croppedImage.size.height-1), YES, 5.0f);

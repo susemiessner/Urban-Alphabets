@@ -213,7 +213,6 @@
                                                   otherButtonTitles:nil];
             [alert show];
             [textInput becomeFirstResponder];
-
         }
     }
 }
