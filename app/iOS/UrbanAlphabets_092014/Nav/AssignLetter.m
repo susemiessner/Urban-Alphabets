@@ -108,6 +108,10 @@
         imageHeight=UA_LETTER_IMG_HEIGHT_6PLUS;
         imageWidth=UA_LETTER_IMG_WIDTH_6PLUS;
         alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS;
+    }else if (UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_IPAD_RETINA;
+        imageWidth=UA_LETTER_IMG_WIDTH_IPAD_RETINA;
+        alphabetFromLeft=UA_LETTER_TOP_MARGIN_ALPHABETS_IPAD_RETINA;
     }
 
 
@@ -230,6 +234,11 @@
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
             yPosUsername=30;
             xPosUsername=20;
+        }  else if (UA_IPAD_RETINA_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone ipad retina
+            enterUsername.image=[UIImage imageNamed:@"intro_iPad3"];
+            yPosUsername=80;
+            xPosUsername=190;
         } else {
             //iphone5
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];

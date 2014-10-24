@@ -87,6 +87,10 @@
         imageHeight=UA_LETTER_IMG_HEIGHT_6PLUS;
         imageWidth=UA_LETTER_IMG_WIDTH_6PLUS;
         alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS;
+    }else if (UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_IPAD_RETINA;
+        imageWidth=UA_LETTER_IMG_WIDTH_IPAD_RETINA;
+        alphabetFromLeft=UA_LETTER_TOP_MARGIN_ALPHABETS_IPAD_RETINA;
     }
 
     
@@ -251,6 +255,11 @@
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
             yPosUsername=30;
             xPosUsername=20;
+        }  else if (UA_IPAD_RETINA_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone ipad retina
+            enterUsername.image=[UIImage imageNamed:@"intro_iPad3"];
+            yPosUsername=80;
+            xPosUsername=190;
         } else {
             //iphone5
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
@@ -281,6 +290,8 @@
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS))*screenScale));
     }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS))*screenScale));
+    }else if (UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     }
     self.currentPostcardImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);

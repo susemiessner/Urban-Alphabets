@@ -80,9 +80,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     //try to make title tabable
+    //self.title=self.alphabetName;
     self.titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,0, 200, 40)];
-    self.titleLabel.text=self.alphabetName;
-    [self.titleLabel setTextAlignment:NSTextAlignmentCenter    ];
+    self.titleLabel.text=@"";
+    [self.titleLabel setTextAlignment:NSTextAlignmentCenter ];
     self.titleLabel.textColor=[UIColor blackColor];
     self.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size: 16.0];
     self.titleLabel.backgroundColor =[UIColor clearColor];
@@ -112,6 +113,9 @@
         if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
             yPosIntro=50;
             introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone4"],[UIImage imageNamed:@"intro_iphone42"],[UIImage imageNamed:@"intro_iphone44"], nil];
+        } else if ( UA_IPAD_RETINA_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            yPosIntro=-50;
+            introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iPad"],[UIImage imageNamed:@"intro_iPad2"],[UIImage imageNamed:@"intro_iPad4"], nil];
         } else{
             yPosIntro=0;
             introPics=[NSMutableArray arrayWithObjects:[UIImage imageNamed:@"intro_iphone5"],[UIImage imageNamed:@"intro_iphone52"],[UIImage imageNamed:@"intro_iphone54"], nil];
@@ -127,7 +131,12 @@
         [self.view addSubview:[introPicsViews objectAtIndex:0]];
         
         nextButton=UA_ICON_NEXT;
+        if (UA_IPAD_RETINA_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-200, [[UIScreen mainScreen] bounds].size.height-100+yPosIntro, 160, 68)];
+
+        } else{
         nextButtonView=[[UIImageView alloc]initWithFrame:CGRectMake([[UIScreen mainScreen] bounds].size.width-100, [[UIScreen mainScreen] bounds].size.height-100+yPosIntro, 80, 34)];
+        }
         nextButtonView.image=nextButton;
         [self.view addSubview:nextButtonView];
         nextButtonView.userInteractionEnabled=YES;
@@ -201,14 +210,10 @@
     //real
     imageWidth=UA_LETTER_IMG_WIDTH_5;
     imageHeight=UA_LETTER_IMG_HEIGHT_5;
-    /*//resting iphone 6
-    imageHeight=UA_LETTER_IMG_HEIGHT_6;
-    imageWidth=UA_LETTER_IMG_WIDTH_6;*/
     
     self.alphabetFromLeft=0;
     self.alphabetFromTop=0;
     if ( UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
-        //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         imageHeight=UA_LETTER_IMG_HEIGHT_4;
         imageWidth=UA_LETTER_IMG_WIDTH_4;
         self.alphabetFromLeft=UA_LETTER_SIDE_MARGIN_ALPHABETS;
@@ -220,9 +225,13 @@
         imageHeight=UA_LETTER_IMG_HEIGHT_6PLUS;
         imageWidth=UA_LETTER_IMG_WIDTH_6PLUS;
         self.alphabetFromTop=UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS;
+    }else if (UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        imageHeight=UA_LETTER_IMG_HEIGHT_IPAD_RETINA;
+        imageWidth=UA_LETTER_IMG_WIDTH_IPAD_RETINA;
+        self.alphabetFromLeft=UA_LETTER_TOP_MARGIN_ALPHABETS_IPAD_RETINA;
     }
     NSLog(@"imageWidth: %f", imageWidth);
-    NSLog(@"screenWidth: %f", [[UIScreen mainScreen]bounds].size.width);
+    NSLog(@"screenWidth: %f: screenHeight: %f", [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
     [self drawCurrentAlphabet];
     [self initGreyGrid];
 }
@@ -265,8 +274,14 @@
 //MENU
 //------------------------------------------------------------------------
 -(void)openMenu{
-    CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-    self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame ];
+    if (UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height|| UA_IPHONE_5_HEIGHT== [[UIScreen mainScreen] bounds].size.height || UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height|| UA_IPHONE_6PLUS_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame andDevice:@"phone"];
+    }else{
+        CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        self.menu=[[AlphabetMenu alloc]initWithFrame:menuFrame andDevice:@"pad"];
+    }
+    
     [self.view addSubview:self.menu];
     
     //start location updating
@@ -452,6 +467,11 @@
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
             yPosUsername=30;
             xPosUsername=20;
+        } else if (UA_IPAD_RETINA_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+            //iphone ipad retina
+            enterUsername.image=[UIImage imageNamed:@"intro_iPad3"];
+            yPosUsername=80;
+            xPosUsername=190;
         } else {
             //iphone5
             enterUsername.image=[UIImage imageNamed:@"intro_iphone53"];
@@ -484,6 +504,8 @@
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS))*screenScale));
     }else if (UA_IPHONE_6PLUS_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
         imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+2*UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS))*screenScale));
+    }else if (UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen] bounds].size.height){
+        imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake(self.alphabetFromLeft*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT) * screenScale, ([[UIScreen mainScreen] bounds].size.width-self.alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT))*screenScale));
     }
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);

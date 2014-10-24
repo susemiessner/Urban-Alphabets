@@ -137,9 +137,12 @@
         
         double proportion = 640.0/480.0;
         double imageTop = ([[UIScreen mainScreen] bounds].size.height / 2.0) - (320*proportion / 2.0);
-        
-        self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
-        
+        if (UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen] bounds].size.height) {
+            self.stillLayer.frame = CGRectMake(0,UA_TOP_BAR_HEIGHT-42,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.width*proportion);
+        } else{
+            self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
+        }
+
         [self adjustImageFramesForDeviceOrientation:nil];
         
         //add the layer
@@ -218,7 +221,6 @@
         UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
         takePhotoButtonRecognizer.numberOfTapsRequired = 1;
         [self.bottomNavBar.rightImageView addGestureRecognizer:takePhotoButtonRecognizer];
-        
         
         self.isPhotoBeingTaken = NO;
     }
@@ -307,6 +309,11 @@
         touchX1=50.532+47;
         touchY2= touchY1 + 266.472;
         touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+47);
+    }else if ( UA_IPAD_RETINA_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
+        touchX1=50.532+224;
+        touchY2= touchY1 + 266.472;
+        touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+224);
     }
     //upper rect
     upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
@@ -328,8 +335,6 @@
     [rightRect setBackgroundColor:UA_OVERLAY_COLOR];
     [self.view addSubview:rightRect];
 }
-
-
 -(void)initGestureRecognizers{
     panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
     [self.view addGestureRecognizer:panRecognizer];
@@ -346,7 +351,8 @@
     
     panRecognizer.delegate = self;
     pinchRecognizer.delegate = self;
-    rotationRecognizer.delegate = self;}
+    rotationRecognizer.delegate = self;
+}
 - (void)panDetected:(UIPanGestureRecognizer *)panRecognizerFound{
     CGPoint translation = [panRecognizerFound translationInView:self.view];
     CGPoint imageViewPosition = self.previewLayerHostView.center;

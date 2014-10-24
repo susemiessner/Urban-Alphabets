@@ -23,7 +23,7 @@
 
 @implementation SharePostcard
 -(void)setup:(UIImage*)imageToShare{
-    self.title=@"Share Alphabet";
+    self.title=@"Share Postcard";
     //back button
     CGRect frame = CGRectMake(0, 0, 60,20);
     UIButton *backButton = [[UIButton alloc] initWithFrame:frame];
