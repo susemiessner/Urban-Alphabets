@@ -80,6 +80,8 @@
 		DA5CA50D195D5A8C00931C94 /* Settings.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5CA50B195D5A8C00931C94 /* Settings.xib */; };
 		DA6C388E187E9E830059275B /* AddAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C388C187E9E830059275B /* AddAlphabet.m */; };
 		DA6C388F187E9E830059275B /* AddAlphabet.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6C388D187E9E830059275B /* AddAlphabet.xib */; };
+		DA6F6E3519FBC36000DD4D6A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6F6E3119FBC36000DD4D6A /* Main_iPad.storyboard */; };
+		DA6F6E3619FBC36000DD4D6A /* Main_iPad∼iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6F6E3319FBC36000DD4D6A /* Main_iPad∼iPad.storyboard */; };
 		DA8C2797185F287B009B0DC1 /* PostcardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C2796185F287B009B0DC1 /* PostcardMenu.m */; };
 		DA8C28B3185F5A97009B0DC1 /* ShareAlphabet.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8C28B1185F5A97009B0DC1 /* ShareAlphabet.m */; };
 		DA8C28B4185F5A97009B0DC1 /* ShareAlphabet.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA8C28B2185F5A97009B0DC1 /* ShareAlphabet.xib */; };
@@ -386,6 +388,8 @@
 		DA6C388B187E9E830059275B /* AddAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddAlphabet.h; path = views/AddAlphabet.h; sourceTree = "<group>"; };
 		DA6C388C187E9E830059275B /* AddAlphabet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddAlphabet.m; path = views/AddAlphabet.m; sourceTree = "<group>"; };
 		DA6C388D187E9E830059275B /* AddAlphabet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddAlphabet.xib; path = views/AddAlphabet.xib; sourceTree = "<group>"; };
+		DA6F6E3219FBC36000DD4D6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		DA6F6E3419FBC36000DD4D6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Main_iPad∼iPad.storyboard"; sourceTree = "<group>"; };
 		DA8C2795185F287B009B0DC1 /* PostcardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostcardMenu.h; path = navBars/PostcardMenu.h; sourceTree = "<group>"; };
 		DA8C2796185F287B009B0DC1 /* PostcardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostcardMenu.m; path = navBars/PostcardMenu.m; sourceTree = "<group>"; };
 		DA8C28B0185F5A97009B0DC1 /* ShareAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareAlphabet.h; path = views/ShareAlphabet.h; sourceTree = "<group>"; };
@@ -637,7 +641,6 @@
 		EDFC422A1851014F00CB3335 /* UIColor+CIColorFix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIColor+CIColorFix.h"; path = "Headers/UIColor+CIColorFix.h"; sourceTree = "<group>"; };
 		EDFC422B1851014F00CB3335 /* C4AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = C4AppDelegate.m; path = implementation/C4AppDelegate.m; sourceTree = "<group>"; };
 		EDFC42311851015300CB3335 /* libC4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libC4.a; sourceTree = "<group>"; };
-		EDFC42351851015300CB3335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDFC42371851015300CB3335 /* C4WorkSpace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C4WorkSpace.h; sourceTree = "<group>"; };
 		EDFC42381851015300CB3335 /* C4WorkSpace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = C4WorkSpace.m; sourceTree = "<group>"; };
 		EDFC423E1851015300CB3335 /* ualphabetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ualphabetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1269,7 +1272,8 @@
 		EDFC42331851015300CB3335 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				EDFC42341851015300CB3335 /* Main.storyboard */,
+				DA6F6E3119FBC36000DD4D6A /* Main_iPad.storyboard */,
+				DA6F6E3319FBC36000DD4D6A /* Main_iPad∼iPad.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -1511,12 +1515,14 @@
 				DABD4A861962AA8A00878F45 /* letter_RusSe@2x.png in Resources */,
 				DABD49A01962A92D00878F45 /* letter_,.png in Resources */,
 				DABD49D01962A92D00878F45 /* letter_Q.png in Resources */,
+				DA6F6E3619FBC36000DD4D6A /* Main_iPad∼iPad.storyboard in Resources */,
 				DABD4A491962AA8A00878F45 /* letter_0@2x.png in Resources */,
 				DABD4A7B1962AA8A00878F45 /* letter_RusI@2x.png in Resources */,
 				DAEC0F9B19FA4F9A0086BA0E /* intro_iPad4.png in Resources */,
 				DABD49DE1962A92D00878F45 /* letter_RusN.png in Resources */,
 				DABD4A541962AA8A00878F45 /* letter_Å@2x.png in Resources */,
 				DABD49AD1962A92D00878F45 /* letter_8.png in Resources */,
+				DA6F6E3519FBC36000DD4D6A /* Main_iPad.storyboard in Resources */,
 				DA55535A1961612F002267F3 /* icon_checked .png in Resources */,
 				DABD4A561962AA8A00878F45 /* letter_ae@2x.png in Resources */,
 				DABD49A51962A92D00878F45 /* letter_0.png in Resources */,
@@ -1669,20 +1675,28 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DA6F6E3119FBC36000DD4D6A /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA6F6E3219FBC36000DD4D6A /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		DA6F6E3319FBC36000DD4D6A /* Main_iPad∼iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA6F6E3419FBC36000DD4D6A /* Base */,
+			);
+			name = "Main_iPad∼iPad.storyboard";
+			sourceTree = "<group>";
+		};
 		EDFC41F31851014E00CB3335 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				EDFC41F41851014E00CB3335 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		EDFC42341851015300CB3335 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EDFC42351851015300CB3335 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		EDFC42481851015300CB3335 /* InfoPlist.strings */ = {

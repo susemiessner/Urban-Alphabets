@@ -15,7 +15,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSLog(@"device %@", device);
         if ([device isEqualToString: @"phone"]) {
             [self setupPhone];
         }else{
@@ -29,9 +28,7 @@
     float smallMargin=2.0;
     float width=UA_LETTER_IMG_WIDTH_IPAD_RETINA+17;
     float height=width;
-    float cancelHeight=50.0;
-    int menuIconNo=1;
-    
+    float cancelHeight=50.0;    
     //--------------------------------------------------
     //underlying rect
     //--------------------------------------------------
@@ -63,8 +60,6 @@
     //--------------------------------------------------
     //SETTINGS
     //--------------------------------------------------
-    menuIconNo+=1;
-    
     //shape
     self.settingsShape=[[UIView alloc] initWithFrame:CGRectMake(self.self.frame.size.width-width-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.settingsShape setBackgroundColor:UA_WHITE_COLOR];
@@ -91,8 +86,6 @@
     //--------------------------------------------------
     //MY ALPHABETS
     //--------------------------------------------------
-    menuIconNo+=1;
-    
     //shape
     self.myAlphabetsShape=[[UIView alloc] initWithFrame:CGRectMake(self.self.frame.size.width-width*2-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.myAlphabetsShape setBackgroundColor:UA_WHITE_COLOR];
@@ -118,8 +111,6 @@
     //--------------------------------------------------
     //WRITE POSTCARD
     //--------------------------------------------------
-    menuIconNo+=1;
-    
     self.writePostcardShape=[[UIView alloc]initWithFrame:CGRectMake(self.self.frame.size.width-width*3-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.writePostcardShape setBackgroundColor:UA_WHITE_COLOR];
     [self addSubview:self.writePostcardShape];
@@ -141,8 +132,6 @@
     //--------------------------------------------------
     //SAVE ALPHABET
     //--------------------------------------------------
-    menuIconNo+=1;
-    
     self.saveAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(self.self.frame.size.width-width*4-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.saveAlphabetShape setBackgroundColor:UA_WHITE_COLOR];
     [self addSubview:self.saveAlphabetShape];
@@ -164,8 +153,6 @@
     //--------------------------------------------------
     //SHARE ALPHABET
     //--------------------------------------------------
-    menuIconNo+=1;
-    
     self.shareAlphabetShape=[[UIView alloc]initWithFrame:CGRectMake(self.self.frame.size.width-width*5-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.shareAlphabetShape setBackgroundColor:UA_WHITE_COLOR];
     [self addSubview:self.shareAlphabetShape];
@@ -187,8 +174,6 @@
     //--------------------------------------------------
     //ALPHABET INFO
     //--------------------------------------------------
-    menuIconNo+=1;
-    
     self.alphabetInfoShape=[[UIView alloc] initWithFrame:CGRectMake(self.self.frame.size.width-width*6-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.alphabetInfoShape setBackgroundColor:UA_WHITE_COLOR];
     [self addSubview:self.alphabetInfoShape];

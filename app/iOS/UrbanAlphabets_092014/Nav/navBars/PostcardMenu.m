@@ -13,7 +13,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSLog(@"device %@", device);
         if ([device isEqualToString: @"phone"]) {
             [self setupPhone];
         }else{
@@ -155,7 +154,6 @@
     float width=UA_LETTER_IMG_WIDTH_IPAD_RETINA+17;
     float height=width;
     float cancelHeight=50.0;
-    int menuIconNo=1;
     
     //--------------------------------------------------
     //underlying rect
@@ -190,7 +188,6 @@
     //--------------------------------------------------
     //MY ALPHABETS
     //--------------------------------------------------
-    menuIconNo+=1;
     
     //shape
     self.myAlphabetsShape=[[UIView alloc] initWithFrame:CGRectMake(self.self.frame.size.width-width*2-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
@@ -217,7 +214,6 @@
     //--------------------------------------------------
     //WRITE POSTCARD
     //--------------------------------------------------
-    menuIconNo+=1;
     
     self.writePostcardShape=[[UIView alloc]initWithFrame:CGRectMake(self.self.frame.size.width-width*3-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.writePostcardShape setBackgroundColor:UA_WHITE_COLOR];
@@ -240,7 +236,6 @@
     //--------------------------------------------------
     //SAVE ALPHABET
     //--------------------------------------------------
-    menuIconNo+=1;
     
     self.savePostcardShape=[[UIView alloc]initWithFrame:CGRectMake(self.self.frame.size.width-width*4-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.savePostcardShape setBackgroundColor:UA_WHITE_COLOR];
@@ -263,7 +258,6 @@
     //--------------------------------------------------
     //SHARE POSTCARD
     //--------------------------------------------------
-    menuIconNo+=1;
     
     self.sharePostcardShape=[[UIView alloc]initWithFrame:CGRectMake(self.self.frame.size.width-width*5-sideMarginIpad, self.frame.size.height-(sideMargin*2+height+cancelHeight), width-smallMargin, height)];
     [self.sharePostcardShape setBackgroundColor:UA_WHITE_COLOR];
