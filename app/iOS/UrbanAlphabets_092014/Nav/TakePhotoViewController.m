@@ -363,10 +363,34 @@
     [panRecognizer setTranslation:CGPointZero inView:self.view];
 
 }
-- (void)pinchDetected:(UIPinchGestureRecognizer *)pinchRecognizerFound{
+/*- (void)pinchDetected:(UIPinchGestureRecognizer *)pinchRecognizerFound{
     CGFloat scale = pinchRecognizerFound.scale;
     self.previewLayerHostView.transform = CGAffineTransformScale(self.previewLayerHostView.transform, scale, scale);
     pinchRecognizer.scale = 1.0;
+   }*/
+// scale and rotation transforms are applied relative to the layer's anchor point
+// this method moves a gesture recognizer's view's anchor point between the user's fingers
+- (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        UIView *piece = self.previewLayerHostView;
+        CGPoint locationInView = [gestureRecognizer locationInView:piece];
+        CGPoint locationInSuperview = [gestureRecognizer locationInView:piece.superview];
+        
+        piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.bounds.size.width, locationInView.y / piece.bounds.size.height);
+        piece.center = locationInSuperview;
+    }
+}
+
+// scale the piece by the current scale
+// reset the gesture recognizer's rotation to 0 after applying so the next callback is a delta from the current scale
+- (void)pinchDetected:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+    [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        self.previewLayerHostView.transform = CGAffineTransformScale([self.previewLayerHostView transform], [gestureRecognizer scale], [gestureRecognizer scale]);
+        [gestureRecognizer setScale:1];
+    }
 }
 - (void)rotationDetected:(UIRotationGestureRecognizer *)rotationRecognizerFound{
     CGFloat angle = rotationRecognizerFound.rotation;
@@ -380,6 +404,12 @@
     }];
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
 
 // method used when pressing OK button
 -(void)imageSelected{

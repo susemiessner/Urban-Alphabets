@@ -125,7 +125,12 @@
 -(void)openMenu{
     [self saveCurrentPostcardAsImage];
     CGRect menuFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-    self.menu=[[PostcardMenu alloc]initWithFrame:menuFrame];
+    if (UA_IPHONE_4_HEIGHT == [[UIScreen mainScreen] bounds].size.height|| UA_IPHONE_5_HEIGHT== [[UIScreen mainScreen] bounds].size.height || UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height|| UA_IPHONE_6PLUS_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        self.menu=[[PostcardMenu alloc]initWithFrame:menuFrame andDevice:@"phone"];
+    }else{
+        self.menu=[[PostcardMenu alloc]initWithFrame:menuFrame andDevice:@"pad"];
+    }
+
     [self.view addSubview:self.menu];
     //start location updating
     locationManager = [[CLLocationManager alloc] init];

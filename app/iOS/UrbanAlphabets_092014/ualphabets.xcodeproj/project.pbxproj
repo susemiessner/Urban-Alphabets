@@ -36,7 +36,6 @@
 		DA45DBA8196021D300AD6750 /* ChangeDefaultLanguage.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA45DBA6196021D300AD6750 /* ChangeDefaultLanguage.xib */; };
 		DA4F000119FA897400C94935 /* icon_SharePostcard .png in Resources */ = {isa = PBXBuildFile; fileRef = DA4FFFFF19FA897400C94935 /* icon_SharePostcard .png */; };
 		DA4F000219FA897400C94935 /* icon_SharePostcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F000019FA897400C94935 /* icon_SharePostcard@2x.png */; };
-		DA4F000519FA897B00C94935 /* icon_Alphabet .png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F000319FA897B00C94935 /* icon_Alphabet .png */; };
 		DA4F000619FA897B00C94935 /* icon_Alphabet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F000419FA897B00C94935 /* icon_Alphabet@2x.png */; };
 		DA4F000919FA89BB00C94935 /* icon_information .png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F000719FA89BB00C94935 /* icon_information .png */; };
 		DA4F000A19FA89BB00C94935 /* icon_information@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F000819FA89BB00C94935 /* icon_information@2x.png */; };
@@ -48,7 +47,6 @@
 		DA4FFFFD19FA893F00C94935 /* icon_Alphabets .png in Resources */ = {isa = PBXBuildFile; fileRef = DA4FFFFB19FA893F00C94935 /* icon_Alphabets .png */; };
 		DA4FFFFE19FA893F00C94935 /* icon_Alphabets @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4FFFFC19FA893F00C94935 /* icon_Alphabets @2x.png */; };
 		DA5553521961612F002267F3 /* icon_Alphabet .png in Resources */ = {isa = PBXBuildFile; fileRef = DA55532E1961612F002267F3 /* icon_Alphabet .png */; };
-		DA5553531961612F002267F3 /* icon_Alphabet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA55532F1961612F002267F3 /* icon_Alphabet@2x.png */; };
 		DA5553581961612F002267F3 /* icon_Back.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5553341961612F002267F3 /* icon_Back.png */; };
 		DA5553591961612F002267F3 /* icon_Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA5553351961612F002267F3 /* icon_Back@2x.png */; };
 		DA55535A1961612F002267F3 /* icon_checked .png in Resources */ = {isa = PBXBuildFile; fileRef = DA5553361961612F002267F3 /* icon_checked .png */; };
@@ -281,7 +279,6 @@
 		EDFC41FB1851014E00CB3335 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDFC41FA1851014E00CB3335 /* Images.xcassets */; };
 		EDFC41FD1851014F00CB3335 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDFC41FC1851014F00CB3335 /* Media.xcassets */; };
 		EDFC422C1851014F00CB3335 /* C4AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EDFC422B1851014F00CB3335 /* C4AppDelegate.m */; };
-		EDFC42361851015300CB3335 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDFC42341851015300CB3335 /* Main.storyboard */; };
 		EDFC42391851015300CB3335 /* C4WorkSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = EDFC42381851015300CB3335 /* C4WorkSpace.m */; };
 		EDFC42401851015300CB3335 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC423F1851015300CB3335 /* XCTest.framework */; };
 		EDFC42411851015300CB3335 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFC41E81851014E00CB3335 /* Foundation.framework */; };
@@ -1474,7 +1471,6 @@
 				DA4FFFFD19FA893F00C94935 /* icon_Alphabets .png in Resources */,
 				DABD49B41962A92D00878F45 /* letter_C.png in Resources */,
 				DABD4A5A1962AA8A00878F45 /* letter_danisho@2x.png in Resources */,
-				DA5553531961612F002267F3 /* icon_Alphabet@2x.png in Resources */,
 				DABD4A621962AA8A00878F45 /* letter_K@2x.png in Resources */,
 				DA5553601961612F002267F3 /* icon_Menu .png in Resources */,
 				DABD4A481962AA8A00878F45 /* letter_dollar@2x.png in Resources */,
@@ -1498,7 +1494,6 @@
 				DAEC0F9919FA4F9A0086BA0E /* intro_iPad2.png in Resources */,
 				DA8C28B8185F5C66009B0DC1 /* fb.png in Resources */,
 				DABD499F1962A92D00878F45 /* letter_-.png in Resources */,
-				EDFC42361851015300CB3335 /* Main.storyboard in Resources */,
 				DABD49CF1962A92D00878F45 /* letter_P.png in Resources */,
 				DABD4A701962AA8A00878F45 /* letter_N@2x.png in Resources */,
 				DA5CA50D195D5A8C00931C94 /* Settings.xib in Resources */,
@@ -1512,7 +1507,6 @@
 				DABD4A511962AA8A00878F45 /* letter_8@2x.png in Resources */,
 				DABD4A731962AA8A00878F45 /* letter_P@2x.png in Resources */,
 				DABD49DA1962A92D00878F45 /* letter_RusJo.png in Resources */,
-				DA4F000519FA897B00C94935 /* icon_Alphabet .png in Resources */,
 				DABD4A7F1962AA8A00878F45 /* letter_RusJu@2x.png in Resources */,
 				DABD4A861962AA8A00878F45 /* letter_RusSe@2x.png in Resources */,
 				DABD49A01962A92D00878F45 /* letter_,.png in Resources */,

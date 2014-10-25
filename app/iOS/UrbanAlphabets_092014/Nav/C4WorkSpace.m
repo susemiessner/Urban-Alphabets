@@ -344,7 +344,7 @@
     [self.menu.settingsLabel addGestureRecognizer:settingsLabelRecognizer];
     UITapGestureRecognizer *settingsIconRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSettings)];
     settingsIconRecognizer.numberOfTapsRequired = 1;
-    [self.menu.settingsIcon addGestureRecognizer:myAlphabetsIconRecognizer];
+    [self.menu.settingsIcon addGestureRecognizer:settingsIconRecognizer];
     
     //saveAlphabet
     UITapGestureRecognizer *saveAlphabetShapeRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToSaveAlphabet)];
@@ -444,6 +444,7 @@
     [self.navigationController pushViewController:settingsView animated:NO];
     [settingsView grabCurrentUsernameViaNavigationController];
 }
+
 //------------------------------------------------------------------------
 //SAVING IMAGE FUNCTIONS
 //------------------------------------------------------------------------
