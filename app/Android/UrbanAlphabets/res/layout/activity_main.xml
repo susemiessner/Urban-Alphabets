@@ -3,565 +3,326 @@
 	android:id="@+id/layout_main"
 	android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-	
-	<TableLayout 
-    android:id="@+id/tableview_main"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
     android:orientation="vertical"
-    android:stretchColumns="*"
-  	android:background="@color/LightGrey" >
-               
-	<TableRow 
-    	android:id="@+id/tablerow_main_1"
-        android:layout_width="wrap_content"
-    	android:layout_height="0dp"
-    	android:layout_weight="1"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginRight="1dp"
-       	android:weightSum="6" >  
-            
-		<ImageView
-		    android:id="@+id/imageview_main_1"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_2"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-        <ImageView
-            android:id="@+id/imageview_main_3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_4"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-        <ImageView
-            android:id="@+id/imageview_main_5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-                       
-		<ImageView
-		    android:id="@+id/imageview_main_6"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_main_2"
+    android:background="@color/White" >
+    
+    <TableLayout
+        android:id="@+id/tablelayout_main"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:weightSum="6"
-        android:layout_marginTop="1dp"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginRight="1dp" >    
-        
-        <ImageView
-            android:id="@+id/imageview_main_7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-        
-        <ImageView
-            android:id="@+id/imageview_main_8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-        
-        <ImageView
-            android:id="@+id/imageview_main_9"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-        
-        <ImageView
-            android:id="@+id/imageview_main_10"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-        
-        <ImageView
-            android:id="@+id/imageview_main_11"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-        
-        <ImageView
-            android:id="@+id/imageview_main_12"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-        
-	</TableRow>
-        
-	<TableRow 
-    	android:id="@+id/tablerow_main_3"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="6"
-        android:layout_marginTop="1dp"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginRight="1dp" >    
-            
-		<ImageView
-		    android:id="@+id/imageview_main_13"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_14"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_15"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_16"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_17"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_18"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
+        android:layout_gravity="center_horizontal"
+        android:background="@color/LightGrey" >
 
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_main_4"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="6"
-        android:layout_marginTop="1dp"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginRight="1dp" >    
-            
-        <ImageView
-            android:id="@+id/imageview_main_19"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_20"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_21"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_22"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_23"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            	
-		<ImageView
-		    android:id="@+id/imageview_main_24"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_main_5"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="6"
-        android:layout_marginTop="1dp"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginRight="1dp" >    
-            
-		<ImageView
-		    android:id="@+id/imageview_main_25"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_26"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_27"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_28"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_29"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_30"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_main_6"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="6"
-        android:layout_marginTop="1dp"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginRight="1dp" >
-            
-		<ImageView
-		    android:id="@+id/imageview_main_31"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_32"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_33"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            	
-		<ImageView
-		    android:id="@+id/imageview_main_34"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_35"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_36"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_main_7"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="6"
-        android:layout_marginTop="1dp"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginRight="1dp"
-    	android:layout_marginBottom="1dp" >
-            
-        <ImageView
-            android:id="@+id/imageview_main_37"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_38"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_39"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_40"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-        
-        <ImageView
-            android:id="@+id/imageview_main_41"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="1dp"
-            android:background="@color/White"
-            android:clickable="true"
-            android:contentDescription="@string/description"
-            android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_main_42"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:layout_marginLeft="1dp"
-		    android:background="@color/White"
-		    android:clickable="true"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-	</TableRow>
-            
-	</TableLayout>
+            <ImageView
+                android:id="@+id/imageview_main1"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+    
+		    <ImageView
+		        android:id="@+id/imageview_main2"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
 
+		    <ImageView
+		    	android:id="@+id/imageview_main3"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main4"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main5"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main6"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+		     <ImageView
+		         android:id="@+id/imageview_main7"
+		         android:clickable="true"
+                 android:contentDescription="@string/description"
+                 android:onClick="viewLetter" />
+    
+		    <ImageView
+		        android:id="@+id/imageview_main8"
+		        android:clickable="true"
+		        android:contentDescription="@string/description"
+		        android:onClick="viewLetter"  />
+
+		    <ImageView
+		        android:id="@+id/imageview_main9"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main10"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main11"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main12"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+		     <ImageView
+		         android:id="@+id/imageview_main13"
+		         android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+    
+		    <ImageView
+		        android:id="@+id/imageview_main14"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main15"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main16"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main17"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+		    <ImageView
+		        android:id="@+id/imageview_main18"
+		        android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+		     <ImageView
+		         android:id="@+id/imageview_main19"
+		         android:clickable="true"
+                 android:contentDescription="@string/description"
+                 android:onClick="viewLetter" />
+
+    
+		    <ImageView
+		    	android:id="@+id/imageview_main20"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main21"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter"/>
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main22"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main23"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main24"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main25"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />    
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main26"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main27"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main28"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main29"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main30"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		
+            <ImageView
+		    	android:id="@+id/imageview_main31"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" /> 
+		       
+		    <ImageView
+		    	android:id="@+id/imageview_main32"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main33"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main34"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main35"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main36"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main37"
+		   		android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />    
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main38"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main39"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main40"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main41"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_main42"
+		    	android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+    </TableLayout>
+        
 	<RelativeLayout
+	    android:id="@+id/relativelayout_main"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:background="@color/LightGrey"
+	    android:paddingBottom="2dp"
 	    android:paddingTop="2dp"
-        android:paddingBottom="2dp" >
+	    android:background="@color/LightGrey" >
 
 		<ImageButton
 		    android:id="@+id/imagebutton_takephoto"
@@ -571,7 +332,7 @@
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/takephoto"
 		    android:contentDescription="@string/description"
-		    android:onClick="onClickTakePhoto" />
+		    android:onClick="takePhoto" />
 
 		<ImageButton
 		    android:id="@+id/imagebutton_menu"
@@ -581,8 +342,8 @@
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/menu"
 		    android:contentDescription="@string/description"
-		    android:onClick="onClickMenu" />
+		    android:onClick="showMenu" />
 
 	</RelativeLayout>
-
+	
 </LinearLayout>

@@ -1,30 +1,29 @@
 package org.susemiessner.android.urbanalphabets;
 
 public class Alphabet {
-	private String name;
-	private String lang;
-	
-	public Alphabet() {	
-	}
-	
-	public Alphabet(String name, String lang) {
-		this.setName(name);
-		this.setLang(lang);
-	}
+  private String name;
+  private String lang;
 
-	public String getName() {
-		return name;
-	}
+  public Alphabet() {}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public Alphabet(String name, String lang) {
+    this.setName(name);
+    this.setLang(lang);
+  }
 
-	public String getLang() {
-		return lang;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setLang(String lang) {
-		this.lang = lang;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getLang() {
+    return lang;
+  }
+
+  public void setLang(String lang) {
+    this.lang = lang;
+  }
 }

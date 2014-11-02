@@ -22,10 +22,11 @@
 		    android:layout_width="60dp"
 		    android:layout_height="30dp"
 		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentStart="true"
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/takephoto"
 		    android:contentDescription="@string/description"
-		    android:onClick="onClickTakePhoto" />
+		    android:onClick="takePhoto" />
 
 		<ImageButton
 		    android:id="@+id/imagebutton_abc"
@@ -35,17 +36,18 @@
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/abc"
 		    android:contentDescription="@string/description"
-		    android:onClick="onClickAbc" />
+		    android:onClick="showAbc" />
 
 		<ImageButton
 		    android:id="@+id/imagebutton_delete"
 		    android:layout_width="30dp"
 		    android:layout_height="30dp"
 		    android:layout_alignParentRight="true"
+		    android:layout_alignParentEnd="true"
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/delete"
 		    android:contentDescription="@string/description"
-		    android:onClick="onClickDelete" />
+		    android:onClick="deleteLetter" />
 
 	</RelativeLayout>
 

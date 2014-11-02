@@ -44,4 +44,6 @@
     <string name="take_photo_cap">Take Photo</string>
     <string name="take_photo">Take photo</string>
     <string name="description">image_description</string>
+    <string name="update">Update</string>
+    <string name="share">Share</string>
 </resources>

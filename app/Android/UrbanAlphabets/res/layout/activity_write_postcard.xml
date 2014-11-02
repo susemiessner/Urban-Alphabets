@@ -3,487 +3,239 @@
     android:id="@+id/layout_write_postcard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/White">
+    
+    <TableLayout
+        android:id="@+id/tablelayout_write_postcard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativelayout_write_postcard"
+        android:layout_centerInParent="true" >
 
-    <LinearLayout
-        android:id="@+id/linearlayout_write_postcard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical" >
+        <TableRow
+            android:id="@+id/tableRow_write_postcard1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-	<TableLayout
-	    android:id="@+id/tableview_write_postcard"
-	    android:layout_width="match_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="1"
-	    android:background="@color/LightGrey"
-	    android:orientation="vertical"
-	    android:stretchColumns="*" >
-	<TableRow 
-    	android:id="@+id/tablerow_write_postcard_1"
-        android:layout_width="wrap_content"
-    	android:layout_height="0dp"
-    	android:layout_weight="1"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginRight="1dp"
-       	android:weightSum="6" >  
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_1"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_2"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-        <ImageView
-            android:id="@+id/imageview_write_postcard_3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_4"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-        <ImageView
-            android:id="@+id/imageview_write_postcard_5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-                       
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_6"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_write_postcard_2"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="1dp"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginRight="1dp"
-        android:weightSum="6" >    
-        
-        <ImageView
-            android:id="@+id/imageview_write_postcard_7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-        
-        <ImageView
-            android:id="@+id/imageview_write_postcard_8"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-        
-        <ImageView
-            android:id="@+id/imageview_write_postcard_9"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-        
-        <ImageView
-            android:id="@+id/imageview_write_postcard_10"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-        
-        <ImageView
-            android:id="@+id/imageview_write_postcard_11"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-        
-        <ImageView
-            android:id="@+id/imageview_write_postcard_12"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-        
-	</TableRow>
-        
-	<TableRow 
-    	android:id="@+id/tablerow_write_postcard_3"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="1dp"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginRight="1dp"
-        android:weightSum="6" >    
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_13"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_14"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_15"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_16"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_17"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_18"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
+            <ImageView
+                android:id="@+id/imageview_write_postcard1"
+                android:contentDescription="@string/description" />
+    
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard2"
+                android:contentDescription="@string/description" />
 
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_write_postcard_4"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="1dp"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginRight="1dp"
-        android:weightSum="6" >    
-            
-        <ImageView
-            android:id="@+id/imageview_write_postcard_19"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_20"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_21"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_22"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_23"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            	
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_24"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard3"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard4"
+                android:contentDescription="@string/description" />
 
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_write_postcard_5"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="1dp"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginRight="1dp"
-        android:weightSum="6" >    
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_25"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_26"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_27"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_28"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_29"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_30"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_write_postcard_6"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginLeft="1dp"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginRight="1dp"
-        android:layout_weight="1"
-        android:weightSum="6" >
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_31"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_32"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_33"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            	
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_34"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_35"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_36"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-	</TableRow>
-        
-    <TableRow 
-    	android:id="@+id/tablerow_write_postcard_7"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="1dp"
-    	android:layout_marginTop="1dp"
-    	android:layout_marginRight="1dp"
-    	android:layout_marginBottom="1dp"
-        android:weightSum="6" >
-            
-        <ImageView
-            android:id="@+id/imageview_write_postcard_37"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_38"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_39"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description"
-		    android:onClick="onClick" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_40"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-        
-        <ImageView
-            android:id="@+id/imageview_write_postcard_41"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
-            android:background="@color/White"
-            android:contentDescription="@string/description" />
-            
-		<ImageView
-		    android:id="@+id/imageview_write_postcard_42"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_marginLeft="1dp"
-		    android:layout_weight="1"
-		    android:background="@color/White"
-		    android:contentDescription="@string/description" />
-            
-	</TableRow>
-	</TableLayout>
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard5"
+                android:contentDescription="@string/description" />
 
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard6"
+                android:contentDescription="@string/description" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_write_postcard2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+		     <ImageView
+		         android:id="@+id/imageview_write_postcard7"
+                 android:contentDescription="@string/description" />
+    
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard8"
+		        android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard9"
+                android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard10"
+                android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard11"
+                android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard12"
+                android:contentDescription="@string/description" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_write_postcard3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+		     <ImageView
+		        android:id="@+id/imageview_write_postcard13"
+                android:contentDescription="@string/description" />
+    
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard14"
+                android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard15"
+                android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard16"
+                android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard17"
+                android:contentDescription="@string/description" />
+
+		    <ImageView
+		        android:id="@+id/imageview_write_postcard18"
+                android:contentDescription="@string/description" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_write_postcard4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+		     <ImageView
+		         android:id="@+id/imageview_write_postcard19"
+                 android:contentDescription="@string/description" />
+
+    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard20"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard21"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard22"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard23"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard24"
+                android:contentDescription="@string/description" />
+		    
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow_write_postcard5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard25"
+                android:contentDescription="@string/description" />    
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard26"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard27"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard28"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard29"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard30"
+                android:contentDescription="@string/description" />
+        
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow_write_postcard6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		
+            <ImageView
+		    	android:id="@+id/imageview_write_postcard31"
+                android:contentDescription="@string/description" /> 
+		       
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard32"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard33"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard34"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard35"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard36"
+                android:contentDescription="@string/description" />
+        
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow_write_postcard7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard37"
+                android:contentDescription="@string/description" />    
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard38"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard39"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard40"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard41"
+                android:contentDescription="@string/description" />
+		    
+		    <ImageView
+		    	android:id="@+id/imageview_write_postcard42"
+                android:contentDescription="@string/description" />
+        </TableRow>
+    </TableLayout>
+    
 	<RelativeLayout
+	    android:id="@+id/relativelayout_write_postcard"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
 	    android:background="@color/LightGrey"
 	    android:paddingBottom="2dp"
 	    android:paddingTop="2dp" >
@@ -493,10 +245,11 @@
 		    android:layout_width="59dp"
 		    android:layout_height="30dp"
 		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentStart="true"
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/takephoto"
 		    android:contentDescription="@string/description"
-		    android:onClick="onClickTakePhoto" />
+		    android:onClick="takePhoto" />
 
 		<ImageButton
 		    android:id="@+id/imagebutton_menu2"
@@ -506,20 +259,20 @@
 		    android:layout_centerVertical="true"
 		    android:background="@drawable/menu"
 		    android:contentDescription="@string/description"
-		    android:onClick="onClickMenu" />
+		    android:onClick="showMenu" />
 
 		<ImageButton
 		    android:id="@+id/imagebutton_abc2"
 		    android:layout_width="59dp"
 		    android:layout_height="30dp"
 		    android:layout_alignParentRight="true"
+		    android:layout_alignParentEnd="true"
 		    android:layout_centerVertical="true"
 		    android:contentDescription="@string/description"
 		    android:background="@drawable/abc"
-		    android:onClick="onClickAbc"  />
+		    android:onClick="showAbc"  />
 
 	</RelativeLayout>
-	</LinearLayout>
 
 	<android.inputmethodservice.KeyboardView
 	    android:id="@+id/keyboardview"

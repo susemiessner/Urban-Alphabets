@@ -23,125 +23,130 @@ import android.widget.ViewSwitcher.ViewFactory;
 import android.view.GestureDetector;
 
 public class ViewLetterActivity extends ActionBarActivity {
-	private ImageSwitcher imageSwitcher;
-	private GestureDetectorCompat swipeListener;
-	private int currentIndex;
-	private String currentAlphabet;
-	private String currentLanguage;
-	private SharedPreferences mSharedPreferences;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_letter);
-		currentIndex = getIntent().getIntExtra("currentIndex", 0);
-		mSharedPreferences = PreferenceManager.
-				getDefaultSharedPreferences(getApplicationContext());
-		Editor e = mSharedPreferences.edit();
-		e.putInt("assignLetter", currentIndex);
-		e.commit();
-		currentAlphabet = getIntent().getStringExtra("currentAlphabet");
-		currentLanguage = getIntent().getStringExtra("currentLanguage");
-		imageSwitcher = (ImageSwitcher) findViewById (R.id.imageswitcher_viewimage);
-		imageSwitcher.setFactory(new ViewFactory() {
-			@Override
-			public View makeView() {
-				ImageView imageView = new ImageView(getApplicationContext());
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-		        // No idea, need to check
-				LayoutParams params = new ImageSwitcher.LayoutParams(
-		               LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+  private ImageSwitcher imageSwitcher;
+  private GestureDetectorCompat swipeListener;
+  private int currentIndex;
+  private String currentAlphabet;
+  private String currentLanguage;
+  private SharedPreferences mSharedPreferences;
 
-		        imageView.setLayoutParams(params);
-				return imageView;
-			}
-		});
-		imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
-		swipeListener = new GestureDetectorCompat(this, new CustomGestureListener());
-	}
-	
-	private String getResourcePath() {
-		File filename = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" +
-				File.separator + currentAlphabet + "_" + MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).
-				              indexOf(currentLanguage)][currentIndex]
-				+ ".png");
-		if(filename.exists())
-			return filename.getAbsolutePath();
-		return "android.resource://" + getPackageName() + "/raw/" + 
-				MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).
-				indexOf(currentLanguage)][currentIndex];
-	}
-	
-	private void onNext() {
-		currentIndex = (currentIndex + 1 == 42)?0:currentIndex+1;
-		imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
-	}
-	
-	private void onPrevious() {
-		currentIndex = (currentIndex == 0)?42-1:currentIndex-1;
-		imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
-	}
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		this.swipeListener.onTouchEvent(event);
-        return super.onTouchEvent(event);
-	}
-	
-	public void onClickTakePhoto(View v) {
-		Intent takePhotoIntent = new Intent(this, TakePhotoActivity.class);
-		startActivity(takePhotoIntent);
-		finish();
-	}
-	
-	public void onClickAbc(View v) {
-		finish();
-	}
-	
-	public void onClickDelete(View v) {
-		File file = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DCIM), "UrbanAlphabets" + 
-				File.separator + currentAlphabet + "_" + MainActivity.RESOURCERAWNAME[Arrays.asList
-				(MainActivity.LANGUAGE).indexOf(currentLanguage)]
-				[currentIndex] + ".png");
-		
-		
-		if(file.exists())
-			file.delete();
-		
-		getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-				Images.Media.DATA + " LIKE ?", new String[]{file.getAbsolutePath()});
-		
-		finish();
-	}
-	
-	private class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {
-		
-		@Override
-		public boolean onDown(MotionEvent event){
-			return true;
-		}
-		
-		@Override
-		public boolean onFling(MotionEvent event1, MotionEvent event2,
-				float velocityX, float velocityY){
-			try {
-                float diffY = event2.getY() - event1.getY();
-                float diffX = event2.getX() - event1.getX();
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > 100 && Math.abs(velocityX) > 100) {
-                        if (diffX > 0) {
-                            onPrevious();
-                        } else {
-                            onNext();
-                        }
-                    }
-                }
-            } catch (Exception exception) {
-                exception.printStackTrace();
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_view_letter);
+    currentIndex = getIntent().getIntExtra("currentIndex", 0);
+    mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    Editor e = mSharedPreferences.edit();
+    e.putInt("assignLetter", currentIndex);
+    e.commit();
+    currentAlphabet = getIntent().getStringExtra("currentAlphabet");
+    currentLanguage = getIntent().getStringExtra("currentLanguage");
+    imageSwitcher = (ImageSwitcher) findViewById(R.id.imageswitcher_viewimage);
+    imageSwitcher.setFactory(new ViewFactory() {
+      @Override
+      public View makeView() {
+        ImageView imageView = new ImageView(getApplicationContext());
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        // No idea, need to check
+        LayoutParams params =
+            new ImageSwitcher.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+
+        imageView.setLayoutParams(params);
+        return imageView;
+      }
+    });
+    imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
+    swipeListener = new GestureDetectorCompat(this, new CustomGestureListener());
+  }
+
+  private String getResourcePath() {
+    File filename =
+        new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+            "UrbanAlphabets"
+                + File.separator
+                + currentAlphabet
+                + "_"
+                + MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).indexOf(
+                    currentLanguage)][currentIndex] + ".png");
+    if (filename.exists())
+      return filename.getAbsolutePath();
+    return "android.resource://"
+        + getPackageName()
+        + "/raw/"
+        + MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE)
+            .indexOf(currentLanguage)][currentIndex];
+  }
+
+  private void onNext() {
+    currentIndex = (currentIndex + 1 == 42) ? 0 : currentIndex + 1;
+    imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
+  }
+
+  private void onPrevious() {
+    currentIndex = (currentIndex == 0) ? 42 - 1 : currentIndex - 1;
+    imageSwitcher.setImageURI(Uri.parse(getResourcePath()));
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+    this.swipeListener.onTouchEvent(event);
+    return super.onTouchEvent(event);
+  }
+
+  public void takePhoto(View v) {
+    Intent takePhotoIntent = new Intent(this, TakePhotoActivity.class);
+    startActivity(takePhotoIntent);
+    finish();
+  }
+
+  public void showAbc(View v) {
+    finish();
+  }
+
+  public void deleteLetter(View v) {
+    File file =
+        new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+            "UrbanAlphabets"
+                + File.separator
+                + currentAlphabet
+                + "_"
+                + MainActivity.RESOURCERAWNAME[Arrays.asList(MainActivity.LANGUAGE).indexOf(
+                    currentLanguage)][currentIndex] + ".png");
+
+    if (file.exists())
+      file.delete();
+
+    getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+        Images.Media.DATA + " LIKE ?", new String[] {file.getAbsolutePath()});
+
+    finish();
+  }
+
+  private class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+    @Override
+    public boolean onDown(MotionEvent event) {
+      return true;
+    }
+
+    @Override
+    public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+      try {
+        float diffY = event2.getY() - event1.getY();
+        float diffX = event2.getX() - event1.getX();
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+          if (Math.abs(diffX) > 100 && Math.abs(velocityX) > 100) {
+            if (diffX > 0) {
+              onPrevious();
+            } else {
+              onNext();
             }
-			return true;
-		}
-	}	
+          }
+        }
+      } catch (Exception exception) {
+        exception.printStackTrace();
+      }
+      return true;
+    }
+  }
 }

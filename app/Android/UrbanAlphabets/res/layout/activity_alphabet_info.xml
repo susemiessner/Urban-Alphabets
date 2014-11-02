@@ -25,7 +25,7 @@
 	    android:layout_marginTop="40dp"
 	    android:layout_toRightOf="@id/textview_alphabet_label"
 	    android:clickable="true"
-	    android:onClick="onClickChangeAlphabet"
+	    android:onClick="changeAlphabet"
 	    android:textAppearance="?android:attr/textAppearanceLarge"
 	    android:textColor="@color/Black" />
 
@@ -53,7 +53,7 @@
         android:layout_toRightOf="@id/textview_alphabet_label"
         android:background="@drawable/selection"
         android:clickable="true"
-        android:onClick="onClickChangeAlphabet"
+        android:onClick="changeAlphabet"
         android:text="@string/change"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
@@ -78,7 +78,7 @@
 	    android:layout_marginLeft="20dp"
 	    android:layout_toRightOf="@id/textview_language_label"
 	    android:clickable="true"
-	    android:onClick="onClickChangeLanguage"
+	    android:onClick="changeLanguage"
 	    android:textAppearance="?android:attr/textAppearanceLarge"
 	    android:textColor="@color/Black" />
         
@@ -93,7 +93,7 @@
 	    android:layout_toRightOf="@id/textview_language_label"
 	    android:background="@drawable/selection"
 	    android:clickable="true"
-	    android:onClick="onClickChangeLanguage"
+	    android:onClick="changeLanguage"
 	    android:text="@string/change"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
 	    android:textColor="@color/Grey" />
@@ -104,13 +104,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/textview_change_language"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/selection"
         android:clickable="true"
-        android:onClick="onClickReset"
+        android:onClick="resetAlphabet"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
         android:text="@string/reset_alphabet"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />
@@ -121,13 +121,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/textview_reset_alphabet"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/selection"
         android:clickable="true"
-        android:onClick="onClickDelete"
+        android:onClick="deleteAlphabet"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
         android:text="@string/delete_alphabet"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/Grey" />

@@ -10,15 +10,17 @@
 		android:contentDescription="@string/description" />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/imagebutton_welcome"
         android:layout_width="70dp"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/ok_big"
         android:contentDescription="@string/description"
-        android:onClick="onClick" />
+        android:onClick="showNext" />
 
 </RelativeLayout>

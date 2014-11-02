@@ -19,7 +19,7 @@
         android:layout_gravity="center"
         android:background="@drawable/ok_big"
         android:contentDescription="@string/description"
-        android:onClick="onClick"
+        android:onClick="changeLanguage"
         android:visibility="gone"
         android:layout_marginBottom="10dp"
     /> 
