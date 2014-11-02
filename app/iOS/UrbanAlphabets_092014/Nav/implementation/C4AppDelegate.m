@@ -24,6 +24,8 @@
     navController = [[UINavigationController alloc] initWithRootViewController:self.workspace];
     //set the window's root view controller to the nav controller
 	self.window.rootViewController = navController;
+    
+    [self.workspace initialize];
     return YES;
     
 }

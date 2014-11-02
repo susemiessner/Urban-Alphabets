@@ -55,8 +55,25 @@
     UIBarButtonItem *leftButton =[[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem=leftButton;
     
-    
     [self cameraSetup];
+    //for testing
+    CGRect bottomBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-UA_BOTTOM_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, UA_BOTTOM_BAR_HEIGHT);
+    self.bottomNavBar = [[BottomNavBar alloc] initWithFrame:bottomBarFrame leftIcon:UA_ICON_PHOTOLIBRARY withFrame:CGRectMake(0, 0, 60, 30) centerIcon:UA_ICON_TAKE_PHOTO_BIG withFrame:CGRectMake(0, 0, 90, 45) rightIcon:UA_ICON_TAKE_PHOTO withFrame:CGRectMake(0, 0, 70, 35)];
+    [self.view addSubview:self.bottomNavBar];
+    
+    UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
+    takePhotoButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.centerImageView addGestureRecognizer:takePhotoButtonRecognizer];
+    
+    
+    UITapGestureRecognizer *photoLibraryButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToPhotoLibrary)];
+    photoLibraryButtonRecognizer.numberOfTapsRequired = 1;
+    [self.bottomNavBar.leftImageView addGestureRecognizer:photoLibraryButtonRecognizer];
+    
+    
+    
+    self.bottomNavBar.rightImageView.hidden = YES;
+
 }
 -(void)goBack{
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -120,9 +137,12 @@
         
         double proportion = 640.0/480.0;
         double imageTop = ([[UIScreen mainScreen] bounds].size.height / 2.0) - (320*proportion / 2.0);
-        
-        self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
-        
+        if (UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen] bounds].size.height) {
+            self.stillLayer.frame = CGRectMake(0,UA_TOP_BAR_HEIGHT-42,[[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.width*proportion);
+        } else{
+            self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
+        }
+
         [self adjustImageFramesForDeviceOrientation:nil];
         
         //add the layer
@@ -151,7 +171,7 @@
         
         
         self.bottomNavBar.rightImageView.hidden = YES;
-    }
+}
     else
     {
         [self cameraPrepareToRetake];
@@ -183,7 +203,6 @@
         
         self.avPreviewLayer.transform=transform;
     }
-    
 }
 
 // this prepares to takes the picture
@@ -202,7 +221,6 @@
         UITapGestureRecognizer *takePhotoButtonRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(take)];
         takePhotoButtonRecognizer.numberOfTapsRequired = 1;
         [self.bottomNavBar.rightImageView addGestureRecognizer:takePhotoButtonRecognizer];
-        
         
         self.isPhotoBeingTaken = NO;
     }
@@ -281,6 +299,22 @@
     touchX1=50.532;
     touchY2= touchY1 + 266.472;
     touchX2= [[UIScreen mainScreen] bounds].size.width-50.3532;
+    if ( UA_IPHONE_6_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
+        touchX1=50.532+27;
+        touchY2= touchY1 + 266.472;
+        touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+27);
+    } else if ( UA_IPHONE_6PLUS_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
+        touchX1=50.532+47;
+        touchY2= touchY1 + 266.472;
+        touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+47);
+    }else if ( UA_IPAD_RETINA_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
+        touchY1= [[UIScreen mainScreen] bounds].size.height/2 - 266.472/2;
+        touchX1=50.532+224;
+        touchY2= touchY1 + 266.472;
+        touchX2= [[UIScreen mainScreen] bounds].size.width-(50.3532+224);
+    }
     //upper rect
     upperRect=[[UIView alloc]initWithFrame:CGRectMake(0, UA_TOP_WHITE+UA_TOP_BAR_HEIGHT, [[UIScreen mainScreen] bounds].size.width, touchY1-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT))];
     [upperRect setBackgroundColor:UA_OVERLAY_COLOR];
@@ -301,8 +335,6 @@
     [rightRect setBackgroundColor:UA_OVERLAY_COLOR];
     [self.view addSubview:rightRect];
 }
-
-
 -(void)initGestureRecognizers{
     panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
     [self.view addGestureRecognizer:panRecognizer];
@@ -319,20 +351,46 @@
     
     panRecognizer.delegate = self;
     pinchRecognizer.delegate = self;
-    rotationRecognizer.delegate = self;}
+    rotationRecognizer.delegate = self;
+}
 - (void)panDetected:(UIPanGestureRecognizer *)panRecognizerFound{
     CGPoint translation = [panRecognizerFound translationInView:self.view];
     CGPoint imageViewPosition = self.previewLayerHostView.center;
     imageViewPosition.x += translation.x;
     imageViewPosition.y += translation.y;
-    
+
     self.previewLayerHostView.center = imageViewPosition;
     [panRecognizer setTranslation:CGPointZero inView:self.view];
+
 }
-- (void)pinchDetected:(UIPinchGestureRecognizer *)pinchRecognizerFound{
+/*- (void)pinchDetected:(UIPinchGestureRecognizer *)pinchRecognizerFound{
     CGFloat scale = pinchRecognizerFound.scale;
     self.previewLayerHostView.transform = CGAffineTransformScale(self.previewLayerHostView.transform, scale, scale);
     pinchRecognizer.scale = 1.0;
+   }*/
+// scale and rotation transforms are applied relative to the layer's anchor point
+// this method moves a gesture recognizer's view's anchor point between the user's fingers
+- (void)adjustAnchorPointForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        UIView *piece = self.previewLayerHostView;
+        CGPoint locationInView = [gestureRecognizer locationInView:piece];
+        CGPoint locationInSuperview = [gestureRecognizer locationInView:piece.superview];
+        
+        piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.bounds.size.width, locationInView.y / piece.bounds.size.height);
+        piece.center = locationInSuperview;
+    }
+}
+
+// scale the piece by the current scale
+// reset the gesture recognizer's rotation to 0 after applying so the next callback is a delta from the current scale
+- (void)pinchDetected:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+    [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
+        self.previewLayerHostView.transform = CGAffineTransformScale([self.previewLayerHostView transform], [gestureRecognizer scale], [gestureRecognizer scale]);
+        [gestureRecognizer setScale:1];
+    }
 }
 - (void)rotationDetected:(UIRotationGestureRecognizer *)rotationRecognizerFound{
     CGFloat angle = rotationRecognizerFound.rotation;
@@ -346,6 +404,12 @@
     }];
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
 
 // method used when pressing OK button
 -(void)imageSelected{
@@ -359,10 +423,11 @@
     
     //this goes to the next view
     assignLetter = [[AssignLetter alloc] initWithNibName:@"AssignLetter" bundle:[NSBundle mainBundle]];
+    [assignLetter setup:self.croppedPhoto];
     if (self.preselectedLetterNum!= 50) {
         assignLetter.chosenImageNumberInArray=self.preselectedLetterNum;
+        [assignLetter preselectLetter];
     }    
-    [assignLetter setup:self.croppedPhoto];
     [self.navigationController pushViewController:assignLetter animated:YES];
 }
 
@@ -449,6 +514,7 @@
 {
     [pickerLibrary dismissModalViewControllerAnimated:TRUE];
     self.img = image;
+
     float scaleFactorImage=image.size.width/image.size.height;
     
     double proportion = 640.0/480.0;
@@ -456,7 +522,7 @@
     
     //self.stillLayer.frame = CGRectMake(0,imageTop,320,(320*640)/480);
     UIImageView *imageView= [[UIImageView alloc] initWithFrame:CGRectMake(0, imageTop, [[UIScreen mainScreen] bounds].size.width,[[UIScreen mainScreen] bounds].size.width/scaleFactorImage)] ;
-    [imageView setImage:image];
+    [imageView setImage:self.img];
     
     [self.previewLayerHostView addSubview:imageView];
     

@@ -49,15 +49,42 @@ C4_EXTERN BOOL VERBOSELOAD;
 //---------------------------------------------------------------------
 //UA Variables (start)
 //---------------------------------------------------------------------
-#define UA_IPHONE_5_HEIGHT 568.0f
+//.......devices
+//..........phones
 #define UA_IPHONE_4_HEIGHT 480.0f
+
+#define UA_IPHONE_5_HEIGHT 568.0f
+
+#define UA_IPHONE_6_HEIGHT 667.0f
+#define UA_IPHONE_6PLUS_HEIGHT 736.0f
+//..........pads
+#define UA_IPAD_RETINA_HEIGHT 1024.0f
+
+//........alphabets
+//..........phones
+#define UA_LETTER_IMG_HEIGHT_4 52.55f
+#define UA_LETTER_IMG_WIDTH_4 43.019f
+#define UA_LETTER_SIDE_MARGIN_ALPHABETS 30.943f
 
 #define UA_LETTER_IMG_HEIGHT_5 65.0f
 #define UA_LETTER_IMG_WIDTH_5 54.0f
 
-#define UA_LETTER_IMG_HEIGHT_4 52.55f
-#define UA_LETTER_IMG_WIDTH_4 43.019f
-#define UA_LETTER_SIDE_MARGIN_ALPHABETS 30.943f
+#define UA_LETTER_IMG_HEIGHT_6 74.6296f
+#define UA_LETTER_IMG_WIDTH_6 62.5f
+#define UA_LETTER_TOP_MARGIN_ALPHABETS 18.0f
+
+#define UA_LETTER_IMG_HEIGHT_6PLUS 83.05f
+#define UA_LETTER_IMG_WIDTH_6PLUS 69.0f
+#define UA_LETTER_TOP_MARGIN_ALPHABETS_6PLUS 22.0f
+//..........pads
+#define UA_LETTER_IMG_HEIGHT_IPAD_RETINA 130.0f
+#define UA_LETTER_IMG_WIDTH_IPAD_RETINA 108.0f
+#define UA_LETTER_TOP_MARGIN_ALPHABETS_IPAD_RETINA 60.0f
+
+
+
+#define UA_IMAGE_PROPORTION 1.2037f
+
 
 //COLORS
 #define UA_NAV_BAR_COLOR    [UIColor colorWithRed:0.96875 green:0.96875 blue:0.96875 alpha:1]

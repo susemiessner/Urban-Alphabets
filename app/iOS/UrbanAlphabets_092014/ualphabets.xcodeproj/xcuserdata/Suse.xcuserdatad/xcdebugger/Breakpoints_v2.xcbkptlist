@@ -16,32 +16,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nav/views/Write Postcard.m"
-            timestampString = "425547964.592672"
+            filePath = "Nav/views/LetterView.m"
+            timestampString = "435831481.544988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "-displayPostcard"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nav/views/Write Postcard.m"
-            timestampString = "425547964.592672"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
-            landmarkName = "-scrollViewDidScroll:"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "-goToTakePhoto"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -74,6 +74,10 @@
         shape.layer.borderColor=[UA_NAV_BAR_COLOR CGColor];
         [shape setBackgroundColor:UA_NAV_CTRL_COLOR];
         
+        UITapGestureRecognizer *languageTabbedRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(languageChanged:)];
+        languageTabbedRecognizer.numberOfTapsRequired = 1;
+        [shape addGestureRecognizer:languageTabbedRecognizer];
+        
         if ([[languages objectAtIndex:i ] isEqualToString: self.currentLanguage]) {
             [shape setBackgroundColor:UA_HIGHLIGHT_COLOR];
             selectedLanguage=i;

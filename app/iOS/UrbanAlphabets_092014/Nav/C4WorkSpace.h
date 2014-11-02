@@ -42,6 +42,7 @@
 -(void)saveUsernameToUserDefaults;
 -(void)loadCorrectAlphabet;
 -(void)goToMyAlphabets;
+-(void)initialize;
 
 
 @property (nonatomic) AlphabetMenu *menu;
@@ -49,6 +50,7 @@
 @property (readwrite, strong) UIImage *currentAlphabetImage;
 @property (readwrite, strong) UIImage *currentAlphabetImageAsUIImage;
 @property (readwrite) float alphabetFromLeft;
+@property (readwrite) float alphabetFromTop;
 @property(readwrite) UILabel* titleLabel;
 
 @end

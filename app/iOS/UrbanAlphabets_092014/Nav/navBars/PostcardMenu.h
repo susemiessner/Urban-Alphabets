@@ -13,5 +13,7 @@
 @property (nonatomic) UILabel *cancelLabel, *myAlphabetsLabel, *myPostcardsLabel, *writePostcardLabel, *savePostcardLabel, *sharePostcardLabel, *postcardInfoLabel;
 @property (nonatomic) UIImageView *backButton, *myAlphabetsIcon, *myPostcardsIcon, *writePostcardIcon, *savePostcardIcon, *sharePostcardIcon, *postcardInfoIcon;
 @property (readwrite, strong) NSString *previousView;
-- (id)initWithFrame:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame andDevice: (NSString*)device;
+-(void)setupPhone;
+-(void)setupPad;
 @end
