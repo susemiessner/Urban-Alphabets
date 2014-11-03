@@ -85,7 +85,7 @@
         letter=[self.german objectAtIndex:chosenImageNumberInArray];
     } else if ([theLanguage isEqualToString:@"Danish/Norwegian"]) {
          letter=[self.danish objectAtIndex:chosenImageNumberInArray];
-    }else if ([theLanguage isEqualToString:@"English"]) {
+    }else if ([theLanguage isEqualToString:@"English/Portugese"]) {
         letter=[self.english objectAtIndex:chosenImageNumberInArray];
     }else if ([theLanguage isEqualToString:@"Spanish"]) {
         letter=[self.spanish objectAtIndex:chosenImageNumberInArray];

@@ -19,12 +19,13 @@ public:
     int lengthEachScreen=5; //length of each of the images in secs
     int lengthBlend=1;
     int blendAbout=0;
-    ofImage  titleFacade, titleLED2, contributeLED2;
+    ofImage  titleFacade, titleLED2, contributeLED2, sidesFacade;
     
     About(){
         titleFacade.loadImage("intro_facade/intro_Title.png"); //title
         titleLED2.loadImage("intro_LED2/intro_Title.png"); //title
         contributeLED2.loadImage("intro_LED2/intro_createAlphabet.png"); //contribute + link
+        sidesFacade.loadImage("intro_facade/intro_sides.png");//the sides
 
         reset();
     }
@@ -47,6 +48,7 @@ public:
             }
             //facade
             titleFacade.draw(37,259);
+            sidesFacade.draw(37,259);
             //LED2
             ofPushMatrix();
             ofTranslate(508, 77);

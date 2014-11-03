@@ -8,6 +8,8 @@
 
 #ifndef Riga01_Letter_h
 #define Riga01_Letter_h
+#include "ofxContrast.h"
+
 
 class Letter{
 public:
@@ -27,6 +29,7 @@ public:
     int _offsetLED2=81+14;
     
     int _constNumber;
+    ofxContrast cont;
     
     Letter(string THEID, string LETTER, string OWNER, int constructorNumber){
         _id=ofToInt(THEID);
@@ -73,7 +76,7 @@ public:
             _yPos=375;
         }
         ofRect(_xPos-1, _yPos-1, 39, 46);
-        _image.draw(_xPos,_yPos,37, 44);
+        cont.setBrightnessAndContrast(_image, 10,  90 ).draw(_xPos,_yPos,37, 44);
     }
     void drawLED2(int number){
         ofPushMatrix();

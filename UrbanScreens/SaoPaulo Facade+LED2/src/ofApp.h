@@ -98,7 +98,7 @@ class ofApp : public ofBaseApp{
     vector<AlphabetEntry> allAlphabet; //the entire alphabet
     vector<AlphabetEntry> newAlphabet;
     int counterDrawAlphabet; //counting how long the entire alphabet is drawn
-    int alphabetLength; //how long the entire alphabet should be drawn (in secs)
+    float alphabetLength; //how long the entire alphabet should be drawn (in secs)
     About about;//the info text with credits and stuff
     
     int currImgNo1, currImgNo2, currImgNo3, currImgNo4, currImgNo5;//the numbers of the alphabets
@@ -121,6 +121,5 @@ class ofApp : public ofBaseApp{
     int currentQuestionNumber;
     
     int screenWidth, screenHeight;
-
 		
 };

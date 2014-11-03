@@ -146,6 +146,14 @@
     } else{
         [self alphabetSetup];
     }
+    //start location updating
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    [locationManager startUpdatingLocation];
 }
 -(void)nextIntroPic{
     //remove old
@@ -230,8 +238,8 @@
         imageWidth=UA_LETTER_IMG_WIDTH_IPAD_RETINA;
         self.alphabetFromLeft=UA_LETTER_TOP_MARGIN_ALPHABETS_IPAD_RETINA;
     }
-    NSLog(@"imageWidth: %f", imageWidth);
-    NSLog(@"screenWidth: %f: screenHeight: %f", [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
+    //NSLog(@"imageWidth: %f", imageWidth);
+    //NSLog(@"screenWidth: %f: screenHeight: %f", [[UIScreen mainScreen]bounds].size.width, [[UIScreen mainScreen]bounds].size.height);
     [self drawCurrentAlphabet];
     [self initGreyGrid];
 }
@@ -284,11 +292,11 @@
     
     [self.view addSubview:self.menu];
     
-    //start location updating
+    /*//start location updating
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
+    [locationManager startUpdatingLocation];*/
     
     //all gesture recognizers
     //alphabet info
@@ -368,7 +376,7 @@
 }
 -(void)closeMenu{
     //stop location updating
-    [locationManager stopUpdatingLocation];
+    //[locationManager stopUpdatingLocation];
     [self.menu removeFromSuperview];
 }
 
@@ -902,9 +910,10 @@
         }
     }
 }
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    currentLocation = newLocation;
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    currentLocation    = locations.lastObject;
 }
+
 //------------------------------------------------------------------------
 //STUFF TO HANDLE THE KEYBOARD INPUT
 //------------------------------------------------------------------------

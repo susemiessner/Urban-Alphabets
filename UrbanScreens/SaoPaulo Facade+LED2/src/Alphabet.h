@@ -8,6 +8,7 @@
 
 #ifndef Riga01_Alphabet_h
 #define Riga01_Alphabet_h
+#include "ofxContrast.h"
 
 class AlphabetEntry{
 public:
@@ -26,6 +27,9 @@ public:
     int _offsetLED2=128+15;
     
     int _constNo;
+    ofxContrast cont;
+    float darkness;
+
     
     //constructor
     AlphabetEntry(string THEID, string LETTER, int constructorNumber){
@@ -59,6 +63,7 @@ public:
         } else if (_constNo>1) {
             _yPos+=_offset;
         }
+        darkness=0.0;
     }
     void reset(){
         //facade
@@ -111,6 +116,18 @@ public:
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
         //printf("letter: %s \n", _letter.c_str());
+        
+        //trying to get average brightness
+        ofPixels pix = _image.getPixelsRef();
+        darkness=0.0;
+        for (int i=0; i<_image.width; i++) {
+            for (int j=0; j<_image.height; j++){
+                darkness+=pix.getColor(i,j).getLightness();
+                //printf("darkness %f", darkness );
+            }
+        }
+        darkness=darkness/(_image.width*_image.height);
+       // printf("letter: %s darkness: %f\n", _letter.c_str(), darkness);
     }
     void loadImageDirectory(){
         string path="letters/letter_";
@@ -129,198 +146,42 @@ public:
     }
     
     void drawFacade(){
+        int toLeft=80;
         ofSetColor(255);
         ofRect(_xPos-1, _yPos-1, 24, 28);
-        _image.draw(_xPos,_yPos, 22, 26);
+        if (_constNo%2==0) {
+            ofRect(_xPos-1-toLeft, _yPos-1, 24, 28);
+        }else{
+            ofRect(_xPos-1+toLeft-5, _yPos-1, 24, 28);
+        }
+
+        if(darkness<100 && darkness!=0.0){
+            cont.setBrightnessAndContrast(_image, 100,  90 ).draw(_xPos,_yPos,22, 26);
+            if (_constNo%2==0) {
+                cont.setBrightnessAndContrast(_image, 100,  90 ).draw(_xPos-toLeft,_yPos,22, 26);
+            }else{
+                cont.setBrightnessAndContrast(_image, 100,  90 ).draw(_xPos+toLeft-5,_yPos,22, 26);
+            }
+           // printf("%s darkness: %f\n", _letter.c_str(), darkness);
+        } else{
+            cont.setBrightnessAndContrast(_image, 10,  60 ).draw(_xPos,_yPos,22, 26);
+            if (_constNo%2==0) {
+                cont.setBrightnessAndContrast(_image, 10,  60 ).draw(_xPos-toLeft,_yPos,22, 26);
+            }else{
+                cont.setBrightnessAndContrast(_image, 10,  60 ).draw(_xPos+toLeft-5,_yPos,22, 26);
+            }
+        }
     }
     
     void drawLED2(){
         ofSetColor(255);
         ofRect(_xPosLED2-1, _yPosLED2-1, 130, 155);
-        _image.draw(_xPosLED2,_yPosLED2, 128, 153);
-}
-    
-    void drawWholeFacade(int number){
-        int width=12;
-        int height=14;
-        int spacing=1;
-        int column, row;
-        switch (number) {
-            case 0:
-                column=3;
-                row=1;
-                break;
-            case 1:
-                column=4;
-                row=1;
-                break;
-            case 2:
-                column=2;
-                row=2;
-                break;
-            case 3:
-                column=3;
-                row=2;
-                break;
-            case 4:
-                column=4;
-                row=2;
-                break;
-            case 5:
-                column=5;
-                row=2;
-                break;
-            case 6:
-                column=2;
-                row=3;
-                break;
-            case 7:
-                column=3;
-                row=3;
-                break;
-            case 8:
-                column=4;
-                row=3;
-                break;
-            case 9:
-                column=5;
-                row=3;
-                break;
-            case 10:
-                column=2;
-                row=4;
-                break;
-            case 11:
-                column=3;
-                row=4;
-                break;
-            case 12:
-                column=4;
-                row=4;
-                break;
-            case 13:
-                column=5;
-                row=4;
-                break;
-            case 14:
-                column=2;
-                row=5;
-                break;
-            case 15:
-                column=3;
-                row=5;
-                break;
-            case 16:
-                column=4;
-                row=5;
-                break;
-            case 17:
-                column=5;
-                row=5;
-                break;
-            case 18:
-                column=2;
-                row=6;
-                break;
-            case 19:
-                column=3;
-                row=6;
-                break;
-            case 20:
-                column=4;
-                row=6;
-                break;
-            case 21:
-                column=5;
-                row=6;
-                break;
-            case 22:
-                column=2;
-                row=7;
-                break;
-            case 23:
-                column=3;
-                row=7;
-                break;
-            case 24:
-                column=4;
-                row=7;
-                break;
-            case 25:
-                column=5;
-                row=7;
-                break;
-            case 26:
-                column=2;
-                row=8;
-                break;
-            case 27:
-                column=3;
-                row=8;
-                break;
-            case 28:
-                column=4;
-                row=8;
-                break;
-            case 29:
-                column=5;
-                row=8;
-                break;
-            case 30:
-                column=1;
-                row=9;
-                break;
-            case 31:
-                column=2;
-                row=9;
-                break;
-            case 32:
-                column=3;
-                row=9;
-                break;
-            case 33:
-                column=4;
-                row=9;
-                break;
-            case 34:
-                column=5;
-                row=9;
-                break;
-            case 35:
-                column=6;
-                row=9;
-                break;
-            case 36:
-                column=1;
-                row=10;
-                break;
-            case 37:
-                column=2;
-                row=10;
-                break;
-            case 38:
-                column=3;
-                row=10;
-                break;
-            case 39:
-                column=4;
-                row=10;
-                break;
-            case 40:
-                column=5;
-                row=10;
-                break;
-            case 41:
-                column=6;
-                row=10;
-                break;
-            default:
-                break;
+        if(darkness<100 && darkness!=0.0){
+            cont.setBrightnessAndContrast(_image, 70,  30 ).draw(_xPosLED2,_yPosLED2,128,153);
+        } else{
+            _image.draw(_xPosLED2,_yPosLED2, 128, 153);
         }
-        int myXPos=94+column*(width+spacing);
-        int myYPos=253+row*(height+spacing);
-        _image.draw(myXPos,myYPos,width ,height);
-    }
+}
     
     void drawWholeLED2(int number){
         int width=39;
@@ -331,8 +192,11 @@ public:
         
         int myXPos=6+column*(width+spacing);
         int myYPos=49+(_constNo-column)/noOfColumns*(height+spacing);
-        
-        _image.draw(myXPos,myYPos,width ,height);
+        if(darkness<100 && darkness!=0.0){
+            cont.setBrightnessAndContrast(_image, 70,  30 ).draw(myXPos,myYPos,width,height);
+        } else{
+            _image.draw(myXPos,myYPos,width ,height);
+        }
     }
     void updateFacade(){
         _yPos-=1;

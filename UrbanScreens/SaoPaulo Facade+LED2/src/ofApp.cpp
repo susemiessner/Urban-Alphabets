@@ -4,7 +4,7 @@
 void ofApp::setup(){
     //base setup
     ofSetFrameRate(FRAME_RATE);
-    ofBackground(200);
+    ofBackground(0);
     ofTrueTypeFont::setGlobalDpi(72);
     ofRegisterURLNotification(this);
     
@@ -24,7 +24,7 @@ void ofApp::setup(){
     
     //setup of the URLS that need to be loaded
     URLsToLoad[0]=info;
-    URLsToLoad[1]=currentQuestion;
+    URLsToLoad[1]=currentAlphabet;//currentQuestion;
     URLsToLoad[2]=recentPostcards;
     URLsToLoad[3]=recentLetters;
     URLsToLoad[4]=recentPostcards;
@@ -44,7 +44,7 @@ void ofApp::setup(){
     
     //setup for alphabet screen
     counterDrawAlphabet=0;
-    alphabetLength=15;
+    alphabetLength=11.6;
     counterAlphabetsTitle=0;
     alphabetTitleFacade.loadImage("intro_facade/intro_currentAlphabet.png");
     alphabetTitleLED2.loadImage("intro_LED2/intro_currentAlphabet.png");
@@ -480,42 +480,44 @@ void ofApp::updateAlphabet(){
     if (counterAlphabetsTitle>introLength*FRAME_RATE) {
         counterDrawAlphabet++;
     }
-    //start updating for the individual letters only
-    if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
-        
-        if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
-            //facade
-            for (int i=0; i<NO_OF_ALPHABETS_RUNNING_THROUGH; i++) {
-                //next image?
-                if (allAlphabet[currImgNoAlphabet[i]].nextImageFacade()) {
-                    currImgNoAlphabet[i]+=NO_OF_ALPHABETS_RUNNING_THROUGH;
-                    if (currImgNoAlphabet[i]>allAlphabet.size()-1) {
-                        currImgNoAlphabet[i]=currImgNoAlphabet[i]-allAlphabet.size();
-                    }
-                }
-                //update
-                if (ofGetFrameNum()%4==0) {
-                    allAlphabet[currImgNoAlphabet[i]].updateFacade();
+    //update facade after the intro screen
+    if (counterAlphabetsTitle>introLength*FRAME_RATE) {
+        //facade
+        for (int i=0; i<NO_OF_ALPHABETS_RUNNING_THROUGH; i++) {
+            //next image?
+            if (allAlphabet[currImgNoAlphabet[i]].nextImageFacade()) {
+                currImgNoAlphabet[i]+=NO_OF_ALPHABETS_RUNNING_THROUGH;
+                if (currImgNoAlphabet[i]>allAlphabet.size()-1) {
+                    currImgNoAlphabet[i]=currImgNoAlphabet[i]-allAlphabet.size();
                 }
             }
-            //LED2
-            for (int i=0; i<NO_OF_ALPHABETS_RUNNING_THROUGH_LED; i++) {
-                //next image?
-                if (allAlphabet[currImgNoAlphabetLED2[i]].nextImageLED2()) {
-                    currImgNoAlphabetLED2[i]+=NO_OF_ALPHABETS_RUNNING_THROUGH_LED;
-                    if (currImgNoAlphabetLED2[i]>allAlphabet.size()-1) {
-                        currImgNoAlphabetLED2[i]=currImgNoAlphabetLED2[i]-allAlphabet.size();
-                    }
-                }
-                //update
-                //if (ofGetFrameNum()%2==0) {
-                    allAlphabet[currImgNoAlphabetLED2[i]].updateLED();
-                //}
+            //update
+            if (ofGetFrameNum()%5==0) {
+                allAlphabet[currImgNoAlphabet[i]].updateFacade();
             }
         }
     }
+    //update LED after alphabet overview
+    if(counterDrawAlphabet>FRAME_RATE*alphabetLength){
+        
+        //LED2
+        for (int i=0; i<NO_OF_ALPHABETS_RUNNING_THROUGH_LED; i++) {
+            //next image?
+            if (allAlphabet[currImgNoAlphabetLED2[i]].nextImageLED2()) {
+                currImgNoAlphabetLED2[i]+=NO_OF_ALPHABETS_RUNNING_THROUGH_LED;
+                if (currImgNoAlphabetLED2[i]>allAlphabet.size()-1) {
+                    currImgNoAlphabetLED2[i]=currImgNoAlphabetLED2[i]-allAlphabet.size();
+                }
+            }
+            //update
+            //if (ofGetFrameNum()%2==0) {
+            allAlphabet[currImgNoAlphabetLED2[i]].updateLED();
+            //}
+        }
+        
+    }
     //send request to next screen already
-    if (counterDrawAlphabet==FRAME_RATE*(alphabetLength-3)) {
+    if (counterDrawAlphabet==1/*FRAME_RATE*(introLength-4)*/) {
         goToNextScreen();
     }
     //determining when it's over
@@ -734,21 +736,8 @@ void ofApp::drawAlphabet(){
         
     } else if (counterDrawAlphabet<FRAME_RATE*alphabetLength) {
         //facade
-        //blend in
-        if(counterDrawAlphabet<FRAME_RATE){
-            blendInfoFacade+=8;
-            ofSetColor(255, 255, 255, blendInfoFacade);
-        }
-        //blend out
-        else if(counterDrawAlphabet>FRAME_RATE*(alphabetLength-1)){
-            blendInfoFacade-=8;
-            ofSetColor(255, 255, 255, blendInfoFacade);
-        } else{
-            ofSetColor(255);
-        }
-        //draw entire alphabet
-        for (int i=0; i<allAlphabet.size(); i++) {
-            allAlphabet[i].drawWholeFacade(i);
+        for (int i=0; i<NO_OF_ALPHABETS_RUNNING_THROUGH; i++) {
+            allAlphabet[currImgNoAlphabet[i]].drawFacade();
         }
         //LED
         //blend out

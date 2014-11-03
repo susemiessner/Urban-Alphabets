@@ -90,6 +90,9 @@
     
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
     [locationManager startUpdatingLocation];
     
     imageWidth=UA_LETTER_IMG_WIDTH_5;
@@ -337,9 +340,8 @@
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
 }
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    currentLocation = newLocation;
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    currentLocation    = locations.lastObject;
 }
 //------------------------------------------------------------------------
 //SAVING CROPPED IMAGE TO DOCUMENTS DIRECTORY
