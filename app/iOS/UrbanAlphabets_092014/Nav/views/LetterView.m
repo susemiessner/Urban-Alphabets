@@ -53,11 +53,16 @@
         letterHeight=[[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
         letterWidth=letterWidth*0.82;
         letterFromLeft=([[UIScreen mainScreen] bounds].size.width-letterWidth)/2;
+    }else if(UA_IPAD_RETINA_HEIGHT==[[UIScreen mainScreen]bounds].size.height){
+        letterHeight=[[UIScreen mainScreen] bounds].size.height-UA_TOP_WHITE-UA_TOP_BAR_HEIGHT-self.bottomNavBar.frame.size.height;
+        letterWidth=letterWidth*0.82;
+        letterFromLeft=([[UIScreen mainScreen] bounds].size.width-letterWidth)/2;
     }
     
     //THE LETTER
     self.currentAlphabet=[passedAlphabet mutableCopy];
     currentLetter=chosenNumber;
+    currentImage=[[UIImageView alloc]init];
     currentImage=[self.currentAlphabet objectAtIndex:currentLetter];
     currentImageView=[[UIImageView alloc] initWithFrame:CGRectMake(letterFromLeft, UA_TOP_BAR_HEIGHT+UA_TOP_WHITE, letterWidth, letterHeight)];
     currentImageView.image=currentImage.image;

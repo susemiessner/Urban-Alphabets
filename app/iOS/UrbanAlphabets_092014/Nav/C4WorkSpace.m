@@ -415,7 +415,7 @@
     float i=(currentImage.frame.origin.x-self.alphabetFromLeft)/imageWidth;
     float j=currentImage.frame.origin.y/imageHeight;
     int j1=j+1;
-    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height) {
+    if ( UA_IPHONE_5_HEIGHT != [[UIScreen mainScreen] bounds].size.height && UA_IPAD_RETINA_HEIGHT!=[[UIScreen mainScreen]bounds].size.height) {
         //if ( UA_IPHONE_5_HEIGHT == [[UIScreen mainScreen] bounds].size.height) {
         j1=floor(j);
     }
