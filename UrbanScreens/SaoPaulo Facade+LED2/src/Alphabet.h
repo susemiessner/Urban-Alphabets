@@ -207,7 +207,7 @@ public:
     bool nextImageFacade(){
         if(_yPos<259-26-16){
             _xPos=-15;
-            _yPos=426;
+            _yPos=1426;
             if(_constNo%2==1){
                 _xPos=_xPos+22+4;
             }

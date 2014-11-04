@@ -62,17 +62,16 @@ void ofApp::setup(){
     currImgNo=0;
     
     //changing questions setup
-    questionsFacade[0].loadImage("questions_facade/questions_english_ -01.png");
-    questionsFacade[1].loadImage("questions_facade/questions_english_ -02.png");
-    questionsFacade[2].loadImage("questions_facade/questions_english_ -03.png");
-    questionsFacade[3].loadImage("questions_facade/questions_english_ -04.png");
-    //latvian questions
-    questionsLED2[0].loadImage("questions_LED2/questions_english_ -01.png");
-    questionsLED2[1].loadImage("questions_LED2/questions_english_ -02.png");
-    questionsLED2[2].loadImage("questions_LED2/questions_english_ -03.png");
-    questionsLED2[3].loadImage("questions_LED2/questions_english_ -04.png");
+    questionsFacade[0].loadImage("questions_facade/questions_english_-01.png");
+    questionsFacade[1].loadImage("questions_facade/questions_english_-02.png");
+    questionsFacade[2].loadImage("questions_facade/questions_english_-03.png");
+    questionsFacade[3].loadImage("questions_facade/questions_english_-04.png");
+    //LED questions
+    questionsLED2[0].loadImage("questions_LED2/questions_english_-01.png");
+    questionsLED2[1].loadImage("questions_LED2/questions_english_-02.png");
+    questionsLED2[2].loadImage("questions_LED2/questions_english_-03.png");
+    questionsLED2[3].loadImage("questions_LED2/questions_english_-04.png");
     currentQuestionNumber=0;
-    postcardsTitleFacade.loadImage("intro_facade/intro_titlePostcards.png");
     postcardsTitleLED2.loadImage("intro_LED2/intro_titlePostcards.png");
     
     
@@ -553,7 +552,7 @@ void ofApp::drawPostcards(){
         }
         //draw title
         //on facade
-        questionsFacade[currentQuestionNumber].draw(120,259, questionsFacade[currentQuestionNumber].width, questionsFacade[currentQuestionNumber].height);
+        questionsFacade[currentQuestionNumber].draw(115,259+60, questionsFacade[currentQuestionNumber].width, questionsFacade[currentQuestionNumber].height);
         
         //on LED
         ofPushMatrix();

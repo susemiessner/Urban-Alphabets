@@ -30,6 +30,8 @@ public:
     
     int _constNumber;
     ofxContrast cont;
+    float darkness;
+
     
     Letter(string THEID, string LETTER, string OWNER, int constructorNumber){
         _id=ofToInt(THEID);
@@ -55,6 +57,17 @@ public:
         string URL="http://www.ualphabets.com/images/244x200/"+folderName+"/"+ofToString(_id)+".png";
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
+        
+        //trying to get average brightness
+        ofPixels pix = _image.getPixelsRef();
+        darkness=0.0;
+        for (int i=0; i<_image.width; i++) {
+            for (int j=0; j<_image.height; j++){
+                darkness+=pix.getColor(i,j).getLightness();
+                //printf("darkness %f", darkness );
+            }
+        }
+        darkness=darkness/(_image.width*_image.height);
     }
     
     void drawFacade(int number){
@@ -76,7 +89,12 @@ public:
             _yPos=375;
         }
         ofRect(_xPos-1, _yPos-1, 39, 46);
-        cont.setBrightnessAndContrast(_image, 10,  90 ).draw(_xPos,_yPos,37, 44);
+        
+        if(darkness<100 && darkness!=0.0){
+            cont.setBrightnessAndContrast(_image, 100,  90 ).draw(_xPos,_yPos,37, 44);
+        }else {
+            cont.setBrightnessAndContrast(_image, 10,  60 ).draw(_xPos,_yPos,37, 44);
+        }
     }
     void drawLED2(int number){
         ofPushMatrix();
