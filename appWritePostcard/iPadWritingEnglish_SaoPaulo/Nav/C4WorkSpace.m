@@ -48,8 +48,6 @@
     //-----------------------
     NSString *newCharacter;
     UIScrollView *scrollViewSuse;
-
-    
 }
 
 -(void)setup {
@@ -184,7 +182,7 @@
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     
-    NSLog(@"Request Complete,recieved %d bytes of data",receivedData.length);
+    NSLog(@"Request Complete,recieved %lu bytes of data",(unsigned long)receivedData.length);
     NSError *error = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:receivedData options:NSJSONReadingAllowFragments error:&error];
     //NSLog(@"received data: %@", jsonArray);
@@ -294,7 +292,7 @@
     
     //buttons
     self.buttonRefreshView=[[UIImageView alloc]initWithImage:buttonRefresh];
-    self.buttonRefreshView.frame=CGRectMake(0, 670, 120, 67);
+    self.buttonRefreshView.frame=CGRectMake(0, 600, 120, 67);
     self.buttonRefreshView.userInteractionEnabled=YES;
     [self.view addSubview:self.buttonRefreshView];
     
@@ -305,7 +303,7 @@
     
     
     self.buttonSendView=[[UIImageView alloc]initWithImage:buttonSend];
-    self.buttonSendView.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-120, 670, 120, 67);
+    self.buttonSendView.frame=CGRectMake([[UIScreen mainScreen] bounds].size.width-120, 600, 120, 67);
     self.buttonSendView.userInteractionEnabled=YES;
     [self.view addSubview:self.buttonSendView];
     

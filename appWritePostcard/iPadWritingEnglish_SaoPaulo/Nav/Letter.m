@@ -12,7 +12,7 @@
 -(void)loadImage{
     NSString *identifierString=[NSString stringWithFormat:@"%i", (int)self.identifier];
     NSString *folderName=[identifierString substringToIndex:2];
-    NSString *urlString=[NSString stringWithFormat:@"http://www.ualphabets.com/images/original/%@/%i.png", folderName, (int)self.identifier];
+    NSString *urlString=[NSString stringWithFormat:@"http://www.ualphabets.com/images/244x200/%@/%i.png", folderName, (int)self.identifier];
 
     NSURL *url = [NSURL URLWithString:urlString];
     //NSLog(@"URL: %@",urlString);
