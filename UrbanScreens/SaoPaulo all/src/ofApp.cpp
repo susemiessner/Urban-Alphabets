@@ -28,7 +28,7 @@ void ofApp::setup(){
     
     //setup of the URLS that need to be loaded
     URLsToLoad[0]=info;
-    URLsToLoad[1]=currentQuestion;
+    URLsToLoad[1]=currentAlphabet;//currentQuestion;
     URLsToLoad[2]=recentPostcards;
     URLsToLoad[3]=recentLetters;
     URLsToLoad[4]=recentPostcards;
@@ -223,7 +223,7 @@ void ofApp::urlResponse(ofHttpResponse & response){
     theResponse=ofToString(response.data);
     ofStringReplace(theResponse, "[{", "");
     ofStringReplace(theResponse, "}]", "");
-    //printf("%s", theResponse.c_str());
+    printf("%s", theResponse.c_str());
     
     allEntries=ofSplitString(theResponse, "},{");
     if (URLsToLoad[currentURLNo]==recentPostcards){
@@ -254,7 +254,7 @@ void ofApp::loadURL_recentPostcards(ofHttpResponse &response){
             ofStringReplace(cutEntries[3], "\"", "");
             ofStringReplace(cutEntries[4], "\"", "");
             Postcard entry(cutEntries[0], cutEntries[1], cutEntries[2],cutEntries[3],cutEntries[4]);
-            if(allPostcards.size()<5){
+            if(allPostcards.size()<4){
                 allPostcards.push_back(entry);
                 allPostcards[allPostcards.size()-1].loadImage();
             } else{
@@ -509,7 +509,6 @@ void ofApp::updateAlphabet(){
             }
         }
     }
-    //update LEDs after alphabet overview
     //update LEDs after alphabet overview
     if(counterDrawAlphabet>FRAME_RATE*alphabetLengthLED1){
         

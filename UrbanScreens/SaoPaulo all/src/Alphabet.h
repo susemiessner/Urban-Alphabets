@@ -141,7 +141,7 @@ public:
             }
         }
         darkness=darkness/(_image.width*_image.height);
-       //printf("letter: %s darkness: %f\n", _letter.c_str(), darkness);
+       printf("id:%i letter: %s darkness: %f\n",_id, _letter.c_str(), darkness);
     }
     void loadImageDirectory(){
         string path="letters/letter_";

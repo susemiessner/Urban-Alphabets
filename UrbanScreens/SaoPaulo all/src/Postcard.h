@@ -45,7 +45,7 @@ public:
         if (_id<1000) {
             folderName=ofToString(identifier.at(0));
         }
-        string URL="http://www.ualphabets.com/images/original/"+folderName+"/"+ofToString(_id)+".png";
+        string URL="http://www.ualphabets.com/images/244x200/"+folderName+"/"+ofToString(_id)+".png";
         ofHttpResponse resp=ofLoadURL(URL);
         _image.loadImage(resp);
         printf("loaded Image: %i \n", _id);

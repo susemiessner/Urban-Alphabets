@@ -98,8 +98,6 @@
 }
 -(void)loadAlphabetFromServer{
     self.receivedLettersArray=[[NSMutableArray alloc]init];
-    self.theNewAlphabetArray=[[NSMutableArray alloc]init];
-    
     NSLog(@"sending Request");
     receivedResponse=false;
     self.theNewAlphabetArray=[[NSMutableArray alloc]init];
@@ -374,7 +372,32 @@
     CGImageRef imageRef = CGImageCreateWithImageInRect([[self createScreenshot] CGImage], CGRectMake((alphabetFromLeft)*screenScale, (UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+2) * screenScale, ([[UIScreen mainScreen] bounds].size.width-alphabetFromLeft*2) * screenScale, ([[UIScreen mainScreen] bounds].size.height-(UA_TOP_WHITE+UA_TOP_BAR_HEIGHT+UA_BOTTOM_BAR_HEIGHT+200))*screenScale));
     
     self.currentAlphabetImage = [UIImage imageWithCGImage:imageRef];
+    self.currentAlphabetImage= [self resizeImage:self.currentAlphabetImage newSize:CGSizeMake(200, 244)];
     CGImageRelease(imageRef);
+}
+- (UIImage *)resizeImage:(UIImage*)image newSize:(CGSize)newSize {
+    CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width, newSize.height));
+    CGImageRef imageRef = image.CGImage;
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // Set the quality level to use when rescaling
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, newSize.height);
+    
+    CGContextConcatCTM(context, flipVertical);
+    // Draw into the context; this scales the image
+    CGContextDrawImage(context, newRect, imageRef);
+    
+    // Get the resized image from the context and a UIImage
+    CGImageRef newImageRef = CGBitmapContextCreateImage(context);
+    UIImage *newImage = [UIImage imageWithCGImage:newImageRef];
+    
+    CGImageRelease(newImageRef);
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 - (UIImage *)createScreenshot{
     //    UIGraphicsBeginImageContext(pageSize);
