@@ -1,0 +1,341 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_assign_letter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.susemiessner.android.urbanalphabets.AssignLetterActivity" >
+
+    <TableLayout
+        android:id="@+id/tableLayout_assign_letter"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" >
+
+        <TableRow
+            android:id="@+id/tableRow_assign_letter_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter1"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter2"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter3"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter4"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter5"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter6"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_assign_letter_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter7"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter8"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter9"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter10"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter11"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter12"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_assign_letter_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter13"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter14"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter15"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter16"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter17"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter18"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_assign_letter_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter19"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter20"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter21"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter22"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter23"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter24"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_assign_letter_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter25"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter26"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter27"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter28"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter29"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter30"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_assign_letter_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter31"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter32"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter33"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter34"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter35"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter36"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_assign_letter_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter37"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter38"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter39"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter40"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter41"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_assign_letter42"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="selectLetter" />
+        </TableRow>
+    </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_assign_letter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp" >
+
+        <ImageView
+            android:id="@+id/imageView_assign_letter"
+            android:layout_width="37dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/description" />
+
+        <ImageButton
+            android:id="@+id/imageButton_assign_letter"
+            android:layout_width="70dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ok_big"
+            android:contentDescription="@string/description"
+            android:onClick="assignImage"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

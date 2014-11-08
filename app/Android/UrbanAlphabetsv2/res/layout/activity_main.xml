@@ -1,0 +1,340 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.susemiessner.android.urbanalphabets.MainActivity" >
+
+    <TableLayout
+        android:id="@+id/tableLayout_main"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1" >
+
+        <TableRow
+            android:id="@+id/tableRow_main_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_main1"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main2"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main3"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main4"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main5"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main6"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_main_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_main7"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main8"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main9"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main10"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main11"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main12"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_main_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_main13"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main14"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main15"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main16"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main17"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main18"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_main_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_main19"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main20"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main21"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main22"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main23"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main24"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_main_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_main25"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main26"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main27"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main28"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main29"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main30"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_main_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_main31"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main32"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main33"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main34"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main35"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main36"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow_main_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imageView_main37"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main38"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main39"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main40"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main41"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+
+            <ImageView
+                android:id="@+id/imageView_main42"
+                android:clickable="true"
+                android:contentDescription="@string/description"
+                android:onClick="viewLetter" />
+        </TableRow>
+    </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp" >
+
+        <ImageButton
+            android:id="@+id/imageButton_takePhoto"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/takephoto"
+            android:contentDescription="@string/description"
+            android:onClick="takePhoto" />
+
+        <ImageButton
+            android:id="@+id/imageButton_menu"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/menu"
+            android:contentDescription="@string/description"
+            android:onClick="showMenu" />
+    </RelativeLayout>
+
+</LinearLayout>
