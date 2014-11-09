@@ -13,8 +13,12 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -168,6 +172,43 @@ public class AssignLetterActivity extends Activity {
         ex.printStackTrace();
       }
       deleteFile("photo.png");
+
+      /*
+       * Schedule
+       */
+      SQLiteDatabase database = null;
+      try {
+        database =
+            getApplicationContext().openOrCreateDatabase("db.sqlite", Context.MODE_PRIVATE, null);
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+      ContentValues entry = new ContentValues();
+      entry.put("lng", mSharedPreferences.getString("longitude", "0"));
+      entry.put("lat", mSharedPreferences.getString("latitude", "0"));
+      entry.put(
+          "letter",
+          String.valueOf(MainActivity.LETTER_NAME[Arrays.asList(MainActivity.LANGUAGE).indexOf(
+              mLanguage)][mSelection]));
+      entry.put("postcard", "no");
+      entry.put("alphabet", "no");
+      entry.put("pText", "");
+      entry.put("lang", mLanguage);
+      entry.put("prefix", mAlphabet);
+      entry
+          .put(
+              "suffix",
+              "_"
+                  + MainActivity.RESOURCE_NAME[Arrays.asList(MainActivity.LANGUAGE).indexOf(
+                      mLanguage)][mSelection]);
+
+      try {
+        database.insert("updates", null, entry);
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+
+      database.close();
       return null;
     }
 

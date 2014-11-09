@@ -11,9 +11,12 @@ import java.util.Arrays;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -153,6 +156,7 @@ public class WritePostcardActivity extends Activity {
         new SharePostcard().execute();
         return true;
       case R.id.item_wp_save_postcard:
+        new SaveAndSchedule().execute();
         return true;
       case R.id.item_wp_write_postcard:
         resetPostcard();
@@ -238,7 +242,7 @@ public class WritePostcardActivity extends Activity {
         showLetter(18); // LatvL
         mPostcardText[mIndex] =
             MainActivity.LETTER[Arrays.asList(MainActivity.LANGUAGE).indexOf(mLanguage)][18];
-      } else if(mIndex < 42){
+      } else if (mIndex < 42) {
         mPostcardText[mIndex] =
             MainActivity.LETTER[Arrays.asList(MainActivity.LANGUAGE).indexOf(mLanguage)][primaryCode];
         showLetter(primaryCode);
@@ -331,6 +335,83 @@ public class WritePostcardActivity extends Activity {
       share.putExtra("sharingWhat", "Alphabet");
       share.putExtra("sharePath", path);
       startActivity(share);
+    }
+  }
+
+  class SaveAndSchedule extends AsyncTask<Void, Void, Void> {
+    @Override
+    protected Void doInBackground(Void... params) {
+      /*
+       * Copy table layout to bitmap
+       */
+      TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout_write_postcard);
+      Bitmap postcard =
+          Bitmap.createBitmap(tableLayout.getWidth(), tableLayout.getHeight(),
+              Bitmap.Config.ARGB_8888);
+      Canvas canvas = new Canvas(postcard);
+      tableLayout.draw(canvas);
+      /*
+       * Save
+       */
+      String filename =
+          (String) android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss",
+              new java.util.Date());
+      File file =
+          new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+              "UrbanAlphabets" + File.separator + filename + ".png");
+      FileOutputStream fos = null;
+      try {
+        fos = new FileOutputStream(file);
+      } catch (FileNotFoundException ex) {
+        ex.printStackTrace();
+      }
+      BufferedOutputStream bos = new BufferedOutputStream(fos);
+      postcard.compress(CompressFormat.PNG, 100, bos);
+      try {
+        bos.flush();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+      try {
+        fos.close();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+
+      // Adding to gallery
+      ContentValues image = new ContentValues();
+      image.put(Images.Media.DATA, file.getAbsolutePath());
+      getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, image);
+
+      /*
+       * Schedule
+       */
+      SQLiteDatabase database = null;
+      try {
+        database =
+            getApplicationContext().openOrCreateDatabase("db.sqlite", Context.MODE_PRIVATE, null);
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+      ContentValues entry = new ContentValues();
+      entry.put("lng", mSharedPreferences.getString("longitude", "0"));
+      entry.put("lat", mSharedPreferences.getString("latitude", "0"));
+      entry.put("letter", "no");
+      entry.put("postcard", "yes");
+      entry.put("alphabet", "no");
+      entry.put("pText", new String(mPostcardText, 0, mIndex));
+      entry.put("lang", mLanguage);
+      entry.put("prefix", "");
+      entry.put("suffix", filename);
+
+      try {
+        database.insert("updates", null, entry);
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+
+      database.close();
+      return null;
     }
   }
 

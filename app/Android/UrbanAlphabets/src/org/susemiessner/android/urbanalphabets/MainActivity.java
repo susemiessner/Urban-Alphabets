@@ -425,7 +425,7 @@ public class MainActivity extends ActionBarActivity {
       database.execSQL("CREATE TABLE IF NOT EXISTS alphabets(alphabet TEXT, language TEXT, "
           + "selected INTEGER)");
       database.execSQL("CREATE TABLE IF NOT EXISTS updates(lng TEXT, lat TEXT, letter TEXT, "
-          + "postcard TEXT, alphabet TEXT, pText TEXT, lang TEXT, path TEXT )");
+          + "postcard TEXT, alphabet TEXT, pText TEXT, lang TEXT, prefix TEXT, suffix TEXT )");
     } catch (SQLiteException ex) {
       database.close();
       Log.d("MainActivity", ex.getMessage());

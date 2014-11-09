@@ -320,6 +320,9 @@ public class MainActivity extends Activity {
       case R.id.item_share_alphabet:
         new ShareAlphabet().execute();
         return true;
+      case R.id.item_save_alphabet:
+        new SaveAndSchedule().execute();
+        return true;
       case R.id.item_write_postcard:
         Intent writePostcard = new Intent(this, WritePostcardActivity.class);
         startActivity(writePostcard);
@@ -392,7 +395,7 @@ public class MainActivity extends Activity {
       database.execSQL("CREATE TABLE IF NOT EXISTS alphabets(alphabet TEXT, language TEXT, "
           + "selected INTEGER)");
       database.execSQL("CREATE TABLE IF NOT EXISTS updates(lng TEXT, lat TEXT, letter TEXT, "
-          + "postcard TEXT, alphabet TEXT, pText TEXT, lang TEXT, path TEXT )");
+          + "postcard TEXT, alphabet TEXT, pText TEXT, lang TEXT, prefix TEXT, suffix TEXT )");
     } catch (SQLiteException ex) {
       ex.printStackTrace();
     }
@@ -447,6 +450,84 @@ public class MainActivity extends Activity {
     e.putString("currentAlphabet", mAlphabet);
     e.putString("currentLanguage", mLanguage);
     e.commit();
+  }
+
+
+  class SaveAndSchedule extends AsyncTask<Void, Void, Void> {
+    @Override
+    protected Void doInBackground(Void... params) {
+      /*
+       * Copy table layout to bitmap
+       */
+      TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout_main);
+      Bitmap alphabet =
+          Bitmap.createBitmap(tableLayout.getWidth(), tableLayout.getHeight(),
+              Bitmap.Config.ARGB_8888);
+      Canvas canvas = new Canvas(alphabet);
+      tableLayout.draw(canvas);
+      /*
+       * Save
+       */
+      String filename =
+          (String) android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss",
+              new java.util.Date());
+      File file =
+          new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+              "UrbanAlphabets" + File.separator + filename + ".png");
+      FileOutputStream fos = null;
+      try {
+        fos = new FileOutputStream(file);
+      } catch (FileNotFoundException ex) {
+        ex.printStackTrace();
+      }
+      BufferedOutputStream bos = new BufferedOutputStream(fos);
+      alphabet.compress(CompressFormat.PNG, 100, bos);
+      try {
+        bos.flush();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+      try {
+        fos.close();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+
+      // Adding to gallery
+      ContentValues image = new ContentValues();
+      image.put(Images.Media.DATA, file.getAbsolutePath());
+      getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, image);
+
+      /*
+       * Schedule
+       */
+      SQLiteDatabase database = null;
+      try {
+        database =
+            getApplicationContext().openOrCreateDatabase("db.sqlite", Context.MODE_PRIVATE, null);
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+      ContentValues entry = new ContentValues();
+      entry.put("lng", mSharedPreferences.getString("longitude", "0"));
+      entry.put("lat", mSharedPreferences.getString("latitude", "0"));
+      entry.put("letter", "no");
+      entry.put("postcard", "no");
+      entry.put("alphabet", "yes");
+      entry.put("pText", "");
+      entry.put("lang", mLanguage);
+      entry.put("prefix", "");
+      entry.put("suffix", filename);
+
+      try {
+        database.insert("updates", null, entry);
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+
+      database.close();
+      return null;
+    }
   }
 
   class ShareAlphabet extends AsyncTask<Void, Void, String> {
