@@ -277,8 +277,8 @@ public class WritePostcardActivity extends Activity {
     @Override
     protected void onPreExecute() {
       mProgressDialog = new ProgressDialog(WritePostcardActivity.this);
-      mProgressDialog.setTitle("Sharing Postcard.");
-      mProgressDialog.setMessage("Please, wait.");
+      mProgressDialog.setTitle("Creating postcard.");
+      mProgressDialog.setMessage("Please wait.");
       mProgressDialog.setIndeterminate(false);
       mProgressDialog.setCancelable(false);
       mProgressDialog.show();

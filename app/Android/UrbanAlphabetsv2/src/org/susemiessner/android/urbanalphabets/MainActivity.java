@@ -536,8 +536,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onPreExecute() {
       mProgressDialog = new ProgressDialog(MainActivity.this);
-      mProgressDialog.setTitle("Sharing Alphabet.");
-      mProgressDialog.setMessage("Please, wait.");
+      mProgressDialog.setTitle("Creating alphabet.");
+      mProgressDialog.setMessage("Please wait.");
       mProgressDialog.setIndeterminate(false);
       mProgressDialog.setCancelable(false);
       mProgressDialog.show();

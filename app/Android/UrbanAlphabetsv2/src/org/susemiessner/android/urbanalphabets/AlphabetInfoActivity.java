@@ -89,6 +89,10 @@ public class AlphabetInfoActivity extends Activity {
     new Cleanup(false).execute();
   }
 
+  public void showAbc(View view) {
+    finish();
+  }
+
 
   class RenameLetters extends AsyncTask<String, Void, Void> {
     private ProgressDialog mProgressDialog;
@@ -119,6 +123,13 @@ public class AlphabetInfoActivity extends Activity {
       replaced.put("alphabet", newName);
       try {
         database.update("alphabets", replaced, "alphabet=?", new String[] {mAlphabet});
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+      replaced = new ContentValues();
+      replaced.put("prefix", newName);
+      try {
+        database.update("updates", replaced, "prefix=?", new String[] {mAlphabet});
       } catch (SQLiteException ex) {
         ex.printStackTrace();
       }
@@ -210,13 +221,7 @@ public class AlphabetInfoActivity extends Activity {
         }
         mProgressDialog.setProgress(index);
       }
-
-      if (!delete)
-        return null;
-
-      /*
-       * Delete alphabet entry from database
-       */
+      // Delete letters from to be updates table
       SQLiteDatabase database = null;
 
       try {
@@ -225,6 +230,21 @@ public class AlphabetInfoActivity extends Activity {
       } catch (SQLiteException ex) {
         ex.printStackTrace();
       }
+
+      try {
+        database.delete("updates", "prefix=?", new String[] {mAlphabet});
+      } catch (SQLiteException ex) {
+        ex.printStackTrace();
+      }
+
+      if (!delete) {
+        database.close();
+        return null;
+      }
+
+      /*
+       * Delete alphabet entry from database
+       */
 
       try {
         database.delete("alphabets", "alphabet=?", new String[] {mAlphabet});
