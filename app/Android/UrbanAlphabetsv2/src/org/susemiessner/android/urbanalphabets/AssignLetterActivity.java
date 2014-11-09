@@ -55,7 +55,8 @@ public class AssignLetterActivity extends Activity {
   private String mAlphabet;
   private String mLanguage;
   private SharedPreferences mSharedPreferences;
-  private int mSelected;
+  private int mSelection;
+  private ImageButton mImageButton;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -70,9 +71,15 @@ public class AssignLetterActivity extends Activity {
     mWidth = mSharedPreferences.getInt("imageViewWidth", 0);
     mHeight = mSharedPreferences.getInt("imageViewHeight", 0);
     mMargin = mSharedPreferences.getInt("imageViewExtra", 0);
-    mSelected = -1;
+    mImageButton = (ImageButton) findViewById(R.id.imageButton_assign_letter);
+    mSelection = mSharedPreferences.getInt("assignLetter", -1);
     setImageViews();
     setImages();
+    if (mSelection != -1) {
+      mImageButton.setVisibility(View.VISIBLE);
+      ImageView iv = (ImageView) findViewById(mImageViewId[mSelection]);
+      iv.setColorFilter(Color.argb(0x80, 0xC2, 0xF7, 0x9E));
+    }
     new DisplayImage((ImageView) findViewById(R.id.imageView_assign_letter)).execute();
   }
 
@@ -92,15 +99,14 @@ public class AssignLetterActivity extends Activity {
   }
 
   public void selectLetter(View v) {
-    ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton_assign_letter);
-    if (imageButton.getVisibility() == View.GONE)
-      imageButton.setVisibility(View.VISIBLE);
-    if (mSelected != -1) {
-      ImageView imageView = (ImageView) findViewById(mImageViewId[mSelected]);
+    if (mImageButton.getVisibility() == View.GONE)
+      mImageButton.setVisibility(View.VISIBLE);
+    if (mSelection != -1) {
+      ImageView imageView = (ImageView) findViewById(mImageViewId[mSelection]);
       imageView.clearColorFilter();
     }
 
-    mSelected = mImageViewIdList.indexOf(v.getId());
+    mSelection = mImageViewIdList.indexOf(v.getId());
     ImageView imageView = (ImageView) v;
     imageView.setColorFilter(Color.argb(0x80, 0xC2, 0xF7, 0x9E));
   }
@@ -140,7 +146,7 @@ public class AssignLetterActivity extends Activity {
                     + mAlphabet
                     + "_"
                     + MainActivity.RESOURCE_NAME[Arrays.asList(MainActivity.LANGUAGE).indexOf(
-                        mLanguage)][mSelected] + ".png"));
+                        mLanguage)][mSelection] + ".png"));
       } catch (FileNotFoundException ex) {
         ex.printStackTrace();
       }

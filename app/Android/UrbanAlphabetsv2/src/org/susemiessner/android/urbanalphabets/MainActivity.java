@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -228,6 +230,7 @@ public class MainActivity extends Activity {
   private String mAlphabet;
   private LinearLayout mLinearLayout;
   private SharedPreferences mSharedPreferences;
+  private List<Integer> mImageViewIdList;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -238,8 +241,12 @@ public class MainActivity extends Activity {
     mLanguage = mSharedPreferences.getString("currentLanguage", "");
     if (mAlphabet.isEmpty() || mLanguage.isEmpty())
       initialize();
-
+    getActionBar().setTitle(mAlphabet);
     mLinearLayout = (LinearLayout) findViewById(R.id.layout_main);
+
+    mImageViewIdList = new ArrayList<Integer>();
+    for (int i = 0; i < 42; i++)
+      mImageViewIdList.add(mImageViewId[i]);
 
     ViewTreeObserver vto = mLinearLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -273,6 +280,11 @@ public class MainActivity extends Activity {
   @Override
   protected void onRestart() {
     super.onRestart();
+    mAlphabet = mSharedPreferences.getString("currentAlphabet", "");
+    mLanguage = mSharedPreferences.getString("currentLanguage", "");
+    if (mAlphabet.isEmpty() || mLanguage.isEmpty())
+      initialize();
+    getActionBar().setTitle(mAlphabet);
     setImages();
   }
 
@@ -282,6 +294,14 @@ public class MainActivity extends Activity {
     for (int i = 0; i < 42; i++) {
       ((ImageView) findViewById(mImageViewId[i])).setImageBitmap(null);
     }
+  }
+
+  public void onResume() {
+    super.onResume();
+  }
+
+  public void onPause() {
+    super.onPause();
   }
 
   @Override
@@ -299,6 +319,10 @@ public class MainActivity extends Activity {
         return true;
       case R.id.item_share_alphabet:
         new ShareAlphabet().execute();
+        return true;
+      case R.id.item_write_postcard:
+        Intent writePostcard = new Intent(this, WritePostcardActivity.class);
+        startActivity(writePostcard);
         return true;
       case R.id.item_my_alphabets:
         Intent myAlphabets = new Intent(this, MyAlphabetsActivity.class);
@@ -329,6 +353,9 @@ public class MainActivity extends Activity {
   }
 
   public void takePhoto(View v) {
+    Editor e = mSharedPreferences.edit();
+    e.putInt("assignLetter", -1);
+    e.commit();
     if (Build.VERSION.SDK_INT < 21) {
       Intent takePhoto = new Intent(this, TakePhotoActivity.class);
       startActivity(takePhoto);
@@ -337,11 +364,16 @@ public class MainActivity extends Activity {
     }
   }
 
-  public void showMenu(View v) {
+  public void showMenu(View view) {
     openOptionsMenu();
   }
 
-  public void viewLetter(View v) {
+  public void viewLetter(View view) {
+    Intent viewLetter = new Intent(this, ViewLetterActivity.class);
+    viewLetter.putExtra("currentAlphabet", mAlphabet);
+    viewLetter.putExtra("currentLanguage", mLanguage);
+    viewLetter.putExtra("currentIndex", mImageViewIdList.indexOf(view.getId()));
+    startActivity(viewLetter);
 
   }
 
