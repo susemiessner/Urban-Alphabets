@@ -36,6 +36,7 @@ public class SyncService extends IntentService {
 
   @Override
   protected void onHandleIntent(Intent intent) {
+
     username =
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString(
             "username", "");
@@ -76,6 +77,11 @@ public class SyncService extends IntentService {
                 "UrbanAlphabets" + File.separator + prefix + suffix + ".png");
         if (file.exists())
           sync(lng, lat, letter, postcard, alphabet, pText, lang, file.getAbsolutePath());
+        try{
+          database.delete("updates", "prefix=? and suffix=?", new String[]{prefix,suffix});
+        } catch(SQLiteException ex) {
+          ex.printStackTrace();
+        }
       } while (cursor.moveToNext());
     }
     if (cursor != null)

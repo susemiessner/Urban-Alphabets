@@ -107,6 +107,16 @@
             android:label="@string/view_letter"
             android:screenOrientation="portrait" >
         </activity>
+
+        <service android:name="SyncService" >
+        </service>
+
+        <receiver android:name="NetworkReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="org.susemiessner.android.urbanalphabet.UPDATE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

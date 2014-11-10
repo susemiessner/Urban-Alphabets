@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 
 public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGlobalLayoutListener,
     View.OnTouchListener {
-  private final static int ASSIGN_LETTER_ACTIVITY = 8000;
   private String mPath;
   private CropView mCropView;
   private ScaleGestureDetector mScaleGestureDetector;
@@ -203,12 +202,6 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
         rectF.top + (rectF.bottom - rectF.top) / 2));
   }
 
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == ASSIGN_LETTER_ACTIVITY && resultCode == 2) {
-      finish();
-    }
-  }
-
   private class CropPhoto extends AsyncTask<Void, Void, Void> {
     private ProgressDialog mProgressDialog;
 
@@ -271,13 +264,14 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
         ex.printStackTrace();
       }
       Intent assignLetter = new Intent(CropPhotoActivity.this, AssignLetterActivity.class);
-      startActivityForResult(assignLetter, ASSIGN_LETTER_ACTIVITY);
+      startActivity(assignLetter);
       return null;
     }
 
     @Override
     protected void onPostExecute(Void arg) {
       mProgressDialog.dismiss();
+      finish();
     }
   }
 

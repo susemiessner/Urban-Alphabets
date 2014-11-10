@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
@@ -209,13 +210,15 @@ public class AssignLetterActivity extends Activity {
       }
 
       database.close();
+   // Call
+      Intent intent = new Intent("org.susemiessner.android.urbanalphabet.UPDATE");
+      sendBroadcast(intent);
       return null;
     }
 
     @Override
     protected void onPostExecute(Void arg) {
       mProgressDialog.dismiss();
-      setResult(2);
       finish();
     }
   }

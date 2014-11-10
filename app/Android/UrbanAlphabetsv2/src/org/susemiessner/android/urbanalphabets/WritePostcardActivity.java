@@ -136,8 +136,8 @@ public class WritePostcardActivity extends Activity {
     else if (bkspace)
       mIndex--;
     ImageView imageView = (ImageView) findViewById(mImageViewId[mIndex]);
-    imageView.setBackgroundColor(0x000000);
-    imageView.setImageDrawable(new ColorDrawable(0x000000));
+    imageView.setBackgroundColor(0xFFFFFFFF);
+    imageView.setImageDrawable(new ColorDrawable(0xFFFFFFFF));
     if (!bkspace)
       mIndex++;
   }
@@ -180,8 +180,8 @@ public class WritePostcardActivity extends Activity {
   private void setBlank() {
     for (int i = 0; i < 42; i++) {
       ImageView imageView = (ImageView) findViewById(mImageViewId[i]);
-      imageView.setBackgroundColor(0x000000);
-      imageView.setImageDrawable(new ColorDrawable(0x000000));
+      imageView.setBackgroundColor(0xFFFFFFFF);
+      imageView.setImageDrawable(new ColorDrawable(0xFFFFFFFF));
     }
   }
 
@@ -409,8 +409,10 @@ public class WritePostcardActivity extends Activity {
       } catch (SQLiteException ex) {
         ex.printStackTrace();
       }
-
       database.close();
+      // Call
+      Intent intent = new Intent("org.susemiessner.android.urbanalphabet.UPDATE");
+      sendBroadcast(intent);
       return null;
     }
   }

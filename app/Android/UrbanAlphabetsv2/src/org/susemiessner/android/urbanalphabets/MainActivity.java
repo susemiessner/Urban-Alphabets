@@ -18,10 +18,13 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -36,13 +39,11 @@ import android.graphics.Canvas;
 import android.graphics.Bitmap.CompressFormat;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -271,6 +272,7 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
     mLocationRequest.setInterval(5000);
     // Set the fastest update interval to 1 second
     mLocationRequest.setFastestInterval(1000);
+    servicesConnected();
     ViewTreeObserver vto = mLinearLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
       @Override
@@ -395,12 +397,10 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
     Editor e = mSharedPreferences.edit();
     e.putInt("assignLetter", -1);
     e.commit();
-    if (Build.VERSION.SDK_INT < 21) {
-      Intent takePhoto = new Intent(this, TakePhotoActivity.class);
-      startActivity(takePhoto);
-    } else {
-
-    }
+    // if (Build.VERSION.SDK_INT < 21) {
+    // }
+    Intent takePhoto = new Intent(this, TakePhotoActivity.class);
+    startActivity(takePhoto);
   }
 
   public void showMenu(View view) {
@@ -562,6 +562,9 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
       }
 
       database.close();
+      // Call
+      Intent intent = new Intent("org.susemiessner.android.urbanalphabet.UPDATE");
+      sendBroadcast(intent);
       return null;
     }
   }
@@ -587,9 +590,37 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
       /*
        * If no resolution is available, display a dialog to the user with the error.
        */
-      Log.d("Location", "ErrorDialog");
-      // showErrorDialog(connectionResult.getErrorCode());
+      showErrorDialog(connectionResult.getErrorCode());
     }
+  }
+
+  private void showErrorDialog(int errorCode) {
+    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+
+    // set title
+    alertDialogBuilder.setTitle("Connection Error");
+
+    // set dialog message
+    alertDialogBuilder.setMessage("Click yes to exit!").setCancelable(false)
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int id) {
+            // if this button is clicked, close
+            // current activity
+            dialog.cancel();
+          }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int id) {
+            // if this button is clicked, just close
+            // the dialog box and do nothing
+            dialog.cancel();
+          }
+        });
+
+    // create alert dialog
+    AlertDialog alertDialog = alertDialogBuilder.create();
+
+    // show it
+    alertDialog.show();
   }
 
   @Override
@@ -600,16 +631,13 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
   }
 
   @Override
-  public void onDisconnected() {
-    Log.d("Location", "Not connected");
-  }
+  public void onDisconnected() {}
 
   private boolean servicesConnected() {
     // Check that Google Play services is available
     int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
     // If Google Play services is available
     if (ConnectionResult.SUCCESS == resultCode) {
-      Log.d("Location", "Connected");
       return true;
       // Google Play services was not available for some reason.
       // resultCode holds the error code.
@@ -621,11 +649,15 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
 
       // If Google Play services can provide an error dialog
       if (errorDialog != null) {
-        Log.d("Location", "ErrorDialog");
-        return true;
+        // Create a new DialogFragment for the error dialog
+        ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+        // Set the dialog in the DialogFragment
+        errorFragment.setDialog(errorDialog);
+        // Show the error dialog in the DialogFragment
+        errorFragment.show(getFragmentManager(), "Location Updates");
       }
     }
-    return true;
+    return false;
   }
 
   @Override
@@ -641,6 +673,27 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
     }
   }
 
+  public static class ErrorDialogFragment extends DialogFragment {
+    // Global field to contain the error dialog
+    private Dialog mDialog;
+
+    // Default constructor. Sets the dialog field to null
+    public ErrorDialogFragment() {
+      super();
+      mDialog = null;
+    }
+
+    // Set the dialog to display
+    public void setDialog(Dialog dialog) {
+      mDialog = dialog;
+    }
+
+    // Return a Dialog to the DialogFragment.
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+      return mDialog;
+    }
+  }
   class ShareAlphabet extends AsyncTask<Void, Void, String> {
     private ProgressDialog mProgressDialog;
 
