@@ -6,12 +6,17 @@
     android:orientation="vertical"
     tools:context="org.susemiessner.android.urbanalphabets.MainActivity" >
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+
     <TableLayout
         android:id="@+id/tableLayout_main"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1" >
+        android:background="@color/GridGrey" >
 
         <TableRow
             android:id="@+id/tableRow_main_1"
@@ -308,10 +313,16 @@
         </TableRow>
     </TableLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/BarGrey"
         android:paddingBottom="2dp"
         android:paddingTop="2dp" >
 

@@ -14,7 +14,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:text="@string/name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_alphabet"
@@ -59,8 +60,15 @@
         android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="changeAlphabet"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
         android:text="@string/change"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_language_label"
@@ -73,7 +81,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/language"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_language"
@@ -102,8 +111,15 @@
         android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="changeLanguage"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
         android:text="@string/change"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_reset_alphabet"
@@ -123,7 +139,8 @@
         android:paddingStart="20dp"
         android:paddingTop="5dp"
         android:text="@string/reset_alphabet"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_delete_alphabet"
@@ -143,7 +160,8 @@
         android:paddingStart="20dp"
         android:paddingTop="5dp"
         android:text="@string/delete_alphabet"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <ImageButton
         android:id="@+id/imageButton_alphabet_info_ok"

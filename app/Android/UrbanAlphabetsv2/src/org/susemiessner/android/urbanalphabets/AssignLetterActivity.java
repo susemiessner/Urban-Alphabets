@@ -126,7 +126,7 @@ public class AssignLetterActivity extends Activity {
     protected void onPreExecute() {
       mProgressDialog = new ProgressDialog(AssignLetterActivity.this);
       mProgressDialog.setTitle("Assigning photo");
-      mProgressDialog.setMessage("Please, wait.");
+      mProgressDialog.setMessage("Please wait.");
       mProgressDialog.setIndeterminate(false);
       mProgressDialog.setCancelable(false);
       mProgressDialog.show();
@@ -215,6 +215,7 @@ public class AssignLetterActivity extends Activity {
     @Override
     protected void onPostExecute(Void arg) {
       mProgressDialog.dismiss();
+      setResult(2);
       finish();
     }
   }

@@ -14,7 +14,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:text="@string/username"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_username"
@@ -60,8 +61,15 @@
         android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="changeUsername"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
         android:text="@string/change"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_default_language_label"
@@ -74,7 +82,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/default_language"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <TextView
         android:id="@+id/textView_default_language"
@@ -102,8 +111,15 @@
         android:background="@drawable/selection"
         android:clickable="true"
         android:onClick="changeDefaultLanguage"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
         android:text="@string/change"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/FontGrey" />
 
     <CheckBox
         android:id="@+id/checkBox_location"

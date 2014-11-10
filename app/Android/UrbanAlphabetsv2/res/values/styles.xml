@@ -11,11 +11,19 @@
             backward-compatibility can go here.
         -->
     </style>
-
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:itemBackground">@drawable/selection</item> 
+        <item name="android:itemBackground">@drawable/selection</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    
+
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

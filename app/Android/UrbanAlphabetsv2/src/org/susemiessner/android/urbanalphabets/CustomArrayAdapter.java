@@ -38,10 +38,11 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
     // Set views
     ViewHolder viewHolder = (ViewHolder) rowView.getTag();
     if (isSelected(position)) {
-      rowView.setBackgroundColor(getContext().getResources().getColor(R.color.LightGreen));
+      rowView.setFocusableInTouchMode(true);
+      rowView.requestFocus();
       viewHolder.imageView.setImageResource(R.drawable.icon_checked);
     } else {
-      rowView.setBackgroundColor(0xFFFFFF);
+      rowView.setFocusableInTouchMode(false);
       viewHolder.imageView.setImageResource(0xFFFFFF);
     }
     viewHolder.textView.setText(getItem(position));

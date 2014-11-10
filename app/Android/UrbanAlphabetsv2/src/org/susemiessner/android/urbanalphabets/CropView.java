@@ -31,7 +31,7 @@ public class CropView extends ImageView {
 
   private void paint() {
     paint = new Paint();
-    paint.setColor(getResources().getColor(R.color.TransparentGrey));
+    paint.setColor(getResources().getColor(R.color.CropGrey));
     paint.setStyle(Paint.Style.FILL);
   }
 

@@ -10,11 +10,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
@@ -25,6 +34,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Bitmap.CompressFormat;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +42,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +55,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks,
+    GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
   /*
    * Languages: Finnish/Swedish Danish/Norwegian English/Portugese German Spanish Russian Latvian
    */
@@ -212,6 +224,7 @@ public class MainActivity extends Activity {
           "U", "LatvU", "V", "Z", "LatvZ", "1", "2", "3", "4", "5", "6", "7", "8", "9"}};
   public static final String[] LANGUAGE = {"Finnish/Swedish", "Danish/Norwegian",
       "English/Portugese", "German", "Spanish", "Russian", "Latvian"};
+  private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
   private int mImageViewId[] = {R.id.imageView_main1, R.id.imageView_main2, R.id.imageView_main3,
       R.id.imageView_main4, R.id.imageView_main5, R.id.imageView_main6, R.id.imageView_main7,
       R.id.imageView_main8, R.id.imageView_main9, R.id.imageView_main10, R.id.imageView_main11,
@@ -231,6 +244,8 @@ public class MainActivity extends Activity {
   private LinearLayout mLinearLayout;
   private SharedPreferences mSharedPreferences;
   private List<Integer> mImageViewIdList;
+  private LocationClient mLocationClient;
+  private LocationRequest mLocationRequest;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -247,7 +262,15 @@ public class MainActivity extends Activity {
     mImageViewIdList = new ArrayList<Integer>();
     for (int i = 0; i < 42; i++)
       mImageViewIdList.add(mImageViewId[i]);
-
+    mLocationClient = new LocationClient(this, this, this);
+    // Create the LocationRequest object
+    mLocationRequest = LocationRequest.create();
+    // Use high accuracy
+    mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    // Set the update interval to 5 seconds
+    mLocationRequest.setInterval(5000);
+    // Set the fastest update interval to 1 second
+    mLocationRequest.setFastestInterval(1000);
     ViewTreeObserver vto = mLinearLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
       @Override
@@ -259,7 +282,9 @@ public class MainActivity extends Activity {
         }
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_main);
         int height = mLinearLayout.getHeight() - relativeLayout.getHeight();
-        mMargin = (height * 5) / 1000;
+        mMargin = (height * 2) / 1000;
+        if (mMargin < 1)
+          mMargin = 1;
         mHeight = (height - mMargin * 2 * 7) / 7;
         mWidth = (mHeight * 439) / 534;
         // Set image views width and height
@@ -280,6 +305,8 @@ public class MainActivity extends Activity {
   @Override
   protected void onRestart() {
     super.onRestart();
+    // Connect the client.
+    mLocationClient.connect();
     mAlphabet = mSharedPreferences.getString("currentAlphabet", "");
     mLanguage = mSharedPreferences.getString("currentLanguage", "");
     if (mAlphabet.isEmpty() || mLanguage.isEmpty())
@@ -290,10 +317,19 @@ public class MainActivity extends Activity {
 
   @Override
   protected void onStop() {
-    super.onStop();
+    // If the client is connected
+    if (mLocationClient.isConnected() && mSharedPreferences.getBoolean("enableLocation", true)) {
+      /*
+       * Remove location updates for a listener. The current Activity is the listener, so the
+       * argument is "this".
+       */
+      mLocationClient.removeLocationUpdates(this);
+    }
+    mLocationClient.disconnect();
     for (int i = 0; i < 42; i++) {
       ((ImageView) findViewById(mImageViewId[i])).setImageBitmap(null);
     }
+    super.onStop();
   }
 
   public void onResume() {
@@ -530,6 +566,81 @@ public class MainActivity extends Activity {
     }
   }
 
+  @Override
+  public void onConnectionFailed(ConnectionResult connectionResult) {
+    /*
+     * Google Play services can resolve some errors it detects. If the error has a resolution, try
+     * sending an Intent to start a Google Play services activity that can resolve error.
+     */
+    if (connectionResult.hasResolution()) {
+      try {
+        // Start an Activity that tries to resolve the error
+        connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+        /*
+         * Thrown if Google Play services canceled the original PendingIntent
+         */
+      } catch (IntentSender.SendIntentException ex) {
+        // Log the error
+        ex.printStackTrace();
+      }
+    } else {
+      /*
+       * If no resolution is available, display a dialog to the user with the error.
+       */
+      Log.d("Location", "ErrorDialog");
+      // showErrorDialog(connectionResult.getErrorCode());
+    }
+  }
+
+  @Override
+  public void onConnected(Bundle connectionHint) {
+    if (mSharedPreferences.getBoolean("enableLocation", true)) {
+      mLocationClient.requestLocationUpdates(mLocationRequest, this);
+    }
+  }
+
+  @Override
+  public void onDisconnected() {
+    Log.d("Location", "Not connected");
+  }
+
+  private boolean servicesConnected() {
+    // Check that Google Play services is available
+    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+    // If Google Play services is available
+    if (ConnectionResult.SUCCESS == resultCode) {
+      Log.d("Location", "Connected");
+      return true;
+      // Google Play services was not available for some reason.
+      // resultCode holds the error code.
+    } else {
+      // Get the error dialog from Google Play services
+      Dialog errorDialog =
+          GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+              CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
+      // If Google Play services can provide an error dialog
+      if (errorDialog != null) {
+        Log.d("Location", "ErrorDialog");
+        return true;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+      case CONNECTION_FAILURE_RESOLUTION_REQUEST:
+        switch (resultCode) {
+          case Activity.RESULT_OK:
+            break;
+          default:
+            break;
+        }
+    }
+  }
+
   class ShareAlphabet extends AsyncTask<Void, Void, String> {
     private ProgressDialog mProgressDialog;
 
@@ -675,5 +786,15 @@ public class MainActivity extends Activity {
         }
       }
     }
+  }
+
+  @Override
+  public void onLocationChanged(Location location) {
+    Double latitude = location.getLatitude();
+    Double longitude = location.getLongitude();
+    Editor e = mSharedPreferences.edit();
+    e.putString("longitude", Double.toString(longitude));
+    e.putString("latitude", Double.toString(latitude));
+    e.commit();
   }
 }

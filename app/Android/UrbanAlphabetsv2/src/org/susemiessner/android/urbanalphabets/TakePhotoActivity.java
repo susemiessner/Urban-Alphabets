@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 public class TakePhotoActivity extends Activity {
+  private final static int OPEN_GALLERY = 7000;
   private Camera mCamera;
   private CameraPreview mCameraPreview;
   private OrientationEventListener mOrientationEventListener;
@@ -79,7 +80,7 @@ public class TakePhotoActivity extends Activity {
     Intent openGallery =
         new Intent(Intent.ACTION_PICK,
             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-    startActivityForResult(openGallery, 0);
+    startActivityForResult(openGallery, OPEN_GALLERY);
   }
 
   private PictureCallback mPicture = new PictureCallback() {
@@ -109,7 +110,7 @@ public class TakePhotoActivity extends Activity {
   }
 
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == 0 && resultCode == RESULT_OK) {
+    if (requestCode == OPEN_GALLERY && resultCode == RESULT_OK) {
       Uri uri = data.getData();
       if (uri != null) {
         Intent cropPhoto = new Intent(this, CropPhotoActivity.class);

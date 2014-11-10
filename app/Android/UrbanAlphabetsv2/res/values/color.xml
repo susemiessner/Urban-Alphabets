@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="TransparentGrey">#801E1E1E</color>
+    <color name="CropGrey">#801E1E1E</color>
     <color name="LightGreen">#C2F79E</color>
+    <color name="GridGrey">#F2F2F2</color>
+    <color name="BarGrey">#F2F2F2</color>
+    <color name="FontGrey">#787878</color>
 </resources>
