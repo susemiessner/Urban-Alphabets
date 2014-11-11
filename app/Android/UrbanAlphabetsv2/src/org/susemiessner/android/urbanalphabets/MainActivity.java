@@ -413,7 +413,6 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
     viewLetter.putExtra("currentLanguage", mLanguage);
     viewLetter.putExtra("currentIndex", mImageViewIdList.indexOf(view.getId()));
     startActivity(viewLetter);
-
   }
 
   private void initialize() {

@@ -1,7 +1,9 @@
 package org.susemiessner.android.urbanalphabets;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +20,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap.CompressFormat;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Base64;
@@ -77,9 +76,9 @@ public class SyncService extends IntentService {
                 "UrbanAlphabets" + File.separator + prefix + suffix + ".png");
         if (file.exists())
           sync(lng, lat, letter, postcard, alphabet, pText, lang, file.getAbsolutePath());
-        try{
-          database.delete("updates", "prefix=? and suffix=?", new String[]{prefix,suffix});
-        } catch(SQLiteException ex) {
+        try {
+          database.delete("updates", "prefix=? and suffix=?", new String[] {prefix, suffix});
+        } catch (SQLiteException ex) {
           ex.printStackTrace();
         }
       } while (cursor.moveToNext());
@@ -114,11 +113,24 @@ public class SyncService extends IntentService {
   }
 
   private String getImageAsString(String path) {
-    Bitmap bitmap = BitmapFactory.decodeFile(path);
-    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    bitmap.compress(CompressFormat.PNG, 100, stream);
-    bitmap = null;
-    byte[] byteArrayImage = stream.toByteArray();
+    File file = new File(path);
+    byte[] byteArrayImage = new byte[(int) file.length()];
+    FileInputStream input = null;
+    try {
+      input = new FileInputStream(file);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    try {
+      input.read(byteArrayImage);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      input.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     String encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
     return encodedImage;
   }
