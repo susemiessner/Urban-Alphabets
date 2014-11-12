@@ -5,4 +5,5 @@
     <color name="GridGrey">#F2F2F2</color>
     <color name="BarGrey">#F2F2F2</color>
     <color name="FontGrey">#787878</color>
+    <color name="White">#FFFFFF</color>
 </resources>

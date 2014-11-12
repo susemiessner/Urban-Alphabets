@@ -13,7 +13,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:contentDescription="@string/description" />
+        android:contentDescription="@string/description"
+        android:scaleType="fitCenter" />
 
     <EditText
         android:id="@+id/editText_share_message"

@@ -284,7 +284,7 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
         }
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout_main);
         int height = mLinearLayout.getHeight() - relativeLayout.getHeight();
-        mMargin = (height * 2) / 1000;
+        mMargin = (height * 1) / 1000;
         if (mMargin < 1)
           mMargin = 1;
         mHeight = (height - mMargin * 2 * 7) / 7;
@@ -589,28 +589,22 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
       /*
        * If no resolution is available, display a dialog to the user with the error.
        */
-      showErrorDialog(connectionResult.getErrorCode());
+      showErrorDialog(connectionResult.toString());
     }
   }
 
-  private void showErrorDialog(int errorCode) {
+  private void showErrorDialog(String errorCode) {
     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
     // set title
-    alertDialogBuilder.setTitle("Connection Error");
+    alertDialogBuilder.setTitle("Connection Error.");
 
     // set dialog message
-    alertDialogBuilder.setMessage("Click yes to exit!").setCancelable(false)
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    alertDialogBuilder.setMessage(errorCode).setCancelable(false)
+        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog, int id) {
             // if this button is clicked, close
             // current activity
-            dialog.cancel();
-          }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int id) {
-            // if this button is clicked, just close
-            // the dialog box and do nothing
             dialog.cancel();
           }
         });
@@ -768,23 +762,26 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
     }
 
     public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-      // Raw height and width of image
-      final int height = options.outHeight;
-      final int width = options.outWidth;
+
       int inSampleSize = 1;
-
-      if (height > reqHeight || width > reqWidth) {
-
-        final int halfHeight = height / 2;
-        final int halfWidth = width / 2;
-
-        // Calculate the largest inSampleSize value that is a power of 2
-        // and keeps both
-        // height and width larger than the requested height and width.
-        while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
-          inSampleSize *= 2;
-        }
+      float scale = (float) options.outHeight / reqHeight;
+      if (scale <= 1) {
+        return inSampleSize;
       }
+
+      // Calculate nearest power of 2
+      int x = 0;
+
+      while (true) {
+        float min = (float) Math.pow(2, x);
+        float max = (float) Math.pow(2, x + 1);
+        if (scale > min && scale <= max) {
+          inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
+          break;
+        }
+        x++;
+      }
+
       return inSampleSize;
     }
 
@@ -814,7 +811,6 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
 
       // Calculate inSampleSize
       options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
       // Decode bitmap with inSampleSize set
       options.inJustDecodeBounds = false;
 

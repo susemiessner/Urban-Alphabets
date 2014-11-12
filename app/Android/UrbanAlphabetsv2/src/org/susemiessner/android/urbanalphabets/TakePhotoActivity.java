@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,7 +38,6 @@ public class TakePhotoActivity extends Activity {
       @Override
       public void onOrientationChanged(int orientation) {
         if (mCamera == null) {
-          Log.d("Return", ".");
           return;
         }
 

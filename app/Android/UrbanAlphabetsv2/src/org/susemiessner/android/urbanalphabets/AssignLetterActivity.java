@@ -210,7 +210,7 @@ public class AssignLetterActivity extends Activity {
       }
 
       database.close();
-   // Call
+      // Call
       Intent intent = new Intent("org.susemiessner.android.urbanalphabet.UPDATE");
       sendBroadcast(intent);
       return null;
@@ -226,30 +226,34 @@ public class AssignLetterActivity extends Activity {
   class DisplayImage extends AsyncTask<Void, Void, Bitmap> {
     private final WeakReference<ImageView> imageViewReference;
     private int reqHeight;
-    private int reqWidth;
+
+    // private int reqWidth;
 
     public DisplayImage(ImageView imageView) {
       imageViewReference = new WeakReference<ImageView>(imageView);
     }
 
     public int calculateInSampleSize(BitmapFactory.Options options) {
-      // Raw height and width of image
-      final int height = options.outHeight;
-      final int width = options.outWidth;
+
       int inSampleSize = 1;
-
-      if (height > reqHeight || width > reqWidth) {
-
-        final int halfHeight = height / 2;
-        final int halfWidth = width / 2;
-
-        // Calculate the largest inSampleSize value that is a power of 2
-        // and keeps both
-        // height and width larger than the requested height and width.
-        while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
-          inSampleSize *= 2;
-        }
+      float scale = (float) options.outHeight / reqHeight;
+      if (scale <= 1) {
+        return inSampleSize;
       }
+
+      // Calculate nearest power of 2
+      int x = 0;
+
+      while (true) {
+        float min = (float) Math.pow(2, x);
+        float max = (float) Math.pow(2, x + 1);
+        if (scale > min && scale <= max) {
+          inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
+          break;
+        }
+        x++;
+      }
+
       return inSampleSize;
     }
 
@@ -270,7 +274,7 @@ public class AssignLetterActivity extends Activity {
     @Override
     protected Bitmap doInBackground(Void... params) {
       reqHeight = (int) (45f * getResources().getDisplayMetrics().density);
-      reqWidth = (int) (37f * getResources().getDisplayMetrics().density);
+      // reqWidth = (int) (37f * getResources().getDisplayMetrics().density);
       return decodeSampledBitmap(getFilesDir() + File.separator + "photo.png");
     }
 
@@ -293,23 +297,26 @@ public class AssignLetterActivity extends Activity {
     }
 
     public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-      // Raw height and width of image
-      final int height = options.outHeight;
-      final int width = options.outWidth;
+
       int inSampleSize = 1;
-
-      if (height > reqHeight || width > reqWidth) {
-
-        final int halfHeight = height / 2;
-        final int halfWidth = width / 2;
-
-        // Calculate the largest inSampleSize value that is a power of 2
-        // and keeps both
-        // height and width larger than the requested height and width.
-        while ((halfHeight / inSampleSize) > reqHeight && (halfWidth / inSampleSize) > reqWidth) {
-          inSampleSize *= 2;
-        }
+      float scale = (float) options.outHeight / reqHeight;
+      if (scale <= 1) {
+        return inSampleSize;
       }
+
+      // Calculate nearest power of 2
+      int x = 0;
+
+      while (true) {
+        float min = (float) Math.pow(2, x);
+        float max = (float) Math.pow(2, x + 1);
+        if (scale > min && scale <= max) {
+          inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
+          break;
+        }
+        x++;
+      }
+
       return inSampleSize;
     }
 

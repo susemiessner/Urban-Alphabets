@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -83,7 +82,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
       mCamera.setPreviewDisplay(holder);
       mCamera.startPreview();
     } catch (IOException ex) {
-      Log.d("CameraPreview", ex.getMessage());
+      ex.printStackTrace();
     }
   }
 
@@ -104,7 +103,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     try {
       mCamera.stopPreview();
     } catch (Exception ex) {
-      Log.d("CameraPreview", ex.getMessage());
+      ex.printStackTrace();
     }
 
     setConfigs();
@@ -113,7 +112,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
       mCamera.setPreviewDisplay(mHolder);
       mCamera.startPreview();
     } catch (Exception ex) {
-      Log.d("CameraPreview", ex.getMessage());
+      ex.printStackTrace();
     }
   }
 }

@@ -42,6 +42,7 @@ public class SettingsActivity extends Activity {
           // Perform action on key press
           String username = mEditTextUsername.getText().toString();
           if (username != null && !username.isEmpty()) {
+            mTextViewUsername.setText(username);
             Editor e = mSharedPreferences.edit();
             e.putString("username", username);
             e.commit();
