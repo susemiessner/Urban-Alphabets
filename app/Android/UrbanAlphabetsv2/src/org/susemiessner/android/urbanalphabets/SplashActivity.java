@@ -42,8 +42,20 @@ public class SplashActivity extends Activity {
     if (!file.exists())
       file.mkdirs();
     String versionCode = mSharedPreferences.getString("versionCode", "");
-    if (versionCode != null && !versionCode.equals("7")) {
+    int version = 0;
+    try {
+      if (versionCode != null)
+        version = Integer.parseInt(versionCode);
+    } catch (NumberFormatException ex) {
+      version = 0;
+    }
+    if (version < 7) {
       clearPreferences();
+    }
+    if(version < 8) {
+      Editor e = mSharedPreferences.edit();
+      e.putString("versionCode", "8");
+      e.commit();
     }
     vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
       @Override
@@ -78,7 +90,7 @@ public class SplashActivity extends Activity {
     boolean isFirstRun = mSharedPreferences.getBoolean("isFirstRun", true);
     Editor e = mSharedPreferences.edit();
     e.clear();
-    e.putString("versionCode", "7");
+    e.putString("versionCode", "8");
     e.putBoolean("isFirstRun", isFirstRun);
     e.commit();
     // Copy database to correct location
