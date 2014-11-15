@@ -52,6 +52,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -247,6 +248,7 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
   private List<Integer> mImageViewIdList;
   private LocationClient mLocationClient;
   private LocationRequest mLocationRequest;
+  private int mSpace;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -289,6 +291,7 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
           mMargin = 1;
         mHeight = (height - mMargin * 2 * 7) / 7;
         mWidth = (mHeight * 439) / 534;
+        mSpace = height - mHeight * 7 - mMargin * 2 * 7;
         // Set image views width and height
         setImageViews();
         setImages();
@@ -384,6 +387,10 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
       parms.setMargins(mMargin, mMargin, mMargin, mMargin);
       ((ImageView) findViewById(mImageViewId[i])).setLayoutParams(parms);
     }
+    
+    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mSpace);
+    Space space = (Space) findViewById(R.id.space_main);
+    space.setLayoutParams(parms);
   }
 
   private void setImages() {

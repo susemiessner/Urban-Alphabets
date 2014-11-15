@@ -6,11 +6,6 @@
     android:orientation="vertical"
     tools:context="org.susemiessner.android.urbanalphabets.AssignLetterActivity" >
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5" />
-
     <TableLayout
         android:id="@+id/tableLayout_assign_letter"
         android:layout_width="wrap_content"
@@ -316,7 +311,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5" />
+        android:layout_weight="1" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout_assign_letter"
