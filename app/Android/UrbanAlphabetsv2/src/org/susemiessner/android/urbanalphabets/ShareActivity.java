@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -44,35 +45,13 @@ public class ShareActivity extends Activity {
   class DisplayImage extends AsyncTask<Void, Void, Bitmap> {
     private final WeakReference<ImageView> imageViewReference;
     private int reqHeight;
-    private int reqWidth;
+    // private int reqWidth;
+    private DisplayMetrics metrics;
 
     public DisplayImage(ImageView imageView) {
       imageViewReference = new WeakReference<ImageView>(imageView);
-    }
-
-    public int calculateInSampleSize(BitmapFactory.Options options) {
-
-      int inSampleSize = 1;
-      float scale =
-          Math.min((float) options.outHeight / reqHeight, (float) options.outWidth / reqWidth);
-      if (scale <= 1) {
-        return inSampleSize;
-      }
-
-      // Calculate nearest power of 2
-      int x = 0;
-
-      while (true) {
-        float min = (float) Math.pow(2, x);
-        float max = (float) Math.pow(2, x + 1);
-        if (scale > min && scale <= max) {
-          inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
-          break;
-        }
-        x++;
-      }
-
-      return inSampleSize;
+      metrics = new DisplayMetrics();
+      getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
     public Bitmap decodeSampledBitmap() {
@@ -81,18 +60,21 @@ public class ShareActivity extends Activity {
       options.inJustDecodeBounds = true;
       BitmapFactory.decodeFile(mPath, options);
 
-      // Calculate inSampleSize
-      options.inSampleSize = calculateInSampleSize(options);
-
-      // Decode bitmap with inSampleSize set
+      // Calculate density of image w/o scaling for this image view
+      if (options.inTargetDensity == 0)
+        options.inTargetDensity = metrics.densityDpi;
+      float height = (float) reqHeight / options.inTargetDensity;
+      options.inDensity = (int) (options.outHeight / height);
+      options.inSampleSize = 1;
       options.inJustDecodeBounds = false;
+
       return BitmapFactory.decodeFile(mPath, options);
     }
 
     @Override
     protected Bitmap doInBackground(Void... params) {
       reqHeight = (int) (100f * getResources().getDisplayMetrics().density);
-      reqWidth = (int) (100f * getResources().getDisplayMetrics().density);
+      // reqWidth = (int) (100f * getResources().getDisplayMetrics().density);
       return decodeSampledBitmap();
     }
 

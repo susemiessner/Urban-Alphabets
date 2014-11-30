@@ -18,6 +18,7 @@ import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -34,7 +35,7 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
   private float mLastTouchX;
   private float mLastTouchY;
   private RectF mRectF;
-  private int mScale;
+  private float mScale;
   private int mRotation;
 
   @Override
@@ -63,52 +64,32 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
     setImage();
   }
 
-  public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-
-    int inSampleSize = 1;
-    float scale =
-        Math.min((float) options.outHeight / reqHeight, (float) options.outWidth / reqWidth);
-    if (scale <= 1) {
-      return inSampleSize;
-    }
-
-    // Calculate nearest power of 2
-    int x = 0;
-
-    while (true) {
-      float min = (float) Math.pow(2, x);
-      float max = (float) Math.pow(2, x + 1);
-      if (scale > min && scale <= max) {
-        inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
-        break;
-      }
-      x++;
-    }
-
-    return inSampleSize;
-  }
-
-
-
   private void setImage() {
     final BitmapFactory.Options options = new BitmapFactory.Options();
     options.inJustDecodeBounds = true;
     BitmapFactory.decodeFile(mPath, options);
-    float scaleFactor =
-        Math.min((float) mCropView.getWidth() / options.outWidth, (float) mCropView.getHeight()
-            / options.outHeight);
 
-    final int width = (int) (scaleFactor * options.outWidth);
-    final int height = (int) (scaleFactor * options.outHeight);
-    options.inSampleSize = calculateInSampleSize(options, width, height);
-    mScale = options.inSampleSize;
+    DisplayMetrics metrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    if (options.inTargetDensity == 0)
+      options.inTargetDensity = metrics.densityDpi;
+
+    final float width = (float) mCropView.getWidth() / options.inTargetDensity;
+    final float height = (float) mCropView.getHeight() / options.inTargetDensity;
+    final float densityX = (int) (options.outWidth / width);
+    final float densityY = (int) (options.outHeight / height);
+    options.inDensity = (int) ((densityX > densityY) ? densityX : densityY);
+    options.inSampleSize = 1;
     options.inJustDecodeBounds = false;
+
+
+    mScale = (float) (options.inDensity / options.inTargetDensity);
     Bitmap bitmap = BitmapFactory.decodeFile(mPath, options);
     mCropView.setImageBitmap(bitmap);
     mRectF = new RectF(mCropView.getDrawable().getBounds());
-    matrix.setScale(scaleFactor * options.inSampleSize, scaleFactor * options.inSampleSize);
-    matrix
-        .postTranslate((mCropView.getWidth() - width) / 2f, (mCropView.getHeight() - height) / 2f);
+
+    matrix.postTranslate((mCropView.getWidth() - options.outWidth) / 2f,
+        (mCropView.getHeight() - options.outHeight) / 2f);
     mCropView.setImageMatrix(matrix);
   }
 
@@ -206,6 +187,31 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
         rectF.top + (rectF.bottom - rectF.top) / 2));
   }
 
+  public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+
+    int inSampleSize = 1;
+    float scale =
+        Math.min((float) options.outHeight / reqHeight, (float) options.outWidth / reqWidth);
+    if (scale <= 1) {
+      return inSampleSize;
+    }
+
+    // Calculate nearest power of 2
+    int x = 0;
+
+    while (true) {
+      float min = (float) Math.pow(2, x);
+      float max = (float) Math.pow(2, x + 1);
+      if (scale > min && scale <= max) {
+        inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
+        break;
+      }
+      x++;
+    }
+
+    return inSampleSize;
+  }
+
   private class CropPhoto extends AsyncTask<Void, Void, Void> {
     private ProgressDialog mProgressDialog;
 
@@ -226,13 +232,16 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
       RectF cropRect =
           new RectF(mCropView.getLeftRect(), mCropView.getTopRect(), mCropView.getRightRect(),
               mCropView.getBottomRect());
+
       inverse.mapRect(cropRect);
       BitmapFactory.Options options = new BitmapFactory.Options();
-      options.outHeight = (int) (cropRect.bottom - cropRect.top) * mScale;
-      options.outWidth = (int) (cropRect.right - cropRect.left) * mScale;
+      options.outHeight = (int) ((cropRect.bottom - cropRect.top) * mScale);
+      options.outWidth = (int) ((cropRect.right - cropRect.left) * mScale);
+
       options.inSampleSize =
           calculateInSampleSize(options, (options.outHeight > options.outWidth) ? 439 : 534,
               (options.outHeight > options.outWidth) ? 534 : 439);
+
       BitmapRegionDecoder bitmapRegionDecoder = null;
       try {
         bitmapRegionDecoder = BitmapRegionDecoder.newInstance(mPath, true);
@@ -241,9 +250,9 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
       }
 
       Bitmap bitmap =
-          bitmapRegionDecoder.decodeRegion(new Rect((int) cropRect.left * mScale,
-              (int) cropRect.top * mScale, (int) cropRect.right * mScale, (int) cropRect.bottom
-                  * mScale), options);
+          bitmapRegionDecoder.decodeRegion(new Rect((int) (cropRect.left * mScale),
+              (int) (cropRect.top * mScale), (int) (cropRect.right * mScale),
+              (int) (cropRect.bottom * mScale)), options);
       bitmapRegionDecoder.recycle();
 
       // Rotate Image

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.susemiessner.android.urbanalphabets"
-    android:versionCode="8"
-    android:versionName="1.7" >
+    android:versionCode="9"
+    android:versionName="1.8" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -34,7 +34,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="SplashActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
@@ -44,66 +44,66 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="WelcomeActivity"
+            android:name=".WelcomeActivity"
             android:label="@string/welcome"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="TakePhotoActivity"
+            android:name=".TakePhotoActivity"
             android:label="@string/take_photo"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="CropPhotoActivity"
+            android:name=".CropPhotoActivity"
             android:label="@string/crop_photo"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="AssignLetterActivity"
+            android:name=".AssignLetterActivity"
             android:label="@string/assign_letter"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="AlphabetInfoActivity"
+            android:name=".AlphabetInfoActivity"
             android:label="@string/alphabet_info"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="ChangeLanguageActivity"
+            android:name=".ChangeLanguageActivity"
             android:label="@string/change_language"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/settings"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="ChangeDefaultLanguageActivity"
+            android:name=".ChangeDefaultLanguageActivity"
             android:label="@string/change_default_language"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="MyAlphabetsActivity"
+            android:name=".MyAlphabetsActivity"
             android:label="@string/my_alphabets"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="AddAlphabetActivity"
+            android:name=".AddAlphabetActivity"
             android:label="@string/add_alphabet"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="ShareActivity"
+            android:name=".ShareActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="WritePostcardActivity"
+            android:name=".WritePostcardActivity"
             android:label="@string/write_postcard"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="ViewLetterActivity"
+            android:name=".ViewLetterActivity"
             android:label="@string/view_letter"
             android:screenOrientation="portrait" >
         </activity>

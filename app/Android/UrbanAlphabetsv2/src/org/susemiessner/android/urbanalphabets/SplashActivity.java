@@ -26,7 +26,7 @@ import android.widget.ImageView;
 public class SplashActivity extends Activity {
   private SharedPreferences mSharedPreferences;
   private ImageView mImageView;
-  private int reqHeight;
+  // private int reqHeight;
   private int reqWidth;
 
   @Override
@@ -51,10 +51,9 @@ public class SplashActivity extends Activity {
     }
     if (version < 7) {
       clearPreferences();
-    }
-    if(version < 8) {
+    } else if (version < 9) {
       Editor e = mSharedPreferences.edit();
-      e.putString("versionCode", "8");
+      e.putString("versionCode", "9");
       e.commit();
     }
     vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -65,7 +64,7 @@ public class SplashActivity extends Activity {
         } catch (IllegalStateException ex) {
           ex.printStackTrace();
         }
-        reqHeight = mImageView.getHeight();
+        // reqHeight = mImageView.getHeight();
         reqWidth = mImageView.getWidth();
         new DisplayImage(mImageView).execute();
       }
@@ -90,7 +89,7 @@ public class SplashActivity extends Activity {
     boolean isFirstRun = mSharedPreferences.getBoolean("isFirstRun", true);
     Editor e = mSharedPreferences.edit();
     e.clear();
-    e.putString("versionCode", "8");
+    e.putString("versionCode", "9");
     e.putBoolean("isFirstRun", isFirstRun);
     e.commit();
     // Copy database to correct location
@@ -166,42 +165,18 @@ public class SplashActivity extends Activity {
       imageViewReference = new WeakReference<ImageView>(imageView);
     }
 
-    public int calculateInSampleSize(BitmapFactory.Options options) {
-
-      int inSampleSize = 1;
-      float scale =
-          Math.min((float) options.outHeight / reqHeight, (float) options.outWidth / reqWidth);
-      if (scale <= 1) {
-        return inSampleSize;
-      }
-
-      // Calculate nearest power of 2
-      int x = 0;
-
-      while (true) {
-        float min = (float) Math.pow(2, x);
-        float max = (float) Math.pow(2, x + 1);
-        if (scale > min && scale <= max) {
-          inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
-          break;
-        }
-        x++;
-      }
-
-      return inSampleSize;
-    }
-
     public Bitmap decodeSampledBitmap() {
       // First decode with inJustDecodeBounds=true to check dimensions
       final BitmapFactory.Options options = new BitmapFactory.Options();
       options.inJustDecodeBounds = true;
       BitmapFactory.decodeResource(getResources(), R.raw.loading_screen, options);
 
-      // Calculate inSampleSize
-      options.inSampleSize = calculateInSampleSize(options);
-
-      // Decode bitmap with inSampleSize set
+      // Calculate density of image w/o scaling for this image view
+      float width = (float) reqWidth / options.inTargetDensity;
+      options.inDensity = (int) (options.outWidth / width);
+      options.inSampleSize = 1;
       options.inJustDecodeBounds = false;
+
       return BitmapFactory.decodeResource(getResources(), R.raw.loading_screen, options);
     }
 

@@ -44,6 +44,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -387,8 +388,9 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
       parms.setMargins(mMargin, mMargin, mMargin, mMargin);
       ((ImageView) findViewById(mImageViewId[i])).setLayoutParams(parms);
     }
-    
-    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mSpace);
+
+    LinearLayout.LayoutParams parms =
+        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, mSpace);
     Space space = (Space) findViewById(R.id.space_main);
     space.setLayoutParams(parms);
   }
@@ -763,33 +765,12 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
 
   class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
     private final WeakReference<ImageView> imageViewReference;
+    private DisplayMetrics metrics;
 
     public BitmapWorkerTask(ImageView imageView) {
       imageViewReference = new WeakReference<ImageView>(imageView);
-    }
-
-    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-
-      int inSampleSize = 1;
-      float scale = (float) options.outHeight / reqHeight;
-      if (scale <= 1) {
-        return inSampleSize;
-      }
-
-      // Calculate nearest power of 2
-      int x = 0;
-
-      while (true) {
-        float min = (float) Math.pow(2, x);
-        float max = (float) Math.pow(2, x + 1);
-        if (scale > min && scale <= max) {
-          inSampleSize = (int) ((scale - min) <= (max - scale) ? min : max);
-          break;
-        }
-        x++;
-      }
-
-      return inSampleSize;
+      metrics = new DisplayMetrics();
+      getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
     public Bitmap decodeSampledBitmapFromResource(Resources res, int index, int reqWidth,
@@ -810,20 +791,25 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
 
       // First decode with inJustDecodeBounds=true to check dimensions
       final BitmapFactory.Options options = new BitmapFactory.Options();
+      // options.inScaled = false;
       options.inJustDecodeBounds = true;
       if (path != null)
         BitmapFactory.decodeFile(path, options);
       else
         BitmapFactory.decodeResource(res, resId, options);
 
-      // Calculate inSampleSize
-      options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-      // Decode bitmap with inSampleSize set
+      // Calculate density of image w/o scaling for this image view
+      if (options.inTargetDensity == 0)
+        options.inTargetDensity = metrics.densityDpi;
+      float width = (float) reqWidth / options.inTargetDensity;
+      options.inDensity = (int) (options.outWidth / width);
+      options.inSampleSize = 1;
       options.inJustDecodeBounds = false;
 
       if (path != null)
         return BitmapFactory.decodeFile(path, options);
       return BitmapFactory.decodeResource(res, resId, options);
+
     }
 
     @Override
