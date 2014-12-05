@@ -82,8 +82,8 @@ public class CropPhotoActivity extends Activity implements ViewTreeObserver.OnGl
     options.inSampleSize = 1;
     options.inJustDecodeBounds = false;
 
-
-    mScale = (float) (options.inDensity / options.inTargetDensity);
+    // Scale factor to be used to crop 
+    mScale = (float) options.inDensity / (float) options.inTargetDensity;
     Bitmap bitmap = BitmapFactory.decodeFile(mPath, options);
     mCropView.setImageBitmap(bitmap);
     mRectF = new RectF(mCropView.getDrawable().getBounds());

@@ -43,8 +43,8 @@ public class ViewLetterActivity extends Activity {
       @Override
       public View makeView() {
         ImageView imageView = new ImageView(getApplicationContext());
-        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        // No idea, need to check
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        // Set layout params
         LayoutParams params =
             new ImageSwitcher.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 

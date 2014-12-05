@@ -809,7 +809,6 @@ public class MainActivity extends Activity implements GooglePlayServicesClient.C
       if (path != null)
         return BitmapFactory.decodeFile(path, options);
       return BitmapFactory.decodeResource(res, resId, options);
-
     }
 
     @Override
